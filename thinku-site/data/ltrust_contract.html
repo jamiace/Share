@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LTrust 學習平台消費者合約書</title>
+  <style>
+    :root {
+      --bg: #f6f8fb;
+      --card: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --line: #d9e1ea;
+      --heading: #111827;
+      --accent: #1d4ed8;
+      --accent-soft: #eff6ff;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.9;
+      font-size: 16px;
+    }
+
+    .wrap {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 40px 20px 72px;
+    }
+
+    .document {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+      overflow: hidden;
+    }
+
+    .hero {
+      padding: 40px 32px 28px;
+      background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+      border-bottom: 1px solid var(--line);
+    }
+
+    h1 {
+      margin: 0 0 18px;
+      font-size: 2rem;
+      line-height: 1.35;
+      color: var(--heading);
+      letter-spacing: 0.02em;
+    }
+
+    .intro {
+      margin: 0;
+      color: var(--text);
+      font-size: 1rem;
+    }
+
+    .content {
+      padding: 10px 32px 40px;
+    }
+
+    .article {
+      padding: 22px 0;
+      border-bottom: 1px solid #edf2f7;
+    }
+
+    .article:last-child {
+      border-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    h2 {
+      margin: 0 0 14px;
+      font-size: 1.18rem;
+      line-height: 1.5;
+      color: var(--heading);
+    }
+
+    p {
+      margin: 0 0 14px;
+    }
+
+    p:last-child { margin-bottom: 0; }
+
+    ol, ul {
+      margin: 0 0 14px 1.4em;
+      padding: 0;
+    }
+
+    li {
+      margin: 0 0 10px;
+    }
+
+    .subsection {
+      margin: 18px 0 0;
+      padding: 16px 18px;
+      background: #fafcff;
+      border: 1px solid #e8eef6;
+      border-radius: 14px;
+    }
+
+    .subsection strong.title {
+      display: block;
+      margin-bottom: 10px;
+      color: var(--heading);
+    }
+
+    .note {
+      margin-top: 18px;
+      padding: 14px 16px;
+      border-radius: 14px;
+      background: var(--accent-soft);
+      color: #1e3a8a;
+      border: 1px solid #bfdbfe;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 150px 1fr;
+      gap: 10px 16px;
+      margin-top: 10px;
+    }
+
+    .label {
+      font-weight: 700;
+      color: var(--heading);
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+      word-break: break-word;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 768px) {
+      body {
+        font-size: 15px;
+        line-height: 1.85;
+      }
+
+      .wrap {
+        padding: 16px 12px 36px;
+      }
+
+      .document {
+        border-radius: 16px;
+      }
+
+      .hero {
+        padding: 28px 18px 20px;
+      }
+
+      h1 {
+        font-size: 1.6rem;
+        margin-bottom: 14px;
+      }
+
+      .content {
+        padding: 6px 18px 26px;
+      }
+
+      .article {
+        padding: 18px 0;
+      }
+
+      h2 {
+        font-size: 1.05rem;
+        margin-bottom: 12px;
+      }
+
+      .subsection {
+        padding: 14px;
+        border-radius: 12px;
+      }
+
+      .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 4px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <section class="document">
+      <header class="hero">
+        <h1><strong>LTrust 學習平台消費者合約書</strong></h1>
+        <p class="intro">
+          本合約由使用 <strong>LTrust 學習平台服務</strong> 之消費者（以下簡稱<strong>「甲方」</strong>）與
+          <strong>龍騰文化事業股份有限公司</strong>（以下簡稱<strong>「乙方」</strong>）共同訂立。
+          甲方於註冊並使用本平台服務時，即視為已詳細閱讀、瞭解並同意遵守本合約所有條款；
+          若不同意本合約內容，請勿使用本平台服務。
+        </p>
+      </header>
+
+      <section class="content">
+        <section class="article">
+          <h2><strong>第一條　合約效力與適用範圍</strong></h2>
+          <p>
+            本合約自甲方完成註冊並首次使用本平台服務時自動生效，適用於甲方於乙方提供之
+            <strong>LTrust 線上數位學習服務</strong>（以下簡稱<strong>「服務」</strong>）期間內。
+          </p>
+          <p>
+            甲乙雙方就服務之使用、付費、資料保護、智慧財產權及其他相關權利義務，均依本合約約定辦理。
+          </p>
+        </section>
+
+        <section class="article">
+          <h2><strong>第二條　定義</strong></h2>
+          <ol>
+            <li><strong>甲方</strong>：指註冊並使用本平台服務之個人消費者。</li>
+            <li><strong>乙方</strong>：指龍騰文化事業股份有限公司，統一編號：23593217，負責人：李彥熹。</li>
+            <li><strong>服務</strong>：指乙方以網際網路提供之線上數位學習服務，包括課程內容、教學輔助工具、互動學習社群、進度追蹤等功能。</li>
+            <li><strong>帳號</strong>：指甲方於註冊時所創建之專屬識別碼及相關個人資料。</li>
+            <li><strong>內容</strong>：指本平台內呈現之各類教學資料、影音、數位教材及其他智慧財產權內容。</li>
+          </ol>
+        </section>
+
+        <section class="article">
+          <h2><strong>第三條　服務內容與提供方式</strong></h2>
+          <ol>
+            <li>乙方同意依本合約條款提供服務，內容包括但不限於<strong>線上課程、教學資源、互動工具與線上討論</strong>等。乙方保留隨時更新、變更或暫停部分服務內容之權利，並應於平台公告或以其他適當方式通知甲方。</li>
+            <li>因平台服務由不同之服務商提供，乙方依本合約條款進行<strong>點數或紅利兌換服務</strong>後，為確保授權及帳務安全，兌換完成後恕無法更改、撤銷或退還。</li>
+          </ol>
+        </section>
+
+        <section class="article">
+          <h2><strong>第四條　帳號註冊及個人資料</strong></h2>
+          <p>甲方須依照平台指示填寫正確、完整之個人資料，並於資料有變更時即時更新；因資料不實所致之損失，乙方不負任何責任。</p>
+          <p>乙方將依<strong>《個人資料保護法》</strong>及相關法令規定，蒐集、處理及利用甲方個人資料，詳情請參閱乙方公布之<strong>《隱私權政策》</strong>。</p>
+        </section>
+
+        <section class="article">
+          <h2><strong>第五條　服務費用與計費方式</strong></h2>
+          <p>本平台部分服務採<strong>免費模式</strong>提供，另有進階課程或專業服務屬<strong>付費服務</strong>，相關費率、付款方式與訂購條件均以乙方最新公告為準。</p>
+          <p>乙方保留於任何時候調整服務費率或內容之權利，並應於調整生效前至少 <strong>30 日</strong> 公告通知甲方。</p>
+        </section>
+
+        <section class="article">
+          <h2><strong>第六條　退費規則與合約解除</strong></h2>
+
+          <div class="subsection">
+            <strong class="title">1. 首次購點數未使用退費</strong>
+            <p>甲方首次購買點數並完成付款，且尚未以點數或贈與之紅利扣抵任何服務者，若付款後 <strong>7 日內</strong> 辦理退費，將<strong>無息退還全額款項</strong>；若超過 7 日辦理退費，則以當初購買之點數金額扣除 <strong>250 元行政手續費</strong>後，無息退還剩餘款項。</p>
+          </div>
+
+          <div class="subsection">
+            <strong class="title">2. 部分使用後退費</strong>
+            <p>若甲方已完成付款並曾使用點數或贈與之紅利扣抵服務，欲辦理退費時，將依下列方式處理：</p>
+            <ol>
+              <li>以甲方帳戶內<strong>「剩餘點數」</strong>與<strong>「紅利」</strong>為計算基礎。</li>
+              <li>針對欲退款範圍所對應的訂單，先計算其贈送的紅利總額，並從甲方帳戶中：
+                <ol>
+                  <li><strong>優先扣除等量的「紅利」</strong>；</li>
+                  <li>若<strong>「紅利」不足</strong>，再由<strong>「剩餘點數」</strong>補扣等量點數。</li>
+                </ol>
+              </li>
+              <li>補扣後的<strong>「剩餘點數」</strong>再扣除等值新台幣 <strong>250 元</strong>之行政處理費後，退還剩餘金額（不計利息）。</li>
+              <li>若計算結果為零或負數，則<strong>不再進行退款或額外收費</strong>。</li>
+            </ol>
+          </div>
+
+          <div class="subsection">
+            <strong class="title">3. 紅利不得退換</strong>
+            <p>申請點數退費時，本平台活動中所獲得之<strong>紅利</strong>，不得申請退費或折換現金。</p>
+          </div>
+
+          <div class="subsection">
+            <strong class="title">4. 退費方式</strong>
+            <ul>
+              <li><strong>使用信用卡付款者</strong>：訂單完成 <strong>90 日內</strong>，退款採<strong>信用卡刷退</strong>方式處理；超過 90 日者，則改由乙方以<strong>銀行轉帳</strong>方式退款。</li>
+              <li><strong>使用非信用卡付款者</strong>：一律由乙方以<strong>銀行轉帳</strong>方式退款。</li>
+              <li>申請人須提供<strong>銀行名稱、分行名稱、戶名與帳號</strong>。</li>
+            </ul>
+          </div>
+
+          <div class="subsection">
+            <strong class="title">5. 合約解除</strong>
+            <p>甲方如欲解除本合約，應以<strong>書面或電子郵件</strong>通知乙方，並依本條規定辦理退費。但對於<strong>已兌換或已使用之服務部分</strong>，恕不接受退費。</p>
+          </div>
+
+          <div class="subsection">
+            <strong class="title">6. 點數使用期限與自動轉換</strong>
+            <p>甲方所購買之點數，自付款日起<strong>一年內有效</strong>，可用於兌換本平台提供之各項服務。</p>
+            <p>乙方將於點數到期前<strong>一個月內主動通知甲方</strong>，提醒其進行點數兌換或申請退費（若符合退費條件者）。</p>
+            <p>逾期未使用之點數，將於效期屆滿時<strong>自動轉換為等值紅利</strong>，該紅利不得退費或折換現金。</p>
+          </div>
+        </section>
+
+        <section class="article">
+          <h2><strong>第七條　甲方義務與禁止行為</strong></h2>
+          <p>甲方應遵守相關法律法規，合法使用本平台服務，不得利用服務從事以下行為：</p>
+          <ol>
+            <li>散布或張貼任何<strong>違法、侵權、不實、威脅或不雅</strong>之資訊。</li>
+            <li>未經授權複製、修改、散布、出版或轉讓平台內容。</li>
+            <li>妨礙本平台正常運作或破壞平台安全措施。</li>
+          </ol>
+          <p>如甲方違反上述規定，乙方有權依情節<strong>暫停或終止甲方服務</strong>，並保留追究法律責任之權利。</p>
+        </section>
+
+        <section class="article">
+          <h2><strong>第八條　點數贈送與回收</strong></h2>
+          <ol>
+            <li>甲方所購買之點數得透過平台功能贈送予其他會員（以下稱<strong>「獲贈會員」</strong>），乙方將於完成贈送後，於獲贈會員帳戶中記錄為<strong>「禮物點數」</strong>。</li>
+            <li>獲贈會員所獲之<strong>「禮物點數」</strong>可與自身帳戶之<strong>「剩餘點數」</strong>合併使用，但該等<strong>「禮物點數」</strong>不得再轉贈予他人，亦不得申請退費或折換現金。</li>
+            <li>當獲贈會員申請退費時，平台將依<strong>「先進先出」原則</strong>，將<strong>「禮物點數」</strong>退還予原致贈會員，退還之點數將歸還至原致贈會員帳戶之<strong>「剩餘點數」</strong>中。</li>
+          </ol>
+        </section>
+
+        <section class="article">
+          <h2><strong>第九條　智慧財產權</strong></h2>
+          <p>本平台所提供之所有<strong>教學內容、數位教材、影音資料及其他相關內容</strong>，其著作權及其他智慧財產權均歸乙方或其授權第三方所有。</p>
+          <p>甲方僅享有依本合約規定使用平台服務之權利，未經乙方書面同意，不得將平台內容用於其他商業用途。</p>
+        </section>
+
+        <section class="article">
+          <h2><strong>第十條　帳號密碼非法使用處理</strong></h2>
+          <ol>
+            <li>利用甲方之帳號與密碼登入本服務網站系統之行為，推定為甲方之行為。</li>
+            <li>任一方發現帳號或密碼遭第三人不法使用時，應立即通知對方。經確認後，乙方應立即<strong>暫停該帳號使用</strong>，並協助甲方<strong>更換密碼</strong>。</li>
+            <li>除乙方能證明係因可歸責於甲方之事由所致外，乙方應於<strong>七個工作日內</strong>以延長使用期間或返還已扣除之使用次數、時間單位作為補償。</li>
+          </ol>
+        </section>
+
+        <section class="article">
+          <h2><strong>第十一條　服務中斷與不可抗力</strong></h2>
+          <p>乙方不對因不可抗力導致的服務中斷負責，包括但不限於<strong>天災、戰爭、暴動、政府管制、駭客攻擊、病毒入侵、重大系統故障</strong>等非可歸責於乙方之事由。</p>
+          <p>若中斷之原因可歸責於乙方者，乙方應依比例補償甲方已購買但尚未使用之服務時間或點數；補償方式包括<strong>延長服務天數或補點</strong>。</p>
+        </section>
+
+        <section class="article">
+          <h2><strong>第十二條　免責聲明</strong></h2>
+          <p>乙方將盡力維持平台服務之正常運作與正確性，惟無法保證平台在所有時間均<strong>無誤、不中斷或完全安全</strong>。</p>
+          <p>對於因使用或無法使用平台服務而導致之<strong>直接、間接、附帶或衍生性損害</strong>（包括但不限於資料遺失、商機損失、系統損壞等），除法律另有規定外，乙方不負任何賠償責任。</p>
+        </section>
+
+        <section class="article">
+          <h2><strong>第十三條　法定代理人條款</strong></h2>
+          <p>若甲方為<strong>限制行為能力人</strong>，本契約之訂定須經法定代理人同意；若甲方為<strong>無行為能力人</strong>，則須由法定代理人代理訂定。</p>
+          <p>違反前項約定者，除有民法第 83 條情形外，本契約不生效力，乙方不得據以要求法定代理人負擔責任。</p>
+        </section>
+
+        <section class="article">
+          <h2><strong>第十四條　終止契約與重大違約處理</strong></h2>
+
+          <div class="subsection">
+            <strong class="title">1. 按已提供服務比例結算</strong>
+            <p>本契約終止時，由乙方（企業經營者）依實際已提供服務比例，與甲方（消費者）所繳納之授權使用費進行結算。若授權使用費有<strong>超額收取</strong>，乙方應按比例退還甲方；若乙方提供之服務價值超出甲方已支付金額，乙方得自行向甲方或透過甲方之付款機構收取差額。</p>
+          </div>
+
+          <div class="subsection">
+            <strong class="title">2. 甲方違約之違約金</strong>
+            <p>若契約之終止可歸責於甲方，且乙方能提出相關證明，乙方得向甲方請求違約金。違約金金額以<strong>應退還或應補繳金額之 20%</strong>。</p>
+          </div>
+
+          <div class="subsection">
+            <strong class="title">3. 乙方系統與服務瑕疵之處理</strong>
+            <p>乙方應確保平台內容正確、服務穩定及系統正常運作。若出現下列重大瑕疵，且甲方於<strong>書面通知後三日內</strong>乙方仍未完成改善，甲方得單方終止契約，並請求合理補償：</p>
+            <ol>
+              <li>系統無預警異常關閉或無法登入逾<strong>48 小時</strong>；</li>
+              <li>教材或服務內容與公告、契約明顯不符；</li>
+              <li>已付費服務未依約提供。</li>
+            </ol>
+            <p>甲方可請求退還尚未使用部分之授權使用費，並視情節向乙方請求<strong>不超過應退金額 20% 之違約金</strong>。</p>
+          </div>
+
+          <div class="subsection">
+            <strong class="title">4. 重大瑕疵累積情形之處置</strong>
+            <p>於本契約有效期間內，若乙方發生重大系統異常、服務履約失當之情形達<strong>三次以上</strong>，且未依約改善或更正，甲方得逕行通知乙方終止契約，乙方不得拒絕，並應按比例退還尚未使用部分之授權使用費，加計<strong>最高不超過該退還金額 20% 之違約金</strong>。</p>
+          </div>
+        </section>
+
+        <section class="article">
+          <h2><strong>第十五條　第三方內容與外部連結</strong></h2>
+          <ol>
+            <li>本平台可能包含由第三方提供之應用程式、教材或外部網站連結。該等內容之<strong>正確性、即時性、安全性及合法性</strong>均由其提供者自行負責，乙方不負擔任何明示或默示之擔保義務。</li>
+            <li>甲方經由任何第三方內容或外部連結所生之交易、權利主張或損害賠償，應逕向該第三方尋求協助，與乙方無涉。但乙方如知悉第三方內容涉嫌違法或侵權，得逕行移除或限制甲方存取。</li>
+          </ol>
+        </section>
+
+        <section class="article">
+          <h2><strong>第十六條　自動續訂與訂閱機制</strong></h2>
+          <ol>
+            <li>若甲方選擇<strong>月／年訂閱方案</strong>，合約期間屆滿時即<strong>自動續訂一次同期間方案</strong>，並自原付款方式扣款。</li>
+            <li>甲方可於到期前 <strong>3 日內</strong> 於<strong>「帳號設定」</strong>介面取消續訂，取消後至原訂閱期間截止仍可使用服務。</li>
+            <li>試用方案若未於到期前取消，將<strong>自動轉為付費方案</strong>並依官網公告費率計收。</li>
+          </ol>
+        </section>
+
+        <section class="article">
+          <h2><strong>第十七條　電子發票與收據開立</strong></h2>
+          <ol>
+            <li>乙方依<strong>《加值型及非加值型營業稅法》</strong>採用<strong>電子發票</strong>方式，於付款完成後 <strong>48 小時內</strong> 開立，並上傳至財政部電子發票整合服務平台。</li>
+            <li>甲方可於平台<strong>「訂單紀錄」</strong>下載發票或收據。</li>
+          </ol>
+        </section>
+
+        <section class="article">
+          <h2><strong>第十八條　資料外洩通報義務</strong></h2>
+          <p>如發生涉及甲方個人資料之安全事件，乙方應於知悉後 <strong>72 小時內</strong> 以<strong>電子郵件及平台公告</strong>通知受影響之甲方，內容包含外洩資訊類型、可能影響及乙方已採行之補救措施。</p>
+        </section>
+
+        <section class="article">
+          <h2><strong>第十九條　使用範圍說明</strong></h2>
+          <ol>
+            <li>甲方僅得於<strong>個人非商業之學習目的</strong>使用本平台服務及內容，不得以任何形式<strong>公開播放、轉售、出租、授權、重製或改作</strong>。</li>
+            <li>若甲方欲將平台內容用於<strong>教學、演講或其他商業活動</strong>，應事先取得乙方書面授權。</li>
+          </ol>
+        </section>
+
+        <section class="article">
+          <h2><strong>第二十條　損害賠償責任限</strong></h2>
+          <p>除因乙方<strong>故意或重大過失</strong>所致，乙方對甲方因本服務所生之一切損害賠償責任，以甲方最近<strong>十二個月實際支付之金額總額</strong>為上限。</p>
+        </section>
+
+        <section class="article">
+          <h2><strong>第二十一條　帳號不可轉讓與繼承</strong></h2>
+          <ol>
+            <li>甲方帳號及相關權益不得<strong>轉讓、出租或出借予第三人</strong>。</li>
+            <li>甲方死亡時，其繼承人得檢具相關證明文件，申請移轉<strong>剩餘未使用點數</strong>或<strong>未到期訂閱期間</strong>。繼承人完成身份驗證後，乙方得協助開立新帳號並移轉使用權，原帳號即予停用。</li>
+          </ol>
+        </section>
+
+        <section class="article">
+          <h2><strong>第二十二條　通知方式與生效時間</strong></h2>
+          <ol>
+            <li>乙方對甲方之通知，以<strong>電子郵件、平台公告、App 推播及簡訊</strong>任一方式為之。</li>
+            <li>前項通知於寄送後 <strong>24 小時</strong> 視為已送達；平台公告自公告日起視為已送達。</li>
+          </ol>
+        </section>
+
+        <section class="article">
+          <h2><strong>第二十三條　分割條款</strong></h2>
+          <p>本合約任一條款被裁定為無效或不可執行時，不影響其他條款之效力；無效部分應在法律允許範圍內，以符合當事人原意之方式解釋並替代。</p>
+        </section>
+
+        <section class="article">
+          <h2><strong>第二十四條　權利不放棄條款</strong></h2>
+          <p>乙方對本合約任何條款之遲延行使或不行使，不得視為放棄該權利；其後仍得主張、行使該權利。</p>
+        </section>
+
+        <section class="article">
+          <h2><strong>第二十五條　聯絡資訊</strong></h2>
+          <div class="contact-grid">
+            <div class="label">公司名稱：</div><div>龍騰文化事業股份有限公司</div>
+            <div class="label">統一編號：</div><div>23593217</div>
+            <div class="label">負責人：</div><div>李彥熹</div>
+            <div class="label">地址：</div><div>新北市五股區五工六路30號</div>
+            <div class="label">電話：</div><div>02-2298-2933</div>
+            <div class="label">電子郵件：</div><div><a href="mailto:support@ltrust.tw">support@ltrust.tw</a></div>
+            <div class="label">網站：</div><div><a href="https://ltrust.com.tw" target="_blank" rel="noopener noreferrer">https://ltrust.com.tw</a></div>
+          </div>
+        </section>
+      </section>
+    </section>
+  </main>
+</body>
+</html>

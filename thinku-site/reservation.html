@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ThinkU｜募資預約通知</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #5D9CEC;       /* ThinkU 品牌藍 */
+      --primary-dark: #4A89DC;
+      --accent: #F5A623;        /* 暖橘黃 */
+      --text-main: #2D3436;
+      --text-muted: #636E72;
+      --bg-body: #F4F7FB;
+      --card-bg: #FFFFFF;
+      --border-color: #DFE6E9;
+      --success: #00B894;
+      --error: #FF7675;
+      --focus-ring: rgba(93, 156, 236, 0.25);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: 'Noto Sans TC', sans-serif;
+      background-color: var(--bg-body);
+      background-image: radial-gradient(circle at top right, #E8F0FE 0%, transparent 40%),
+                        radial-gradient(circle at bottom left, #FFFBF0 0%, transparent 40%);
+      color: var(--text-main);
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 60px 20px 80px;
+    }
+
+    /* Hero 區塊 */
+    .hero {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      padding: 6px 16px;
+      border-radius: 50px;
+      background: rgba(245, 166, 35, 0.15);
+      color: #D35400;
+      border: 1px solid rgba(245, 166, 35, 0.3);
+      font-size: 0.9rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+      letter-spacing: 0.05em;
+    }
+
+    .hero h1 {
+      margin: 0 0 16px;
+      font-size: 2.2rem;
+      line-height: 1.4;
+      font-weight: 900;
+      color: #182329;
+    }
+
+    .hero .highlight {
+      position: relative;
+      display: inline-block;
+      color: var(--primary-dark);
+    }
+    
+    .hero .highlight::after {
+      content: '';
+      position: absolute;
+      bottom: 2px;
+      left: 0;
+      width: 100%;
+      height: 8px;
+      background-color: rgba(245, 166, 35, 0.3);
+      z-index: -1;
+    }
+
+    .hero p {
+      margin: 0 auto;
+      max-width: 600px;
+      font-size: 1.1rem;
+      color: var(--text-muted);
+    }
+
+    /* 卡片設計 */
+    .card {
+      background: var(--card-bg);
+      border-radius: 24px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      padding: 40px;
+    }
+
+    .intro-box {
+      background: #F8FBFF;
+      border-left: 4px solid var(--primary);
+      border-radius: 0 12px 12px 0;
+      padding: 20px 24px;
+      margin-bottom: 35px;
+    }
+
+    .intro-box p {
+      margin: 0;
+      font-size: 1rem;
+      color: var(--text-main);
+    }
+
+    .intro-box strong {
+      color: var(--primary-dark);
+      font-size: 1.1rem;
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    /* 表單區段標題 */
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 40px 0 24px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid #F1F2F6;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #182329;
+    }
+
+    .section-index {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 700;
+    }
+
+    .form-group {
+      margin-bottom: 28px;
+    }
+
+    .field-label {
+      display: block;
+      margin-bottom: 12px;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .field-note {
+      margin-top: 8px;
+      color: #B2BEC3;
+      font-size: 0.9rem;
+    }
+
+    /* 輸入框樣式 */
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    select {
+      width: 100%;
+      border: 2px solid var(--border-color);
+      background: #FAFAFA;
+      border-radius: 12px;
+      padding: 14px 16px;
+      font-size: 1.05rem;
+      color: var(--text-main);
+      font-family: 'Noto Sans TC', sans-serif;
+      transition: all 0.2s ease;
+    }
+
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    input[type="tel"]:focus,
+    select:focus {
+      outline: none;
+      border-color: var(--primary);
+      background: #FFF;
+      box-shadow: 0 0 0 4px var(--focus-ring);
+    }
+
+    /* 選擇按鈕 (網格排列) */
+    .choice-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    .choice-grid.single-col {
+      grid-template-columns: 1fr; /* 單欄滿版，適合長文字 */
+    }
+
+    .choice-item {
+      position: relative;
+    }
+
+    .choice-item input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .choice-item label {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-height: 60px;
+      padding: 16px;
+      border-radius: 12px;
+      background: #FFF;
+      border: 2px solid var(--border-color);
+      cursor: pointer;
+      font-size: 1rem;
+      color: var(--text-muted);
+      transition: all 0.2s ease;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+    }
+
+    .choice-title {
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .choice-desc {
+      font-size: 0.85rem;
+      margin-top: 6px;
+      color: #999;
+    }
+
+    /* Checkbox & Radio 的圓圈/方塊假視覺 */
+    .choice-title::before {
+      content: "";
+      width: 20px;
+      height: 20px;
+      border: 2px solid #B2BEC3;
+      border-radius: 50%;
+      display: inline-block;
+      transition: all 0.2s;
+      flex-shrink: 0;
+    }
+
+    .choice-item input[type="checkbox"] + label .choice-title::before {
+      border-radius: 6px; /* 複選框為圓角方塊 */
+    }
+
+    .choice-item label:hover {
+      border-color: #A4B0BE;
+      background: #F8FAFC;
+    }
+
+    /* 選取狀態 */
+    .choice-item input:checked + label {
+      background: #F0F7FF;
+      border-color: var(--primary);
+      color: var(--primary-dark);
+      box-shadow: 0 4px 12px rgba(93, 156, 236, 0.15);
+    }
+
+    .choice-item input:checked + label .choice-title {
+      color: var(--primary-dark);
+    }
+
+    .choice-item input:checked + label .choice-desc {
+      color: #555;
+    }
+
+    .choice-item input:checked + label .choice-title::before {
+      border-color: var(--primary);
+      background-color: var(--primary);
+      box-shadow: inset 0 0 0 4px #FFF;
+    }
+
+    /* 送出按鈕區 */
+    .cta-box {
+      margin-top: 40px;
+      padding-top: 30px;
+      border-top: 2px dashed #DFE6E9;
+    }
+
+    .btn {
+      width: 100%;
+      border: none;
+      border-radius: 50px;
+      background: var(--accent);
+      color: #FFF;
+      padding: 18px 20px;
+      font-size: 1.15rem;
+      font-weight: 900;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 20px rgba(245, 166, 35, 0.3);
+      font-family: 'Noto Sans TC', sans-serif;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 25px rgba(245, 166, 35, 0.4);
+      background: #E69500;
+    }
+
+    .privacy-note {
+      text-align: center;
+      margin-top: 16px;
+      color: #B2BEC3;
+      font-size: 0.85rem;
+    }
+
+    /* 狀態提示 */
+    .status-message {
+      display: none;
+      margin-top: 20px;
+      padding: 16px;
+      border-radius: 12px;
+      font-size: 1rem;
+      text-align: center;
+      font-weight: 700;
+    }
+
+    .status-message.success {
+      display: block;
+      background: #E8F8F5;
+      color: var(--success);
+      border: 1px solid #A3E4D7;
+    }
+
+    .status-message.error {
+      display: block;
+      background: #FDEDEC;
+      color: var(--error);
+      border: 1px solid #F5B7B1;
+    }
+
+    /* 手機版 RWD 適配 */
+    @media (max-width: 768px) {
+      .container { padding: 40px 15px 60px; }
+      .card { padding: 25px 20px; }
+      .hero h1 { font-size: 1.8rem; }
+      .choice-grid { grid-template-columns: 1fr; /* 手機版全部單欄 */ }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="hero">
+      <div class="hero-badge"><i class="fa-solid fa-bell"></i> 限量搶先預約中</div>
+      <h1>讓孩子的努力，<br><span class="highlight">走在有效率的方向上</span></h1>
+      <p>
+        ThinkU 智慧學習系統即將啟動募資。<br>
+        現在完成預約登記，即可優先收到募資上線通知與早鳥專屬優惠。
+      </p>
+    </div>
+
+    <div class="card">
+      <div class="intro-box">
+        <strong><i class="fa-solid fa-rocket"></i> 搶先預約，掌握 ThinkU 最新消息</strong>
+        <p>ThinkU 專為高中生與家長打造，用更聚焦的「減法學習」，協助孩子精準掌握必考重點。留下資料，我們將第一時間通知您募資開放與體驗資訊。</p>
+      </div>
+
+      <form id="waitlistForm">
+
+        <div class="section-title">
+          <span class="section-index">1</span>
+          基本聯絡資料
+        </div>
+
+        <div class="form-group">
+          <label class="field-label" for="parentName">您的姓名 (Name)</label>
+          <input id="parentName" name="parent_name" type="text" placeholder="請輸入姓名" required>
+        </div>
+
+        <div class="form-group">
+          <label class="field-label" for="email">Email <span style="color:#FF7675;">*</span></label>
+          <input id="email" name="email" type="email" placeholder="將用於發送募資與體驗通知" required>
+        </div>
+
+        <div class="form-group">
+          <label class="field-label" for="phone">手機號碼（選填）</label>
+          <input id="phone" name="phone" type="tel" placeholder="09xxxxxxxx">
+          <div class="field-note">方便接收早鳥開賣簡訊，不錯過限量名額。</div>
+        </div>
+
+        <div class="section-title">
+          <span class="section-index">2</span>
+          孩子目前學習狀況
+        </div>
+
+        <div class="form-group">
+          <label class="field-label" for="grade">孩子目前就讀階段</label>
+          <select id="grade" name="grade" required>
+            <option value="">請選擇</option>
+            <option value="junior">國中</option>
+            <option value="prep_high">準備升高中</option>
+            <option value="high_1">高一</option>
+            <option value="high_2">高二</option>
+            <option value="high_3">高三</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="field-label">目前主要的學習方式是？</label>
+          <div class="choice-grid">
+            <div class="choice-item">
+              <input type="radio" name="cram" id="cram_none" value="none">
+              <label for="cram_none"><span class="choice-title">目前沒有補習</span></label>
+            </div>
+            <div class="choice-item">
+              <input type="radio" name="cram" id="cram_class" value="class">
+              <label for="cram_class"><span class="choice-title">大型補習班</span></label>
+            </div>
+            <div class="choice-item">
+              <input type="radio" name="cram" id="cram_tutor" value="tutor">
+              <label for="cram_tutor"><span class="choice-title">個人家教</span></label>
+            </div>
+            <div class="choice-item">
+              <input type="radio" name="cram" id="cram_online" value="online">
+              <label for="cram_online"><span class="choice-title">線上課程</span></label>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="field-label" for="budget">目前每月平均教育投入約為？</label>
+          <select id="budget" name="budget">
+            <option value="">請選擇</option>
+            <option value="under_3000">NT$3,000 以下</option>
+            <option value="3000_8000">NT$3,000－8,000</option>
+            <option value="8000_15000">NT$8,000－15,000</option>
+            <option value="over_15000">NT$15,000 以上</option>
+          </select>
+        </div>
+
+        <div class="section-title">
+          <span class="section-index">3</span>
+          使用需求與期待
+        </div>
+
+        <div class="form-group">
+          <label class="field-label">您最希望孩子優先加強哪些科目？（可複選）</label>
+          <div class="choice-grid">
+            <div class="choice-item"><input type="checkbox" id="subject_math" name="subject" value="math"><label for="subject_math"><span class="choice-title">數學</span></label></div>
+            <div class="choice-item"><input type="checkbox" id="subject_english" name="subject" value="english"><label for="subject_english"><span class="choice-title">英文</span></label></div>
+            <div class="choice-item"><input type="checkbox" id="subject_physics" name="subject" value="physics"><label for="subject_physics"><span class="choice-title">物理</span></label></div>
+            <div class="choice-item"><input type="checkbox" id="subject_chemistry" name="subject" value="chemistry"><label for="subject_chemistry"><span class="choice-title">化學</span></label></div>
+            <div class="choice-item"><input type="checkbox" id="subject_biology" name="subject" value="biology"><label for="subject_biology"><span class="choice-title">生物</span></label></div>
+            <div class="choice-item"><input type="checkbox" id="subject_chinese" name="subject" value="chinese"><label for="subject_chinese"><span class="choice-title">國文</span></label></div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="field-label">未來 ThinkU 若結合 LTrust 學習平台推出「家長專屬功能」，哪一項最能吸引您付費升級？</label>
+          <div class="field-note" style="margin-bottom: 12px;">此為單選題，請選擇您最看重的一項。</div>
+          <div class="choice-grid single-col">
+            <div class="choice-item">
+              <input type="radio" name="ltrust_feature" id="ltrust_blindspot" value="blindspot">
+              <label for="ltrust_blindspot">
+                <span class="choice-title">學習盲點統整報告</span>
+                <span class="choice-desc">根據孩子向 AI 提問的紀錄，統整出他們最常卡關的觀念。</span>
+              </label>
+            </div>
+            <div class="choice-item">
+              <input type="radio" name="ltrust_feature" id="ltrust_subtraction" value="subtraction">
+              <label for="ltrust_subtraction">
+                <span class="choice-title">減法學習成效追蹤</span>
+                <span class="choice-desc">記錄孩子跳過了多少不必要的雜訊，節省了多少無效刷題的時間。</span>
+              </label>
+            </div>
+            <div class="choice-item">
+              <input type="radio" name="ltrust_feature" id="ltrust_rhythm" value="rhythm">
+              <label for="ltrust_rhythm">
+                <span class="choice-title">學習與思考節奏診斷</span>
+                <span class="choice-desc">分析孩子在面對難題時，是習慣直接要答案，還是願意跟著 AI 引導思考。</span>
+              </label>
+            </div>
+            <div class="choice-item">
+              <input type="radio" name="ltrust_feature" id="ltrust_guide" value="guide">
+              <label for="ltrust_guide">
+                <span class="choice-title">AI 專屬陪讀指引</span>
+                <span class="choice-desc">提供家長一份如何配合 AI 輔助孩子學習的具體建議與溝通心法。</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="field-label">若 ThinkU 正式推出，您可接受的年費區間為何？</label>
+          <div class="choice-grid">
+            <div class="choice-item"><input type="radio" name="price" id="price_1" value="under_1000"><label for="price_1"><span class="choice-title">NT$1,000 以下</span></label></div>
+            <div class="choice-item"><input type="radio" name="price" id="price_2" value="1000_2000"><label for="price_2"><span class="choice-title">NT$1,000－2,000</span></label></div>
+            <div class="choice-item"><input type="radio" name="price" id="price_3" value="2000_3000"><label for="price_3"><span class="choice-title">NT$2,000－3,000</span></label></div>
+            <div class="choice-item"><input type="radio" name="price" id="price_4" value="over_3000"><label for="price_4"><span class="choice-title">NT$3,000 以上</span></label></div>
+          </div>
+        </div>
+
+        <div class="cta-box">
+          <button class="btn" type="submit">確認送出，完成預約</button>
+          <div class="privacy-note">
+            <i class="fa-solid fa-lock"></i> 您的資料將受嚴格保密，僅用於 ThinkU 募資與體驗相關通知。
+          </div>
+          <div id="statusMessage" class="status-message"></div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // GTM DataLayer
+    window.dataLayer = window.dataLayer || [];
+    function pushEvent(eventName, params = {}) {
+      window.dataLayer.push({ event: eventName, ...params });
+    }
+
+    function getCheckedValues(name) {
+      return Array.from(document.querySelectorAll(`input[name="${name}"]:checked`)).map(el => el.value);
+    }
+
+    function getCheckedValue(name) {
+      const el = document.querySelector(`input[name="${name}"]:checked`);
+      return el ? el.value : "";
+    }
+
+    const form = document.getElementById('waitlistForm');
+    const statusMessage = document.getElementById('statusMessage');
+
+    function showMessage(type, text) {
+      statusMessage.className = 'status-message ' + type;
+      statusMessage.textContent = text;
+    }
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const formData = {
+        parent_name: document.getElementById('parentName').value.trim(),
+        email: document.getElementById('email').value.trim(),
+        phone: document.getElementById('phone').value.trim(),
+        grade: document.getElementById('grade').value,	//就學階段
+        cram: getCheckedValue('cram'),		//補習
+        budget: document.getElementById('budget').value,		//教育投入
+        subjects: getCheckedValues('subject'),		//加強哪些科目
+        ltrust_feature: getCheckedValue('ltrust_feature'), // 付費升級
+        price: getCheckedValue('price')		//年費區間
+      };
+
+      if (!formData.parent_name || !formData.email || !formData.grade) {
+        showMessage('error', '請確認必填欄位（姓名、Email、就讀階段）皆已填寫。');
+        return;
+      }
+
+      pushEvent('waitlist_submit_click', {
+        grade: formData.grade,
+        ltrust_preference: formData.ltrust_feature
+      });
+
+      // 原始表單路徑
+      const formURL = "https://docs.google.com/forms/d/e/1FAIpQLSe219MSo2rVjMu8M0darQ5EiEjVScOsra2GzdM0Smroyg2bEw/formResponse";
+
+      const valueMap = {
+        grade: { junior: "國中", prep_high: "準備升高中", high_1: "高一", high_2: "高二", high_3: "高三" },
+        cram: { none: "目前沒有補習", class: "補習班", tutor: "家教", online: "線上課程" },
+        budget: { under_3000: "NT$3,000 以下", "3000_8000": "NT$3,000－8,000", "8000_15000": "NT$8,000－15,000", over_15000: "NT$15,000 以上" },
+        subject: { math: "數學", english: "英文", physics: "物理", chemistry: "化學", biology: "生物", chinese: "國文" },
+        price: { under_1000: "NT$1,000 以下", "1000_2000": "NT$1,000－2,000", "2000_3000": "NT$2,000－3,000", over_3000: "NT$3,000 以上" },
+        ltrust_feature: { 
+          blindspot: "學習盲點統整報告", 
+          subtraction: "減法學習成效追蹤", 
+          rhythm: "學習與思考節奏診斷", 
+          guide: "AI 專屬陪讀指引" 
+        }
+      };
+
+      const formDataGoogle = new FormData();
+
+      // 原有欄位 (請勿更動這些 entry ID，除非您表單有重置)
+      formDataGoogle.append("entry.1969919343", formData.parent_name);
+      formDataGoogle.append("entry.2007659246", formData.email);
+      formDataGoogle.append("entry.1555309747", formData.phone);
+      formDataGoogle.append("entry.233635302", valueMap.grade[formData.grade] || "");  //就學階段
+      formDataGoogle.append("entry.608173105", valueMap.cram[formData.cram] || "");		//補習
+      formDataGoogle.append("entry.1970214267", valueMap.budget[formData.budget] || "");		//教育投入
+      
+      // 複選題
+      formData.subjects.forEach(subject => {
+        const mapped = valueMap.subject[subject];
+        if (mapped) {
+          formDataGoogle.append("entry.1887397985", mapped);		//加強哪些科目
+        }
+      });
+
+      formDataGoogle.append("entry.2054707673", valueMap.ltrust_feature[formData.ltrust_feature] || "");		//付費升級
+      formDataGoogle.append("entry.1642947021", valueMap.price[formData.price] || "");		//年費區間
+
+      // 發送至 Google Form
+      fetch(formURL, {
+        method: "POST",
+        mode: "no-cors",
+        body: formDataGoogle
+      }).then(() => {
+        showMessage('success', '✅ 預約成功！感謝您的填寫。我們將優先通知您後續消息。');
+        form.reset(); // 成功後清空表單
+      }).catch(err => {
+        showMessage('error', '傳送失敗，請確認您的網路連線後再試一次。');
+      });
+    });
+  </script>
+</body>
+</html>
