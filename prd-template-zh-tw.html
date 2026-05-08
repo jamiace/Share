@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>產品需求文件 PRD 範本</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, "PingFang TC", "Microsoft JhengHei", BlinkMacSystemFont, sans-serif;
+      background: #f5f4f0;
+      color: #1a1a18;
+      min-height: 100vh;
+      padding: 2rem 1rem;
+    }
+
+    .page {
+      max-width: 760px;
+      margin: 0 auto;
+      background: #ffffff;
+      border-radius: 16px;
+      border: 1px solid #e0ded6;
+      padding: 2.5rem 2.5rem 3rem;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    }
+
+    .doc-meta {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 4px;
+    }
+
+    .doc-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      color: #888780;
+      text-transform: uppercase;
+    }
+
+    .doc-version {
+      font-size: 11px;
+      color: #888780;
+    }
+
+    .doc-header {
+      border-bottom: 1px solid #e0ded6;
+      margin-bottom: 1.75rem;
+      padding-bottom: 1rem;
+    }
+
+    .doc-title {
+      font-size: 22px;
+      font-weight: 500;
+      color: #1a1a18;
+      margin-bottom: 8px;
+      margin-top: 4px;
+    }
+
+    .doc-fields {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .doc-field {
+      font-size: 12px;
+      color: #5f5e5a;
+    }
+
+    .doc-field span {
+      color: #1a1a18;
+    }
+
+    .sections {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .section {
+      background: #ffffff;
+      border: 1px solid #e0ded6;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .section-header {
+      padding: 10px 16px 9px;
+      border-bottom: 1px solid #e0ded6;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      background: #fafaf8;
+    }
+
+    .section-icon {
+      width: 24px;
+      height: 24px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 14px;
+    }
+
+    .icon-blue { background: #e6f1fb; color: #185fa5; }
+    .icon-green { background: #eaf3de; color: #3b6d11; }
+    .icon-amber { background: #faeeda; color: #854f0b; }
+    .icon-gray { background: #f1efe8; color: #5f5e5a; }
+
+    .section-title {
+      font-size: 13px;
+      font-weight: 500;
+      color: #1a1a18;
+    }
+
+    .section-body {
+      padding: 14px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .field-group {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .field-label {
+      font-size: 10.5px;
+      font-weight: 500;
+      color: #888780;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .field-label .dot-green { color: #3b6d11; }
+    .field-label .dot-red { color: #a32d2d; }
+
+    .field-prompt {
+      font-size: 13px;
+      color: #b4b2a9;
+      background: #f5f4f0;
+      border-radius: 8px;
+      padding: 9px 11px;
+      border: 1px solid #e0ded6;
+      line-height: 1.55;
+      min-height: 40px;
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .field-prompt.tall {
+      min-height: 64px;
+    }
+
+    /* 成功指標表格 */
+    .metrics-table {
+      border: 1px solid #e0ded6;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .metrics-head {
+      display: grid;
+      grid-template-columns: 2fr 1.4fr 1.4fr 1.1fr;
+      background: #f5f4f0;
+      padding: 7px 12px;
+      border-bottom: 1px solid #e0ded6;
+    }
+
+    .metrics-head span {
+      font-size: 10.5px;
+      font-weight: 500;
+      color: #888780;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .metrics-row {
+      display: grid;
+      grid-template-columns: 2fr 1.4fr 1.4fr 1.1fr;
+      padding: 8px 12px;
+      border-bottom: 1px solid #e0ded6;
+    }
+
+    .metrics-row:last-child {
+      border-bottom: none;
+    }
+
+    .metrics-row span {
+      font-size: 12px;
+      color: #b4b2a9;
+    }
+
+    /* 底部資訊列 */
+    .footer-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 2px;
+    }
+
+    .footer-card {
+      background: #f5f4f0;
+      border-radius: 8px;
+      padding: 10px 13px;
+      border: 1px solid #e0ded6;
+    }
+
+    .footer-card-label {
+      font-size: 10.5px;
+      font-weight: 500;
+      color: #888780;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .footer-card-value {
+      font-size: 12px;
+      color: #5f5e5a;
+    }
+
+    /* 列印樣式 */
+    @media print {
+      body { background: white; padding: 0; }
+      .page { box-shadow: none; border: none; border-radius: 0; max-width: 100%; }
+    }
+
+    @media (max-width: 600px) {
+      .page { padding: 1.5rem 1.25rem 2rem; }
+      .two-col { grid-template-columns: 1fr; }
+      .footer-row { grid-template-columns: 1fr; }
+      .metrics-head, .metrics-row { grid-template-columns: 2fr 1fr 1fr; }
+      .metrics-head span:last-child,
+      .metrics-row span:last-child { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+
+    <div class="doc-meta">
+      <div class="doc-label">產品需求文件 PRD</div>
+      <div class="doc-version">v1.0 · 草稿</div>
+    </div>
+
+    <div class="doc-header">
+      <div class="doc-title">[功能 / 產品名稱]</div>
+      <div class="doc-fields">
+        <div class="doc-field">撰寫人：<span>___________</span></div>
+        <div class="doc-field">日期：<span>___________</span></div>
+        <div class="doc-field">審閱者：<span>___________</span></div>
+      </div>
+    </div>
+
+    <div class="sections">
+
+      <!-- 1. 問題陳述 -->
+      <div class="section">
+        <div class="section-header">
+          <div class="section-icon icon-blue">&#9432;</div>
+          <div class="section-title">1 · 問題陳述</div>
+        </div>
+        <div class="section-body">
+          <div class="field-group">
+            <div class="field-label">使用者痛點</div>
+            <div class="field-prompt">誰正在面臨困難？困難是什麼？有哪些數據或使用者回饋可以佐證？</div>
+          </div>
+          <div class="field-group">
+            <div class="field-label">現狀與缺口</div>
+            <div class="field-prompt">使用者目前如何解決這個問題？現有方式哪裡不足？</div>
+          </div>
+          <div class="field-group">
+            <div class="field-label">商業動機</div>
+            <div class="field-prompt">為什麼現在要解決這個問題？若不解決，機會成本是什麼？</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. 目標 -->
+      <div class="section">
+        <div class="section-header">
+          <div class="section-icon icon-green">◎</div>
+          <div class="section-title">2 · 目標</div>
+        </div>
+        <div class="section-body">
+          <div class="two-col">
+            <div class="field-group">
+              <div class="field-label">使用者目標</div>
+              <div class="field-prompt tall">功能上線後，使用者應該能做到什麼？或有什麼感受？</div>
+            </div>
+            <div class="field-group">
+              <div class="field-label">商業目標</div>
+              <div class="field-prompt tall">預期帶動的營收、留存、獲客或策略性成果。</div>
+            </div>
+          </div>
+          <div class="field-group">
+            <div class="field-label">明確的非目標</div>
+            <div class="field-prompt">這次版本明確不打算達成的事項是什麼？</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. 範疇 -->
+      <div class="section">
+        <div class="section-header">
+          <div class="section-icon icon-amber">⇌</div>
+          <div class="section-title">3 · 範疇</div>
+        </div>
+        <div class="section-body">
+          <div class="two-col">
+            <div class="field-group">
+              <div class="field-label"><span class="dot-green">✓</span> 納入範疇</div>
+              <div class="field-prompt tall">本次版本包含的功能、流程與使用情境。請盡量具體。</div>
+            </div>
+            <div class="field-group">
+              <div class="field-label"><span class="dot-red">✕</span> 排除範疇</div>
+              <div class="field-prompt tall">明確延後或不做的功能。若有後續里程碑規劃，請註明。</div>
+            </div>
+          </div>
+          <div class="field-group">
+            <div class="field-label">假設條件與限制</div>
+            <div class="field-prompt">影響範疇的技術、法規、時程或資源限制。</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. 成功指標 -->
+      <div class="section">
+        <div class="section-header">
+          <div class="section-icon icon-gray">▦</div>
+          <div class="section-title">4 · 成功指標</div>
+        </div>
+        <div class="section-body">
+          <div class="metrics-table">
+            <div class="metrics-head">
+              <span>指標</span>
+              <span>基準值</span>
+              <span>目標值</span>
+              <span>時程</span>
+            </div>
+            <div class="metrics-row">
+              <span>例：任務完成率</span>
+              <span>—</span>
+              <span>—</span>
+              <span>—</span>
+            </div>
+            <div class="metrics-row">
+              <span>例：完成任務時間（中位數）</span>
+              <span>—</span>
+              <span>—</span>
+              <span>—</span>
+            </div>
+            <div class="metrics-row">
+              <span>例：每週活躍使用者數</span>
+              <span>—</span>
+              <span>—</span>
+              <span>—</span>
+            </div>
+          </div>
+          <div class="field-group">
+            <div class="field-label">護欄指標</div>
+            <div class="field-prompt">不得退步的指標，例如：錯誤率、P95 回應時間、客服工單數量。</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 底部 -->
+      <div class="footer-row">
+        <div class="footer-card">
+          <div class="footer-card-label">👥 利害關係人</div>
+          <div class="footer-card-value">PM · 工程負責人 · 設計 · 法務 · 數據 · ___</div>
+        </div>
+        <div class="footer-card">
+          <div class="footer-card-label">📅 關鍵里程碑</div>
+          <div class="footer-card-value">探索期 · 規格審閱 · 設計審閱 · 上線</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</body>
+</html>
