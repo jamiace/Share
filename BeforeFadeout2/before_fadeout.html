@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Before Fadeout: 最後一場售票演出</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; }
+        body {
+            background-color: #050505;
+            display: flex; justify-content: center; align-items: center;
+            height: 100vh; overflow: hidden;
+            font-family: "Microsoft JhengHei", "PingFang TC", sans-serif;
+            color: #eee;
+        }
+        #game-container {
+            position: relative;
+            width: 1280px; height: 720px;
+            background-color: #111;
+            box-shadow: 0 0 30px rgba(0,0,0,0.9);
+            max-width: 100%; max-height: 100vh;
+            aspect-ratio: 16/9;
+            overflow: hidden;
+        }
+        
+        /* 視覺圖層 */
+        .layer {
+            position: absolute; top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-size: cover; background-position: center;
+            transition: all 0.8s ease;
+        }
+        #bg-layer { z-index: 1; background-color: #1a1a24; }
+        #overlay-layer { z-index: 2; opacity: 0; pointer-events: none; }
+        
+        /* 視角濾鏡 */
+        .mode-noodle #overlay-layer { background: linear-gradient(to bottom, rgba(30,40,50,0.2), rgba(10,15,20,0.6)); opacity: 1; }
+        .mode-tingru #overlay-layer { background: radial-gradient(circle, rgba(150,100,50,0.1), rgba(40,10,10,0.5)); opacity: 1; filter: blur(1px); }
+        .mode-tech #overlay-layer { background: linear-gradient(to bottom, rgba(0,255,255,0.05), rgba(0,50,150,0.3)); opacity: 1; }
+        
+        /* 系統提示 Toast */
+        #sys-toast {
+            position: absolute; top: 20px; right: 140px; /* 避開 Auto 按鈕 */
+            background: rgba(0, 150, 255, 0.2); border: 1px solid rgba(0, 150, 255, 0.5);
+            padding: 8px 16px; border-radius: 4px; font-size: 14px;
+            z-index: 100; opacity: 0; transition: opacity 0.3s;
+            pointer-events: none; text-shadow: 0 0 5px rgba(0,200,255,0.8);
+        }
+
+        /* Auto 自動播放按鈕 */
+        #auto-btn {
+            position: absolute; top: 20px; right: 20px;
+            background: rgba(20, 20, 25, 0.8); border: 1px solid #666;
+            color: #aaa; padding: 8px 20px; border-radius: 4px;
+            font-size: 16px; cursor: pointer; z-index: 100;
+            transition: 0.3s; letter-spacing: 1px;
+        }
+        #auto-btn:hover, #auto-btn.active {
+            background: rgba(150, 150, 150, 0.2); color: #fff; border-color: #fff;
+        }
+
+        /* 對話框：精準計算容納人名+5行對白 (260px)，超過會顯示卷軸 */
+        #dialogue-container {
+            position: absolute; bottom: 30px; left: 5%;
+            width: 90%; height: 260px; 
+            background: linear-gradient(135deg, rgba(20,20,25,0.95), rgba(10,10,15,0.95));
+            border: 1px solid #444; border-top: 2px solid #666;
+            border-radius: 4px; padding: 25px 30px 25px 30px;
+            cursor: pointer; z-index: 20;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            overflow-y: auto; scroll-behavior: smooth;
+        }
+        
+        /* 隱藏原生捲軸外觀使其美觀 */
+        #dialogue-container::-webkit-scrollbar { width: 6px; }
+        #dialogue-container::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 3px; }
+
+        .mode-tingru #dialogue-container { border-top: 2px solid #E6C280; }
+        .mode-tech #dialogue-container { border-top: 2px solid #00E5FF; }
+
+        #speaker-name {
+            font-size: 24px; font-weight: bold; color: #A9B7C6;
+            margin-bottom: 15px; letter-spacing: 2px;
+        }
+        .mode-tingru #speaker-name { color: #E6C280; }
+        
+        #dialogue-text { font-size: 20px; line-height: 1.7; text-shadow: 1px 1px 2px #000; padding-bottom: 15px; }
+        
+        /* 旁白與動作的傾斜字體設定 */
+        #dialogue-text i {
+            color: #aaa; font-style: italic;
+        }
+
+        /* 閃爍關鍵字 (庭如共感用) */
+        .empathy-word { color: #ff5555; text-shadow: 0 0 8px rgba(255,50,50,0.8); animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { opacity: 0.7; } 50% { opacity: 1; } 100% { opacity: 0.7; } }
+
+        /* 閃爍向下箭頭 */
+        #next-indicator {
+            position: absolute; right: 25px; bottom: 15px;
+            color: #aaa; font-size: 18px;
+            animation: blink 1.2s infinite; display: none;
+        }
+        @keyframes blink { 0% { opacity: 0.2; } 50% { opacity: 1; } 100% { opacity: 0.2; } }
+
+        /* 選項按鈕區 */
+        #options-container {
+            position: absolute; top: 40%; left: 50%;
+            transform: translate(-50%, -50%);
+            display: flex; flex-direction: column; gap: 15px;
+            z-index: 30; width: 65%;
+        }
+        .option-btn {
+            padding: 16px 24px; background-color: rgba(30, 30, 40, 0.95);
+            color: #ddd; border: 1px solid #555; border-left: 4px solid #888;
+            font-size: 18px; cursor: pointer; border-radius: 2px;
+            transition: all 0.2s; text-align: left;
+            font-family: inherit; letter-spacing: 1px;
+        }
+        .option-btn:hover {
+            background-color: rgba(60, 60, 75, 0.95); color: #fff;
+            border-left: 4px solid #ccc; padding-left: 30px;
+        }
+        .hidden { display: none !important; }
+        
+        /* 開始畫面 */
+        #title-screen {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: #000; z-index: 50; display: flex; flex-direction: column;
+            justify-content: center; align-items: center; transition: opacity 1s;
+        }
+        #title-screen h1 { font-size: 48px; letter-spacing: 5px; margin-bottom: 20px; font-weight: normal; }
+        #title-screen p { color: #888; font-size: 18px; margin-bottom: 50px; letter-spacing: 2px; }
+        #start-btn {
+            padding: 15px 40px; font-size: 20px; background: transparent; color: #fff;
+            border: 1px solid #fff; cursor: pointer; transition: 0.3s;
+        }
+        #start-btn:hover { background: #fff; color: #000; }
+    </style>
+</head>
+<body>
+
+    <div id="game-container" class="mode-noodle">
+        <div id="bg-layer" class="layer"></div>
+        <div id="overlay-layer" class="layer"></div>
+        
+        <div id="sys-toast">系統提示</div>
+        <button id="auto-btn" onclick="toggleAuto()">Auto: OFF</button>
+
+        <div id="options-container" class="hidden"></div>
+
+        <div id="dialogue-container" onclick="advanceStory()">
+            <div id="speaker-name"></div>
+            <div id="dialogue-text"></div>
+            <div id="next-indicator">▼</div>
+        </div>
+        
+        <div id="title-screen">
+            <h1>Before Fadeout</h1>
+            <p>最後一場售票演出</p>
+            <button id="start-btn" onclick="startGame()">開始執行專案</button>
+        </div>
+    </div>
+
+<script>
+// ==========================================
+// 遊戲狀態與數值
+// ==========================================
+let state = {
+    noodle_points: 0,
+    tingru_points: 0,
+    silence_choice: 0,
+    flags: { cctv: false, rundown: false, guest: false }
+};
+
+let currentNode = "";
+let isTyping = false;
+let currentTimeout;
+let isAutoMode = false;
+let autoAdvanceTimer = null;
+
+// 切換自動播放模式
+function toggleAuto() {
+    isAutoMode = !isAutoMode;
+    const btn = document.getElementById('auto-btn');
+    if (isAutoMode) {
+        btn.innerText = "Auto: ON";
+        btn.classList.add("active");
+        // 如果目前不是打字狀態，且有閃爍箭頭，則自動進入下一句
+        if (!isTyping && document.getElementById('next-indicator').style.display === 'block') {
+            advanceStory();
+        }
+    } else {
+        btn.innerText = "Auto: OFF";
+        btn.classList.remove("active");
+        clearTimeout(autoAdvanceTimer);
+    }
+}
+
+// 模擬音效與 BGM 提示
+function playSysCue(type, msg) {
+    const toast = document.getElementById('sys-toast');
+    toast.innerText = `[${type}] ${msg}`;
+    toast.style.opacity = 1;
+    setTimeout(() => { toast.style.opacity = 0; }, 2000);
+}
+
+// ==========================================
+// 完整文本劇本資料庫
+// ==========================================
+const storyData = {
+    // ------------------------------------------
+    // 第一幕：倒數三十二分鐘 (老麵視角)
+    // ------------------------------------------
+    "start": {
+        speaker: "老麵", mode: "mode-noodle", bgm: "BGM: 低頻心跳倒數",
+        text: "「凱特，7號桌的白玫瑰，花瓣邊緣有一點點枯黃，去換掉。」",
+        next: "op_2"
+    },
+    "op_2": {
+        speaker: "旁白",
+        text: "<i>（老麵的聲音不大，卻像一顆經過精準計算的鵝卵石，輕輕投入名為「凱特」的池塘，激起一圈名為「焦慮」的漣漪。）</i>",
+        next: "op_3"
+    },
+    "op_3": {
+        speaker: "凱特 (通訊器)", sfx: "SFX: 通訊器雜音",
+        text: "「麵老闆，你裝了鷹眼嗎？全場一百二十個座位，三百多朵花，你怎麼看見的？」",
+        next: "op_4"
+    },
+    "op_4": {
+        speaker: "老麵",
+        text: "「我不是鷹，我是這場夢的守門人。而守門人，不能容忍任何一點瑕疵吵醒做夢的人。」",
+        next: "op_5"
+    },
+    "op_5": {
+        speaker: "老麵",
+        text: "<i>（此刻，距離「傑米．詹，生前告別秀」正式開始，還有三十二分鐘。<br>我轉向面前一排分割成十二個畫面的監控螢幕，確認最後的流程。）</i>",
+        next: "hub_noodle"
+    },
+    "hub_noodle": {
+        speaker: "【系統提示：指揮中心】",
+        text: "請老麵確認現場狀態：",
+        options: [
+            { text: "檢查監控螢幕 (CCTV)", target: "check_cctv" },
+            { text: "確認演出流程表 (Run-down)", target: "check_rundown" },
+            { text: "查閱來賓名單與公關配置", target: "check_guest" },
+            { text: "前往傑米休息室", target: "hub_check_leave" }
+        ]
+    },
+    "check_cctv": {
+        speaker: "老麵", action: () => state.flags.cctv = true,
+        text: "<i>（一百二十個座位。舞台上只有麥克風架、高腳凳，還有一面巨大的LED螢幕。<br>螢幕上寫著傑米親筆簽名的挑釁標語：『我都快死了你們才出現，這個改天，是不是太準時了點？』）</i>",
+        next: "hub_noodle"
+    },
+    "check_rundown": {
+        speaker: "老麵", action: () => state.flags.rundown = true,
+        text: "19:00 開場影片<br>19:05 傑米登場 - 地獄脫口秀<br>19:24 真心告白<br>19:30 【輪迴】發表<br><br><i>（今晚的節奏必須精準無誤，不能有任何脫稿演出。）</i>",
+        next: "hub_noodle"
+    },
+    "check_guest": {
+        speaker: "老麵", action: () => state.flags.guest = true,
+        text: "奇點無限董事會、財經記者、商界人士...<br>家屬席標記著『公關部協調臨時演員』。<br><br><i>（這是一場告別式，但每個人都帶著目的來。）</i>",
+        next: "hub_noodle"
+    },
+    "hub_check_leave": {
+        action: () => {
+            if(state.flags.cctv && state.flags.rundown && state.flags.guest) renderNode("to_restroom");
+            else renderNode("hub_not_ready");
+        }
+    },
+    "hub_not_ready": {
+        speaker: "老麵",
+        text: "<i>（身為PM，我必須先確認完所有現場環節，才能離開控制台。）</i>",
+        next: "hub_noodle"
+    },
+    "to_restroom": {
+        speaker: "凱特 (通訊器)",
+        text: "「麵老闆，我剛才看見傑米在休息室裡來回踱步，看起來比在納斯達克敲鐘還緊張。你不去安撫一下你們的『男主角』嗎？」",
+        next: "to_restroom_2"
+    },
+    "to_restroom_2": {
+        speaker: "老麵",
+        text: "「他不是男主角，他是他自己人生的導演。我只是個執行製作。我去看看。」",
+        next: "restroom_1"
+    },
+    "restroom_1": {
+        speaker: "旁白", bgm: "BGM: 壓抑的低鳴",
+        text: "<i>（休息室裡，身價數十億的科技新貴傑米．詹，此刻穿著Zegna黑色西裝，卻焦躁得像困在籠裡的野獸。桌上散落著止痛藥瓶與一份預估壽命不到一年的診斷書。）</i>",
+        next: "restroom_2"
+    },
+    "restroom_2": {
+        speaker: "傑米",
+        text: "<i>（他灌下一口威士忌，聲音帶著顫抖：）</i><br><br>「你說，我是不是瘋了？」",
+        options: [
+            { text: "「如果瘋狂是『用僅剩生命策劃產品發表』，那你很清醒。」", target: "restroom_ans_execute" },
+            { text: "「你不是瘋了，你只是害怕搞砸自己僅剩的人生。」", target: "restroom_ans_protect" },
+            { text: "「你確實瘋了，因為你要在同一晚說最大的謊和最真的話。」", target: "restroom_ans_neutral" }
+        ]
+    },
+    "restroom_ans_execute": {
+        speaker: "老麵", action: () => state.noodle_points -= 1,
+        text: "「這得看你對『瘋狂』的定義是什麼。如果瘋狂的定義是『用自己僅剩的生命，去策劃一場足以撼動世界的產品發表』，那我會說，你現在是我見過最清醒的人。」",
+        next: "restroom_3"
+    },
+    "restroom_ans_protect": {
+        speaker: "老麵", action: () => state.noodle_points += 1,
+        text: "「你不會搞砸的。你只是選擇了一種前所未有的方式，來發表你的『最終產品』，無論是你的公司，還是你自己。」",
+        next: "restroom_3"
+    },
+    "restroom_ans_neutral": {
+        speaker: "老麵",
+        text: "「你確實在騙人。但你也確實在說真話。麻煩的是，今晚兩者都是真的。」",
+        next: "restroom_3"
+    },
+    "restroom_3": {
+        speaker: "傑米",
+        text: "「我感覺自己像個騙子。對台下那些真正關心我的人來說，我是個騙子。對那些等著看我笑話的人來說，我等一下又會變成一個更大的騙子。」",
+        next: "restroom_4"
+    },
+    "restroom_4": {
+        speaker: "老麵",
+        text: "「你不是騙子，傑米。記住，你是在邀請他們，看一場關於『傑米．詹』這個人的最精彩演出。去吧，讓他們記住你。」",
+        next: "restroom_5"
+    },
+    "restroom_5": {
+        speaker: "傑米",
+        text: "<i>（傑米深吸一口氣，眼神重新變得銳利。那個叱吒風雲的CEO回來了。）</i><br><br>「好，讓他們看看，我連死亡，都比他們活著更精彩。」",
+        next: "switch_tingru_1"
+    },
+
+    // ------------------------------------------
+    // 第二幕：庭如共感視角 (空氣裡的雜訊)
+    // ------------------------------------------
+    "switch_tingru_1": {
+        speaker: "系統", mode: "mode-tingru", bgm: "BGM: 空靈與環境底噪",
+        text: "【視角切換：庭如】<br><br><i>（作為團隊的「靈魂捕手」，庭如能模糊地感覺到他人強烈的情緒。這場充滿算計與謊言的告別式，在她的感官裡呈現出不同的面貌。）</i>",
+        next: "tingru_radar_1"
+    },
+    "tingru_radar_1": {
+        speaker: "庭如",
+        text: "<i>（空氣裡的雜訊……變多了。這場活動的每個人都帶著目的來，甚至連悲傷都不乾淨。）</i>",
+        options: [
+            { text: "感知：入口數位光廊", target: "tingru_sense_door" },
+            { text: "感知：前排家屬席", target: "tingru_sense_family" },
+            { text: "感知：傑米休息室", target: "tingru_sense_jamie" },
+            { text: "回溯：三個月前的接案會議 (推進劇情)", target: "tingru_flashback_1" }
+        ]
+    },
+    "tingru_sense_door": {
+        speaker: "庭如 (筆記)", sfx: "SFX: 共感雜音",
+        text: "<i>（門口附近……有很多『期待』和『好奇』，混雜著一點點『社交恐懼』。<br>他們不是來道別的，他們是來確認今晚值不值得發限動。）</i>",
+        next: "tingru_radar_1"
+    },
+    "tingru_sense_family": {
+        speaker: "庭如 (筆記)", sfx: "SFX: 共感雜音",
+        text: "<i>（前排家屬席的『悲傷』濃度很高，但……很奇怪。<br>形狀太整齊了。像排練過的雨。那悲傷底下，有一層很硬的『虛偽』。）</i>",
+        next: "tingru_radar_1"
+    },
+    "tingru_sense_jamie": {
+        speaker: "庭如 (筆記)", sfx: "SFX: 共感雜音",
+        text: "<i>（傑米的方向傳來很強烈的『怕』。<br>不是怕上台。是怕上台之後，自己還是會被忘記。）</i>",
+        next: "tingru_radar_1"
+    },
+    
+    // 三個月前回溯
+    "tingru_flashback_1": {
+        speaker: "庭如",
+        text: "<i>（我回想起三個月前，老麵決定接下這個案子的會議。<br>當時，傑米提出用假死鬧劇包裝【輪迴】系統發表。我是唯一堅決反對的人。）</i>",
+        next: "tingru_flashback_2"
+    },
+    "tingru_flashback_2": {
+        speaker: "庭如 (回想當時的記憶)",
+        text: "三個月前，<br><br>「我們的工作是陪伴和轉譯真實的情感。這個案子裡，真實的情感被當成了商業佈局的誘餌。我感覺不到溫度……只有一種將悲傷武器化的冰冷。」",
+        next: "tingru_flashback_3"
+    },
+    "tingru_flashback_3": {
+        speaker: "老麵 (回想當時的記憶)",
+        text: "三個月前，<br><br>「什麼是『真實』？他想被世界記住的樣子，就是一個至死都在顛覆傳統的狂人。這本身就是一種極致的『自我表達』。」",
+        next: "tingru_flashback_4"
+    },
+    "tingru_flashback_4": {
+        speaker: "庭如",
+        text: "<i>（在後來無數次的訪談中，傑米總是說要讓這場秀成為最大的反轉。但我聽見了別的東西...）</i>",
+        options: [
+            { text: "解讀隱藏情緒：<span class='empathy-word'>最大的反轉和諷刺</span>", target: "tingru_decode_1" }
+        ]
+    },
+    "tingru_decode_1": {
+        speaker: "庭如 (筆記)", sfx: "SFX: 清晰的水滴聲", action: () => state.tingru_points -= 1,
+        text: "<i>（他不是想諷刺世界，他是嫉妒。嫉妒那些還能繼續活下去，繼續嘲笑他的人。這是一種帶著惡意的防衛。）</i>",
+        next: "tingru_flashback_5"
+    },
+    "tingru_flashback_5": {
+        speaker: "庭如",
+        text: "<i>（傑米還說，他要成為人類歷史上，<span class='empathy-word'>第一個真正意義上的數位永生者。</span>）</i>",
+        options: [
+            { text: "解讀隱藏情緒：<span class='empathy-word'>數位永生者</span>", target: "tingru_decode_2" }
+        ]
+    },
+    "tingru_decode_2": {
+        speaker: "庭如 (筆記)", sfx: "SFX: 清晰的水滴聲", action: () => state.tingru_points += 1,
+        text: "<i>（好冷。華麗的科技願景底下，我只感覺到深不見底的「恐懼」與「孤獨」。他根本不是想永生，他只是不想消失。）</i>",
+        next: "show_start_1"
+    },
+
+    // ------------------------------------------
+    // 第三幕：演出開始
+    // ------------------------------------------
+    "show_start_1": {
+        speaker: "系統", mode: "mode-noodle", bgm: "BGM: 緊湊的節奏",
+        text: "<i>（晚上七點整。會場燈光緩緩暗下。<br>巨大LED螢幕播放了一段年輕傑米的黑白影片。那時的他靦腆、青澀，說著想用科技留住所愛之人的夢想。<br>影片結束，傑米從舞台陰影中走出。）</i>",
+        next: "hell_comedy_1"
+    },
+
+    // ------------------------------------------
+    // 地獄脫口秀
+    // ------------------------------------------
+    "hell_comedy_1": {
+        speaker: "傑米", bgm: "BGM: 黑暗爵士",
+        text: "「嗨，大家好。我是傑米。感謝你們今天來參加這場……人生最後一場售票演出。雖然你們沒付錢，真不意外。」<br><br><i>（全場一片死寂。緊接著是尷尬的騷動。）</i>",
+        next: "hell_comedy_2"
+    },
+    "hell_comedy_2": {
+        speaker: "傑米",
+        text: "「醫生說我還有一年……我說不用那麼久，這世界爛到我自己都不想撐滿學期了。我現在，就是一台即將報廢的特斯拉，還沒撞人，自己先起火。」<br><br><i>（台下爆笑，荒謬而病態的氣氛開始蔓延。）</i>",
+        sfx: "SFX: 觀眾席傳來笑聲",
+        next: "hell_comedy_3"
+    },
+    "hell_comedy_3": {
+        speaker: "傑米",
+        text: "「我爸年輕時常說：『男人就要硬起來！』現在，我躺在病床上看著醫療管線……我終於明白了，原來『硬起來』的真正意思，是屍斑。」<br><br><i>（笑聲像浪潮一樣，一波接著一波。）</i>",
+        next: "hell_comedy_4"
+    },
+    "hell_comedy_4": {
+        speaker: "傑米",
+        text: "「我有幾任前女友今天沒來，我原諒妳們。但我最後的願望，就是希望妳們過得比我活著時痛苦。所以我安排了AI語音留言，每年七夕寄情話給妳們，配上骨灰罐自拍照。」<br><br><i>（全場爆發出山洪般的狂笑。）</i>",
+        next: "hell_comedy_5"
+    },
+    "hell_comedy_5": {
+        speaker: "庭如 (通訊器)", mode: "mode-tingru",
+        text: "「老麵……現場的氣氛雖然熱烈，但那種快樂是懸浮的、不真實的。」<br><br><i>（她感覺到笑聲底下，有一股深不見底的孤獨正在吞噬周圍的光。）</i>",
+        next: "noodle_pre_choice"
+    },
+
+    // ------------------------------------------
+    // 關鍵選擇：移至進入真心話環節前
+    // ------------------------------------------
+    "noodle_pre_choice": {
+        speaker: "老麵", mode: "mode-noodle",
+        text: "<i>（地獄脫口秀即將結束。<br>按照流程，接下來是進入感傷的真心告白，告白結束後再立刻切入【輪迴】發表。<br>為了提前準備最後的反轉 Cue 點：在告白與發表之間，我要留下多少秒的沉默？）</i>",
+        options: [
+            { text: "立即切換 (情緒最高點，就是最佳產品切入點)", target: "silence_0" },
+            { text: "留3秒空白 (讓現場吸收一下，但不散掉氣氛)", target: "silence_3" },
+            { text: "留7秒空白 (讓那段真話，先像真話一樣存在)", target: "silence_7" }
+        ]
+    },
+    "silence_0": { speaker: "老麵", action: () => { state.silence_choice = 0; state.noodle_points -= 2; }, text: "<i>（傑米要的就是商業操作的最大化，我會完美執行這個切換。）</i>", next: "confession_1" },
+    "silence_3": { speaker: "老麵", action: () => { state.silence_choice = 3; }, text: "<i>（平衡是PM的職責。不能太真，也不能太假。我設定好了控制台。）</i>", next: "confession_1" },
+    "silence_7": { speaker: "老麵", action: () => { state.silence_choice = 7; state.noodle_points += 2; }, text: "<i>（至少...不要把眼淚完全當成舞台效果。我將燈光的 Delay 拉長。）</i>", next: "confession_1" },
+
+    // ------------------------------------------
+    // 真心告白
+    // ------------------------------------------
+    "confession_1": {
+        speaker: "旁白", mode: "mode-noodle", bgm: "BGM: 溫暖的大提琴",
+        text: "<i>（傑米講完了關於同事的段子，氣氛達到頂點。<br>但他卻做了一個所有人都沒想到的動作。他放下了麥克風。輕輕放在地板上。然後坐上了高腳凳。）</i>",
+        next: "confession_2"
+    },
+    "confession_2": {
+        speaker: "傑米",
+        text: "<i>（刺眼的聚光燈變得柔和。）</i><br><br>「好了，笑話說完了。接下來，我想說一些真話。」<br><br><i>（他的聲音不再帶有諷刺，而是歷經滄桑的疲憊。）</i>",
+        next: "confession_3"
+    },
+    "confession_3": {
+        speaker: "傑米",
+        text: "「我這一生，都在追求贏。我要贏過競爭對手，賺比別人更多的錢。但直到三個月前，我才發現我輸了。輸得一敗塗地。」",
+        next: "confession_4"
+    },
+    "confession_4": {
+        speaker: "傑米",
+        text: "「我輸給了我身體裡幾個不聽話的細胞。它們比我更懂創業，悄悄建立了一個無法擊敗的王國。」<br><br><i>（全場死寂，人們臉上的笑容凝固了。）</i>",
+        next: "confession_5"
+    },
+    "confession_5": {
+        speaker: "傑米",
+        text: "「我 害怕 。<br>我怕痛，我怕死，但我最怕的，是被人遺忘。」",
+        next: "confession_6"
+    },
+    "confession_6": {
+        speaker: "傑米",
+        text: "「我希望你們記得的，不是那個成功的、刻薄的、永遠正確的CEO。我希望你們能記得，今天晚上，這個有點緊張、說了很多爛笑話、而且非常非常害怕被忘記的，詹傑米。」",
+        next: "confession_7"
+    },
+    "confession_7": {
+        speaker: "旁白", sfx: "SFX: 低聲啜泣",
+        text: "<i>（他的聲音哽咽了。台下許多人紅了眼眶。營運長在擦眼淚，前女友淚流滿面。連那些臨時演員也流下了真切的眼淚。）</i>",
+        next: "confession_8"
+    },
+    "confession_8": {
+        speaker: "庭如 (通訊器)", mode: "mode-tingru",
+        text: "「老麵……這就是你想要的『餘韻』，對嗎？我感覺到了交織的、真實而強烈的悲傷與溫暖。」",
+        next: "reincarnation_prep"
+    },
+
+    // ------------------------------------------
+    // 反轉：輪迴發表
+    // ------------------------------------------
+    "reincarnation_prep": {
+        speaker: "老麵", mode: "mode-noodle",
+        action: () => {
+            if(state.silence_choice === 0) renderNode("reincarnation_0");
+            else if(state.silence_choice === 3) renderNode("reincarnation_3");
+            else renderNode("reincarnation_7");
+        }
+    },
+    "reincarnation_0": {
+        speaker: "老麵",
+        text: "<i>（淚水還沒落下。<br>我按照剛才設定的流程，毫不猶豫地切換了燈光與畫面。傑米要的就是這個，情緒最高點，最鋒利的商業切入點。）</i>",
+        next: "the_twist"
+    },
+    "reincarnation_3": {
+        speaker: "老麵",
+        text: "<i>（那三秒裡，沒有人知道該不該鼓掌。有人低頭，有人閉眼。<br>然後，世界被重新命名成產品。）</i>",
+        next: "the_twist"
+    },
+    "reincarnation_7": {
+        speaker: "老麵",
+        text: "<i>（那七秒幾乎像一場真正的告別。<br>也正因為如此，當產品發表的燈光亮起時，它顯得更加殘忍。）</i>",
+        next: "the_twist"
+    },
+    "the_twist": {
+        speaker: "傑米", mode: "mode-tech", bgm: "BGM: 未來感電子交響樂", sfx: "SFX: 巨大LED點亮",
+        text: "<i>（傑米深吸一口氣，眼神重新變得銳利。舞台背後巨大的LED螢幕亮起『奇點無限』的Logo，以及兩個蒼勁有力的大字——【輪迴】。）</i><br><br>「但是，告別，不代表結束。」",
+        next: "the_twist_2"
+    },
+    "the_twist_2": {
+        speaker: "傑米",
+        text: "「『輪迴』系統，是我獻給這個世界的最終解答。它將完整複製並上傳人類的人格。肉體會消亡，但『你』，將會永遠存在。我將成為第一位數位永生人。」",
+        next: "the_twist_3"
+    },
+    "the_twist_3": {
+        speaker: "傑米",
+        text: "「所以，朋友們，不要為我悲傷。這不是一場告別式，這是一場產品發表會。<br>歡迎來到，永生的紀元。」",
+        next: "the_twist_4"
+    },
+    "the_twist_4": {
+        speaker: "旁白",
+        text: "<i>（話音落下，全場陷入了一種詭異的、混雜著震驚、困惑、憤怒、欽佩與悲傷的，極度複雜的寂靜之中。）</i>",
+        next: "epilogue_1"
+    },
+
+    // ------------------------------------------
+    // 結尾：三個月後與報告
+    // ------------------------------------------
+    "epilogue_1": {
+        speaker: "新聞旁白", mode: "mode-noodle", bgm: "BGM: 空白與冷寂",
+        text: "【三個月後】<br><i>（『奇點無限』創辦人傑米．詹，於今日凌晨在家中病逝，享年36歲。）</i><br><br>螢幕下方跑馬燈：奇點無限股價開盤應聲漲停。",
+        next: "epilogue_2"
+    },
+    "epilogue_2": {
+        speaker: "庭如", mode: "mode-tingru",
+        text: "「那天晚上，我感覺到的所有情緒……都是真的。他的恐懼、他的驕傲、他的悲傷、他的算計……全都是真的。」",
+        next: "epilogue_3"
+    },
+    "epilogue_3": {
+        speaker: "老麵", mode: "mode-noodle",
+        text: "<i>（雷老師將剪輯好的影片命名為『封存』。）</i><br><br>「我們幫助一個男人，用一場精心編排的秀，欺騙了全世界，也完成了最真誠的告別。」",
+        next: "report_generate"
+    },
+    "report_generate": {
+        speaker: "系統",
+        action: () => {
+            // 判定結局
+            if(state.noodle_points < 0 && state.tingru_points <= 0) renderNode("report_execute");
+            else if(state.noodle_points >= 0 && state.tingru_points < 0) renderNode("report_alert");
+            else renderNode("report_protect");
+        }
+    },
+    "report_execute": {
+        speaker: "案件封存報告 (完成委託型)", sfx: "SFX: 蓋章聲",
+        text: "【Before Fadeout 專案歸檔】<br>我們完成了他的委託。他想被記得成一個至死仍在顛覆世界的人。<br>我們沒有替他美化，也沒有替他懺悔。我們只是把他人生最後的矛盾，完整留了下來。",
+        next: "game_end"
+    },
+    "report_alert": {
+        speaker: "案件封存報告 (倫理懷疑型)", sfx: "SFX: 蓋章聲",
+        text: "【Before Fadeout 專案歸檔】<br>我們完成了他的委託，但不代表無罪。<br>他留下了真心，也留下了傷口。有些餘韻不是被設計出來的，是被人承受下來的。",
+        next: "game_end"
+    },
+    "report_protect": {
+        speaker: "案件封存報告 (矛盾共存型)", sfx: "SFX: 蓋章聲",
+        text: "【Before Fadeout 專案歸檔】<br>那天晚上，所有情緒都是真的。恐懼、悲傷與算計並存。<br>我們沒有解開死亡。我們只是替它打了一束太漂亮的光。",
+        next: "game_end"
+    },
+    "game_end": {
+        speaker: "系統",
+        text: "<i>Before Fadeout：最後一場售票演出<br>—— 遊戲結束 (Case Closed) ——</i>",
+        options: []
+    }
+};
+
+// ==========================================
+// 核心引擎邏輯
+// ==========================================
+function startGame() {
+    document.getElementById('title-screen').style.opacity = 0;
+    setTimeout(() => {
+        document.getElementById('title-screen').style.display = 'none';
+        renderNode("start");
+    }, 1000);
+}
+
+function renderNode(nodeId) {
+    const node = storyData[nodeId];
+    if (!node) return;
+    
+    currentNode = nodeId;
+
+    clearTimeout(autoAdvanceTimer);
+    document.getElementById('next-indicator').style.display = 'none';
+
+    if (node.action) node.action();
+
+    if (currentNode !== nodeId) return;
+
+    const container = document.getElementById('game-container');
+    container.className = node.mode || container.className;
+
+    if (node.bgm) playSysCue("音樂", node.bgm.replace('BGM: ', ''));
+    if (node.sfx) playSysCue("音效", node.sfx.replace('SFX: ', ''));
+
+    document.getElementById('speaker-name').innerText = node.speaker || "";
+    
+    const optionsBox = document.getElementById('options-container');
+    const textBox = document.getElementById('dialogue-text');
+
+    if (node.options && node.options.length > 0) {
+        document.getElementById('auto-btn').style.display = 'none'; // 選項時隱藏 Auto
+        textBox.innerHTML = node.text || "";
+        optionsBox.innerHTML = "";
+        node.options.forEach(opt => {
+            const btn = document.createElement('button');
+            btn.className = 'option-btn';
+            btn.innerHTML = opt.text;
+            btn.onclick = (e) => {
+                e.stopPropagation();
+                playSysCue("系統", "點擊選擇");
+                optionsBox.classList.add('hidden');
+                renderNode(opt.target);
+            };
+            optionsBox.appendChild(btn);
+        });
+        optionsBox.classList.remove('hidden');
+    } else {
+        document.getElementById('auto-btn').style.display = 'block'; // 恢復 Auto
+        optionsBox.classList.add('hidden');
+        typeWriterEffect(node.text);
+    }
+}
+
+function typeWriterEffect(text) {
+    text = text || ""; 
+    isTyping = true;
+    const textBox = document.getElementById('dialogue-text');
+    textBox.innerHTML = "";
+    
+    let i = 0;
+    function type() {
+        if (i < text.length) {
+            if (text.charAt(i) === '<') {
+                let closingTagIndex = text.indexOf('>', i);
+                if (closingTagIndex !== -1) {
+                    i = closingTagIndex + 1;
+                } else {
+                    i++;
+                }
+            } else {
+                i++;
+            }
+            
+            textBox.innerHTML = text.substring(0, i);
+            
+            // 每打一個字，自動讓卷軸滾動到最下方
+            const container = document.getElementById('dialogue-container');
+            container.scrollTop = container.scrollHeight;
+            
+            currentTimeout = setTimeout(type, 30); 
+        } else {
+            isTyping = false;
+            showNextIndicatorAndAuto();
+        }
+    }
+    type();
+}
+
+// 文字顯示完畢後，顯示提示箭頭，並處理自動播放
+function showNextIndicatorAndAuto() {
+    document.getElementById('next-indicator').style.display = 'block';
+    
+    // 確保到底部
+    const container = document.getElementById('dialogue-container');
+    container.scrollTop = container.scrollHeight;
+    
+    if (isAutoMode) {
+        const textLength = document.getElementById('dialogue-text').innerText.length;
+        // 根據字數決定等待秒數 (最少 1.5秒)
+        let waitTime = Math.max(1500, textLength * 80); 
+        autoAdvanceTimer = setTimeout(advanceStory, waitTime);
+    }
+}
+
+function advanceStory() {
+    const node = storyData[currentNode];
+    const optionsBox = document.getElementById('options-container');
+    
+    if (node.options && !optionsBox.classList.contains('hidden') && node.options.length > 0) {
+        return;
+    }
+
+    if (isTyping) {
+        clearTimeout(currentTimeout);
+        document.getElementById('dialogue-text').innerHTML = node.text;
+        
+        // 瞬間顯示全部文字也要滾到底部
+        const container = document.getElementById('dialogue-container');
+        container.scrollTop = container.scrollHeight;
+        
+        isTyping = false;
+        showNextIndicatorAndAuto();
+        return;
+    }
+
+    // 推進下一句前，清除之前的計時與箭頭
+    clearTimeout(autoAdvanceTimer);
+    document.getElementById('next-indicator').style.display = 'none';
+
+    if (node.next) {
+        renderNode(node.next);
+    }
+}
+</script>
+</body>
+</html>
