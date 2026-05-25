@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>LTrust 新手教學腳本流程｜說明網頁稿</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#F7F5EF;
+  --paper:#FFFFFF;
+  --paper-soft:#FBFAF7;
+  --ink:#252522;
+  --muted:#68665F;
+  --faint:#969389;
+  --line:#E5E0D6;
+  --dark:#282824;
+  --coral:#E8593C;
+  --coral-soft:#FFF0EA;
+  --coral-dark:#842F1B;
+  --blue:#3C89D8;
+  --blue-soft:#EAF4FF;
+  --blue-dark:#164E85;
+  --teal:#1D9E75;
+  --teal-soft:#E7F7F1;
+  --teal-dark:#095B45;
+  --amber:#C78221;
+  --amber-soft:#FFF4DA;
+  --amber-dark:#76500C;
+  --purple:#7C6BE8;
+  --purple-soft:#F0EEFF;
+  --purple-dark:#44349B;
+  --shadow:0 18px 44px rgba(37,37,34,.08);
+  --shadow-soft:0 8px 24px rgba(37,37,34,.06);
+  --radius:22px;
+  --radius-md:16px;
+  --radius-sm:10px;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Noto Sans TC',system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--ink);line-height:1.75;font-size:16px}
+a{color:inherit;text-decoration:none}
+.cover{background:radial-gradient(circle at 82% 4%,rgba(232,89,60,.20),transparent 28%),radial-gradient(circle at 12% 82%,rgba(29,158,117,.16),transparent 24%),linear-gradient(135deg,#2D2D28 0%,#1E1F1C 100%);color:#fff;padding:72px 24px 64px;position:relative;overflow:hidden}
+.cover:after{content:"";position:absolute;inset:auto -90px -160px auto;width:420px;height:420px;border-radius:50%;border:80px solid rgba(255,255,255,.045)}
+.wrap{max-width:1080px;margin:0 auto;position:relative;z-index:1}
+.eyebrow{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px}
+.tag{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:6px 13px;font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;line-height:1}
+.tag.main{background:var(--coral);color:#fff}
+.tag.ghost{background:rgba(255,255,255,.10);color:rgba(255,255,255,.72);border:1px solid rgba(255,255,255,.08)}
+.cover h1{font-size:clamp(34px,5vw,58px);line-height:1.14;letter-spacing:-.04em;font-weight:900;max-width:780px;margin-bottom:18px}
+.cover h1 span{color:#FFB39F}
+.cover .lead{max-width:760px;color:rgba(255,255,255,.70);font-size:18px;line-height:1.85;margin-bottom:34px}
+.hero-grid{display:grid;grid-template-columns:1.35fr .65fr;gap:18px;margin-top:34px}
+.hero-card{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:var(--radius-md);padding:20px;backdrop-filter:blur(12px)}
+.hero-card h3{font-size:13px;color:rgba(255,255,255,.55);letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px}
+.hero-card p{font-size:15px;color:rgba(255,255,255,.84);line-height:1.75}
+.hero-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}
+.metric{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:12px;text-align:center}
+.metric strong{display:block;font-size:22px;line-height:1.1;margin-bottom:2px;color:#fff}
+.metric span{font-size:12px;color:rgba(255,255,255,.55)}
+.nav{position:sticky;top:0;z-index:30;background:rgba(255,255,255,.92);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);box-shadow:0 6px 18px rgba(37,37,34,.05)}
+.nav .wrap{display:flex;align-items:center;gap:6px;overflow-x:auto;padding:0 20px}
+.nav a{white-space:nowrap;padding:15px 12px;font-size:13px;font-weight:700;color:var(--muted);border-bottom:2px solid transparent}
+.nav a:hover{color:var(--ink);border-bottom-color:var(--coral)}
+main{padding:34px 24px 72px}
+.section{max-width:1080px;margin:0 auto 28px;background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow-soft);overflow:hidden}
+.section.plain{background:transparent;border:none;box-shadow:none;overflow:visible}
+.section-head{padding:34px 34px 18px}
+.kicker{font-size:12px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:var(--coral);margin-bottom:8px}
+.section h2{font-size:28px;line-height:1.35;letter-spacing:-.02em;margin-bottom:10px}
+.section-desc{color:var(--muted);font-size:15px;max-width:780px}
+.content{padding:0 34px 34px}
+.callout{background:var(--paper-soft);border:1px solid var(--line);border-radius:var(--radius-md);padding:22px 24px;margin:18px 0;color:var(--ink)}
+.callout strong{color:var(--coral-dark)}
+.callout.blue{background:var(--blue-soft);border-color:#D5E8FB;color:var(--blue-dark)}
+.callout.teal{background:var(--teal-soft);border-color:#CBEBDD;color:var(--teal-dark)}
+.callout.amber{background:var(--amber-soft);border-color:#F0DEB4;color:var(--amber-dark)}
+.big-quote{font-size:24px;line-height:1.55;font-weight:900;letter-spacing:-.02em;padding:26px 30px;background:linear-gradient(135deg,#fff,#FFF6F2);border:1px solid #F2D7CE;border-radius:var(--radius);box-shadow:var(--shadow-soft)}
+.big-quote small{display:block;font-size:14px;font-weight:500;color:var(--muted);margin-top:10px}
+.grid{display:grid;gap:16px}
+.grid.two{grid-template-columns:repeat(2,1fr)}
+.grid.three{grid-template-columns:repeat(3,1fr)}
+.grid.four{grid-template-columns:repeat(4,1fr)}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius-md);padding:20px;box-shadow:var(--shadow-soft)}
+.card.soft{background:var(--paper-soft);box-shadow:none}
+.card h3{font-size:17px;line-height:1.4;margin-bottom:8px}
+.card p{font-size:14px;color:var(--muted);line-height:1.75}
+.card .mini{font-size:12px;color:var(--faint);font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px}
+.badge{display:inline-flex;align-items:center;border-radius:999px;padding:4px 10px;font-size:12px;font-weight:800;margin-bottom:10px}
+.badge.q{background:var(--coral-soft);color:var(--coral-dark)}
+.badge.s{background:var(--blue-soft);color:var(--blue-dark)}
+.badge.w{background:var(--teal-soft);color:var(--teal-dark)}
+.badge.g{background:var(--purple-soft);color:var(--purple-dark)}
+.journey{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:18px}
+.step{position:relative;background:var(--paper-soft);border:1px solid var(--line);border-radius:var(--radius-md);padding:16px 14px;min-height:142px}
+.step-num{width:28px;height:28px;border-radius:50%;background:var(--dark);color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;margin-bottom:10px}
+.step h3{font-size:15px;margin-bottom:5px;line-height:1.4}
+.step p{font-size:12px;color:var(--muted);line-height:1.55}
+.step.highlight{background:var(--coral-soft);border-color:#F0CABE}
+.step.highlight .step-num{background:var(--coral)}
+.script{display:flex;flex-direction:column;gap:14px}
+.scene{border:1px solid var(--line);border-radius:var(--radius-md);background:var(--paper);overflow:hidden}
+.scene summary{list-style:none;cursor:pointer;padding:20px 22px;display:flex;gap:14px;align-items:flex-start;background:linear-gradient(180deg,#fff,var(--paper-soft))}
+.scene summary::-webkit-details-marker{display:none}
+.scene-id{width:46px;height:46px;flex:0 0 46px;border-radius:14px;background:var(--dark);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:900}
+.scene-title{flex:1}
+.scene-title h3{font-size:18px;line-height:1.35;margin-bottom:4px}
+.scene-title p{font-size:13px;color:var(--muted)}
+.chev{color:var(--faint);font-weight:900;font-size:20px;padding-top:6px}
+details[open] .chev{transform:rotate(180deg)}
+.scene-body{padding:22px;border-top:1px solid var(--line);display:grid;grid-template-columns:1fr 1fr;gap:16px;background:#fff}
+.scene-block{background:var(--paper-soft);border:1px solid var(--line);border-radius:14px;padding:16px}
+.scene-block h4{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);margin-bottom:8px}
+.scene-block ul{padding-left:18px;color:var(--muted);font-size:14px;line-height:1.8}
+.scene-block p{font-size:14px;color:var(--muted);line-height:1.8}
+.ui-mock{background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow-soft);padding:18px;margin-top:12px}
+.ui-title{font-size:17px;font-weight:900;margin-bottom:7px}
+.ui-sub{font-size:13px;color:var(--muted);margin-bottom:14px}
+.choice{display:block;border:1px solid var(--line);border-radius:12px;padding:11px 13px;margin:8px 0;background:var(--paper-soft);font-size:14px;color:var(--ink)}
+.choice:hover{border-color:var(--coral)}
+.btn{display:inline-flex;align-items:center;justify-content:center;background:var(--coral);color:#fff;border-radius:999px;padding:10px 16px;font-size:14px;font-weight:800;margin-top:10px;box-shadow:0 8px 18px rgba(232,89,60,.22)}
+.btn.secondary{background:var(--dark);box-shadow:none}
+.table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:var(--radius-md);background:#fff;margin-top:14px}
+table{width:100%;border-collapse:collapse;font-size:14px;min-width:680px}
+th{background:var(--paper-soft);color:var(--muted);font-size:12px;letter-spacing:.08em;text-transform:uppercase;text-align:left;padding:12px 14px;border-bottom:1px solid var(--line);white-space:nowrap}
+td{padding:14px;border-bottom:1px solid var(--line);vertical-align:top;color:var(--muted)}
+tr:last-child td{border-bottom:none}
+td strong{color:var(--ink)}
+.branch{border-left:5px solid var(--coral);background:#fff;border-radius:0 var(--radius-md) var(--radius-md) 0;padding:20px;margin-bottom:14px;box-shadow:var(--shadow-soft)}
+.branch.s{border-left-color:var(--blue)}
+.branch.w{border-left-color:var(--teal)}
+.branch.g{border-left-color:var(--purple)}
+.branch h3{font-size:18px;margin-bottom:6px}
+.branch p{font-size:14px;color:var(--muted)}
+.route{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.route span{background:var(--paper-soft);border:1px solid var(--line);border-radius:999px;padding:6px 10px;font-size:12px;font-weight:800;color:var(--muted)}
+.asset-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.asset-group{border:1px solid var(--line);border-radius:var(--radius-md);overflow:hidden;background:#fff}
+.asset-group h3{padding:15px 18px;border-bottom:1px solid var(--line);background:var(--paper-soft);font-size:16px}
+.asset-group ul{list-style:none;padding:10px 0}
+.asset-group li{display:flex;gap:10px;align-items:flex-start;padding:10px 18px;border-bottom:1px solid var(--line);font-size:14px;color:var(--muted)}
+.asset-group li:last-child{border-bottom:none}
+.code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:var(--dark);color:#fff;padding:3px 7px;border-radius:7px;font-size:12px;white-space:nowrap}
+.priority{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:12px}
+.priority-card{background:#fff;border:1px solid var(--line);border-radius:var(--radius-md);padding:20px}
+.priority-card h3{font-size:18px;margin-bottom:10px}
+.priority-card ol{padding-left:20px;color:var(--muted);font-size:14px;line-height:1.9}
+.footer{padding:34px 24px 46px;text-align:center;color:var(--muted);font-size:13px}
+.footer strong{display:block;color:var(--ink);margin-bottom:4px}
+@media(max-width:900px){
+  .hero-grid,.grid.two,.grid.three,.grid.four,.scene-body,.asset-grid,.priority{grid-template-columns:1fr}
+  .journey{grid-template-columns:repeat(2,1fr)}
+  .cover{padding:52px 20px}
+  main{padding:24px 16px 48px}
+  .section-head,.content{padding-left:20px;padding-right:20px}
+}
+@media(max-width:560px){
+  .journey{grid-template-columns:1fr}
+  .hero-metrics{grid-template-columns:1fr}
+  .scene summary{padding:16px}
+  .scene-body{padding:16px}
+  .cover h1{font-size:34px}
+}
+@media print{
+  body{background:#fff}
+  .nav{position:static}
+  .section{box-shadow:none;break-inside:avoid}
+  details.scene{break-inside:avoid}
+  details.scene:not([open]) .scene-body{display:grid}
+}
+</style>
+</head>
+<body>
+<header class="cover">
+  <div class="wrap">
+    <div class="eyebrow">
+      <span class="tag main">LTrust Onboarding</span>
+      <span class="tag ghost">說明網頁稿 v1.0</span>
+      <span class="tag ghost">假資料・真互動感</span>
+    </div>
+    <h1>把新手教學做成一段<br><span>可操作的學習劇場</span></h1>
+    <p class="lead">這份網頁稿整理 LTrust 新手教學的完整腳本流程：使用者不會真的進入各產品正式功能，而是透過一連串預先編排好的假圖、假資料、假互動，在 3～6 分鐘內感覺自己真的完成了一次學習任務。</p>
+    <div class="hero-grid">
+      <div class="hero-card">
+        <h3>核心策略</h3>
+        <p>不要教使用者「哪裡可以按」。要讓使用者經歷「我做了幾題、發現弱點、看懂一題、拿到學習起點」的完整感受。這樣新手教學才會像產品體驗，而不是說明書。</p>
+      </div>
+      <div class="hero-card">
+        <h3>建議體驗長度</h3>
+        <div class="hero-metrics">
+          <div class="metric"><strong>3</strong><span>核心任務</span></div>
+          <div class="metric"><strong>6</strong><span>分鐘內</span></div>
+          <div class="metric"><strong>1</strong><span>成果頁</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<nav class="nav">
+  <div class="wrap">
+    <a href="#position">定位</a>
+    <a href="#principles">原則</a>
+    <a href="#journey">旅程</a>
+    <a href="#script">完整腳本</a>
+    <a href="#branches">分支</a>
+    <a href="#assets">假圖假資料</a>
+    <a href="#mvp">MVP</a>
+  </div>
+</nav>
+
+<main>
+  <section id="position" class="section">
+    <div class="section-head">
+      <div class="kicker">01・Project Positioning</div>
+      <h2>這不是新手導覽，而是第一次學習任務</h2>
+      <p class="section-desc">傳統新手教學會說明功能；這套流程改成「讓使用者完成一次小任務」。使用者不需要理解 QBOT、S.E.N.S.E.I、WriteAhead 的完整結構，只需要在短時間內感受到三件事：我可以練、我可以問、我可以看到成果。</p>
+    </div>
+    <div class="content">
+      <div class="big-quote">
+        使用者不是來學平台怎麼操作的。<br>他是來確認：這個平台到底能不能幫我變好一點。
+        <small>所以新手教學的目標不是介紹功能，而是創造一次「有收穫的假體驗」。</small>
+      </div>
+      <div class="grid three" style="margin-top:18px">
+        <div class="card soft">
+          <span class="badge q">QBOT</span>
+          <h3>解決「練不夠」</h3>
+          <p>讓使用者先做 3 題快速練習，用最短路徑產生答題紀錄與弱點提示。</p>
+        </div>
+        <div class="card soft">
+          <span class="badge s">S.E.N.S.E.I</span>
+          <h3>解決「看不懂」</h3>
+          <p>從錯題自然帶入，不要求使用者自己想問題，而是直接示範 AI 怎麼拆解。</p>
+        </div>
+        <div class="card soft">
+          <span class="badge w">WriteAhead</span>
+          <h3>解決「不知道怎麼改」</h3>
+          <p>用示範作文與四維度批閱，讓使用者看到英文作文批改的價值。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="principles" class="section">
+    <div class="section-head">
+      <div class="kicker">02・Design Principles</div>
+      <h2>假資料、假畫面，但互動要像真的</h2>
+      <p class="section-desc">這套流程不需要真的串產品功能，也不需要真正呼叫 AI。重點是每一步都讓使用者做一個合理的小選擇，讓他相信這是一段正在發生的學習過程。</p>
+    </div>
+    <div class="content">
+      <div class="grid four">
+        <div class="card">
+          <div class="mini">Principle 1</div>
+          <h3>少講功能，多給任務</h3>
+          <p>不要丟三個產品入口給使用者選。直接告訴他：「我們幫你安排了一段小任務」。</p>
+        </div>
+        <div class="card">
+          <div class="mini">Principle 2</div>
+          <h3>每一步都要能點</h3>
+          <p>選目標、選困擾、選答案、看解析、看更白話說法。互動越小，完成率越高。</p>
+        </div>
+        <div class="card">
+          <div class="mini">Principle 3</div>
+          <h3>成果要立刻出現</h3>
+          <p>完成 3 題後立刻給正確率、弱點、下一步，不要讓使用者覺得只是玩過場動畫。</p>
+        </div>
+        <div class="card">
+          <div class="mini">Principle 4</div>
+          <h3>購買不要太早出現</h3>
+          <p>先讓使用者體驗有收穫，再提示 7 日試用配額與後續任務，轉換會比較自然。</p>
+        </div>
+      </div>
+      <div class="callout amber"><strong>跳過按鈕原則：</strong>跳過可以存在，但低調呈現。真正想跳過的人找得到，不想跳過的人不會被提醒「你其實可以不用看」。</div>
+    </div>
+  </section>
+
+  <section id="journey" class="section">
+    <div class="section-head">
+      <div class="kicker">03・User Journey</div>
+      <h2>完整旅程：從入口到試用解鎖</h2>
+      <p class="section-desc">整體流程建議控制在 3～6 分鐘。主線以 QBOT 快速刷題開始，再從錯題自然帶入 S.E.N.S.E.I；WriteAhead 作為分流分支，不強迫所有使用者體驗。</p>
+    </div>
+    <div class="content">
+      <div class="journey">
+        <div class="step"><div class="step-num">0</div><h3>落地入口</h3><p>點「免費開始學習」，降低付費壓力。</p></div>
+        <div class="step"><div class="step-num">1</div><h3>快速登入</h3><p>建立試用紀錄，不讓登入看起來像阻礙。</p></div>
+        <div class="step"><div class="step-num">2</div><h3>歡迎說明</h3><p>告訴使用者這只是 3 分鐘小任務。</p></div>
+        <div class="step highlight"><div class="step-num">3</div><h3>分流問答</h3><p>問學習目標與目前困擾，決定推薦路線。</p></div>
+        <div class="step highlight"><div class="step-num">4</div><h3>任務卡</h3><p>把產品入口轉換成明確任務路線。</p></div>
+        <div class="step"><div class="step-num">5</div><h3>QBOT 3 題</h3><p>快速作答，產生初步結果。</p></div>
+        <div class="step"><div class="step-num">6</div><h3>錯題解析</h3><p>從錯題自然帶入 AI 解題需求。</p></div>
+        <div class="step"><div class="step-num">7</div><h3>S.E.N.S.E.I</h3><p>示範 AI 拆解與白話說法。</p></div>
+        <div class="step highlight"><div class="step-num">8</div><h3>成果摘要</h3><p>整理剛剛完成的學習收穫。</p></div>
+        <div class="step"><div class="step-num">9</div><h3>試用解鎖</h3><p>引導進入任務頁與正式試用。</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="script" class="section">
+    <div class="section-head">
+      <div class="kicker">04・Detailed Script</div>
+      <h2>完整腳本流程</h2>
+      <p class="section-desc">以下每一幕都可直接轉成假圖、前端互動畫面或 prototype。預設主線為「QBOT → 錯題解析 → S.E.N.S.E.I → 成果摘要」。</p>
+    </div>
+    <div class="content">
+      <div class="script">
+        <details class="scene" open>
+          <summary><div class="scene-id">0</div><div class="scene-title"><h3>落地頁入口：先花 3 分鐘找出學習起點</h3><p>讓使用者知道這不是付費牆，而是可以先試。</p></div><div class="chev">⌄</div></summary>
+          <div class="scene-body">
+            <div class="scene-block"><h4>畫面文案</h4><p><strong>主標：</strong>不知道從哪裡開始讀？先花 3 分鐘，找出你的學習起點。</p><p><strong>副標：</strong>做幾題、看一次解析，LTrust 會幫你整理目前最適合的練習方向。</p><p><strong>CTA：</strong>免費開始學習</p></div>
+            <div class="scene-block"><h4>互動與反應</h4><ul><li>使用者點擊「免費開始學習」。</li><li>淡入小卡：「我們會先問你 2 個問題，幫你安排一段適合你的體驗任務。」</li><li>按「開始」後進入登入畫面。</li></ul></div>
+          </div>
+        </details>
+
+        <details class="scene" open>
+          <summary><div class="scene-id">1</div><div class="scene-title"><h3>快速登入：建立你的試用紀錄</h3><p>登入是必要，但語氣不能像阻礙。</p></div><div class="chev">⌄</div></summary>
+          <div class="scene-body">
+            <div class="scene-block"><h4>畫面文案</h4><p><strong>標題：</strong>先建立你的試用紀錄</p><p>這樣等等的作答結果、錯題解析和試用配額，才會保留在你的帳號裡。</p><div class="ui-mock"><div class="ui-title">建立試用空間</div><div class="ui-sub">本教學流程會使用示範資料，不會影響你的正式學習紀錄。</div><span class="btn">使用 Google 快速登入</span></div></div>
+            <div class="scene-block"><h4>互動與反應</h4><ul><li>使用者點「使用 Google 快速登入」。</li><li>顯示假 loading：「正在建立你的試用空間……」</li><li>1 秒後進入歡迎畫面。</li></ul></div>
+          </div>
+        </details>
+
+        <details class="scene" open>
+          <summary><div class="scene-id">2</div><div class="scene-title"><h3>歡迎畫面：先不用選一堆設定</h3><p>降低壓力，讓使用者知道這不是考試。</p></div><div class="chev">⌄</div></summary>
+          <div class="scene-body">
+            <div class="scene-block"><h4>畫面文案</h4><p>歡迎來到 LTrust。先不用選一堆設定，我們只問你兩個問題，然後直接安排一段小任務。</p><ul><li>一段小測驗</li><li>一題錯題解析</li><li>一份你的學習起點摘要</li></ul></div>
+            <div class="scene-block"><h4>操作</h4><p>主要按鈕：開始找出我的學習起點</p><p>右上角低調小字：跳過</p><p>跳過不做倒數、不強迫注意，維持低調。</p></div>
+          </div>
+        </details>
+
+        <details class="scene" open>
+          <summary><div class="scene-id">3</div><div class="scene-title"><h3>分流問答 Q1：你的學習目標是？</h3><p>先建立使用者自我定位，回答直覺、完成率高。</p></div><div class="chev">⌄</div></summary>
+          <div class="scene-body">
+            <div class="scene-block"><h4>畫面示意</h4><div class="ui-mock"><div class="ui-title">你現在比較像哪一種狀態？</div><span class="choice">我在準備學測，希望提升成績</span><span class="choice">我想跟上學校進度，維持每天練習</span><span class="choice">我想自主學習，沒有特定考試壓力</span></div></div>
+            <div class="scene-block"><h4>選項回饋</h4><ul><li>選學測：你比較需要快速找出弱點，避免一直讀已經會的地方。</li><li>選日常：你比較需要穩定練習，讓每天都有一點進度。</li><li>選自主：你適合從有興趣的科目開始，再慢慢建立節奏。</li></ul></div>
+          </div>
+        </details>
+
+        <details class="scene" open>
+          <summary><div class="scene-id">4</div><div class="scene-title"><h3>分流問答 Q2：你現在最想解決哪個問題？</h3><p>決定推薦 QBOT、S.E.N.S.E.I、WriteAhead 或完整體驗。</p></div><div class="chev">⌄</div></summary>
+          <div class="scene-body">
+            <div class="scene-block"><h4>畫面示意</h4><div class="ui-mock"><div class="ui-title">你現在最想解決哪個問題？</div><span class="choice">精準補強弱點 / 大量刷題練熟考點 → QBOT</span><span class="choice">有題目看不懂，想立刻搞懂 → S.E.N.S.E.I</span><span class="choice">英文作文需要練習和批改 → WriteAhead</span><span class="choice">都想試試看 → 完整體驗</span></div></div>
+            <div class="scene-block"><h4>系統回應</h4><p>如果選 QBOT：那我們先從一組快速練習開始。你只要做 3 題，系統就會示範怎麼整理錯題與弱點。</p><p>如果選 S.E.N.S.E.I：先給你一題示範題，看看 AI 老師怎麼一步一步拆解。</p><p>如果選 WAH：先用一篇示範作文，看看 AI 批閱怎麼指出問題。</p></div>
+          </div>
+        </details>
+
+        <details class="scene" open>
+          <summary><div class="scene-id">5</div><div class="scene-title"><h3>任務卡產生：你的第一段學習任務已經排好了</h3><p>把產品入口轉成任務路線，避免使用者面對三個工具不知道怎麼選。</p></div><div class="chev">⌄</div></summary>
+          <div class="scene-body">
+            <div class="scene-block"><h4>任務卡內容</h4><ul><li><strong>任務 1：</strong>完成 3 題快速練習，用 QBOT 找出卡住的地方。</li><li><strong>任務 2：</strong>查看一題錯題解析，理解錯誤原因。</li><li><strong>任務 3：</strong>讓 S.E.N.S.E.I 幫你拆解，把不懂的地方說清楚。</li></ul></div>
+            <div class="scene-block"><h4>互動</h4><p>底部提示：完成任務後，會解鎖你的 7 日試用配額。</p><p>主要按鈕：開始第一個任務</p></div>
+          </div>
+        </details>
+
+        <details class="scene" open>
+          <summary><div class="scene-id">6A</div><div class="scene-title"><h3>QBOT：快速刷 3 題</h3><p>先選科目，其他由系統預設。題目少、回饋快、不要讓設定拖慢體驗。</p></div><div class="chev">⌄</div></summary>
+          <div class="scene-body">
+            <div class="scene-block"><h4>科目選擇</h4><p>畫面標題：先選一科，其他交給系統安排。</p><p>推薦科目：英文。文案：根據你的目標，建議先從英文開始。學測英文常見問題：單字量、句構、閱讀速度、作文表達。</p><p>CTA：用推薦科目開始</p></div>
+            <div class="scene-block"><h4>3 題假題</h4><ul><li>第 1 題：preparation 最接近哪個字？正解 practice。</li><li>第 2 題：Although 表示什麼關係？示範常見錯誤與 contrast。</li><li>第 3 題：regular review 與 last-minute study 的主旨判斷。</li></ul></div>
+          </div>
+        </details>
+
+        <details class="scene" open>
+          <summary><div class="scene-id">6B</div><div class="scene-title"><h3>QBOT 結算：你完成了第一次快速練習</h3><p>立刻產生成果與弱點提示，讓使用者知道剛剛不是亂玩。</p></div><div class="chev">⌄</div></summary>
+          <div class="scene-body">
+            <div class="scene-block"><h4>成果資料</h4><ul><li>題數：3 題</li><li>答對：2 題</li><li>正確率：67%</li><li>花費時間：1 分 12 秒</li></ul></div>
+            <div class="scene-block"><h4>弱點提示</h4><p>初步觀察：你在「轉折語氣」的判斷上容易猶豫。這類題目常出現在閱讀測驗與文意選填中。</p><p>主要按鈕：查看那題為什麼容易錯</p><p>鎖定提示：再完成 7 題後解鎖完整弱點分析。</p></div>
+          </div>
+        </details>
+
+        <details class="scene" open>
+          <summary><div class="scene-id">7</div><div class="scene-title"><h3>錯題解析：這題還是不懂？讓 S.E.N.S.E.I 拆給你看</h3><p>從 QBOT 自然帶入 S.E.N.S.E.I，避免使用者不知道要問什麼。</p></div><div class="chev">⌄</div></summary>
+          <div class="scene-body">
+            <div class="scene-block"><h4>解析文案</h4><p>Although 表示「雖然」，用來引出與後面結果相反或形成對比的資訊。這句話的意思是：雖然天氣很糟，比賽仍照原計畫進行。</p><p>所以這題不是原因、結果，也不是舉例，而是「對比」。</p></div>
+            <div class="scene-block"><h4>帶題 CTA</h4><p>底部引導：還是不太確定 although、because、therefore 差在哪裡？</p><p>按鈕：讓 S.E.N.S.E.I 拆給我看</p><p>點擊後顯示：已將這題帶入 S.E.N.S.E.I。</p></div>
+          </div>
+        </details>
+
+        <details class="scene" open>
+          <summary><div class="scene-id">8</div><div class="scene-title"><h3>S.E.N.S.E.I：解題拆解與白話說法</h3><p>示範 AI 不只是給答案，而是把推理過程拆開。</p></div><div class="chev">⌄</div></summary>
+          <div class="scene-body">
+            <div class="scene-block"><h4>預填提問</h4><p>Although the weather was terrible, the game continued as planned. 為什麼這裡是 contrast，不是 cause？</p><p>Loading 分段：正在讀取題目 → 正在判斷句子關係 → 正在整理成容易理解的步驟。</p></div>
+            <div class="scene-block"><h4>結果呈現</h4><ul><li><strong>已知前提：</strong>前半句是雖然天氣很糟。</li><li><strong>推理分析：</strong>天氣很糟但比賽照常，形成預期相反。</li><li><strong>正確答案：</strong>B. contrast。</li><li><strong>延伸知識：</strong>although / because / therefore / for example 對照。</li></ul><p>互動按鈕：清楚了、想看更白話的說法、加入學習筆記本。</p></div>
+          </div>
+        </details>
+
+        <details class="scene" open>
+          <summary><div class="scene-id">9</div><div class="scene-title"><h3>成果摘要：你完成了第一次 LTrust 學習任務</h3><p>將假體驗包裝成一次有結果的學習紀錄。</p></div><div class="chev">⌄</div></summary>
+          <div class="scene-body">
+            <div class="scene-block"><h4>成果卡</h4><ul><li>快速練習：完成 3 題</li><li>初步正確率：67%</li><li>發現弱點：轉折語氣判斷</li><li>AI 解題：完成 1 題拆解</li><li>學習筆記：已加入 1 筆</li></ul></div>
+            <div class="scene-block"><h4>下一步</h4><p>建議下一步：再完成 7 題，解鎖能力分析。</p><p>主要按鈕：開啟我的 7 日試用</p></div>
+          </div>
+        </details>
+
+        <details class="scene" open>
+          <summary><div class="scene-id">10</div><div class="scene-title"><h3>試用解鎖：你的 7 日試用已開啟</h3><p>在體驗有收穫後，再自然引導使用者繼續使用。</p></div><div class="chev">⌄</div></summary>
+          <div class="scene-body">
+            <div class="scene-block"><h4>配額卡</h4><ul><li><strong>QBOT：</strong>100 份試用考卷，適合每天快速練習。</li><li><strong>S.E.N.S.E.I：</strong>10 題 AI 解題，遇到看不懂的題目可以拆解。</li><li><strong>WriteAhead：</strong>10 篇作文批閱，查看文法、用詞與整體評語。</li></ul></div>
+            <div class="scene-block"><h4>導入任務頁</h4><p>主要按鈕：進入我的任務頁</p><p>次要按鈕：自由探索 LTrust</p><p>任務頁顯示：再做 7 題英文練習、加入 1 題錯題到筆記本、試一次作文批閱。</p></div>
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section id="branches" class="section">
+    <div class="section-head">
+      <div class="kicker">05・Branch Design</div>
+      <h2>四種分流路線</h2>
+      <p class="section-desc">分流不是把使用者丟進不同產品，而是根據使用者剛剛回答的困擾，安排一段最容易感受到價值的體驗。</p>
+    </div>
+    <div class="content">
+      <div class="branch">
+        <h3>分支 A：我想刷題</h3>
+        <p>這是建議預設主線。QBOT 最容易理解，也最容易產生數據，後面再自然帶入 S.E.N.S.E.I。</p>
+        <div class="route"><span>QBOT 3 題</span><span>錯題解析</span><span>S.E.N.S.E.I 拆解</span><span>成果摘要</span></div>
+      </div>
+      <div class="branch s">
+        <h3>分支 B：我有題目看不懂</h3>
+        <p>不要一開始就要求使用者輸入題目。先提供示範題，讓他知道 S.E.N.S.E.I 能做什麼。</p>
+        <div class="route"><span>示範題</span><span>AI 拆解</span><span>加入筆記</span><span>推薦同類題練習</span></div>
+      </div>
+      <div class="branch w">
+        <h3>分支 C：我想練作文</h3>
+        <p>以 WriteAhead 示範作文為主，不硬塞刷題。最後再推薦英文閱讀與文意選填練習。</p>
+        <div class="route"><span>作文題目</span><span>示範作文</span><span>改一句互動</span><span>四維度批閱</span></div>
+      </div>
+      <div class="branch g">
+        <h3>分支 D：我都想試試看</h3>
+        <p>完整體驗但要縮短，每段只展示最核心的價值，不然流程會太長。</p>
+        <div class="route"><span>QBOT 2 題</span><span>S.E.N.S.E.I 1 題</span><span>WAH 示範批閱</span><span>完整成果頁</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="assets" class="section">
+    <div class="section-head">
+      <div class="kicker">06・Assets</div>
+      <h2>需要準備的假圖與假資料</h2>
+      <p class="section-desc">下一步進入工作分配時，可以依照這份清單拆成 UI、前端互動、假資料文案、題目內容、動畫狀態幾類工作。</p>
+    </div>
+    <div class="content">
+      <div class="asset-grid">
+        <div class="asset-group"><h3>共用畫面</h3><ul><li><span class="code">G01</span>落地頁入口：免費開始學習 CTA</li><li><span class="code">G02</span>登入畫面：Google 登入</li><li><span class="code">G03</span>歡迎畫面：3 分鐘任務介紹</li><li><span class="code">G04</span>分流問答 Q1：學習目標</li><li><span class="code">G05</span>分流問答 Q2：目前困擾</li><li><span class="code">G06</span>任務卡產生</li><li><span class="code">G07</span>成果摘要</li><li><span class="code">G08</span>試用解鎖配額卡</li></ul></div>
+        <div class="asset-group"><h3>QBOT 假畫面</h3><ul><li><span class="code">Q01</span>QBOT 試用歡迎卡</li><li><span class="code">Q02</span>科目選擇與快速開始</li><li><span class="code">Q03</span>英文題 1：語意判斷</li><li><span class="code">Q04</span>英文題 2：轉折語氣</li><li><span class="code">Q05</span>英文題 3：主旨判斷</li><li><span class="code">Q06</span>3 題成績結算</li><li><span class="code">Q07</span>錯題解析與 S.E.N.S.E.I CTA</li></ul></div>
+        <div class="asset-group"><h3>S.E.N.S.E.I 假畫面</h3><ul><li><span class="code">S01</span>已帶入錯題的提問畫面</li><li><span class="code">S02</span>分段 loading 動畫</li><li><span class="code">S03</span>已知前提、推理、答案、延伸知識</li><li><span class="code">S04</span>更白話的說法</li><li><span class="code">S05</span>加入筆記與任務完成提示</li></ul></div>
+        <div class="asset-group"><h3>WriteAhead 假畫面</h3><ul><li><span class="code">W01</span>首篇免費批閱入口</li><li><span class="code">W02</span>三個作文題目</li><li><span class="code">W03</span>示範作文編輯</li><li><span class="code">W04</span>改一句互動</li><li><span class="code">W05</span>批閱中 loading</li><li><span class="code">W06</span>四維度批閱結果</li><li><span class="code">W07</span>下一篇練習引導</li></ul></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="mvp" class="section">
+    <div class="section-head">
+      <div class="kicker">07・MVP Recommendation</div>
+      <h2>第一版不要做太大，先完成主線閉環</h2>
+      <p class="section-desc">MVP 的目標不是展示所有服務，而是證明「假體驗能不能讓使用者感覺 LTrust 有價值」。先做出完整主線，再補分支。</p>
+    </div>
+    <div class="content">
+      <div class="priority">
+        <div class="priority-card">
+          <h3>第一版必做</h3>
+          <ol>
+            <li>落地頁入口</li>
+            <li>假登入</li>
+            <li>分流問答 2 題</li>
+            <li>任務卡產生</li>
+            <li>QBOT 3 題假作答</li>
+            <li>QBOT 成績結算</li>
+            <li>一鍵帶入 S.E.N.S.E.I</li>
+            <li>S.E.N.S.E.I 假解析</li>
+            <li>成果摘要</li>
+            <li>解鎖試用配額與任務頁</li>
+          </ol>
+        </div>
+        <div class="priority-card">
+          <h3>第二版再補</h3>
+          <ol>
+            <li>WriteAhead 分支</li>
+            <li>作文批閱互動</li>
+            <li>個人化成果頁變體</li>
+            <li>分享頁或家長查看頁</li>
+            <li>儀表板解鎖進度</li>
+            <li>新手限定禮包提示</li>
+          </ol>
+        </div>
+      </div>
+      <div class="callout teal"><strong>最終判斷標準：</strong>如果使用者跑完後能說出「我剛剛知道自己哪裡卡住，而且知道下一步要做什麼」，這套新手教學就成功了。</div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <strong>LTrust 新手教學腳本流程｜說明網頁稿 v1.0</strong>
+  用途：內部討論、UI prototype 前置說明、工作量拆分前的共識文件
+</footer>
+</body>
+</html>
