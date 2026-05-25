@@ -9,14 +9,18 @@
       --ui-bg: rgba(8, 10, 14, 0.82);
       --ui-bg-strong: rgba(8, 10, 14, 0.94);
       --ui-border: rgba(255, 255, 255, 0.18);
+      --ui-panel: rgba(4, 6, 9, 0.72);
       --text: #f4f1ea;
       --muted: rgba(244, 241, 234, 0.72);
-      --accent: #d8b36a;
+      --accent: #aeb4bd;
+      --accent-2: #d8b36a;
       --danger: #df6b6b;
-      --oldnoodle: #d8b36a;
-      --tingru: #95d9ff;
-      --system: #c8c8c8;
+      --speaker-default: #d8b36a;
+      --speaker-tingru: #e7b84a;
+      --speaker-jami: #82a8ff;
+      --speaker-system: #c8c8c8;
       --shadow: rgba(0, 0, 0, 0.55);
+      --focus-glow: rgba(180, 188, 200, 0.16);
       --font: "Noto Sans TC", "Microsoft JhengHei", "PingFang TC", system-ui, sans-serif;
     }
 
@@ -39,6 +43,49 @@
       height: 100vh;
       overflow: hidden;
       background: #050609;
+      --ui-bg: rgba(8, 10, 14, 0.82);
+      --ui-bg-strong: rgba(8, 10, 14, 0.94);
+      --ui-border: rgba(255, 255, 255, 0.18);
+      --ui-panel: rgba(4, 6, 9, 0.72);
+      --accent: #aeb4bd;
+      --accent-soft: rgba(174, 180, 189, 0.18);
+      --focus-glow: rgba(180, 188, 200, 0.16);
+    }
+
+    /*
+      UI 焦點色，不等於說話者。
+      g / gray / oldnoodle / laomian / kait / lei / system：灰色系
+      t / tingru：庭如共感、庭如操作段落，暖黃色
+      j / jami / stage：傑米台上表演段，冷藍色
+    */
+    #game.theme-gray {
+      --ui-bg: rgba(9, 11, 15, 0.82);
+      --ui-bg-strong: rgba(8, 10, 14, 0.94);
+      --ui-border: rgba(205, 213, 224, 0.22);
+      --ui-panel: rgba(8, 10, 14, 0.76);
+      --accent: #b6bcc6;
+      --accent-soft: rgba(182, 188, 198, 0.18);
+      --focus-glow: rgba(182, 188, 198, 0.15);
+    }
+
+    #game.theme-tingru {
+      --ui-bg: rgba(24, 18, 6, 0.82);
+      --ui-bg-strong: rgba(30, 22, 7, 0.94);
+      --ui-border: rgba(244, 199, 86, 0.34);
+      --ui-panel: rgba(33, 24, 8, 0.76);
+      --accent: #f1c85f;
+      --accent-soft: rgba(241, 200, 95, 0.20);
+      --focus-glow: rgba(241, 188, 76, 0.20);
+    }
+
+    #game.theme-jami {
+      --ui-bg: rgba(5, 12, 28, 0.84);
+      --ui-bg-strong: rgba(4, 10, 24, 0.95);
+      --ui-border: rgba(108, 160, 255, 0.34);
+      --ui-panel: rgba(6, 14, 31, 0.78);
+      --accent: #82a8ff;
+      --accent-soft: rgba(108, 160, 255, 0.20);
+      --focus-glow: rgba(82, 138, 255, 0.22);
     }
 
     #bgLayer, #spriteLayer, #effectLayer, #uiLayer, #overlayLayer {
@@ -62,6 +109,18 @@
         radial-gradient(circle at 50% 35%, rgba(255,255,255,0.05), transparent 36%),
         linear-gradient(to bottom, rgba(0,0,0,0.15), rgba(0,0,0,0.58));
       pointer-events: none;
+    }
+
+    #game.theme-tingru #bgLayer::after {
+      background:
+        radial-gradient(circle at 48% 36%, rgba(241,200,95,0.07), transparent 34%),
+        linear-gradient(to bottom, rgba(0,0,0,0.10), rgba(23,15,3,0.64));
+    }
+
+    #game.theme-jami #bgLayer::after {
+      background:
+        radial-gradient(circle at 50% 32%, rgba(92,140,255,0.08), transparent 34%),
+        linear-gradient(to bottom, rgba(0,0,0,0.12), rgba(3,9,24,0.66));
     }
 
     #spriteLayer {
@@ -101,9 +160,7 @@
       overflow: hidden;
     }
 
-    #effectLayer.blackout {
-      background: #000;
-    }
+    #effectLayer.blackout { background: #000; }
 
     #flash {
       position: absolute;
@@ -146,10 +203,10 @@
       border: 1px solid rgba(255,255,255,0.16);
       border-radius: 999px;
       background: rgba(6, 9, 14, 0.56);
-      color: rgba(235, 247, 255, 0.88);
-      font-size: clamp(14px, 1.55vw, 24px);
+      color: rgba(255, 239, 196, 0.92);
+      font-size: clamp(15px, 1.65vw, 25px);
       letter-spacing: 0.12em;
-      text-shadow: 0 0 12px rgba(135, 211, 255, 0.9);
+      text-shadow: 0 0 14px rgba(241, 200, 95, 0.85);
       animation: emotionFloat 3.2s ease forwards;
       pointer-events: none;
       white-space: nowrap;
@@ -179,19 +236,18 @@
     }
 
     #modeBadge {
-      min-width: 190px;
-      padding: 9px 14px;
+      min-width: 210px;
+      padding: 10px 16px;
       border: 1px solid var(--ui-border);
       border-radius: 999px;
       background: rgba(0,0,0,0.42);
-      color: var(--muted);
+      color: var(--accent);
       font-size: 14px;
       letter-spacing: 0.08em;
       backdrop-filter: blur(8px);
+      box-shadow: 0 0 26px var(--focus-glow);
+      transition: color 240ms ease, border-color 240ms ease, box-shadow 240ms ease;
     }
-
-    #modeBadge.oldnoodle { color: var(--oldnoodle); box-shadow: 0 0 24px rgba(216,179,106,0.12); }
-    #modeBadge.tingru { color: var(--tingru); box-shadow: 0 0 24px rgba(149,217,255,0.12); }
 
     #buttonRow {
       display: flex;
@@ -208,56 +264,66 @@
       font-size: 13px;
       cursor: pointer;
       backdrop-filter: blur(8px);
+      transition: color 160ms ease, border-color 160ms ease, background 160ms ease;
     }
 
     .top-btn:hover { color: var(--text); border-color: rgba(255,255,255,0.34); }
-    .top-btn.active { color: var(--accent); border-color: rgba(216,179,106,0.62); }
+    .top-btn.active { color: var(--accent); border-color: var(--accent); background: var(--accent-soft); }
 
     #mainHud {
       display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(260px, 28vw);
-      gap: 16px;
+      grid-template-columns: minmax(0, 1fr) clamp(340px, 31vw, 460px);
+      gap: 18px;
       align-items: end;
-      padding: 0 20px 20px;
+      padding: 0 24px 24px;
       pointer-events: none;
     }
 
     #dialogueBox {
-      min-height: 160px;
-      padding: 18px 22px 20px;
+      min-height: 184px;
+      padding: 22px 26px 24px;
       border: 1px solid var(--ui-border);
-      border-radius: 20px;
-      background: linear-gradient(180deg, rgba(13,16,22,0.82), rgba(5,7,10,0.91));
-      box-shadow: 0 18px 45px var(--shadow);
+      border-radius: 22px;
+      background: linear-gradient(180deg, var(--ui-bg), var(--ui-bg-strong));
+      box-shadow: 0 18px 45px var(--shadow), 0 0 34px var(--focus-glow);
       backdrop-filter: blur(12px);
       pointer-events: auto;
       cursor: pointer;
       position: relative;
+      transition: background 240ms ease, border-color 240ms ease, box-shadow 240ms ease;
     }
 
     #speakerName {
       display: inline-flex;
       align-items: center;
-      min-height: 28px;
-      margin-bottom: 10px;
-      padding: 4px 12px;
+      min-height: 34px;
+      margin-bottom: 12px;
+      padding: 5px 15px;
       border-radius: 999px;
-      background: rgba(255,255,255,0.08);
-      color: var(--accent);
-      font-size: 15px;
-      font-weight: 700;
-      letter-spacing: 0.06em;
+      background: rgba(255,255,255,0.09);
+      border: 1px solid rgba(255,255,255,0.10);
+      color: var(--speaker-default);
+      font-size: clamp(20px, 1.9vw, 28px);
+      font-weight: 850;
+      letter-spacing: 0.075em;
+      line-height: 1.25;
+      text-shadow: 0 2px 12px rgba(0,0,0,0.55);
     }
 
-    #speakerName.tingru { color: var(--tingru); }
-    #speakerName.system { color: var(--system); }
-    #speakerName.narrator { color: rgba(255,255,255,0.75); }
+    #speakerName.oldnoodle,
+    #speakerName.laomian,
+    #speakerName.kate,
+    #speakerName.lei { color: var(--speaker-default); }
+    #speakerName.tingru { color: var(--speaker-tingru); }
+    #speakerName.jami { color: var(--speaker-jami); }
+    #speakerName.system { color: var(--speaker-system); }
+    #speakerName.narrator { color: rgba(255,255,255,0.82); }
 
     #dialogueText {
-      min-height: 68px;
+      min-height: 76px;
       color: var(--text);
-      font-size: clamp(18px, 2vw, 25px);
-      line-height: 1.85;
+      font-size: clamp(18px, 1.85vw, 25px);
+      line-height: 1.86;
       letter-spacing: 0.035em;
       white-space: pre-wrap;
       text-shadow: 0 2px 10px rgba(0,0,0,0.55);
@@ -265,10 +331,10 @@
 
     #nextIndicator {
       position: absolute;
-      right: 20px;
-      bottom: 12px;
-      color: rgba(255,255,255,0.62);
-      font-size: 16px;
+      right: 22px;
+      bottom: 14px;
+      color: var(--accent);
+      font-size: 17px;
       animation: blink 900ms ease-in-out infinite;
     }
 
@@ -278,55 +344,63 @@
     }
 
     #sidePanel {
-      min-height: 160px;
-      padding: 14px;
+      min-height: 184px;
+      max-height: 36vh;
+      padding: 20px 22px;
       border: 1px solid var(--ui-border);
-      border-radius: 18px;
-      background: rgba(4, 6, 9, 0.72);
-      box-shadow: 0 18px 45px var(--shadow);
+      border-radius: 20px;
+      background: var(--ui-panel);
+      box-shadow: 0 18px 45px var(--shadow), 0 0 28px var(--focus-glow);
       backdrop-filter: blur(12px);
       pointer-events: auto;
       overflow: hidden;
+      transition: background 240ms ease, border-color 240ms ease, box-shadow 240ms ease;
     }
 
     #sideTitle {
-      color: var(--muted);
-      font-size: 13px;
-      letter-spacing: 0.14em;
-      margin-bottom: 10px;
+      color: var(--accent);
+      font-size: clamp(15px, 1.25vw, 18px);
+      font-weight: 800;
+      letter-spacing: 0.13em;
+      margin-bottom: 12px;
+      line-height: 1.35;
     }
 
     #sideContent {
-      color: rgba(255,255,255,0.82);
-      font-size: 14px;
-      line-height: 1.65;
+      color: rgba(255,255,255,0.86);
+      font-size: clamp(16px, 1.25vw, 19px);
+      line-height: 1.78;
       white-space: pre-wrap;
-      max-height: 130px;
+      max-height: calc(36vh - 74px);
       overflow: auto;
+      padding-right: 4px;
     }
+
+    #sideContent::-webkit-scrollbar { width: 8px; }
+    #sideContent::-webkit-scrollbar-thumb { background: var(--accent-soft); border-radius: 999px; }
 
     #choices {
       position: absolute;
       left: 50%;
-      bottom: 215px;
-      width: min(860px, calc(100vw - 40px));
+      bottom: 245px;
+      width: min(900px, calc(100vw - 48px));
       transform: translateX(-50%);
       z-index: 5;
       display: none;
       flex-direction: column;
-      gap: 10px;
+      gap: 12px;
       pointer-events: auto;
     }
 
     .choice-btn {
       width: 100%;
-      padding: 14px 18px;
-      border: 1px solid rgba(255,255,255,0.18);
-      border-radius: 14px;
+      padding: 15px 20px;
+      border: 1px solid var(--ui-border);
+      border-radius: 15px;
       background: rgba(9, 12, 17, 0.88);
       color: var(--text);
-      font-size: 17px;
-      line-height: 1.55;
+      font-size: 18px;
+      line-height: 1.58;
       text-align: left;
       cursor: pointer;
       backdrop-filter: blur(12px);
@@ -336,8 +410,8 @@
 
     .choice-btn:hover {
       transform: translateY(-2px);
-      border-color: rgba(216,179,106,0.7);
-      background: rgba(19, 17, 13, 0.92);
+      border-color: var(--accent);
+      background: var(--ui-bg-strong);
     }
 
     #overlayLayer {
@@ -351,11 +425,11 @@
     }
 
     #overlayCard {
-      width: min(720px, calc(100vw - 34px));
+      width: min(760px, calc(100vw - 34px));
       max-height: calc(100vh - 60px);
       overflow: auto;
-      padding: 24px;
-      border: 1px solid rgba(255,255,255,0.18);
+      padding: 26px;
+      border: 1px solid var(--ui-border);
       border-radius: 22px;
       background: rgba(9, 12, 17, 0.96);
       box-shadow: 0 30px 90px rgba(0,0,0,0.7);
@@ -364,12 +438,20 @@
     #overlayCard h2 {
       margin: 0 0 10px;
       color: var(--accent);
-      font-size: 22px;
+      font-size: 24px;
     }
 
     #overlayCard p, #overlayCard li {
-      color: rgba(255,255,255,0.8);
-      line-height: 1.72;
+      color: rgba(255,255,255,0.82);
+      line-height: 1.76;
+      font-size: 16px;
+    }
+
+    #overlayCard code {
+      padding: 2px 6px;
+      border-radius: 6px;
+      background: rgba(255,255,255,0.09);
+      color: #fff3ce;
     }
 
     #overlayClose {
@@ -384,9 +466,7 @@
 
     .hidden { display: none !important; }
 
-    .shake {
-      animation: shake 420ms cubic-bezier(.36,.07,.19,.97) both;
-    }
+    .shake { animation: shake 420ms cubic-bezier(.36,.07,.19,.97) both; }
 
     @keyframes shake {
       10%, 90% { transform: translate3d(-1px, 0, 0); }
@@ -395,9 +475,7 @@
       40%, 60% { transform: translate3d(4px, 0, 0); }
     }
 
-    .glitch {
-      animation: glitch 520ms steps(2) both;
-    }
+    .glitch { animation: glitch 520ms steps(2) both; }
 
     @keyframes glitch {
       0% { filter: hue-rotate(0deg) contrast(1); transform: translate(0,0); }
@@ -407,8 +485,19 @@
       100% { filter: hue-rotate(0deg) contrast(1); transform: translate(0,0); }
     }
 
+    @media (max-width: 980px) {
+      #mainHud {
+        grid-template-columns: 1fr minmax(300px, 35vw);
+        gap: 14px;
+        padding: 0 16px 16px;
+      }
+      #sidePanel { padding: 16px 18px; }
+      #sideContent { font-size: 16px; }
+    }
+
     @media (max-width: 820px) {
       #topBar { padding: 10px 12px; }
+      #modeBadge { min-width: auto; max-width: 52vw; font-size: 12px; padding: 8px 12px; }
       #buttonRow .top-btn:nth-child(n+5) { display: none; }
       #mainHud {
         grid-template-columns: 1fr;
@@ -416,9 +505,10 @@
         padding: 0 12px 12px;
       }
       #sidePanel { display: none; }
-      #dialogueBox { min-height: 178px; padding: 14px 16px 18px; }
-      #dialogueText { font-size: 18px; line-height: 1.75; }
-      #choices { bottom: 205px; width: calc(100vw - 24px); }
+      #dialogueBox { min-height: 190px; padding: 16px 18px 20px; }
+      #speakerName { font-size: 20px; min-height: 31px; margin-bottom: 10px; }
+      #dialogueText { font-size: 18px; line-height: 1.78; }
+      #choices { bottom: 218px; width: calc(100vw - 24px); }
       .choice-btn { font-size: 16px; padding: 12px 14px; }
       .sprite { max-width: 68vw; }
       .sprite.left { left: -2vw; }
@@ -427,7 +517,7 @@
   </style>
 </head>
 <body>
-  <div id="game">
+  <div id="game" class="theme-gray">
     <div id="bgLayer"></div>
     <div id="spriteLayer"></div>
     <div id="effectLayer">
@@ -483,16 +573,19 @@
      * 1. 將本檔命名為 index.html。
      * 2. 建立 data/script.json。
      * 3. 建立 assets/images、assets/bgm、assets/sfx。
-     * 4. 上傳整個資料夾到 GitHub Pages、Netlify、Cloudflare Pages、Firebase Hosting 等免費靜態網頁空間。
+     * 4. 上傳整個資料夾到 GitHub Pages、Netlify、Cloudflare Pages 等靜態網頁空間。
      * 5. 玩家打開網址即可遊玩，不需要安裝 Python、Java、Node.js 或任何執行環境。
      *
-     * 注意：這是純 HTML + CSS + JavaScript 前端遊戲。
-     * 傳統 Java 不能直接在現代瀏覽器中執行，Java Applet 也已經被淘汰。
+     * 新增：焦點 UI 指令。
+     *   { "type": "ui", "v": "g" }  灰色：老麵、凱特、雷老師、系統旁白等一般焦點
+     *   { "type": "ui", "v": "t" }  暖黃色：庭如操作／共感焦點
+     *   { "type": "ui", "v": "j" }  冷藍色：傑米台上表演焦點
+     * 也可以掛在任一指令上：{ "type": "say", "ui": "t", "speaker": "庭如", "text": "..." }
      ***********************************************************************/
 
     const CONFIG = {
       scriptPath: "./data/script.json",
-      saveKey: "before_fadeout_save_v1",
+      saveKey: "before_fadeout_save_v2",
       textSpeed: 26,
       autoDelayBase: 1200,
       autoDelayPerChar: 38,
@@ -544,6 +637,7 @@
       startedAudio: false,
       currentBgmId: null,
       currentMode: "system",
+      currentUi: "g",
       continueAfterBusy: false,
       bgmToken: 0,
       sprites: new Map()
@@ -570,11 +664,12 @@
         backgrounds: {},
         characters: {},
         bgm: {},
+        ambience: {},
         sfx: {}
       },
       scenes: {
         start: [
-          { "type": "mode", "value": "system", "label": "SYSTEM / NO SCRIPT" },
+          { "type": "ui", "v": "g", "label": "SYSTEM / NO SCRIPT" },
           { "type": "note", "title": "SCRIPT NOT FOUND", "text": "找不到 data/script.json。\n請建立劇情腳本檔案後重新整理頁面。" },
           { "type": "narrate", "text": "找不到 data/script.json。這個 index.html 是純遊戲引擎，不包含正式劇情。" },
           { "type": "end" }
@@ -586,6 +681,7 @@
       bindEvents();
       state.script = await loadScript();
       validateScene(state.sceneId);
+      applyFocusUi("g", "SYSTEM / READY");
       setSideNote("SYSTEM", `腳本載入完成：${state.script.meta?.title || "Untitled"}\n按一下文字框或按 Enter / Space 推進。`);
       await runCurrent();
     }
@@ -626,7 +722,6 @@
       dom.overlayClose.addEventListener("click", hideOverlay);
       dom.overlay.addEventListener("click", (e) => { if (e.target === dom.overlay) hideOverlay(); });
 
-      // 任何第一次互動都可解除瀏覽器音訊限制。
       ["click", "keydown", "touchstart"].forEach((eventName) => {
         document.addEventListener(eventName, unlockAudio, { once: true });
       });
@@ -649,7 +744,7 @@
         await execute(cmd);
       } catch (err) {
         console.error("Command error:", cmd, err);
-        await showText("系統", `腳本指令執行錯誤：${cmd.type}\n${err.message}`, "system");
+        await showText("系統", `腳本指令執行錯誤：${cmd.type || "unknown"}\n${err.message}`, "system");
       } finally {
         state.busy = false;
         if (state.continueAfterBusy && !state.awaitingChoice && !state.typing) {
@@ -659,7 +754,11 @@
       }
     }
 
-    async function execute(cmd) {
+    async function execute(cmd = {}) {
+      if (cmd.ui || cmd.focus) {
+        applyFocusUi(cmd.ui || cmd.focus, cmd.label);
+      }
+
       switch (cmd.type) {
         case "say":
           await showText(cmd.speaker || "", cmd.text || "", classifySpeaker(cmd.speaker));
@@ -667,8 +766,13 @@
         case "narrate":
           await showText("旁白", cmd.text || "", "narrator");
           break;
+        case "ui":
+        case "focus":
+          applyFocusUi(cmd.v || cmd.value || cmd.focus || cmd.ui || "g", cmd.label || cmd.l);
+          nextCommand();
+          break;
         case "mode":
-          setMode(cmd.value || "system", cmd.label || cmd.value || "SYSTEM");
+          setMode(cmd.value || cmd.v || "system", cmd.label || cmd.l || cmd.value || cmd.v || "SYSTEM");
           nextCommand();
           break;
         case "bg":
@@ -750,9 +854,7 @@
         finishTyping();
         return;
       }
-      if (!state.busy) {
-        nextCommand();
-      }
+      if (!state.busy) nextCommand();
     }
 
     function nextCommand() {
@@ -770,9 +872,7 @@
     }
 
     function validateScene(id) {
-      if (!state.script?.scenes?.[id]) {
-        throw new Error(`找不到場景：${id}`);
-      }
+      if (!state.script?.scenes?.[id]) throw new Error(`找不到場景：${id}`);
     }
 
     function jumpTo(sceneId) {
@@ -797,14 +897,10 @@
       else nextCommand();
     }
 
-    function getFlag(path) {
-      return state.flags[path];
-    }
+    function getFlag(path) { return state.flags[path]; }
 
     function applySet(values) {
-      Object.entries(values).forEach(([key, value]) => {
-        state.flags[key] = value;
-      });
+      Object.entries(values).forEach(([key, value]) => { state.flags[key] = value; });
     }
 
     async function showText(speaker, text, className) {
@@ -855,8 +951,13 @@
 
     function classifySpeaker(speaker) {
       if (!speaker) return "narrator";
-      if (["庭如"].includes(speaker)) return "tingru";
-      if (["系統"].includes(speaker)) return "system";
+      const s = String(speaker).trim().toLowerCase();
+      if (["庭如", "tingru"].includes(s)) return "tingru";
+      if (["傑米", "jami", "啟業"].includes(s)) return "jami";
+      if (["老麵", "老面", "oldnoodle", "laomian"].includes(s)) return "oldnoodle";
+      if (["凱特", "kate"].includes(s)) return "kate";
+      if (["雷老師", "老師", "lei"].includes(s)) return "lei";
+      if (["系統", "system"].includes(s)) return "system";
       return "";
     }
 
@@ -877,6 +978,7 @@
         btn.textContent = option.text || `選項 ${idx + 1}`;
         btn.addEventListener("click", () => {
           playSfx("click", 0.35);
+          if (option.ui || option.focus) applyFocusUi(option.ui || option.focus, option.label);
           applySet(option.set || {});
           dom.choices.style.display = "none";
           dom.choices.innerHTML = "";
@@ -889,15 +991,38 @@
       dom.choices.style.display = "flex";
     }
 
+    function normalizeFocus(value) {
+      const v = String(value || "g").trim().toLowerCase();
+      if (["t", "tingru", "warm", "yellow", "empathy"].includes(v)) return "t";
+      if (["j", "jami", "stage", "blue", "cool"].includes(v)) return "j";
+      return "g";
+    }
+
+    function focusLabel(focus) {
+      if (focus === "t") return "TINGRU / EMPATHY";
+      if (focus === "j") return "JAMI / STAGE";
+      return "SYSTEM / CASE";
+    }
+
+    function applyFocusUi(value, label) {
+      const focus = normalizeFocus(value);
+      state.currentUi = focus;
+      dom.game.classList.remove("theme-gray", "theme-tingru", "theme-jami");
+      if (focus === "t") dom.game.classList.add("theme-tingru");
+      else if (focus === "j") dom.game.classList.add("theme-jami");
+      else dom.game.classList.add("theme-gray");
+      dom.modeBadge.textContent = label || focusLabel(focus);
+      dom.modeBadge.dataset.focus = focus;
+    }
+
     function setMode(value, label) {
       state.currentMode = value;
-      dom.modeBadge.textContent = label || value;
-      dom.modeBadge.className = "";
-      dom.modeBadge.classList.add(value);
-      if (value === "tingru") {
-        dom.bg.style.filter = "saturate(0.72) brightness(0.82) contrast(1.08)";
-      } else if (value === "oldnoodle") {
-        dom.bg.style.filter = "saturate(0.9) brightness(0.95) contrast(1.02)";
+      // 舊 JSON 若使用 mode，也盡量轉成焦點 UI，但不以 speaker 觸發。
+      applyFocusUi(value, label || value || "SYSTEM");
+      if (normalizeFocus(value) === "t") {
+        dom.bg.style.filter = "saturate(0.86) brightness(0.90) contrast(1.05)";
+      } else if (normalizeFocus(value) === "j") {
+        dom.bg.style.filter = "saturate(0.78) brightness(0.86) contrast(1.10)";
       } else {
         dom.bg.style.filter = "";
       }
@@ -917,9 +1042,8 @@
         await wait(260);
       }
 
-      if (bg.color) {
-        dom.bg.style.backgroundImage = bg.color;
-      } else if (bg.src || typeof bg === "string") {
+      if (bg.color) dom.bg.style.backgroundImage = bg.color;
+      else if (bg.src || typeof bg === "string") {
         const src = bg.src || bg;
         dom.bg.style.backgroundImage = `url("${src}")`;
       }
@@ -977,9 +1101,7 @@
     function safePlay(media) {
       try {
         const promise = media.play();
-        if (promise && typeof promise.catch === "function") {
-          promise.catch(() => {});
-        }
+        if (promise && typeof promise.catch === "function") promise.catch(() => {});
       } catch (_) {}
     }
 
@@ -999,7 +1121,6 @@
       next.volume = 0;
       audio.bgmNext = next;
 
-      // 不等待音檔載入或瀏覽器 autoplay 結果，避免缺素材時卡住劇情。
       safePlay(next);
 
       Promise.all([
@@ -1011,11 +1132,7 @@
           return;
         }
         old.pause();
-        old.src = next.src;
-        old.loop = next.loop;
-        old.volume = next.volume;
-        safePlay(old);
-        next.pause();
+        audio.bgm = next;
         audio.bgmNext = null;
       });
     }
@@ -1071,26 +1188,13 @@
 
     async function runEffect(cmd) {
       switch (cmd.name) {
-        case "shake":
-          await shake(cmd.target || "game");
-          break;
-        case "flash":
-          await flash(cmd.opacity ?? 0.85, cmd.ms ?? 260);
-          break;
-        case "glitch":
-          await glitch(cmd.target || "bg");
-          break;
-        case "empathy":
-          await empathyWords(cmd.words || []);
-          break;
-        case "fadeBlack":
-          await fadeBlack(cmd.ms ?? 700);
-          break;
-        case "fadeClear":
-          await fadeClear(cmd.ms ?? 700);
-          break;
-        default:
-          console.warn("Unknown effect:", cmd.name);
+        case "shake": await shake(cmd.target || "game"); break;
+        case "flash": await flash(cmd.opacity ?? 0.85, cmd.ms ?? 260); break;
+        case "glitch": await glitch(cmd.target || "bg"); break;
+        case "empathy": await empathyWords(cmd.words || []); break;
+        case "fadeBlack": await fadeBlack(cmd.ms ?? 700); break;
+        case "fadeClear": await fadeClear(cmd.ms ?? 700); break;
+        default: console.warn("Unknown effect:", cmd.name);
       }
     }
 
@@ -1134,20 +1238,18 @@
     }
 
     async function empathyWords(words) {
-      const list = words.length ? words : ["悲傷", "懷疑", "恐懼"];
-      list.forEach((word, i) => {
+      const list = Array.isArray(words) ? words : String(words || "").split(/[，,\s]+/).filter(Boolean);
+      if (!list.length) return;
+      list.forEach((word, idx) => {
         const el = document.createElement("div");
         el.className = "emotion-word";
         el.textContent = word;
-        const x = 8 + Math.random() * 78;
-        const y = 18 + Math.random() * 48;
-        el.style.left = `${x}vw`;
-        el.style.top = `${y}vh`;
-        el.style.animationDelay = `${i * 120}ms`;
+        el.style.left = `${15 + ((idx * 23) % 66)}vw`;
+        el.style.top = `${18 + ((idx * 17) % 46)}vh`;
+        el.style.animationDelay = `${idx * 130}ms`;
         dom.effects.appendChild(el);
-        setTimeout(() => el.remove(), 4100 + i * 120);
+        setTimeout(() => el.remove(), 3800 + idx * 130);
       });
-      await glitch("bg");
       await wait(900);
     }
 
@@ -1163,6 +1265,7 @@
         flags: state.flags,
         log: state.log,
         currentMode: state.currentMode,
+        currentUi: state.currentUi,
         savedAt: new Date().toISOString()
       };
       localStorage.setItem(CONFIG.saveKey, JSON.stringify(payload));
@@ -1184,6 +1287,7 @@
         state.awaitingChoice = false;
         state.busy = false;
         state.typing = false;
+        if (payload.currentUi) applyFocusUi(payload.currentUi);
         dom.choices.style.display = "none";
         toast("已讀取進度。", "LOAD");
         runCurrent();
@@ -1216,33 +1320,22 @@
       showOverlay("對話紀錄", html);
     }
 
-    function showHelpOnFirstRun() {
-      if (!localStorage.getItem("before_fadeout_help_seen")) {
-        localStorage.setItem("before_fadeout_help_seen", "1");
-        setTimeout(showHelp, 500);
-      }
-    }
-
     function showHelp() {
       showOverlay("操作說明", `
         <p><strong>滑鼠左鍵 / Enter / Space</strong>：推進文字。文字播放中可直接顯示完整句子。</p>
         <p><strong>S</strong>：儲存。<strong>L</strong>：讀取。<strong>A</strong>：AUTO。</p>
-        <p>本引擎只負責讀取 <code>data/script.json</code> 並執行。若讀不到，會顯示缺少腳本提示，不會內建正式劇情。</p>
-        <p>素材建議放置：</p>
+        <p>UI 焦點色不是看誰說話，而是看目前故事焦點。JSON 可用短指令：</p>
         <ul>
-          <li><code>assets/images/</code>：背景、角色、CG</li>
-          <li><code>assets/bgm/</code>：背景音樂</li>
-          <li><code>assets/sfx/</code>：音效</li>
-          <li><code>data/script.json</code>：劇情腳本</li>
+          <li><code>{"type":"ui","v":"g"}</code>：灰色，一般案件／老麵／凱特／雷老師／系統旁白。</li>
+          <li><code>{"type":"ui","v":"t"}</code>：暖黃色，庭如操作／共感。</li>
+          <li><code>{"type":"ui","v":"j"}</code>：冷藍色，傑米台上表演。</li>
         </ul>
-        <p>正式上線時，只要把整個資料夾上傳到免費靜態網頁空間即可，例如 GitHub Pages、Netlify、Cloudflare Pages。玩家打開網址就能玩。</p>
-        <p>本機測試時不要直接用 <code>file://</code> 開啟，因為瀏覽器可能擋住 JSON 與音訊載入。建議用 VS Code 的 Live Server 或任何靜態網頁預覽工具。</p>
+        <p>也可以直接掛在任一指令上，例如 <code>{"type":"say","ui":"t","speaker":"庭如","text":"..."}</code>。</p>
+        <p>本機測試時不要直接用 <code>file://</code> 開啟，建議用 VS Code Live Server。</p>
       `);
     }
 
-    function toast(text, title = "SYSTEM") {
-      setSideNote(title, text);
-    }
+    function toast(text, title = "SYSTEM") { setSideNote(title, text); }
 
     function showOverlay(title, html) {
       dom.overlayTitle.textContent = title;
@@ -1250,16 +1343,17 @@
       dom.overlay.style.display = "flex";
     }
 
-    function hideOverlay() {
-      dom.overlay.style.display = "none";
+    function hideOverlay() { dom.overlay.style.display = "none"; }
+
+    async function endGame() {
+      dom.speaker.textContent = "END";
+      dom.speaker.className = "system";
+      dom.text.textContent = "本段落結束。";
+      dom.next.style.opacity = "0";
     }
 
-    function wait(ms) {
-      return new Promise(resolve => setTimeout(resolve, ms));
-    }
-
-    function escapeHtml(str) {
-      return String(str)
+    function escapeHtml(value) {
+      return String(value ?? "")
         .replaceAll("&", "&amp;")
         .replaceAll("<", "&lt;")
         .replaceAll(">", "&gt;")
@@ -1268,16 +1362,12 @@
         .replaceAll("\n", "<br>");
     }
 
-    async function endGame() {
-      await fadeBlack(900);
-      dom.speaker.textContent = "Before Fadeout";
-      dom.speaker.className = "system";
-      dom.text.textContent = "Case Closed";
-      setSideNote("END", "遊戲結束。可重新整理頁面或讀取存檔。");
-      dom.next.style.opacity = "0";
-    }
+    function wait(ms) { return new Promise(resolve => setTimeout(resolve, ms)); }
 
-    init();
+    init().catch((err) => {
+      console.error(err);
+      setSideNote("SYSTEM ERROR", err.message || String(err));
+    });
   </script>
 </body>
 </html>
