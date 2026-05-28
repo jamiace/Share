@@ -1,12 +1,26 @@
 {
   "meta": {
     "title": "Before Fades：地獄脫口秀的產品發表會",
-    "version": "2.0.2-index-layering-fix-r2",
+    "version": "2.1.0-directed-script-compatible",
     "language": "zh-Hant",
     "engine": "Before Fades Static Web Visual Novel Engine",
     "startScene": "start",
-    "description": "完整文本版：擴充地獄脫口秀、共感、舞台cue、演出結束觀察與案件封存。 / 調整角色圖層清除、舞台限定傑米立繪、錄音回憶背景與背景切換節奏。",
-    "imageAssetSet": "aligned-to-provided-assets-2026-05-28"
+    "description": "完整文本版：擴充地獄脫口秀、共感、舞台cue、演出結束觀察與案件封存。 / 新增相容式導演腳本欄位：sceneMode、conversation、displayMode、documentTarget、speakerFocus、lockInput。",
+    "imageAssetSet": "aligned-to-provided-assets-2026-05-28",
+    "directingScript": {
+      "version": "1.0",
+      "compatibleWithLegacyIndex": true,
+      "principle": "保留既有可執行指令，不新增未知 command type；以現有指令欄位補足演出語意。",
+      "fields": {
+        "sceneMode": "描述目前場域/演出狀態，例如 title、control、empathy、jamie_room、memory、stage、confession、reincarnation、afterward、office、report。",
+        "conversation": "描述此片段的人物參與結構；舊引擎忽略，新引擎可據此穩定排版。",
+        "displayMode": "描述圖片用法：background、cg、document、logo、color。",
+        "documentTarget": "document 圖片顯示位置，目前設定為 sidePanelExpandable。",
+        "speakerFocus": "描述說話者在畫面上的重要性：primary、voice。避免把錄音/新聞/影片聲音誤當現場人物。",
+        "lockInput": "特效期間是否鎖定滑鼠與鍵盤操作。",
+        "visualBg": "共感特效搭配的情緒背景圖。"
+      }
+    }
   },
   "assets": {
     "backgrounds": {
@@ -445,7 +459,20 @@
         "type": "bg",
         "id": "title",
         "transition": "fade",
-        "waitAfter": 700
+        "waitAfter": 700,
+        "sceneMode": "title",
+        "conversation": {
+          "layout": "choice",
+          "participants": [],
+          "voiceOnlyParticipants": [],
+          "placementPolicy": "primary-left-secondary-right-swap-once",
+          "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
+        },
+        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
+        "displayMode": "background",
+        "avoidUiOverlap": true,
+        "mainImageFit": "contain-in-safe-stage",
+        "underlayFit": "cover-fullscreen"
       },
       {
         "type": "bgm",
@@ -457,12 +484,22 @@
       {
         "type": "mode",
         "value": "system",
-        "label": "Before Fades"
+        "label": "Before Fades",
+        "sceneMode": "title",
+        "conversation": {
+          "layout": "choice",
+          "participants": [],
+          "voiceOnlyParticipants": [],
+          "placementPolicy": "primary-left-secondary-right-swap-once",
+          "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
+        },
+        "ui": "g"
       },
       {
         "type": "note",
         "title": "TITLE",
-        "text": "地獄脫口秀的產品發表會\n你不是來拯救他。\n你是來決定，他要如何被記得。"
+        "text": "地獄脫口秀的產品發表會\n你不是來拯救他。\n你是來決定，他要如何被記得。",
+        "sceneMode": "title"
       },
       {
         "type": "narrate",
@@ -480,14 +517,29 @@
             "text": "操作說明",
             "next": "help_01"
           }
-        ]
+        ],
+        "sceneMode": "title",
+        "choiceUi": {
+          "width": "70%",
+          "textAlign": "center",
+          "fontScale": "large"
+        }
       }
     ],
     "help_01": [
       {
         "type": "note",
         "title": "HELP",
-        "text": "滑鼠左鍵 / Enter / Space：推進文字\n文字播放中再次點擊：立即顯示完整句子\nSAVE / LOAD：瀏覽器本機存讀檔\nAUTO：自動播放\nSKIP：略過已讀文字或快速前進"
+        "text": "滑鼠左鍵 / Enter / Space：推進文字\n文字播放中再次點擊：立即顯示完整句子\nSAVE / LOAD：瀏覽器本機存讀檔\nAUTO：自動播放\nSKIP：略過已讀文字或快速前進",
+        "sceneMode": "help",
+        "conversation": {
+          "layout": "narrative",
+          "participants": [],
+          "voiceOnlyParticipants": [],
+          "placementPolicy": "primary-left-secondary-right-swap-once",
+          "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
+        },
+        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。"
       },
       {
         "type": "narrate",
@@ -502,16 +554,37 @@
       {
         "type": "mode",
         "value": "oldnoodle",
-        "label": "老麵 / 後台控制"
+        "label": "老麵 / 後台控制",
+        "sceneMode": "control",
+        "conversation": {
+          "layout": "group",
+          "participants": [
+            "oldnoodle",
+            "kate",
+            "ray",
+            "tingru"
+          ],
+          "voiceOnlyParticipants": [],
+          "placementPolicy": "primary-left-secondary-right-swap-once",
+          "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
+        },
+        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
+        "ui": "g"
       },
       {
-        "type": "clearSprites"
+        "type": "clearSprites",
+        "reason": "sceneBoundaryOrMajorVisualChange"
       },
       {
         "type": "bg",
         "id": "control_room",
         "transition": "fade",
-        "waitAfter": 700
+        "waitAfter": 700,
+        "displayMode": "background",
+        "sceneMode": "control",
+        "avoidUiOverlap": true,
+        "mainImageFit": "contain-in-safe-stage",
+        "underlayFit": "cover-fullscreen"
       },
       {
         "type": "bgm",
@@ -523,7 +596,8 @@
       {
         "type": "note",
         "title": "CASE / STATUS",
-        "text": "距離正式開始：32分鐘\n地點：市中心展演空間\n場域：後台臨時指揮中心"
+        "text": "距離正式開始：32分鐘\n地點：市中心展演空間\n場域：後台臨時指揮中心",
+        "sceneMode": "control"
       },
       {
         "type": "sfx",
@@ -539,18 +613,28 @@
         "text": "這裡不像傳統告別式。沒有罐頭塔，沒有輓聯，沒有誦經聲。取而代之的是冷灰色水泥牆、訂製香氛、半圓形排列的設計師單椅、巨大的 LED 螢幕，以及一支孤零零立在舞台中央的麥克風。"
       },
       {
-        "type": "clearSprites"
+        "type": "clearSprites",
+        "reason": "sceneBoundaryOrMajorVisualChange"
       },
       {
         "type": "bg",
         "id": "white_rose",
         "transition": "fade",
-        "waitAfter": 700
+        "waitAfter": 700,
+        "displayMode": "cg",
+        "sceneMode": "control",
+        "avoidUiOverlap": true,
+        "mainImageFit": "contain-in-safe-stage",
+        "underlayFit": "cover-fullscreen"
       },
       {
         "type": "say",
         "speaker": "老麵",
-        "text": "凱特，七號桌的白玫瑰，花瓣邊緣有一點點枯黃，去換掉。"
+        "text": "凱特，七號桌的白玫瑰，花瓣邊緣有一點點枯黃，去換掉。",
+        "character": "oldnoodle",
+        "speakerFocus": "primary",
+        "sceneMode": "control",
+        "presence": "onscreen"
       },
       {
         "type": "sfx",
@@ -560,51 +644,89 @@
       {
         "type": "say",
         "speaker": "凱特",
-        "text": "麵老闆，你裝了鷹眼嗎？全場一百二十個座位，三百多朵花，你怎麼看見的？"
+        "text": "麵老闆，你裝了鷹眼嗎？全場一百二十個座位，三百多朵花，你怎麼看見的？",
+        "character": "kate",
+        "speakerFocus": "primary",
+        "sceneMode": "control",
+        "presence": "onscreen"
       },
       {
         "type": "say",
         "speaker": "老麵",
-        "text": "我不是鷹。我是這場夢的守門人。"
+        "text": "我不是鷹。我是這場夢的守門人。",
+        "character": "oldnoodle",
+        "speakerFocus": "primary",
+        "sceneMode": "control",
+        "presence": "onscreen"
       },
       {
         "type": "say",
         "speaker": "老麵",
-        "text": "守門人不能容忍任何一點瑕疵吵醒做夢的人。"
+        "text": "守門人不能容忍任何一點瑕疵吵醒做夢的人。",
+        "character": "oldnoodle",
+        "speakerFocus": "primary",
+        "sceneMode": "control",
+        "presence": "onscreen"
       },
       {
         "type": "say",
         "speaker": "凱特",
-        "text": "你這句話很帥，但我還是要說，變態。"
+        "text": "你這句話很帥，但我還是要說，變態。",
+        "character": "kate",
+        "speakerFocus": "primary",
+        "sceneMode": "control",
+        "presence": "onscreen"
       },
       {
-        "type": "clearSprites"
+        "type": "clearSprites",
+        "reason": "sceneBoundaryOrMajorVisualChange"
       },
       {
         "type": "bg",
         "id": "control_room",
         "transition": "fade",
-        "waitAfter": 700
+        "waitAfter": 700,
+        "displayMode": "background",
+        "sceneMode": "control",
+        "avoidUiOverlap": true,
+        "mainImageFit": "contain-in-safe-stage",
+        "underlayFit": "cover-fullscreen"
       },
       {
         "type": "say",
         "speaker": "雷老師",
-        "text": "音訊軌道已經確認。保證連他吞口水時喉結滾動的聲音，都有死亡的 BASS 感。"
+        "text": "音訊軌道已經確認。保證連他吞口水時喉結滾動的聲音，都有死亡的 BASS 感。",
+        "character": "ray",
+        "speakerFocus": "primary",
+        "sceneMode": "control",
+        "presence": "onscreen"
       },
       {
         "type": "say",
         "speaker": "庭如",
-        "text": "很吵。"
+        "text": "很吵。",
+        "character": "tingru",
+        "speakerFocus": "primary",
+        "sceneMode": "control",
+        "presence": "onscreen"
       },
       {
         "type": "say",
         "speaker": "雷老師",
-        "text": "我音量還沒推啊。"
+        "text": "我音量還沒推啊。",
+        "character": "ray",
+        "speakerFocus": "primary",
+        "sceneMode": "control",
+        "presence": "onscreen"
       },
       {
         "type": "say",
         "speaker": "庭如",
-        "text": "不是聲音。是人。"
+        "text": "不是聲音。是人。",
+        "character": "tingru",
+        "speakerFocus": "primary",
+        "sceneMode": "control",
+        "presence": "onscreen"
       },
       {
         "type": "choice",
@@ -618,23 +740,48 @@
             "text": "讓庭如先感受現場情緒",
             "next": "empathy_01"
           }
-        ]
+        ],
+        "sceneMode": "control",
+        "choiceUi": {
+          "width": "70%",
+          "textAlign": "center",
+          "fontScale": "large"
+        }
       }
     ],
     "opening_investigate": [
       {
         "type": "mode",
         "value": "oldnoodle",
-        "label": "老麵 / 調查"
+        "label": "老麵 / 調查",
+        "sceneMode": "control",
+        "conversation": {
+          "layout": "duo",
+          "participants": [
+            "oldnoodle",
+            "kate"
+          ],
+          "voiceOnlyParticipants": [],
+          "placementPolicy": "primary-left-secondary-right-swap-once",
+          "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
+        },
+        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
+        "ui": "g"
       },
       {
-        "type": "clearSprites"
+        "type": "clearSprites",
+        "reason": "sceneBoundaryOrMajorVisualChange"
       },
       {
         "type": "bg",
         "id": "control_room",
         "transition": "fade",
-        "waitAfter": 700
+        "waitAfter": 700,
+        "displayMode": "background",
+        "sceneMode": "control",
+        "avoidUiOverlap": true,
+        "mainImageFit": "contain-in-safe-stage",
+        "underlayFit": "cover-fullscreen"
       },
       {
         "type": "sfx",
@@ -644,54 +791,81 @@
       {
         "type": "note",
         "title": "MONITOR",
-        "text": "CAM01 主舞台：麥克風、高腳凳、LED待機\nCAM02 入口光廊：來賓陸續入場\nCAM03 媒體區：手機、相機、筆電待命\nCAM04 前排家屬席：悲傷得有些過於完整\nCAM05 高層區：低聲交談\nCAM08 休息室：傑米來回踱步"
+        "text": "CAM01 主舞台：麥克風、高腳凳、LED待機\nCAM02 入口光廊：來賓陸續入場\nCAM03 媒體區：手機、相機、筆電待命\nCAM04 前排家屬席：悲傷得有些過於完整\nCAM05 高層區：低聲交談\nCAM08 休息室：傑米來回踱步",
+        "sceneMode": "control"
       },
       {
         "type": "narrate",
         "text": "十二格監控畫面持續跳動。每個人都以為舞台在前面，其實舞台到處都是。"
       },
       {
-        "type": "clearSprites"
+        "type": "clearSprites",
+        "reason": "sceneBoundaryOrMajorVisualChange"
       },
       {
         "type": "bg",
         "id": "doc_rundown",
         "transition": "fade",
-        "waitAfter": 700
+        "waitAfter": 700,
+        "displayMode": "document",
+        "sceneMode": "control",
+        "documentTarget": "sidePanelExpandable",
+        "keepCurrentBackground": true,
+        "documentTitle": "演出 rundown 流程表"
       },
       {
         "type": "note",
         "title": "RUN-DOWN",
-        "text": "19:00 黑白開場影片\n19:03 傑米登場\n19:05 地獄脫口秀\n19:24 真心告白\n19:30 【輪迴】系統發表\n備註：真心告白與【輪迴】發表之間，目前預設為立即切換。"
+        "text": "19:00 黑白開場影片\n19:03 傑米登場\n19:05 地獄脫口秀\n19:24 真心告白\n19:30 【輪迴】系統發表\n備註：真心告白與【輪迴】發表之間，目前預設為立即切換。",
+        "sceneMode": "control"
       },
       {
         "type": "say",
         "speaker": "老麵",
-        "text": "最難的不是讓人哭。最難的是知道，眼淚掉下來的那一秒，要不要把燈打亮。"
+        "text": "最難的不是讓人哭。最難的是知道，眼淚掉下來的那一秒，要不要把燈打亮。",
+        "character": "oldnoodle",
+        "speakerFocus": "primary",
+        "sceneMode": "control",
+        "presence": "onscreen"
       },
       {
-        "type": "clearSprites"
+        "type": "clearSprites",
+        "reason": "sceneBoundaryOrMajorVisualChange"
       },
       {
         "type": "bg",
         "id": "doc_guest_list",
         "transition": "fade",
-        "waitAfter": 700
+        "waitAfter": 700,
+        "displayMode": "document",
+        "sceneMode": "control",
+        "documentTarget": "sidePanelExpandable",
+        "keepCurrentBackground": true,
+        "documentTitle": "生前告別秀來賓名單"
       },
       {
         "type": "note",
         "title": "GUEST LIST",
-        "text": "奇點無限董事會：8人\n一級主管：12人\n財經記者：10人\n科技線記者：9人\n商業夥伴：26人\n朋友與舊識：31人\n前任與私人關係者：3人\n家屬席：公關部協調名單"
+        "text": "奇點無限董事會：8人\n一級主管：12人\n財經記者：10人\n科技線記者：9人\n商業夥伴：26人\n朋友與舊識：31人\n前任與私人關係者：3人\n家屬席：公關部協調名單",
+        "sceneMode": "control"
       },
       {
         "type": "say",
         "speaker": "老麵",
-        "text": "一場告別式最麻煩的，不是死者。是所有還活著、卻各自帶著目的來的人。"
+        "text": "一場告別式最麻煩的，不是死者。是所有還活著、卻各自帶著目的來的人。",
+        "character": "oldnoodle",
+        "speakerFocus": "primary",
+        "sceneMode": "control",
+        "presence": "onscreen"
       },
       {
         "type": "say",
         "speaker": "凱特",
-        "text": "麵老闆，傑米還在休息室裡繞圈圈。你再不去，他可能會把地板磨成一個商業模型。"
+        "text": "麵老闆，傑米還在休息室裡繞圈圈。你再不去，他可能會把地板磨成一個商業模型。",
+        "character": "kate",
+        "speakerFocus": "primary",
+        "sceneMode": "control",
+        "presence": "onscreen"
       },
       {
         "type": "choice",
@@ -705,23 +879,47 @@
             "text": "老麵直接去傑米休息室",
             "next": "jamie_room_01"
           }
-        ]
+        ],
+        "sceneMode": "control",
+        "choiceUi": {
+          "width": "70%",
+          "textAlign": "center",
+          "fontScale": "large"
+        }
       }
     ],
     "empathy_01": [
       {
         "type": "mode",
         "value": "tingru",
-        "label": "庭如 / 共感模式"
+        "label": "庭如 / 共感模式",
+        "sceneMode": "empathy",
+        "conversation": {
+          "layout": "monologue",
+          "participants": [
+            "tingru"
+          ],
+          "voiceOnlyParticipants": [],
+          "placementPolicy": "primary-left-secondary-right-swap-once",
+          "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
+        },
+        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
+        "ui": "t"
       },
       {
-        "type": "clearSprites"
+        "type": "clearSprites",
+        "reason": "sceneBoundaryOrMajorVisualChange"
       },
       {
         "type": "bg",
         "id": "control_room_dark",
         "transition": "fade",
-        "waitAfter": 700
+        "waitAfter": 700,
+        "displayMode": "background",
+        "sceneMode": "empathy",
+        "avoidUiOverlap": true,
+        "mainImageFit": "contain-in-safe-stage",
+        "underlayFit": "cover-fullscreen"
       },
       {
         "type": "bgm",
@@ -741,12 +939,19 @@
           "懷疑",
           "飢餓",
           "怕被忘記"
-        ]
+        ],
+        "direction": "up",
+        "lockInput": true,
+        "sceneMode": "empathy",
+        "duration": 6860,
+        "visualBg": "cg_empathy_warm",
+        "emotionStyle": "warm-gold-rise"
       },
       {
         "type": "note",
         "title": "EMPATHY",
-        "text": "庭如無法讀心。她只能感覺強烈情緒留下的形狀、溫度與方向。"
+        "text": "庭如無法讀心。她只能感覺強烈情緒留下的形狀、溫度與方向。",
+        "sceneMode": "empathy"
       },
       {
         "type": "narrate",
@@ -755,37 +960,65 @@
       {
         "type": "say",
         "speaker": "庭如",
-        "text": "入口那邊很亮。不是燈光的亮，是很多人在等煙火。"
+        "text": "入口那邊很亮。不是燈光的亮，是很多人在等煙火。",
+        "character": "tingru",
+        "speakerFocus": "primary",
+        "sceneMode": "empathy",
+        "presence": "onscreen"
       },
       {
         "type": "say",
         "speaker": "庭如",
-        "text": "可是煙火的中心，是一個快死的人。"
+        "text": "可是煙火的中心，是一個快死的人。",
+        "character": "tingru",
+        "speakerFocus": "primary",
+        "sceneMode": "empathy",
+        "presence": "onscreen"
       },
       {
         "type": "say",
         "speaker": "庭如",
-        "text": "前排有悲傷。可是形狀太整齊了，像排練過的雨。"
+        "text": "前排有悲傷。可是形狀太整齊了，像排練過的雨。",
+        "character": "tingru",
+        "speakerFocus": "primary",
+        "sceneMode": "empathy",
+        "presence": "onscreen"
       },
       {
         "type": "say",
         "speaker": "庭如",
-        "text": "媒體區很餓。他們不是壞人，只是已經太習慣把人的痛，剪成一行可以被轉貼的文字。"
+        "text": "媒體區很餓。他們不是壞人，只是已經太習慣把人的痛，剪成一行可以被轉貼的文字。",
+        "character": "tingru",
+        "speakerFocus": "primary",
+        "sceneMode": "empathy",
+        "presence": "onscreen"
       },
       {
         "type": "say",
         "speaker": "庭如",
-        "text": "高層那邊像會議室。有人擔心傑米失控，也有人擔心傑米不夠失控。最好是悲傷剛好，瘋狂剛好，熱搜也剛好。"
+        "text": "高層那邊像會議室。有人擔心傑米失控，也有人擔心傑米不夠失控。最好是悲傷剛好，瘋狂剛好，熱搜也剛好。",
+        "character": "tingru",
+        "speakerFocus": "primary",
+        "sceneMode": "empathy",
+        "presence": "onscreen"
       },
       {
         "type": "say",
         "speaker": "庭如",
-        "text": "舞台中間很空。不是留白，比較像洞。"
+        "text": "舞台中間很空。不是留白，比較像洞。",
+        "character": "tingru",
+        "speakerFocus": "primary",
+        "sceneMode": "empathy",
+        "presence": "onscreen"
       },
       {
         "type": "say",
         "speaker": "庭如",
-        "text": "休息室那邊有一種很冷的恐懼。他怕的不是上台，是怕上台之後，自己還是會被忘記。"
+        "text": "休息室那邊有一種很冷的恐懼。他怕的不是上台，是怕上台之後，自己還是會被忘記。",
+        "character": "tingru",
+        "speakerFocus": "primary",
+        "sceneMode": "empathy",
+        "presence": "onscreen"
       },
       {
         "type": "choice",
@@ -812,39 +1045,80 @@
             },
             "next": "empathy_silent"
           }
-        ]
+        ],
+        "sceneMode": "empathy",
+        "choiceUi": {
+          "width": "70%",
+          "textAlign": "center",
+          "fontScale": "large"
+        }
       }
     ],
     "empathy_alert": [
       {
         "type": "say",
         "speaker": "庭如",
-        "text": "前排的悲傷不太自然。"
+        "text": "前排的悲傷不太自然。",
+        "sceneMode": "empathy",
+        "conversation": {
+          "layout": "duo",
+          "participants": [
+            "tingru",
+            "oldnoodle"
+          ],
+          "voiceOnlyParticipants": [],
+          "placementPolicy": "primary-left-secondary-right-swap-once",
+          "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
+        },
+        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
+        "character": "tingru",
+        "speakerFocus": "primary",
+        "presence": "onscreen"
       },
       {
         "type": "say",
         "speaker": "老麵",
-        "text": "我知道。公關部安排的人。"
+        "text": "我知道。公關部安排的人。",
+        "character": "oldnoodle",
+        "speakerFocus": "primary",
+        "sceneMode": "empathy",
+        "presence": "onscreen"
       },
       {
         "type": "say",
         "speaker": "庭如",
-        "text": "所以他們不是家人？"
+        "text": "所以他們不是家人？",
+        "character": "tingru",
+        "speakerFocus": "primary",
+        "sceneMode": "empathy",
+        "presence": "onscreen"
       },
       {
         "type": "say",
         "speaker": "老麵",
-        "text": "不全是。有時候一場儀式需要觀眾先相信，其他人才有辦法跟著相信。"
+        "text": "不全是。有時候一場儀式需要觀眾先相信，其他人才有辦法跟著相信。",
+        "character": "oldnoodle",
+        "speakerFocus": "primary",
+        "sceneMode": "empathy",
+        "presence": "onscreen"
       },
       {
         "type": "say",
         "speaker": "庭如",
-        "text": "那如果他們跟著相信了假的東西呢？"
+        "text": "那如果他們跟著相信了假的東西呢？",
+        "character": "tingru",
+        "speakerFocus": "primary",
+        "sceneMode": "empathy",
+        "presence": "onscreen"
       },
       {
         "type": "say",
         "speaker": "老麵",
-        "text": "那就要看後面有沒有真的東西接住它。"
+        "text": "那就要看後面有沒有真的東西接住它。",
+        "character": "oldnoodle",
+        "speakerFocus": "primary",
+        "sceneMode": "empathy",
+        "presence": "onscreen"
       },
       {
         "type": "jump",
@@ -855,22 +1129,49 @@
       {
         "type": "say",
         "speaker": "庭如",
-        "text": "傑米很怕。不是怕死而已，他怕大家以後不再需要他。"
+        "text": "傑米很怕。不是怕死而已，他怕大家以後不再需要他。",
+        "sceneMode": "empathy",
+        "conversation": {
+          "layout": "duo",
+          "participants": [
+            "tingru",
+            "oldnoodle"
+          ],
+          "voiceOnlyParticipants": [],
+          "placementPolicy": "primary-left-secondary-right-swap-once",
+          "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
+        },
+        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
+        "character": "tingru",
+        "speakerFocus": "primary",
+        "presence": "onscreen"
       },
       {
         "type": "say",
         "speaker": "老麵",
-        "text": "怕不代表不能上台。有時候，怕才是他必須上台的原因。"
+        "text": "怕不代表不能上台。有時候，怕才是他必須上台的原因。",
+        "character": "oldnoodle",
+        "speakerFocus": "primary",
+        "sceneMode": "empathy",
+        "presence": "onscreen"
       },
       {
         "type": "say",
         "speaker": "庭如",
-        "text": "你真的相信這句話嗎？"
+        "text": "你真的相信這句話嗎？",
+        "character": "tingru",
+        "speakerFocus": "primary",
+        "sceneMode": "empathy",
+        "presence": "onscreen"
       },
       {
         "type": "say",
         "speaker": "老麵",
-        "text": "我現在需要相信。"
+        "text": "我現在需要相信。",
+        "character": "oldnoodle",
+        "speakerFocus": "primary",
+        "sceneMode": "empathy",
+        "presence": "onscreen"
       },
       {
         "type": "jump",
@@ -881,17 +1182,40 @@
       {
         "type": "say",
         "speaker": "庭如",
-        "text": "沒事。我想再看一下。"
+        "text": "沒事。我想再看一下。",
+        "sceneMode": "empathy",
+        "conversation": {
+          "layout": "duo",
+          "participants": [
+            "tingru",
+            "oldnoodle"
+          ],
+          "voiceOnlyParticipants": [],
+          "placementPolicy": "primary-left-secondary-right-swap-once",
+          "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
+        },
+        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
+        "character": "tingru",
+        "speakerFocus": "primary",
+        "presence": "onscreen"
       },
       {
         "type": "say",
         "speaker": "老麵",
-        "text": "妳的沒事通常都很有事。但如果妳看到什麼會讓今晚出事的東西，要說。"
+        "text": "妳的沒事通常都很有事。但如果妳看到什麼會讓今晚出事的東西，要說。",
+        "character": "oldnoodle",
+        "speakerFocus": "primary",
+        "sceneMode": "empathy",
+        "presence": "onscreen"
       },
       {
         "type": "say",
         "speaker": "庭如",
-        "text": "如果出事的是今晚本身呢？"
+        "text": "如果出事的是今晚本身呢？",
+        "character": "tingru",
+        "speakerFocus": "primary",
+        "sceneMode": "empathy",
+        "presence": "onscreen"
       },
       {
         "type": "narrate",
@@ -906,16 +1230,34 @@
       {
         "type": "mode",
         "value": "oldnoodle",
-        "label": "老麵 / 傑米休息室"
+        "label": "老麵 / 傑米休息室",
+        "sceneMode": "jamie_room",
+        "conversation": {
+          "layout": "monologue",
+          "participants": [
+            "jamie"
+          ],
+          "voiceOnlyParticipants": [],
+          "placementPolicy": "primary-left-secondary-right-swap-once",
+          "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
+        },
+        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
+        "ui": "g"
       },
       {
-        "type": "clearSprites"
+        "type": "clearSprites",
+        "reason": "sceneBoundaryOrMajorVisualChange"
       },
       {
         "type": "bg",
         "id": "jamie_room",
         "transition": "fade",
-        "waitAfter": 700
+        "waitAfter": 700,
+        "displayMode": "background",
+        "sceneMode": "jamie_room",
+        "avoidUiOverlap": true,
+        "mainImageFit": "contain-in-safe-stage",
+        "underlayFit": "cover-fullscreen"
       },
       {
         "type": "bgm",
@@ -933,12 +1275,15 @@
         "type": "show",
         "id": "jamie",
         "expression": "nervous",
-        "position": "right"
+        "position": "right",
+        "sceneMode": "jamie_room",
+        "speakerFocus": "primary"
       },
       {
         "type": "note",
         "title": "ROOM",
-        "text": "物件：威士忌、藥瓶、診斷摘要、筆電、手寫講稿\n狀態：傑米反覆摩擦袖口"
+        "text": "物件：威士忌、藥瓶、診斷摘要、筆電、手寫講稿\n狀態：傑米反覆摩擦袖口",
+        "sceneMode": "jamie_room"
       },
       {
         "type": "narrate",
@@ -947,7 +1292,11 @@
       {
         "type": "say",
         "speaker": "傑米",
-        "text": "你說，我是不是瘋了？"
+        "text": "你說，我是不是瘋了？",
+        "character": "jamie",
+        "speakerFocus": "primary",
+        "sceneMode": "jamie_room",
+        "presence": "onscreen"
       },
       {
         "type": "choice",
@@ -974,29 +1323,62 @@
             },
             "next": "jamie_answer_cruel"
           }
-        ]
+        ],
+        "sceneMode": "jamie_room",
+        "choiceUi": {
+          "width": "70%",
+          "textAlign": "center",
+          "fontScale": "large"
+        }
       }
     ],
     "jamie_answer_professional": [
       {
         "type": "say",
         "speaker": "老麵",
-        "text": "如果這是產品發表，風險很高。如果這是你人生最後一次登場，它很精準。"
+        "text": "如果這是產品發表，風險很高。如果這是你人生最後一次登場，它很精準。",
+        "sceneMode": "jamie_room",
+        "conversation": {
+          "layout": "duo",
+          "participants": [
+            "oldnoodle",
+            "jamie"
+          ],
+          "voiceOnlyParticipants": [],
+          "placementPolicy": "primary-left-secondary-right-swap-once",
+          "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
+        },
+        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
+        "character": "oldnoodle",
+        "speakerFocus": "primary",
+        "presence": "onscreen"
       },
       {
         "type": "say",
         "speaker": "傑米",
-        "text": "精準。我都快死了，你還在跟我講精準。"
+        "text": "精準。我都快死了，你還在跟我講精準。",
+        "character": "jamie",
+        "speakerFocus": "primary",
+        "sceneMode": "jamie_room",
+        "presence": "onscreen"
       },
       {
         "type": "say",
         "speaker": "老麵",
-        "text": "你找我的原因，不就是因為你不想讓自己死得模糊嗎？"
+        "text": "你找我的原因，不就是因為你不想讓自己死得模糊嗎？",
+        "character": "oldnoodle",
+        "speakerFocus": "primary",
+        "sceneMode": "jamie_room",
+        "presence": "onscreen"
       },
       {
         "type": "say",
         "speaker": "傑米",
-        "text": "對。我討厭模糊。死亡就是最模糊的東西。"
+        "text": "對。我討厭模糊。死亡就是最模糊的東西。",
+        "character": "jamie",
+        "speakerFocus": "primary",
+        "sceneMode": "jamie_room",
+        "presence": "onscreen"
       },
       {
         "type": "jump",
@@ -1007,7 +1389,22 @@
       {
         "type": "say",
         "speaker": "老麵",
-        "text": "你不是瘋了。你只是還沒習慣自己真的會死。"
+        "text": "你不是瘋了。你只是還沒習慣自己真的會死。",
+        "sceneMode": "jamie_room",
+        "conversation": {
+          "layout": "duo",
+          "participants": [
+            "oldnoodle",
+            "jamie"
+          ],
+          "voiceOnlyParticipants": [],
+          "placementPolicy": "primary-left-secondary-right-swap-once",
+          "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
+        },
+        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
+        "character": "oldnoodle",
+        "speakerFocus": "primary",
+        "presence": "onscreen"
       },
       {
         "type": "narrate",
@@ -1016,7 +1413,11 @@
       {
         "type": "say",
         "speaker": "傑米",
-        "text": "你這樣講很不專業。可是比專業有用。"
+        "text": "你這樣講很不專業。可是比專業有用。",
+        "character": "jamie",
+        "speakerFocus": "primary",
+        "sceneMode": "jamie_room",
+        "presence": "onscreen"
       },
       {
         "type": "sfx",
@@ -1032,17 +1433,40 @@
       {
         "type": "say",
         "speaker": "老麵",
-        "text": "你確實在騙人。但你也確實在說真話。今晚麻煩的是，兩者都是真的。"
+        "text": "你確實在騙人。但你也確實在說真話。今晚麻煩的是，兩者都是真的。",
+        "sceneMode": "jamie_room",
+        "conversation": {
+          "layout": "duo",
+          "participants": [
+            "oldnoodle",
+            "jamie"
+          ],
+          "voiceOnlyParticipants": [],
+          "placementPolicy": "primary-left-secondary-right-swap-once",
+          "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
+        },
+        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
+        "character": "oldnoodle",
+        "speakerFocus": "primary",
+        "presence": "onscreen"
       },
       {
         "type": "say",
         "speaker": "傑米",
-        "text": "你知道嗎？這就是我喜歡你的地方。你安慰人的方式，像拿手術刀剝橘子。"
+        "text": "你知道嗎？這就是我喜歡你的地方。你安慰人的方式，像拿手術刀剝橘子。",
+        "character": "jamie",
+        "speakerFocus": "primary",
+        "sceneMode": "jamie_room",
+        "presence": "onscreen"
       },
       {
         "type": "say",
         "speaker": "老麵",
-        "text": "那你最好慶幸，我手還算穩。"
+        "text": "那你最好慶幸，我手還算穩。",
+        "character": "oldnoodle",
+        "speakerFocus": "primary",
+        "sceneMode": "jamie_room",
+        "presence": "onscreen"
       },
       {
         "type": "jump",
@@ -1053,104 +1477,182 @@
       {
         "type": "say",
         "speaker": "傑米",
-        "text": "我上一次這麼緊張，是大學第一次約女生看電影。那次我只是怕搞砸一場約會，這次我怕我搞砸的是我自己的人生。"
+        "text": "我上一次這麼緊張，是大學第一次約女生看電影。那次我只是怕搞砸一場約會，這次我怕我搞砸的是我自己的人生。",
+        "sceneMode": "jamie_room",
+        "conversation": {
+          "layout": "group",
+          "participants": [
+            "jamie",
+            "oldnoodle",
+            "ray"
+          ],
+          "voiceOnlyParticipants": [],
+          "placementPolicy": "primary-left-secondary-right-swap-once",
+          "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
+        },
+        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
+        "character": "jamie",
+        "speakerFocus": "primary",
+        "presence": "onscreen"
       },
       {
         "type": "say",
         "speaker": "傑米",
-        "text": "我是第一次上台讓大家看我死。而且更爛的是，我還要說服他們，這不是死，是升級。"
+        "text": "我是第一次上台讓大家看我死。而且更爛的是，我還要說服他們，這不是死，是升級。",
+        "character": "jamie",
+        "speakerFocus": "primary",
+        "sceneMode": "jamie_room",
+        "presence": "onscreen"
       },
       {
         "type": "note",
         "title": "藥瓶",
-        "text": "劑量、頻率、醫囑都真實得讓人無法把今晚單純當成表演。"
+        "text": "劑量、頻率、醫囑都真實得讓人無法把今晚單純當成表演。",
+        "sceneMode": "jamie_room"
       },
       {
         "type": "say",
         "speaker": "老麵",
-        "text": "今天吃藥了嗎？"
+        "text": "今天吃藥了嗎？",
+        "character": "oldnoodle",
+        "speakerFocus": "primary",
+        "sceneMode": "jamie_room",
+        "presence": "onscreen"
       },
       {
         "type": "say",
         "speaker": "傑米",
-        "text": "吃了。放心，我不會在台上倒下。至少不會在輪迴發表前。"
+        "text": "吃了。放心，我不會在台上倒下。至少不會在輪迴發表前。",
+        "character": "jamie",
+        "speakerFocus": "primary",
+        "sceneMode": "jamie_room",
+        "presence": "onscreen"
       },
       {
-        "type": "clearSprites"
+        "type": "clearSprites",
+        "reason": "sceneBoundaryOrMajorVisualChange"
       },
       {
         "type": "bg",
         "id": "doc_medical_report",
         "transition": "fade",
-        "waitAfter": 700
+        "waitAfter": 700,
+        "displayMode": "document",
+        "sceneMode": "jamie_room",
+        "documentTarget": "sidePanelExpandable",
+        "keepCurrentBackground": true,
+        "documentTitle": "傑米的診斷摘要"
       },
       {
         "type": "note",
         "title": "診斷摘要",
-        "text": "罕見神經退化疾病。\n不可逆。\n目前治療以延緩惡化與緩解症狀為主。\n預估剩餘時間：不足一年。"
+        "text": "罕見神經退化疾病。\n不可逆。\n目前治療以延緩惡化與緩解症狀為主。\n預估剩餘時間：不足一年。",
+        "sceneMode": "jamie_room"
       },
       {
         "type": "say",
         "speaker": "傑米",
-        "text": "我第一次看到那張紙的時候，第一個想法不是我會死。我想，這份文件排版很爛。然後我才開始發抖。"
+        "text": "我第一次看到那張紙的時候，第一個想法不是我會死。我想，這份文件排版很爛。然後我才開始發抖。",
+        "character": "jamie",
+        "speakerFocus": "primary",
+        "sceneMode": "jamie_room",
+        "presence": "onscreen"
       },
       {
-        "type": "clearSprites"
+        "type": "clearSprites",
+        "reason": "sceneBoundaryOrMajorVisualChange"
       },
       {
         "type": "bg",
         "id": "doc_reincarnation_pitch",
         "transition": "fade",
-        "waitAfter": 700
+        "waitAfter": 700,
+        "displayMode": "document",
+        "sceneMode": "jamie_room",
+        "documentTarget": "sidePanelExpandable",
+        "keepCurrentBackground": true,
+        "documentTitle": "【輪迴】產品簡報頁"
       },
       {
         "type": "note",
         "title": "REINCARNATION / 輪迴",
-        "text": "人格掃描、記憶建模、決策延續。\n肉體會終止，意志不必。"
+        "text": "人格掃描、記憶建模、決策延續。\n肉體會終止，意志不必。",
+        "sceneMode": "jamie_room"
       },
       {
         "type": "say",
         "speaker": "老麵",
-        "text": "這句文案太像邪教。"
+        "text": "這句文案太像邪教。",
+        "character": "oldnoodle",
+        "speakerFocus": "primary",
+        "sceneMode": "jamie_room",
+        "presence": "onscreen"
       },
       {
         "type": "say",
         "speaker": "傑米",
-        "text": "所有偉大的科技，在剛開始看起來都像邪教。也可能只是邪教，所以我才需要先死一次，讓大家閉嘴。"
+        "text": "所有偉大的科技，在剛開始看起來都像邪教。也可能只是邪教，所以我才需要先死一次，讓大家閉嘴。",
+        "character": "jamie",
+        "speakerFocus": "primary",
+        "sceneMode": "jamie_room",
+        "presence": "onscreen"
       },
       {
-        "type": "clearSprites"
+        "type": "clearSprites",
+        "reason": "sceneBoundaryOrMajorVisualChange"
       },
       {
         "type": "bg",
         "id": "doc_jamie_script",
         "transition": "fade",
-        "waitAfter": 700
+        "waitAfter": 700,
+        "displayMode": "document",
+        "sceneMode": "jamie_room",
+        "documentTarget": "sidePanelExpandable",
+        "keepCurrentBackground": true,
+        "documentTitle": "傑米手寫脫口秀講稿"
       },
       {
         "type": "note",
         "title": "地獄脫口秀講稿",
-        "text": "前半段幾乎都是刀。每一句都帶著笑點，也帶著一點血。\n後半段留下：我希望你們記得，今天晚上，這個有點緊張，說了很多爛笑話，而且非常非常害怕被忘記的，詹傑明。"
+        "text": "前半段幾乎都是刀。每一句都帶著笑點，也帶著一點血。\n後半段留下：我希望你們記得，今天晚上，這個有點緊張，說了很多爛笑話，而且非常非常害怕被忘記的，詹傑明。",
+        "sceneMode": "jamie_room"
       },
       {
         "type": "say",
         "speaker": "老麵",
-        "text": "這段不要改。"
+        "text": "這段不要改。",
+        "character": "oldnoodle",
+        "speakerFocus": "primary",
+        "sceneMode": "jamie_room",
+        "presence": "onscreen"
       },
       {
         "type": "say",
         "speaker": "傑米",
-        "text": "太軟了。"
+        "text": "太軟了。",
+        "character": "jamie",
+        "speakerFocus": "primary",
+        "sceneMode": "jamie_room",
+        "presence": "onscreen"
       },
       {
         "type": "say",
         "speaker": "老麵",
-        "text": "所以不要改。"
+        "text": "所以不要改。",
+        "character": "oldnoodle",
+        "speakerFocus": "primary",
+        "sceneMode": "jamie_room",
+        "presence": "onscreen"
       },
       {
         "type": "say",
         "speaker": "傑米",
-        "text": "你真煩。"
+        "text": "你真煩。",
+        "character": "jamie",
+        "speakerFocus": "primary",
+        "sceneMode": "jamie_room",
+        "presence": "onscreen"
       },
       {
         "type": "sfx",
@@ -1160,49 +1662,83 @@
       {
         "type": "say",
         "speaker": "雷老師",
-        "text": "麵老闆，倒數十分鐘。主舞台已經準備好讓人類文明開始丟臉了。"
+        "text": "麵老闆，倒數十分鐘。主舞台已經準備好讓人類文明開始丟臉了。",
+        "character": "ray",
+        "speakerFocus": "primary",
+        "sceneMode": "jamie_room",
+        "presence": "onscreen"
       },
       {
         "type": "hide",
-        "id": "ray"
+        "id": "ray",
+        "reason": "speakerLeavesOrNoLongerPrimary"
       },
       {
         "type": "say",
         "speaker": "傑米",
-        "text": "如果等一下我在台上後悔了呢？"
+        "text": "如果等一下我在台上後悔了呢？",
+        "character": "jamie",
+        "speakerFocus": "primary",
+        "sceneMode": "jamie_room",
+        "presence": "onscreen"
       },
       {
         "type": "say",
         "speaker": "老麵",
-        "text": "那你就看著我。我會提醒你，你當初為什麼要做這件事。"
+        "text": "那你就看著我。我會提醒你，你當初為什麼要做這件事。",
+        "character": "oldnoodle",
+        "speakerFocus": "primary",
+        "sceneMode": "jamie_room",
+        "presence": "onscreen"
       },
       {
         "type": "say",
         "speaker": "傑米",
-        "text": "如果我還是想逃？"
+        "text": "如果我還是想逃？",
+        "character": "jamie",
+        "speakerFocus": "primary",
+        "sceneMode": "jamie_room",
+        "presence": "onscreen"
       },
       {
         "type": "say",
         "speaker": "老麵",
-        "text": "那我會讓燈暗下來。不是放你走，是讓你至少逃得有美感。"
+        "text": "那我會讓燈暗下來。不是放你走，是讓你至少逃得有美感。",
+        "character": "oldnoodle",
+        "speakerFocus": "primary",
+        "sceneMode": "jamie_room",
+        "presence": "onscreen"
       },
       {
         "type": "say",
         "speaker": "傑米",
-        "text": "你們 Before Fades 真的有病。"
+        "text": "你們 Before Fades 真的有病。",
+        "character": "jamie",
+        "speakerFocus": "primary",
+        "sceneMode": "jamie_room",
+        "presence": "onscreen"
       },
       {
         "type": "say",
         "speaker": "老麵",
-        "text": "所以你才找我們。"
+        "text": "所以你才找我們。",
+        "character": "oldnoodle",
+        "speakerFocus": "primary",
+        "sceneMode": "jamie_room",
+        "presence": "onscreen"
       },
       {
         "type": "say",
         "speaker": "傑米",
-        "text": "好。讓他們看看，我連死亡，都比他們活著更精彩。"
+        "text": "好。讓他們看看，我連死亡，都比他們活著更精彩。",
+        "character": "jamie",
+        "speakerFocus": "primary",
+        "sceneMode": "jamie_room",
+        "presence": "onscreen"
       },
       {
-        "type": "clearSprites"
+        "type": "clearSprites",
+        "reason": "sceneBoundaryOrMajorVisualChange"
       },
       {
         "type": "jump",
@@ -1213,16 +1749,37 @@
       {
         "type": "mode",
         "value": "tingru",
-        "label": "庭如 / 案件資料"
+        "label": "庭如 / 案件資料",
+        "sceneMode": "case_file",
+        "conversation": {
+          "layout": "group",
+          "participants": [
+            "kate",
+            "ray",
+            "tingru",
+            "oldnoodle"
+          ],
+          "voiceOnlyParticipants": [],
+          "placementPolicy": "primary-left-secondary-right-swap-once",
+          "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
+        },
+        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
+        "ui": "g"
       },
       {
-        "type": "clearSprites"
+        "type": "clearSprites",
+        "reason": "sceneBoundaryOrMajorVisualChange"
       },
       {
         "type": "bg",
         "id": "case_file",
         "transition": "fade",
-        "waitAfter": 700
+        "waitAfter": 700,
+        "displayMode": "background",
+        "sceneMode": "case_file",
+        "avoidUiOverlap": true,
+        "mainImageFit": "contain-in-safe-stage",
+        "underlayFit": "cover-fullscreen"
       },
       {
         "type": "bgm",
@@ -1232,18 +1789,25 @@
         "fade": 900
       },
       {
-        "type": "clearSprites"
+        "type": "clearSprites",
+        "reason": "sceneBoundaryOrMajorVisualChange"
       },
       {
         "type": "bg",
         "id": "doc_case_report",
         "transition": "fade",
-        "waitAfter": 700
+        "waitAfter": 700,
+        "displayMode": "document",
+        "sceneMode": "case_file",
+        "documentTarget": "sidePanelExpandable",
+        "keepCurrentBackground": true,
+        "documentTitle": "Before Fades 案件封存報告"
       },
       {
         "type": "note",
         "title": "CASE 001",
-        "text": "傑米・詹 / 生前告別秀\n資料：接案會議紀錄、訪談錄音、庭如筆記、輪迴企劃摘要、地獄脫口秀講稿草稿"
+        "text": "傑米・詹 / 生前告別秀\n資料：接案會議紀錄、訪談錄音、庭如筆記、輪迴企劃摘要、地獄脫口秀講稿草稿",
+        "sceneMode": "case_file"
       },
       {
         "type": "narrate",
@@ -1252,65 +1816,105 @@
       {
         "type": "note",
         "title": "接案會議紀錄",
-        "text": "凱特：這層層疊疊的結構，簡直是藝術品。\n雷老師：用自己的命幫公司股價抬轎，狠得很有創意。\n庭如：我們不能接。\n老麵：什麼是真實？"
+        "text": "凱特：這層層疊疊的結構，簡直是藝術品。\n雷老師：用自己的命幫公司股價抬轎，狠得很有創意。\n庭如：我們不能接。\n老麵：什麼是真實？",
+        "sceneMode": "case_file"
       },
       {
         "type": "say",
         "speaker": "凱特",
-        "text": "用一場真實的告別，去包裝一場商業發表會，再用這場發表會，去掩蓋死亡的真相？這層層疊疊的結構，簡直是藝術品。"
+        "text": "用一場真實的告別，去包裝一場商業發表會，再用這場發表會，去掩蓋死亡的真相？這層層疊疊的結構，簡直是藝術品。",
+        "character": "kate",
+        "speakerFocus": "primary",
+        "sceneMode": "case_file",
+        "presence": "onscreen"
       },
       {
         "type": "say",
         "speaker": "雷老師",
-        "text": "用自己的命幫公司股價抬轎，狠得很有創意。我先聲明，我已經想到 BGM 了。"
+        "text": "用自己的命幫公司股價抬轎，狠得很有創意。我先聲明，我已經想到 BGM 了。",
+        "character": "ray",
+        "speakerFocus": "primary",
+        "sceneMode": "case_file",
+        "presence": "onscreen"
       },
       {
         "type": "say",
         "speaker": "庭如",
-        "text": "我們不能接。"
+        "text": "我們不能接。",
+        "character": "tingru",
+        "speakerFocus": "primary",
+        "sceneMode": "case_file",
+        "presence": "onscreen"
       },
       {
         "type": "say",
         "speaker": "老麵",
-        "text": "理由？"
+        "text": "理由？",
+        "character": "oldnoodle",
+        "speakerFocus": "primary",
+        "sceneMode": "case_file",
+        "presence": "onscreen"
       },
       {
         "type": "say",
         "speaker": "庭如",
-        "text": "我們的工作，是陪伴和轉譯真實的情感。但這個案子裡，真實的情感被當成商業佈局的誘餌。我感覺不到溫度，只有一種很冷的東西。像是把悲傷磨尖，再交給媒體。"
+        "text": "我們的工作，是陪伴和轉譯真實的情感。但這個案子裡，真實的情感被當成商業佈局的誘餌。我感覺不到溫度，只有一種很冷的東西。像是把悲傷磨尖，再交給媒體。",
+        "character": "tingru",
+        "speakerFocus": "primary",
+        "sceneMode": "case_file",
+        "presence": "onscreen"
       },
       {
         "type": "say",
         "speaker": "老麵",
-        "text": "什麼是真實？傑米正在真實地走向死亡，這是核心。他想被世界記住的樣子，就是一個至死都在顛覆傳統、化不可能為可能的狂人。"
+        "text": "什麼是真實？傑米正在真實地走向死亡，這是核心。他想被世界記住的樣子，就是一個至死都在顛覆傳統、化不可能為可能的狂人。",
+        "character": "oldnoodle",
+        "speakerFocus": "primary",
+        "sceneMode": "case_file",
+        "presence": "onscreen"
       },
       {
         "type": "say",
         "speaker": "庭如",
-        "text": "可是如果他的真實，會傷害其他人的真實呢？"
+        "text": "可是如果他的真實，會傷害其他人的真實呢？",
+        "character": "tingru",
+        "speakerFocus": "primary",
+        "sceneMode": "case_file",
+        "presence": "onscreen"
       },
       {
         "type": "say",
         "speaker": "老麵",
-        "text": "那就是我們要承擔的風險。"
+        "text": "那就是我們要承擔的風險。",
+        "character": "oldnoodle",
+        "speakerFocus": "primary",
+        "sceneMode": "case_file",
+        "presence": "onscreen"
       },
       {
         "type": "narrate",
         "text": "庭如看著那行會議紀錄。那時候她以為自己已經夠堅持了。現在回頭看，她只覺得還不夠。"
       },
       {
-        "type": "clearSprites"
+        "type": "clearSprites",
+        "reason": "sceneBoundaryOrMajorVisualChange"
       },
       {
         "type": "bg",
         "id": "doc_voice_wave",
         "transition": "fade",
-        "waitAfter": 700
+        "waitAfter": 700,
+        "displayMode": "document",
+        "sceneMode": "case_file",
+        "documentTarget": "sidePanelExpandable",
+        "keepCurrentBackground": true,
+        "documentTitle": "訪談錄音波形畫面"
       },
       {
         "type": "note",
         "title": "訪談錄音 03",
-        "text": "標記詞：贏 / 父親 / 公司 / 前任 / 靈魂 / 被遺忘\n庭如將依序回溯這些詞。"
+        "text": "標記詞：贏 / 父親 / 公司 / 前任 / 靈魂 / 被遺忘\n庭如將依序回溯這些詞。",
+        "sceneMode": "case_file"
       },
       {
         "type": "jump",
@@ -1319,13 +1923,30 @@
     ],
     "case_memory_forgotten": [
       {
-        "type": "clearSprites"
+        "type": "clearSprites",
+        "sceneMode": "memory",
+        "conversation": {
+          "layout": "voiceover",
+          "participants": [],
+          "voiceOnlyParticipants": [
+            "none"
+          ],
+          "placementPolicy": "primary-left-secondary-right-swap-once",
+          "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
+        },
+        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
+        "reason": "sceneBoundaryOrMajorVisualChange"
       },
       {
         "type": "bg",
         "id": "doc_media_news",
         "transition": "fade",
-        "waitAfter": 700
+        "waitAfter": 700,
+        "displayMode": "document",
+        "sceneMode": "memory",
+        "documentTarget": "sidePanelExpandable",
+        "keepCurrentBackground": true,
+        "documentTitle": "媒體新聞網站畫面"
       },
       {
         "type": "effect",
@@ -1335,7 +1956,13 @@
           "冷",
           "消失",
           "不再被需要"
-        ]
+        ],
+        "direction": "down",
+        "lockInput": true,
+        "sceneMode": "empathy",
+        "duration": 6410,
+        "visualBg": "cg_empathy_fall",
+        "emotionStyle": "cool-blue-fall"
       },
       {
         "type": "narrate",
@@ -1353,13 +1980,21 @@
         "type": "say",
         "speaker": "錄音中的傑米",
         "text": "人不是死掉才消失。",
-        "character": "none"
+        "character": "none",
+        "speakerFocus": "voice",
+        "sceneMode": "memory",
+        "presence": "voiceOnly",
+        "leaveAfter": true
       },
       {
         "type": "say",
         "speaker": "錄音中的傑米",
         "text": "人是在不再被需要的時候，開始消失。",
-        "character": "none"
+        "character": "none",
+        "speakerFocus": "voice",
+        "sceneMode": "memory",
+        "presence": "voiceOnly",
+        "leaveAfter": true
       },
       {
         "type": "jump",
@@ -1368,13 +2003,30 @@
     ],
     "case_memory_father": [
       {
-        "type": "clearSprites"
+        "type": "clearSprites",
+        "sceneMode": "memory",
+        "conversation": {
+          "layout": "voiceover",
+          "participants": [],
+          "voiceOnlyParticipants": [
+            "none"
+          ],
+          "placementPolicy": "primary-left-secondary-right-swap-once",
+          "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
+        },
+        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
+        "reason": "sceneBoundaryOrMajorVisualChange"
       },
       {
         "type": "bg",
         "id": "cg_memory_phone",
         "transition": "fade",
-        "waitAfter": 700
+        "waitAfter": 700,
+        "displayMode": "cg",
+        "sceneMode": "memory",
+        "avoidUiOverlap": true,
+        "mainImageFit": "contain-in-safe-stage",
+        "underlayFit": "cover-fullscreen"
       },
       {
         "type": "effect",
@@ -1384,7 +2036,13 @@
           "未撥出的電話",
           "病房",
           "以為還有時間"
-        ]
+        ],
+        "direction": "down",
+        "lockInput": true,
+        "sceneMode": "empathy",
+        "duration": 6410,
+        "visualBg": "cg_empathy_fall",
+        "emotionStyle": "cool-blue-fall"
       },
       {
         "type": "narrate",
@@ -1402,13 +2060,21 @@
         "type": "say",
         "speaker": "錄音中的傑米",
         "text": "我爸最後一次清醒的時候，我在開會。",
-        "character": "none"
+        "character": "none",
+        "speakerFocus": "voice",
+        "sceneMode": "memory",
+        "presence": "voiceOnly",
+        "leaveAfter": true
       },
       {
         "type": "say",
         "speaker": "錄音中的傑米",
         "text": "那場會後來其實沒有那麼重要。",
-        "character": "none"
+        "character": "none",
+        "speakerFocus": "voice",
+        "sceneMode": "memory",
+        "presence": "voiceOnly",
+        "leaveAfter": true
       },
       {
         "type": "jump",
@@ -1417,13 +2083,30 @@
     ],
     "case_memory_soul": [
       {
-        "type": "clearSprites"
+        "type": "clearSprites",
+        "sceneMode": "memory",
+        "conversation": {
+          "layout": "voiceover",
+          "participants": [],
+          "voiceOnlyParticipants": [
+            "none"
+          ],
+          "placementPolicy": "primary-left-secondary-right-swap-once",
+          "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
+        },
+        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
+        "reason": "sceneBoundaryOrMajorVisualChange"
       },
       {
         "type": "bg",
         "id": "cg_reincarnation_boot",
         "transition": "fade",
-        "waitAfter": 700
+        "waitAfter": 700,
+        "displayMode": "cg",
+        "sceneMode": "memory",
+        "avoidUiOverlap": true,
+        "mainImageFit": "contain-in-safe-stage",
+        "underlayFit": "cover-fullscreen"
       },
       {
         "type": "effect",
@@ -1433,7 +2116,13 @@
           "資料",
           "名字",
           "詹傑明"
-        ]
+        ],
+        "direction": "up",
+        "lockInput": true,
+        "sceneMode": "empathy",
+        "duration": 6410,
+        "visualBg": "cg_empathy_warm",
+        "emotionStyle": "warm-gold-rise"
       },
       {
         "type": "narrate",
@@ -1451,13 +2140,21 @@
         "type": "say",
         "speaker": "錄音中的傑米",
         "text": "我想留下的不是身體。",
-        "character": "none"
+        "character": "none",
+        "speakerFocus": "voice",
+        "sceneMode": "memory",
+        "presence": "voiceOnly",
+        "leaveAfter": true
       },
       {
         "type": "say",
         "speaker": "錄音中的傑米",
         "text": "我想留下的是，他們還能知道我是誰。",
-        "character": "none"
+        "character": "none",
+        "speakerFocus": "voice",
+        "sceneMode": "memory",
+        "presence": "voiceOnly",
+        "leaveAfter": true
       },
       {
         "type": "jump",
@@ -1498,23 +2195,53 @@
             },
             "next": "rundown_choice"
           }
-        ]
+        ],
+        "sceneMode": "case_file",
+        "conversation": {
+          "layout": "choice",
+          "participants": [],
+          "voiceOnlyParticipants": [],
+          "placementPolicy": "primary-left-secondary-right-swap-once",
+          "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
+        },
+        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
+        "choiceUi": {
+          "width": "70%",
+          "textAlign": "center",
+          "fontScale": "large"
+        }
       }
     ],
     "rundown_choice": [
       {
         "type": "mode",
         "value": "oldnoodle",
-        "label": "老麵 / 演出流程確認"
+        "label": "老麵 / 演出流程確認",
+        "sceneMode": "control",
+        "conversation": {
+          "layout": "choice",
+          "participants": [],
+          "voiceOnlyParticipants": [],
+          "placementPolicy": "primary-left-secondary-right-swap-once",
+          "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
+        },
+        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
+        "ui": "g"
       },
       {
-        "type": "clearSprites"
+        "type": "clearSprites",
+        "reason": "sceneBoundaryOrMajorVisualChange"
       },
       {
         "type": "bg",
         "id": "control_room",
         "transition": "fade",
-        "waitAfter": 700
+        "waitAfter": 700,
+        "displayMode": "background",
+        "sceneMode": "control",
+        "avoidUiOverlap": true,
+        "mainImageFit": "contain-in-safe-stage",
+        "underlayFit": "cover-fullscreen"
       },
       {
         "type": "bgm",
@@ -1524,18 +2251,25 @@
         "fade": 800
       },
       {
-        "type": "clearSprites"
+        "type": "clearSprites",
+        "reason": "sceneBoundaryOrMajorVisualChange"
       },
       {
         "type": "bg",
         "id": "doc_rundown",
         "transition": "fade",
-        "waitAfter": 700
+        "waitAfter": 700,
+        "displayMode": "document",
+        "sceneMode": "control",
+        "documentTarget": "sidePanelExpandable",
+        "keepCurrentBackground": true,
+        "documentTitle": "演出 rundown 流程表"
       },
       {
         "type": "note",
         "title": "RUN-DOWN / CRITICAL CUE",
-        "text": "19:24 真心告白\n19:30 【輪迴】系統發表\n目前預設：立即切換"
+        "text": "19:24 真心告白\n19:30 【輪迴】系統發表\n目前預設：立即切換",
+        "sceneMode": "control"
       },
       {
         "type": "narrate",
@@ -1577,34 +2311,69 @@
             },
             "next": "ask_jamie_silence"
           }
-        ]
+        ],
+        "sceneMode": "control",
+        "choiceUi": {
+          "width": "70%",
+          "textAlign": "center",
+          "fontScale": "large"
+        }
       }
     ],
     "ask_jamie_silence": [
       {
         "type": "sfx",
         "id": "comm",
-        "volume": 0.45
+        "volume": 0.45,
+        "sceneMode": "control",
+        "conversation": {
+          "layout": "group",
+          "participants": [
+            "oldnoodle",
+            "jamie",
+            "tingru"
+          ],
+          "voiceOnlyParticipants": [],
+          "placementPolicy": "primary-left-secondary-right-swap-once",
+          "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
+        },
+        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。"
       },
       {
         "type": "say",
         "speaker": "老麵",
-        "text": "傑米。真心告白後，要不要留一段沉默？"
+        "text": "傑米。真心告白後，要不要留一段沉默？",
+        "character": "oldnoodle",
+        "speakerFocus": "primary",
+        "sceneMode": "control",
+        "presence": "onscreen"
       },
       {
         "type": "say",
         "speaker": "傑米",
-        "text": "不要浪費眼淚。眼淚要在最有用的時候發光。直接切。"
+        "text": "不要浪費眼淚。眼淚要在最有用的時候發光。直接切。",
+        "character": "jamie",
+        "speakerFocus": "primary",
+        "sceneMode": "control",
+        "presence": "onscreen"
       },
       {
         "type": "say",
         "speaker": "老麵",
-        "text": "收到。"
+        "text": "收到。",
+        "character": "oldnoodle",
+        "speakerFocus": "primary",
+        "sceneMode": "control",
+        "presence": "onscreen"
       },
       {
         "type": "say",
         "speaker": "庭如",
-        "text": "……"
+        "text": "……",
+        "character": "tingru",
+        "speakerFocus": "primary",
+        "sceneMode": "control",
+        "presence": "onscreen"
       },
       {
         "type": "jump",
@@ -1615,16 +2384,34 @@
       {
         "type": "mode",
         "value": "system",
-        "label": "主舞台 / 開場影片"
+        "label": "主舞台 / 開場影片",
+        "sceneMode": "control",
+        "conversation": {
+          "layout": "voiceover",
+          "participants": [],
+          "voiceOnlyParticipants": [
+            "none"
+          ],
+          "placementPolicy": "primary-left-secondary-right-swap-once",
+          "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
+        },
+        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
+        "ui": "g"
       },
       {
-        "type": "clearSprites"
+        "type": "clearSprites",
+        "reason": "sceneBoundaryOrMajorVisualChange"
       },
       {
         "type": "bg",
         "id": "young_jamie_video",
         "transition": "fade",
-        "waitAfter": 700
+        "waitAfter": 700,
+        "displayMode": "cg",
+        "sceneMode": "control",
+        "avoidUiOverlap": true,
+        "mainImageFit": "contain-in-safe-stage",
+        "underlayFit": "cover-fullscreen"
       },
       {
         "type": "bgm",
@@ -1636,7 +2423,8 @@
       {
         "type": "note",
         "title": "REC",
-        "text": "黑白影像 / 年輕傑米 / 創業初期錄影"
+        "text": "黑白影像 / 年輕傑米 / 創業初期錄影",
+        "sceneMode": "control"
       },
       {
         "type": "narrate",
@@ -1645,22 +2433,42 @@
       {
         "type": "say",
         "speaker": "年輕傑米",
-        "text": "嗨……如果有人看到這段影片，那大概代表我……呃，創業成功了？或是失敗得很徹底。"
+        "text": "嗨……如果有人看到這段影片，那大概代表我……呃，創業成功了？或是失敗得很徹底。",
+        "character": "none",
+        "speakerFocus": "voice",
+        "sceneMode": "control",
+        "presence": "voiceOnly",
+        "leaveAfter": true
       },
       {
         "type": "say",
         "speaker": "年輕傑米",
-        "text": "我叫詹傑明，大家可以叫我傑米。我有一個夢想。我希望有一天，科技可以幫助我們留住我們所愛的人。"
+        "text": "我叫詹傑明，大家可以叫我傑米。我有一個夢想。我希望有一天，科技可以幫助我們留住我們所愛的人。",
+        "character": "none",
+        "speakerFocus": "voice",
+        "sceneMode": "control",
+        "presence": "voiceOnly",
+        "leaveAfter": true
       },
       {
         "type": "say",
         "speaker": "年輕傑米",
-        "text": "不是留住他們的身體，是留住他們的靈魂。他們的思想，他們講笑話的爛品味，他們明明很煩可是你還是會想念的那些小習慣。"
+        "text": "不是留住他們的身體，是留住他們的靈魂。他們的思想，他們講笑話的爛品味，他們明明很煩可是你還是會想念的那些小習慣。",
+        "character": "none",
+        "speakerFocus": "voice",
+        "sceneMode": "control",
+        "presence": "voiceOnly",
+        "leaveAfter": true
       },
       {
         "type": "say",
         "speaker": "年輕傑米",
-        "text": "如果未來的我真的做到這件事，我希望你不要忘記一開始為什麼想做。不是為了贏，不是為了變有錢，是因為失去一個人，真的很痛。"
+        "text": "如果未來的我真的做到這件事，我希望你不要忘記一開始為什麼想做。不是為了贏，不是為了變有錢，是因為失去一個人，真的很痛。",
+        "character": "none",
+        "speakerFocus": "voice",
+        "sceneMode": "control",
+        "presence": "voiceOnly",
+        "leaveAfter": true
       },
       {
         "type": "narrate",
@@ -1675,16 +2483,35 @@
       {
         "type": "mode",
         "value": "oldnoodle",
-        "label": "老麵 / 舞台監控"
+        "label": "老麵 / 舞台監控",
+        "sceneMode": "stage",
+        "conversation": {
+          "layout": "stage-with-backstage-monitor",
+          "participants": [
+            "jamie",
+            "tingru"
+          ],
+          "voiceOnlyParticipants": [],
+          "placementPolicy": "primary-left-secondary-right-swap-once",
+          "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
+        },
+        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
+        "ui": "j"
       },
       {
-        "type": "clearSprites"
+        "type": "clearSprites",
+        "reason": "sceneBoundaryOrMajorVisualChange"
       },
       {
         "type": "bg",
         "id": "stage_dark",
         "transition": "fade",
-        "waitAfter": 700
+        "waitAfter": 700,
+        "displayMode": "background",
+        "sceneMode": "stage",
+        "avoidUiOverlap": true,
+        "mainImageFit": "contain-in-safe-stage",
+        "underlayFit": "cover-fullscreen"
       },
       {
         "type": "bgm",
@@ -1697,7 +2524,14 @@
         "type": "show",
         "id": "jamie",
         "expression": "show",
-        "position": "center"
+        "position": "center",
+        "sceneMode": "stage",
+        "speakerFocus": "primary",
+        "allowedSceneMode": [
+          "stage",
+          "confession",
+          "reincarnation"
+        ]
       },
       {
         "type": "sfx",
@@ -1707,12 +2541,20 @@
       {
         "type": "say",
         "speaker": "傑米",
-        "text": "嗨，大家好。我是傑米。感謝你們今天來參加這場……不是追思會、不是告別式，而是我人生最後一場售票演出。"
+        "text": "嗨，大家好。我是傑米。感謝你們今天來參加這場……不是追思會、不是告別式，而是我人生最後一場售票演出。",
+        "character": "jamie",
+        "speakerFocus": "primary",
+        "sceneMode": "stage",
+        "presence": "onscreen"
       },
       {
         "type": "say",
         "speaker": "傑米",
-        "text": "雖然你們沒付錢。真不意外。"
+        "text": "雖然你們沒付錢。真不意外。",
+        "character": "jamie",
+        "speakerFocus": "primary",
+        "sceneMode": "stage",
+        "presence": "onscreen"
       },
       {
         "type": "effect",
@@ -1726,11 +2568,16 @@
       {
         "type": "say",
         "speaker": "庭如",
-        "text": "困惑上升。前排有一點憤怒。媒體區……更興奮了。"
+        "text": "困惑上升。前排有一點憤怒。媒體區……更興奮了。",
+        "character": "tingru",
+        "speakerFocus": "primary",
+        "sceneMode": "stage",
+        "presence": "onscreen"
       },
       {
         "type": "hide",
-        "id": "tingru"
+        "id": "tingru",
+        "reason": "speakerLeavesOrNoLongerPrimary"
       },
       {
         "type": "choice",
@@ -1764,13 +2611,28 @@
             },
             "next": "showtime_raw"
           }
-        ]
+        ],
+        "sceneMode": "stage",
+        "choiceUi": {
+          "width": "70%",
+          "textAlign": "center",
+          "fontScale": "large"
+        }
       }
     ],
     "showtime_silence": [
       {
         "type": "narrate",
-        "text": "老麵沒有讓任何音軌進來。三秒。那三秒長得像一場小型墜樓。然後後排有人笑了，第二個人跟上，第三個人跟上。笑聲像火星，落在乾草上。"
+        "text": "老麵沒有讓任何音軌進來。三秒。那三秒長得像一場小型墜樓。然後後排有人笑了，第二個人跟上，第三個人跟上。笑聲像火星，落在乾草上。",
+        "sceneMode": "stage",
+        "conversation": {
+          "layout": "narrative",
+          "participants": [],
+          "voiceOnlyParticipants": [],
+          "placementPolicy": "primary-left-secondary-right-swap-once",
+          "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
+        },
+        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。"
       },
       {
         "type": "sfx",
@@ -1785,22 +2647,46 @@
     "showtime_lowfreq": [
       {
         "type": "narrate",
-        "text": "很低的聲音進入空氣，幾乎聽不見，但現場的尷尬突然有了形狀。大家意識到，自己正在被允許進入一場表演。"
+        "text": "很低的聲音進入空氣，幾乎聽不見，但現場的尷尬突然有了形狀。大家意識到，自己正在被允許進入一場表演。",
+        "sceneMode": "stage",
+        "conversation": {
+          "layout": "stage-with-backstage-monitor",
+          "participants": [
+            "tingru",
+            "oldnoodle"
+          ],
+          "voiceOnlyParticipants": [],
+          "placementPolicy": "primary-left-secondary-right-swap-once",
+          "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
+        },
+        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。"
       },
       {
         "type": "say",
         "speaker": "庭如",
-        "text": "操控感變強了。"
+        "text": "操控感變強了。",
+        "character": "tingru",
+        "speakerFocus": "primary",
+        "sceneMode": "stage",
+        "presence": "onscreen"
       },
       {
         "type": "say",
         "speaker": "老麵",
-        "text": "是舞台感。"
+        "text": "是舞台感。",
+        "character": "oldnoodle",
+        "speakerFocus": "primary",
+        "sceneMode": "stage",
+        "presence": "onscreen"
       },
       {
         "type": "say",
         "speaker": "庭如",
-        "text": "我知道，所以我說操控感。"
+        "text": "我知道，所以我說操控感。",
+        "character": "tingru",
+        "speakerFocus": "primary",
+        "sceneMode": "stage",
+        "presence": "onscreen"
       },
       {
         "type": "jump",
@@ -1810,7 +2696,16 @@
     "showtime_camera": [
       {
         "type": "narrate",
-        "text": "側邊螢幕短暫帶到觀眾表情。有人震驚，有人憋笑，有人不知道該不該笑。正是這種不知道，讓笑聲找到出口。"
+        "text": "側邊螢幕短暫帶到觀眾表情。有人震驚，有人憋笑，有人不知道該不該笑。正是這種不知道，讓笑聲找到出口。",
+        "sceneMode": "stage",
+        "conversation": {
+          "layout": "narrative",
+          "participants": [],
+          "voiceOnlyParticipants": [],
+          "placementPolicy": "primary-left-secondary-right-swap-once",
+          "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
+        },
+        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。"
       },
       {
         "type": "sfx",
@@ -1825,12 +2720,27 @@
     "showtime_raw": [
       {
         "type": "narrate",
-        "text": "BGM 被推到更遠。傑米的聲音變得非常清楚，清楚到每個人都無法假裝那只是段子。笑聲比較少，但每一個笑聲都帶著不安。"
+        "text": "BGM 被推到更遠。傑米的聲音變得非常清楚，清楚到每個人都無法假裝那只是段子。笑聲比較少，但每一個笑聲都帶著不安。",
+        "sceneMode": "stage",
+        "conversation": {
+          "layout": "monologue",
+          "participants": [
+            "tingru"
+          ],
+          "voiceOnlyParticipants": [],
+          "placementPolicy": "primary-left-secondary-right-swap-once",
+          "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
+        },
+        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。"
       },
       {
         "type": "say",
         "speaker": "庭如",
-        "text": "他聽起來比較孤單。"
+        "text": "他聽起來比較孤單。",
+        "character": "tingru",
+        "speakerFocus": "primary",
+        "sceneMode": "stage",
+        "presence": "onscreen"
       },
       {
         "type": "jump",
@@ -1841,7 +2751,25 @@
       {
         "type": "say",
         "speaker": "傑米",
-        "text": "這是我人生最後一次，合法講幹話不用上法院。"
+        "text": "這是我人生最後一次，合法講幹話不用上法院。",
+        "sceneMode": "stage",
+        "conversation": {
+          "layout": "stage-with-backstage-monitor",
+          "participants": [
+            "jamie",
+            "kate",
+            "ray",
+            "tingru",
+            "oldnoodle"
+          ],
+          "voiceOnlyParticipants": [],
+          "placementPolicy": "primary-left-secondary-right-swap-once",
+          "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
+        },
+        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
+        "character": "jamie",
+        "speakerFocus": "primary",
+        "presence": "onscreen"
       },
       {
         "type": "sfx",
@@ -1851,16 +2779,26 @@
       {
         "type": "say",
         "speaker": "傑米",
-        "text": "醫生說我還有一年。我說，不用那麼久，這世界爛到我自己都不想撐滿學期了。"
+        "text": "醫生說我還有一年。我說，不用那麼久，這世界爛到我自己都不想撐滿學期了。",
+        "character": "jamie",
+        "speakerFocus": "primary",
+        "sceneMode": "stage",
+        "presence": "onscreen"
       },
       {
-        "type": "clearSprites"
+        "type": "clearSprites",
+        "reason": "sceneBoundaryOrMajorVisualChange"
       },
       {
         "type": "bg",
         "id": "cg_audience_laugh",
         "transition": "fade",
-        "waitAfter": 700
+        "waitAfter": 700,
+        "displayMode": "cg",
+        "sceneMode": "stage",
+        "avoidUiOverlap": true,
+        "mainImageFit": "contain-in-safe-stage",
+        "underlayFit": "cover-fullscreen"
       },
       {
         "type": "sfx",
@@ -1868,23 +2806,37 @@
         "volume": 0.48
       },
       {
-        "type": "clearSprites"
+        "type": "clearSprites",
+        "reason": "sceneBoundaryOrMajorVisualChange"
       },
       {
         "type": "bg",
         "id": "stage_show",
         "transition": "fade",
-        "waitAfter": 700
+        "waitAfter": 700,
+        "displayMode": "background",
+        "sceneMode": "stage",
+        "avoidUiOverlap": true,
+        "mainImageFit": "contain-in-safe-stage",
+        "underlayFit": "cover-fullscreen"
       },
       {
         "type": "say",
         "speaker": "傑米",
-        "text": "我現在，就是一台即將報廢的特斯拉。還沒撞人，自己先起火。"
+        "text": "我現在，就是一台即將報廢的特斯拉。還沒撞人，自己先起火。",
+        "character": "jamie",
+        "speakerFocus": "primary",
+        "sceneMode": "stage",
+        "presence": "onscreen"
       },
       {
         "type": "say",
         "speaker": "傑米",
-        "text": "你知道你真的要死了，是什麼感覺嗎？就像你手機掉進馬桶後撿起來發現……乾，其實沒差，它本來就沒電了。"
+        "text": "你知道你真的要死了，是什麼感覺嗎？就像你手機掉進馬桶後撿起來發現……乾，其實沒差，它本來就沒電了。",
+        "character": "jamie",
+        "speakerFocus": "primary",
+        "sceneMode": "stage",
+        "presence": "onscreen"
       },
       {
         "type": "sfx",
@@ -1894,75 +2846,118 @@
       {
         "type": "say",
         "speaker": "傑米",
-        "text": "你們今天每個人都有一本紀念冊，對吧？如果你們不想看也沒關係，反正我也沒在讀你們的留言。"
+        "text": "你們今天每個人都有一本紀念冊，對吧？如果你們不想看也沒關係，反正我也沒在讀你們的留言。",
+        "character": "jamie",
+        "speakerFocus": "primary",
+        "sceneMode": "stage",
+        "presence": "onscreen"
       },
       {
         "type": "say",
         "speaker": "傑米",
-        "text": "我只是在陰間等你們犯錯，好下去相見。"
+        "text": "我只是在陰間等你們犯錯，好下去相見。",
+        "character": "jamie",
+        "speakerFocus": "primary",
+        "sceneMode": "stage",
+        "presence": "onscreen"
       },
       {
         "type": "say",
         "speaker": "凱特",
-        "text": "他把我的紀念冊講得像死亡筆記本。"
+        "text": "他把我的紀念冊講得像死亡筆記本。",
+        "character": "kate",
+        "speakerFocus": "primary",
+        "sceneMode": "stage",
+        "presence": "onscreen"
       },
       {
         "type": "hide",
-        "id": "kate"
+        "id": "kate",
+        "reason": "speakerLeavesOrNoLongerPrimary"
       },
       {
         "type": "say",
         "speaker": "雷老師",
-        "text": "效果拔群。"
+        "text": "效果拔群。",
+        "character": "ray",
+        "speakerFocus": "primary",
+        "sceneMode": "stage",
+        "presence": "onscreen"
       },
       {
         "type": "hide",
-        "id": "ray"
+        "id": "ray",
+        "reason": "speakerLeavesOrNoLongerPrimary"
       },
       {
         "type": "say",
         "speaker": "凱特",
-        "text": "我知道，所以我更生氣。"
+        "text": "我知道，所以我更生氣。",
+        "character": "kate",
+        "speakerFocus": "primary",
+        "sceneMode": "stage",
+        "presence": "onscreen"
       },
       {
         "type": "hide",
-        "id": "kate"
+        "id": "kate",
+        "reason": "speakerLeavesOrNoLongerPrimary"
       },
       {
         "type": "say",
         "speaker": "庭如",
-        "text": "大家開始放鬆了。悲傷被好奇跟娛樂蓋住。"
+        "text": "大家開始放鬆了。悲傷被好奇跟娛樂蓋住。",
+        "character": "tingru",
+        "speakerFocus": "primary",
+        "sceneMode": "stage",
+        "presence": "onscreen"
       },
       {
         "type": "hide",
-        "id": "tingru"
+        "id": "tingru",
+        "reason": "speakerLeavesOrNoLongerPrimary"
       },
       {
         "type": "say",
         "speaker": "老麵",
-        "text": "不是蓋住。是開路。"
+        "text": "不是蓋住。是開路。",
+        "character": "oldnoodle",
+        "speakerFocus": "primary",
+        "sceneMode": "stage",
+        "presence": "onscreen"
       },
       {
         "type": "hide",
-        "id": "oldnoodle"
+        "id": "oldnoodle",
+        "reason": "speakerLeavesOrNoLongerPrimary"
       },
       {
         "type": "say",
         "speaker": "庭如",
-        "text": "你最好是對的。"
+        "text": "你最好是對的。",
+        "character": "tingru",
+        "speakerFocus": "primary",
+        "sceneMode": "stage",
+        "presence": "onscreen"
       },
       {
         "type": "hide",
-        "id": "tingru"
+        "id": "tingru",
+        "reason": "speakerLeavesOrNoLongerPrimary"
       },
       {
         "type": "say",
         "speaker": "老麵",
-        "text": "我也希望。"
+        "text": "我也希望。",
+        "character": "oldnoodle",
+        "speakerFocus": "primary",
+        "sceneMode": "stage",
+        "presence": "onscreen"
       },
       {
         "type": "hide",
-        "id": "oldnoodle"
+        "id": "oldnoodle",
+        "reason": "speakerLeavesOrNoLongerPrimary"
       },
       {
         "type": "jump",
@@ -1973,16 +2968,34 @@
       {
         "type": "mode",
         "value": "tingru",
-        "label": "庭如 / 笑聲底下"
+        "label": "庭如 / 笑聲底下",
+        "sceneMode": "stage",
+        "conversation": {
+          "layout": "monologue",
+          "participants": [
+            "jamie"
+          ],
+          "voiceOnlyParticipants": [],
+          "placementPolicy": "primary-left-secondary-right-swap-once",
+          "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
+        },
+        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
+        "ui": "j"
       },
       {
-        "type": "clearSprites"
+        "type": "clearSprites",
+        "reason": "sceneBoundaryOrMajorVisualChange"
       },
       {
         "type": "bg",
         "id": "stage_show",
         "transition": "fade",
-        "waitAfter": 700
+        "waitAfter": 700,
+        "displayMode": "background",
+        "sceneMode": "stage",
+        "avoidUiOverlap": true,
+        "mainImageFit": "contain-in-safe-stage",
+        "underlayFit": "cover-fullscreen"
       },
       {
         "type": "effect",
@@ -1993,22 +3006,40 @@
           "被冒犯",
           "好奇",
           "不知道該不該笑"
-        ]
+        ],
+        "direction": "up",
+        "lockInput": true,
+        "sceneMode": "empathy",
+        "duration": 6560,
+        "visualBg": "cg_empathy_warm",
+        "emotionStyle": "warm-gold-rise"
       },
       {
         "type": "say",
         "speaker": "傑米",
-        "text": "首先，我要感謝我的家人，真的。"
+        "text": "首先，我要感謝我的家人，真的。",
+        "character": "jamie",
+        "speakerFocus": "primary",
+        "sceneMode": "stage",
+        "presence": "onscreen"
       },
       {
         "type": "say",
         "speaker": "傑米",
-        "text": "給我爸。我爸年輕的時候常說，男人就要硬起來。"
+        "text": "給我爸。我爸年輕的時候常說，男人就要硬起來。",
+        "character": "jamie",
+        "speakerFocus": "primary",
+        "sceneMode": "stage",
+        "presence": "onscreen"
       },
       {
         "type": "say",
         "speaker": "傑米",
-        "text": "現在我躺在病床上，看著一堆醫療管線插進我身體裡……我終於明白了，原來硬起來的真正意思，是屍斑。"
+        "text": "現在我躺在病床上，看著一堆醫療管線插進我身體裡……我終於明白了，原來硬起來的真正意思，是屍斑。",
+        "character": "jamie",
+        "speakerFocus": "primary",
+        "sceneMode": "stage",
+        "presence": "onscreen"
       },
       {
         "type": "sfx",
@@ -2022,17 +3053,29 @@
       {
         "type": "say",
         "speaker": "傑米",
-        "text": "給我媽。我媽這輩子最大的遺憾，是沒看到我結婚。"
+        "text": "給我媽。我媽這輩子最大的遺憾，是沒看到我結婚。",
+        "character": "jamie",
+        "speakerFocus": "primary",
+        "sceneMode": "stage",
+        "presence": "onscreen"
       },
       {
         "type": "say",
         "speaker": "傑米",
-        "text": "媽，妳看清楚，我現在穿著西裝，現場有花，有座位，有哭聲。"
+        "text": "媽，妳看清楚，我現在穿著西裝，現場有花，有座位，有哭聲。",
+        "character": "jamie",
+        "speakerFocus": "primary",
+        "sceneMode": "stage",
+        "presence": "onscreen"
       },
       {
         "type": "say",
         "speaker": "傑米",
-        "text": "這場派對唯一缺的，就是新娘而已。"
+        "text": "這場派對唯一缺的，就是新娘而已。",
+        "character": "jamie",
+        "speakerFocus": "primary",
+        "sceneMode": "stage",
+        "presence": "onscreen"
       },
       {
         "type": "sfx",
@@ -2046,7 +3089,11 @@
       {
         "type": "say",
         "speaker": "傑米",
-        "text": "而且拜託，不結婚就怎樣？你們那些結婚的，不是也整天在臉書說婚姻像墳墓嗎？現在好了，我直接住進去，贏你們一整輪。"
+        "text": "而且拜託，不結婚就怎樣？你們那些結婚的，不是也整天在臉書說婚姻像墳墓嗎？現在好了，我直接住進去，贏你們一整輪。",
+        "character": "jamie",
+        "speakerFocus": "primary",
+        "sceneMode": "stage",
+        "presence": "onscreen"
       },
       {
         "type": "choice",
@@ -2080,18 +3127,42 @@
             },
             "next": "observe_jamie"
           }
-        ]
+        ],
+        "sceneMode": "stage",
+        "choiceUi": {
+          "width": "70%",
+          "textAlign": "center",
+          "fontScale": "large"
+        }
       }
     ],
     "observe_linwei": [
       {
-        "type": "clearSprites"
+        "type": "clearSprites",
+        "sceneMode": "stage",
+        "conversation": {
+          "layout": "stage-with-backstage-monitor",
+          "participants": [
+            "tingru",
+            "oldnoodle"
+          ],
+          "voiceOnlyParticipants": [],
+          "placementPolicy": "primary-left-secondary-right-swap-once",
+          "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
+        },
+        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
+        "reason": "sceneBoundaryOrMajorVisualChange"
       },
       {
         "type": "bg",
         "id": "cg_linwei_silent",
         "transition": "fade",
-        "waitAfter": 700
+        "waitAfter": 700,
+        "displayMode": "cg",
+        "sceneMode": "stage",
+        "avoidUiOverlap": true,
+        "mainImageFit": "contain-in-safe-stage",
+        "underlayFit": "cover-fullscreen"
       },
       {
         "type": "narrate",
@@ -2100,38 +3171,59 @@
       {
         "type": "say",
         "speaker": "庭如",
-        "text": "她很痛。"
+        "text": "她很痛。",
+        "character": "tingru",
+        "speakerFocus": "primary",
+        "sceneMode": "stage",
+        "presence": "onscreen"
       },
       {
         "type": "hide",
-        "id": "tingru"
+        "id": "tingru",
+        "reason": "speakerLeavesOrNoLongerPrimary"
       },
       {
         "type": "say",
         "speaker": "老麵",
-        "text": "誰？"
+        "text": "誰？",
+        "character": "oldnoodle",
+        "speakerFocus": "primary",
+        "sceneMode": "stage",
+        "presence": "onscreen"
       },
       {
         "type": "hide",
-        "id": "oldnoodle"
+        "id": "oldnoodle",
+        "reason": "speakerLeavesOrNoLongerPrimary"
       },
       {
         "type": "say",
         "speaker": "庭如",
-        "text": "林薇。她不是恨他，只是忽然明白，自己曾經愛過的那個人，已經學會把所有東西都變成舞台效果。"
+        "text": "林薇。她不是恨他，只是忽然明白，自己曾經愛過的那個人，已經學會把所有東西都變成舞台效果。",
+        "character": "tingru",
+        "speakerFocus": "primary",
+        "sceneMode": "stage",
+        "presence": "onscreen"
       },
       {
         "type": "hide",
-        "id": "tingru"
+        "id": "tingru",
+        "reason": "speakerLeavesOrNoLongerPrimary"
       },
       {
-        "type": "clearSprites"
+        "type": "clearSprites",
+        "reason": "sceneBoundaryOrMajorVisualChange"
       },
       {
         "type": "bg",
         "id": "stage_show",
         "transition": "fade",
-        "waitAfter": 700
+        "waitAfter": 700,
+        "displayMode": "background",
+        "sceneMode": "stage",
+        "avoidUiOverlap": true,
+        "mainImageFit": "contain-in-safe-stage",
+        "underlayFit": "cover-fullscreen"
       },
       {
         "type": "jump",
@@ -2141,43 +3233,76 @@
     "observe_exec": [
       {
         "type": "narrate",
-        "text": "高層笑得很小心。笑太少，怕被拍到冷血；笑太多，怕被寫成不尊重創辦人。有人真心佩服傑米，也有人已經在想明天開盤。"
+        "text": "高層笑得很小心。笑太少，怕被拍到冷血；笑太多，怕被寫成不尊重創辦人。有人真心佩服傑米，也有人已經在想明天開盤。",
+        "sceneMode": "stage",
+        "conversation": {
+          "layout": "stage-with-backstage-monitor",
+          "participants": [
+            "tingru",
+            "oldnoodle"
+          ],
+          "voiceOnlyParticipants": [],
+          "placementPolicy": "primary-left-secondary-right-swap-once",
+          "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
+        },
+        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。"
       },
       {
         "type": "say",
         "speaker": "庭如",
-        "text": "他們在笑，也在算。"
+        "text": "他們在笑，也在算。",
+        "character": "tingru",
+        "speakerFocus": "primary",
+        "sceneMode": "stage",
+        "presence": "onscreen"
       },
       {
         "type": "hide",
-        "id": "tingru"
+        "id": "tingru",
+        "reason": "speakerLeavesOrNoLongerPrimary"
       },
       {
         "type": "say",
         "speaker": "老麵",
-        "text": "這不衝突。"
+        "text": "這不衝突。",
+        "character": "oldnoodle",
+        "speakerFocus": "primary",
+        "sceneMode": "stage",
+        "presence": "onscreen"
       },
       {
         "type": "hide",
-        "id": "oldnoodle"
+        "id": "oldnoodle",
+        "reason": "speakerLeavesOrNoLongerPrimary"
       },
       {
         "type": "say",
         "speaker": "庭如",
-        "text": "我知道，所以才可怕。"
+        "text": "我知道，所以才可怕。",
+        "character": "tingru",
+        "speakerFocus": "primary",
+        "sceneMode": "stage",
+        "presence": "onscreen"
       },
       {
         "type": "hide",
-        "id": "tingru"
+        "id": "tingru",
+        "reason": "speakerLeavesOrNoLongerPrimary"
       },
       {
-        "type": "clearSprites"
+        "type": "clearSprites",
+        "reason": "sceneBoundaryOrMajorVisualChange"
       },
       {
         "type": "bg",
         "id": "stage_show",
         "transition": "fade",
-        "waitAfter": 700
+        "waitAfter": 700,
+        "displayMode": "background",
+        "sceneMode": "stage",
+        "avoidUiOverlap": true,
+        "mainImageFit": "contain-in-safe-stage",
+        "underlayFit": "cover-fullscreen"
       },
       {
         "type": "jump",
@@ -2187,52 +3312,90 @@
     "observe_jamie": [
       {
         "type": "narrate",
-        "text": "他掌控了全場。每一次停頓，每一個笑點，每一個眼神，都像精準算過。可是他的恐懼沒有因此變小。笑聲只是蓋子，蓋住一個很深、很深的洞。"
+        "text": "他掌控了全場。每一次停頓，每一個笑點，每一個眼神，都像精準算過。可是他的恐懼沒有因此變小。笑聲只是蓋子，蓋住一個很深、很深的洞。",
+        "sceneMode": "stage",
+        "conversation": {
+          "layout": "stage-with-backstage-monitor",
+          "participants": [
+            "tingru",
+            "oldnoodle"
+          ],
+          "voiceOnlyParticipants": [],
+          "placementPolicy": "primary-left-secondary-right-swap-once",
+          "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
+        },
+        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。"
       },
       {
         "type": "say",
         "speaker": "庭如",
-        "text": "他在燃燒自己。"
+        "text": "他在燃燒自己。",
+        "character": "tingru",
+        "speakerFocus": "primary",
+        "sceneMode": "stage",
+        "presence": "onscreen"
       },
       {
         "type": "hide",
-        "id": "tingru"
+        "id": "tingru",
+        "reason": "speakerLeavesOrNoLongerPrimary"
       },
       {
         "type": "say",
         "speaker": "老麵",
-        "text": "我知道。"
+        "text": "我知道。",
+        "character": "oldnoodle",
+        "speakerFocus": "primary",
+        "sceneMode": "stage",
+        "presence": "onscreen"
       },
       {
         "type": "hide",
-        "id": "oldnoodle"
+        "id": "oldnoodle",
+        "reason": "speakerLeavesOrNoLongerPrimary"
       },
       {
         "type": "say",
         "speaker": "庭如",
-        "text": "你知道還讓他繼續？"
+        "text": "你知道還讓他繼續？",
+        "character": "tingru",
+        "speakerFocus": "primary",
+        "sceneMode": "stage",
+        "presence": "onscreen"
       },
       {
         "type": "hide",
-        "id": "tingru"
+        "id": "tingru",
+        "reason": "speakerLeavesOrNoLongerPrimary"
       },
       {
         "type": "say",
         "speaker": "老麵",
-        "text": "這是他選的燃燒方式。"
+        "text": "這是他選的燃燒方式。",
+        "character": "oldnoodle",
+        "speakerFocus": "primary",
+        "sceneMode": "stage",
+        "presence": "onscreen"
       },
       {
         "type": "hide",
-        "id": "oldnoodle"
+        "id": "oldnoodle",
+        "reason": "speakerLeavesOrNoLongerPrimary"
       },
       {
-        "type": "clearSprites"
+        "type": "clearSprites",
+        "reason": "sceneBoundaryOrMajorVisualChange"
       },
       {
         "type": "bg",
         "id": "stage_show",
         "transition": "fade",
-        "waitAfter": 700
+        "waitAfter": 700,
+        "displayMode": "background",
+        "sceneMode": "stage",
+        "avoidUiOverlap": true,
+        "mainImageFit": "contain-in-safe-stage",
+        "underlayFit": "cover-fullscreen"
       },
       {
         "type": "jump",
@@ -2243,7 +3406,21 @@
       {
         "type": "say",
         "speaker": "傑米",
-        "text": "接下來，我要感謝我的前任們。"
+        "text": "接下來，我要感謝我的前任們。",
+        "sceneMode": "stage",
+        "conversation": {
+          "layout": "monologue",
+          "participants": [
+            "jamie"
+          ],
+          "voiceOnlyParticipants": [],
+          "placementPolicy": "primary-left-secondary-right-swap-once",
+          "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
+        },
+        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
+        "character": "jamie",
+        "speakerFocus": "primary",
+        "presence": "onscreen"
       },
       {
         "type": "narrate",
@@ -2252,27 +3429,47 @@
       {
         "type": "say",
         "speaker": "傑米",
-        "text": "我有幾任前女友今天沒來，沒關係，我原諒妳們。畢竟妳們平常連我的生日都忘記，我死了妳們記得才奇怪。"
+        "text": "我有幾任前女友今天沒來，沒關係，我原諒妳們。畢竟妳們平常連我的生日都忘記，我死了妳們記得才奇怪。",
+        "character": "jamie",
+        "speakerFocus": "primary",
+        "sceneMode": "stage",
+        "presence": "onscreen"
       },
       {
         "type": "say",
         "speaker": "傑米",
-        "text": "但妳們要知道一件事。我雖然人快走了，但我最後的願望之一，就是希望妳們過得比我活著時更痛苦。"
+        "text": "但妳們要知道一件事。我雖然人快走了，但我最後的願望之一，就是希望妳們過得比我活著時更痛苦。",
+        "character": "jamie",
+        "speakerFocus": "primary",
+        "sceneMode": "stage",
+        "presence": "onscreen"
       },
       {
         "type": "say",
         "speaker": "傑米",
-        "text": "所以我安排了 AI 語音留言。每年七夕，會寄一段我對妳說的情話到妳們公司的 LINE 群組裡。"
+        "text": "所以我安排了 AI 語音留言。每年七夕，會寄一段我對妳說的情話到妳們公司的 LINE 群組裡。",
+        "character": "jamie",
+        "speakerFocus": "primary",
+        "sceneMode": "stage",
+        "presence": "onscreen"
       },
       {
         "type": "say",
         "speaker": "傑米",
-        "text": "我愛過妳，但妳不值得被我記得。"
+        "text": "我愛過妳，但妳不值得被我記得。",
+        "character": "jamie",
+        "speakerFocus": "primary",
+        "sceneMode": "stage",
+        "presence": "onscreen"
       },
       {
         "type": "say",
         "speaker": "傑米",
-        "text": "還會配上一張我的骨灰罐自拍照。"
+        "text": "還會配上一張我的骨灰罐自拍照。",
+        "character": "jamie",
+        "speakerFocus": "primary",
+        "sceneMode": "stage",
+        "presence": "onscreen"
       },
       {
         "type": "sfx",
@@ -2288,7 +3485,13 @@
           "不用道歉",
           "林薇",
           "碎裂"
-        ]
+        ],
+        "direction": "down",
+        "lockInput": true,
+        "sceneMode": "empathy",
+        "duration": 6560,
+        "visualBg": "cg_empathy_fall",
+        "emotionStyle": "cool-blue-fall"
       },
       {
         "type": "narrate",
@@ -2301,7 +3504,11 @@
       {
         "type": "say",
         "speaker": "傑米",
-        "text": "給來參加的朋友們。我活著的時候你們都說「改天聚一下」，我都快死了你們才出現，這個改天，是不是太準時了點？"
+        "text": "給來參加的朋友們。我活著的時候你們都說「改天聚一下」，我都快死了你們才出現，這個改天，是不是太準時了點？",
+        "character": "jamie",
+        "speakerFocus": "primary",
+        "sceneMode": "stage",
+        "presence": "onscreen"
       },
       {
         "type": "sfx",
@@ -2311,12 +3518,20 @@
       {
         "type": "say",
         "speaker": "傑米",
-        "text": "不過也好啦，今天你們終於都來了，我也終於知道誰只會在我 IG 底下打 emoji，誰是真的肯為我出門的人。"
+        "text": "不過也好啦，今天你們終於都來了，我也終於知道誰只會在我 IG 底下打 emoji，誰是真的肯為我出門的人。",
+        "character": "jamie",
+        "speakerFocus": "primary",
+        "sceneMode": "stage",
+        "presence": "onscreen"
       },
       {
         "type": "say",
         "speaker": "傑米",
-        "text": "你們那幾個沒穿黑色的，是以為我結婚嗎？"
+        "text": "你們那幾個沒穿黑色的，是以為我結婚嗎？",
+        "character": "jamie",
+        "speakerFocus": "primary",
+        "sceneMode": "stage",
+        "presence": "onscreen"
       },
       {
         "type": "sfx",
@@ -2326,7 +3541,11 @@
       {
         "type": "say",
         "speaker": "傑米",
-        "text": "給奇點無限的同事們。你們一直說我很會講幹話，我現在要告訴你們一個事實——我都要死了，你們還是最廢的那群人。"
+        "text": "給奇點無限的同事們。你們一直說我很會講幹話，我現在要告訴你們一個事實——我都要死了，你們還是最廢的那群人。",
+        "character": "jamie",
+        "speakerFocus": "primary",
+        "sceneMode": "stage",
+        "presence": "onscreen"
       },
       {
         "type": "narrate",
@@ -2335,7 +3554,11 @@
       {
         "type": "say",
         "speaker": "傑米",
-        "text": "我已經立好遺囑，如果你們在我的追思會上講什麼「他是一個善良的人」這種話，我就從冥界投訴你們造謠。"
+        "text": "我已經立好遺囑，如果你們在我的追思會上講什麼「他是一個善良的人」這種話，我就從冥界投訴你們造謠。",
+        "character": "jamie",
+        "speakerFocus": "primary",
+        "sceneMode": "stage",
+        "presence": "onscreen"
       },
       {
         "type": "sfx",
@@ -2378,36 +3601,68 @@
             },
             "next": "mic_down"
           }
-        ]
+        ],
+        "sceneMode": "stage",
+        "choiceUi": {
+          "width": "70%",
+          "textAlign": "center",
+          "fontScale": "large"
+        }
       }
     ],
     "warn_burning": [
       {
         "type": "say",
         "speaker": "庭如",
-        "text": "他在燃燒自己。不是舞台效果的那種。"
+        "text": "他在燃燒自己。不是舞台效果的那種。",
+        "sceneMode": "story",
+        "conversation": {
+          "layout": "duo",
+          "participants": [
+            "tingru",
+            "oldnoodle"
+          ],
+          "voiceOnlyParticipants": [],
+          "placementPolicy": "primary-left-secondary-right-swap-once",
+          "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
+        },
+        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
+        "character": "tingru",
+        "speakerFocus": "primary",
+        "presence": "onscreen"
       },
       {
         "type": "hide",
-        "id": "tingru"
+        "id": "tingru",
+        "reason": "speakerLeavesOrNoLongerPrimary"
       },
       {
         "type": "say",
         "speaker": "老麵",
-        "text": "幫我看著他什麼時候開始不是在演，而是在消耗自己。"
+        "text": "幫我看著他什麼時候開始不是在演，而是在消耗自己。",
+        "character": "oldnoodle",
+        "speakerFocus": "primary",
+        "sceneMode": "story",
+        "presence": "onscreen"
       },
       {
         "type": "hide",
-        "id": "oldnoodle"
+        "id": "oldnoodle",
+        "reason": "speakerLeavesOrNoLongerPrimary"
       },
       {
         "type": "say",
         "speaker": "庭如",
-        "text": "也許已經開始了。"
+        "text": "也許已經開始了。",
+        "character": "tingru",
+        "speakerFocus": "primary",
+        "sceneMode": "story",
+        "presence": "onscreen"
       },
       {
         "type": "hide",
-        "id": "tingru"
+        "id": "tingru",
+        "reason": "speakerLeavesOrNoLongerPrimary"
       },
       {
         "type": "jump",
@@ -2418,38 +3673,69 @@
       {
         "type": "say",
         "speaker": "庭如",
-        "text": "觀眾已經被他帶走了。"
+        "text": "觀眾已經被他帶走了。",
+        "sceneMode": "story",
+        "conversation": {
+          "layout": "duo",
+          "participants": [
+            "tingru",
+            "oldnoodle"
+          ],
+          "voiceOnlyParticipants": [],
+          "placementPolicy": "primary-left-secondary-right-swap-once",
+          "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
+        },
+        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
+        "character": "tingru",
+        "speakerFocus": "primary",
+        "presence": "onscreen"
       },
       {
         "type": "hide",
-        "id": "tingru"
+        "id": "tingru",
+        "reason": "speakerLeavesOrNoLongerPrimary"
       },
       {
         "type": "say",
         "speaker": "老麵",
-        "text": "很好。"
+        "text": "很好。",
+        "character": "oldnoodle",
+        "speakerFocus": "primary",
+        "sceneMode": "story",
+        "presence": "onscreen"
       },
       {
         "type": "hide",
-        "id": "oldnoodle"
+        "id": "oldnoodle",
+        "reason": "speakerLeavesOrNoLongerPrimary"
       },
       {
         "type": "say",
         "speaker": "庭如",
-        "text": "你聽起來像在看數據。"
+        "text": "你聽起來像在看數據。",
+        "character": "tingru",
+        "speakerFocus": "primary",
+        "sceneMode": "story",
+        "presence": "onscreen"
       },
       {
         "type": "hide",
-        "id": "tingru"
+        "id": "tingru",
+        "reason": "speakerLeavesOrNoLongerPrimary"
       },
       {
         "type": "say",
         "speaker": "老麵",
-        "text": "我現在必須像在看數據。"
+        "text": "我現在必須像在看數據。",
+        "character": "oldnoodle",
+        "speakerFocus": "primary",
+        "sceneMode": "story",
+        "presence": "onscreen"
       },
       {
         "type": "hide",
-        "id": "oldnoodle"
+        "id": "oldnoodle",
+        "reason": "speakerLeavesOrNoLongerPrimary"
       },
       {
         "type": "jump",
@@ -2460,38 +3746,69 @@
       {
         "type": "say",
         "speaker": "庭如",
-        "text": "這些笑聲有點不真實。"
+        "text": "這些笑聲有點不真實。",
+        "sceneMode": "story",
+        "conversation": {
+          "layout": "duo",
+          "participants": [
+            "tingru",
+            "oldnoodle"
+          ],
+          "voiceOnlyParticipants": [],
+          "placementPolicy": "primary-left-secondary-right-swap-once",
+          "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
+        },
+        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
+        "character": "tingru",
+        "speakerFocus": "primary",
+        "presence": "onscreen"
       },
       {
         "type": "hide",
-        "id": "tingru"
+        "id": "tingru",
+        "reason": "speakerLeavesOrNoLongerPrimary"
       },
       {
         "type": "say",
         "speaker": "老麵",
-        "text": "越大的聲音，越容易讓人忘記自己在逃避什麼。"
+        "text": "越大的聲音，越容易讓人忘記自己在逃避什麼。",
+        "character": "oldnoodle",
+        "speakerFocus": "primary",
+        "sceneMode": "story",
+        "presence": "onscreen"
       },
       {
         "type": "hide",
-        "id": "oldnoodle"
+        "id": "oldnoodle",
+        "reason": "speakerLeavesOrNoLongerPrimary"
       },
       {
         "type": "say",
         "speaker": "庭如",
-        "text": "所以你知道。"
+        "text": "所以你知道。",
+        "character": "tingru",
+        "speakerFocus": "primary",
+        "sceneMode": "story",
+        "presence": "onscreen"
       },
       {
         "type": "hide",
-        "id": "tingru"
+        "id": "tingru",
+        "reason": "speakerLeavesOrNoLongerPrimary"
       },
       {
         "type": "say",
         "speaker": "老麵",
-        "text": "我知道很多事，不代表我每次都能處理得好。"
+        "text": "我知道很多事，不代表我每次都能處理得好。",
+        "character": "oldnoodle",
+        "speakerFocus": "primary",
+        "sceneMode": "story",
+        "presence": "onscreen"
       },
       {
         "type": "hide",
-        "id": "oldnoodle"
+        "id": "oldnoodle",
+        "reason": "speakerLeavesOrNoLongerPrimary"
       },
       {
         "type": "jump",
@@ -2502,16 +3819,32 @@
       {
         "type": "mode",
         "value": "oldnoodle",
-        "label": "老麵 / 真心告白 CUE"
+        "label": "老麵 / 真心告白 CUE",
+        "sceneMode": "stage",
+        "conversation": {
+          "layout": "choice",
+          "participants": [],
+          "voiceOnlyParticipants": [],
+          "placementPolicy": "primary-left-secondary-right-swap-once",
+          "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
+        },
+        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
+        "ui": "j"
       },
       {
-        "type": "clearSprites"
+        "type": "clearSprites",
+        "reason": "sceneBoundaryOrMajorVisualChange"
       },
       {
         "type": "bg",
         "id": "stage_confession",
         "transition": "fade",
-        "waitAfter": 700
+        "waitAfter": 700,
+        "displayMode": "background",
+        "sceneMode": "stage",
+        "avoidUiOverlap": true,
+        "mainImageFit": "contain-in-safe-stage",
+        "underlayFit": "cover-fullscreen"
       },
       {
         "type": "bgm",
@@ -2565,14 +3898,29 @@
             },
             "next": "cue_light_cold"
           }
-        ]
+        ],
+        "sceneMode": "stage",
+        "choiceUi": {
+          "width": "70%",
+          "textAlign": "center",
+          "fontScale": "large"
+        }
       }
     ],
     "cue_light_warm": [
       {
         "type": "sfx",
         "id": "spotlight",
-        "volume": 0.42
+        "volume": 0.42,
+        "sceneMode": "story",
+        "conversation": {
+          "layout": "narrative",
+          "participants": [],
+          "voiceOnlyParticipants": [],
+          "placementPolicy": "primary-left-secondary-right-swap-once",
+          "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
+        },
+        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。"
       },
       {
         "type": "narrate",
@@ -2587,7 +3935,16 @@
       {
         "type": "sfx",
         "id": "spotlight",
-        "volume": 0.42
+        "volume": 0.42,
+        "sceneMode": "story",
+        "conversation": {
+          "layout": "narrative",
+          "participants": [],
+          "voiceOnlyParticipants": [],
+          "placementPolicy": "primary-left-secondary-right-swap-once",
+          "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
+        },
+        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。"
       },
       {
         "type": "narrate",
@@ -2602,7 +3959,16 @@
       {
         "type": "sfx",
         "id": "spotlight",
-        "volume": 0.42
+        "volume": 0.42,
+        "sceneMode": "story",
+        "conversation": {
+          "layout": "narrative",
+          "participants": [],
+          "voiceOnlyParticipants": [],
+          "placementPolicy": "primary-left-secondary-right-swap-once",
+          "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
+        },
+        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。"
       },
       {
         "type": "narrate",
@@ -2616,7 +3982,16 @@
     "cue_light_cold": [
       {
         "type": "narrate",
-        "text": "冷白色燈光沒有變。傑米的臉顯得更疲憊，也更真。"
+        "text": "冷白色燈光沒有變。傑米的臉顯得更疲憊，也更真。",
+        "sceneMode": "story",
+        "conversation": {
+          "layout": "narrative",
+          "participants": [],
+          "voiceOnlyParticipants": [],
+          "placementPolicy": "primary-left-secondary-right-swap-once",
+          "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
+        },
+        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。"
       },
       {
         "type": "jump",
@@ -2656,13 +4031,36 @@
             },
             "next": "confession_piano"
           }
-        ]
+        ],
+        "sceneMode": "story",
+        "conversation": {
+          "layout": "choice",
+          "participants": [],
+          "voiceOnlyParticipants": [],
+          "placementPolicy": "primary-left-secondary-right-swap-once",
+          "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
+        },
+        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
+        "choiceUi": {
+          "width": "70%",
+          "textAlign": "center",
+          "fontScale": "large"
+        }
       }
     ],
     "confession_no_music": [
       {
         "type": "narrate",
-        "text": "沒有大提琴，沒有吉他，沒有鋼琴。只剩下傑米的呼吸聲。那一瞬間，他不像 CEO，也不像產品。他只像一個快死的人。"
+        "text": "沒有大提琴，沒有吉他，沒有鋼琴。只剩下傑米的呼吸聲。那一瞬間，他不像 CEO，也不像產品。他只像一個快死的人。",
+        "sceneMode": "confession",
+        "conversation": {
+          "layout": "narrative",
+          "participants": [],
+          "voiceOnlyParticipants": [],
+          "placementPolicy": "primary-left-secondary-right-swap-once",
+          "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
+        },
+        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。"
       },
       {
         "type": "jump",
@@ -2675,7 +4073,16 @@
         "id": "title",
         "volume": 0.22,
         "loop": true,
-        "fade": 700
+        "fade": 700,
+        "sceneMode": "confession",
+        "conversation": {
+          "layout": "narrative",
+          "participants": [],
+          "voiceOnlyParticipants": [],
+          "placementPolicy": "primary-left-secondary-right-swap-once",
+          "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
+        },
+        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。"
       },
       {
         "type": "narrate",
@@ -2692,23 +4099,46 @@
         "id": "confession",
         "volume": 0.36,
         "loop": true,
-        "fade": 1200
+        "fade": 1200,
+        "sceneMode": "confession",
+        "conversation": {
+          "layout": "stage-with-backstage-monitor",
+          "participants": [
+            "jamie",
+            "tingru",
+            "oldnoodle"
+          ],
+          "voiceOnlyParticipants": [],
+          "placementPolicy": "primary-left-secondary-right-swap-once",
+          "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
+        },
+        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。"
       },
       {
         "type": "show",
         "id": "jamie",
         "expression": "confession",
-        "position": "center"
+        "position": "center",
+        "sceneMode": "confession",
+        "speakerFocus": "primary"
       },
       {
         "type": "say",
         "speaker": "傑米",
-        "text": "好了。笑話說完了。接下來，我想說一些真話。"
+        "text": "好了。笑話說完了。接下來，我想說一些真話。",
+        "character": "jamie",
+        "speakerFocus": "primary",
+        "sceneMode": "confession",
+        "presence": "onscreen"
       },
       {
         "type": "say",
         "speaker": "傑米",
-        "text": "我這一生，都在追求贏。我要贏過競爭對手，贏得市場，賺比別人更多的錢，登上所有雜誌封面。我做到了，對嗎？"
+        "text": "我這一生，都在追求贏。我要贏過競爭對手，贏得市場，賺比別人更多的錢，登上所有雜誌封面。我做到了，對嗎？",
+        "character": "jamie",
+        "speakerFocus": "primary",
+        "sceneMode": "confession",
+        "presence": "onscreen"
       },
       {
         "type": "sfx",
@@ -2718,17 +4148,29 @@
       {
         "type": "say",
         "speaker": "傑米",
-        "text": "但直到三個月前，我才發現，我輸了。輸得一敗塗地。我輸給了我身體裡幾個不聽話的細胞。它們比我更懂創業，悄悄在我體內建立了一個無法擊敗的王國。"
+        "text": "但直到三個月前，我才發現，我輸了。輸得一敗塗地。我輸給了我身體裡幾個不聽話的細胞。它們比我更懂創業，悄悄在我體內建立了一個無法擊敗的王國。",
+        "character": "jamie",
+        "speakerFocus": "primary",
+        "sceneMode": "confession",
+        "presence": "onscreen"
       },
       {
         "type": "say",
         "speaker": "傑米",
-        "text": "我害怕。"
+        "text": "我害怕。",
+        "character": "jamie",
+        "speakerFocus": "primary",
+        "sceneMode": "confession",
+        "presence": "onscreen"
       },
       {
         "type": "say",
         "speaker": "傑米",
-        "text": "我怕痛。我怕死。但我最怕的，是被人遺忘。"
+        "text": "我怕痛。我怕死。但我最怕的，是被人遺忘。",
+        "character": "jamie",
+        "speakerFocus": "primary",
+        "sceneMode": "confession",
+        "presence": "onscreen"
       },
       {
         "type": "effect",
@@ -2738,42 +4180,76 @@
           "空",
           "被遺忘",
           "詹傑明"
-        ]
+        ],
+        "direction": "up",
+        "lockInput": true,
+        "sceneMode": "empathy",
+        "duration": 6410,
+        "visualBg": "cg_empathy_warm",
+        "emotionStyle": "warm-gold-rise"
       },
       {
         "type": "say",
         "speaker": "傑米",
-        "text": "我怕我死後，傑米・詹這個名字，只會變成財經新聞裡的一組歷史數據，或者科技論壇上一段被人爭論不休的文字。"
+        "text": "我怕我死後，傑米・詹這個名字，只會變成財經新聞裡的一組歷史數據，或者科技論壇上一段被人爭論不休的文字。",
+        "character": "jamie",
+        "speakerFocus": "primary",
+        "sceneMode": "confession",
+        "presence": "onscreen"
       },
       {
         "type": "say",
         "speaker": "傑米",
-        "text": "我用盡一生去打造一個王國。但我從來沒有時間，好好看看我王國裡的風景。"
+        "text": "我用盡一生去打造一個王國。但我從來沒有時間，好好看看我王國裡的風景。",
+        "character": "jamie",
+        "speakerFocus": "primary",
+        "sceneMode": "confession",
+        "presence": "onscreen"
       },
       {
         "type": "say",
         "speaker": "傑米",
-        "text": "我沒能好好陪我父親走完最後一程。我錯過了我最好朋友的婚禮。我甚至記不清，我上一次不為任何目的地去旅行，是什麼時候。"
+        "text": "我沒能好好陪我父親走完最後一程。我錯過了我最好朋友的婚禮。我甚至記不清，我上一次不為任何目的地去旅行，是什麼時候。",
+        "character": "jamie",
+        "speakerFocus": "primary",
+        "sceneMode": "confession",
+        "presence": "onscreen"
       },
       {
         "type": "say",
         "speaker": "傑米",
-        "text": "所以我辦了這場秀。我想用我最擅長的方式，跟你們每一個人，好好道別。用那些傷人的笑話，戳破我們之間那些客套的謊言。"
+        "text": "所以我辦了這場秀。我想用我最擅長的方式，跟你們每一個人，好好道別。用那些傷人的笑話，戳破我們之間那些客套的謊言。",
+        "character": "jamie",
+        "speakerFocus": "primary",
+        "sceneMode": "confession",
+        "presence": "onscreen"
       },
       {
         "type": "say",
         "speaker": "傑米",
-        "text": "我想告訴我的家人，對不起，我不是一個及格的兒子。我想告訴我的前任們，謝謝妳們，在我還不是個混蛋的時候愛過我。我想告訴我的朋友們，我很抱歉，總是把你們的邀約排在工作後面。"
+        "text": "我想告訴我的家人，對不起，我不是一個及格的兒子。我想告訴我的前任們，謝謝妳們，在我還不是個混蛋的時候愛過我。我想告訴我的朋友們，我很抱歉，總是把你們的邀約排在工作後面。",
+        "character": "jamie",
+        "speakerFocus": "primary",
+        "sceneMode": "confession",
+        "presence": "onscreen"
       },
       {
         "type": "say",
         "speaker": "傑米",
-        "text": "我希望你們記得的，不是那個成功的、刻薄的、永遠正確的 CEO。"
+        "text": "我希望你們記得的，不是那個成功的、刻薄的、永遠正確的 CEO。",
+        "character": "jamie",
+        "speakerFocus": "primary",
+        "sceneMode": "confession",
+        "presence": "onscreen"
       },
       {
         "type": "say",
         "speaker": "傑米",
-        "text": "我希望你們記得，今天晚上，這個有點緊張，說了很多爛笑話，而且非常非常害怕被忘記的——詹傑明。"
+        "text": "我希望你們記得，今天晚上，這個有點緊張，說了很多爛笑話，而且非常非常害怕被忘記的——詹傑明。",
+        "character": "jamie",
+        "speakerFocus": "primary",
+        "sceneMode": "confession",
+        "presence": "onscreen"
       },
       {
         "type": "narrate",
@@ -2782,25 +4258,39 @@
       {
         "type": "say",
         "speaker": "庭如",
-        "text": "這就是你說的餘韻，對嗎？"
+        "text": "這就是你說的餘韻，對嗎？",
+        "character": "tingru",
+        "speakerFocus": "primary",
+        "sceneMode": "confession",
+        "presence": "onscreen"
       },
       {
         "type": "hide",
-        "id": "tingru"
+        "id": "tingru",
+        "reason": "speakerLeavesOrNoLongerPrimary"
       },
       {
         "type": "say",
         "speaker": "老麵",
-        "text": "……對。"
+        "text": "……對。",
+        "character": "oldnoodle",
+        "speakerFocus": "primary",
+        "sceneMode": "confession",
+        "presence": "onscreen"
       },
       {
         "type": "hide",
-        "id": "oldnoodle"
+        "id": "oldnoodle",
+        "reason": "speakerLeavesOrNoLongerPrimary"
       },
       {
         "type": "say",
         "speaker": "傑米",
-        "text": "但是。告別，不代表結束。"
+        "text": "但是。告別，不代表結束。",
+        "character": "jamie",
+        "speakerFocus": "primary",
+        "sceneMode": "confession",
+        "presence": "onscreen"
       },
       {
         "type": "if",
@@ -2816,13 +4306,31 @@
         "flag": "silence",
         "equals": 3,
         "then": "reincarnation_silence3",
-        "else": "reincarnation_silence0"
+        "else": "reincarnation_silence0",
+        "sceneMode": "reincarnation",
+        "conversation": {
+          "layout": "narrative",
+          "participants": [],
+          "voiceOnlyParticipants": [],
+          "placementPolicy": "primary-left-secondary-right-swap-once",
+          "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
+        },
+        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。"
       }
     ],
     "reincarnation_silence0": [
       {
         "type": "narrate",
-        "text": "淚水還沒真正落下，LED 已經亮起。【輪迴】兩個字像刀一樣切進現場。"
+        "text": "淚水還沒真正落下，LED 已經亮起。【輪迴】兩個字像刀一樣切進現場。",
+        "sceneMode": "reincarnation",
+        "conversation": {
+          "layout": "narrative",
+          "participants": [],
+          "voiceOnlyParticipants": [],
+          "placementPolicy": "primary-left-secondary-right-swap-once",
+          "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
+        },
+        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。"
       },
       {
         "type": "jump",
@@ -2832,7 +4340,16 @@
     "reincarnation_silence3": [
       {
         "type": "wait",
-        "ms": 3000
+        "ms": 3000,
+        "sceneMode": "reincarnation",
+        "conversation": {
+          "layout": "narrative",
+          "participants": [],
+          "voiceOnlyParticipants": [],
+          "placementPolicy": "primary-left-secondary-right-swap-once",
+          "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
+        },
+        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。"
       },
       {
         "type": "narrate",
@@ -2846,7 +4363,16 @@
     "reincarnation_silence7": [
       {
         "type": "wait",
-        "ms": 7000
+        "ms": 7000,
+        "sceneMode": "reincarnation",
+        "conversation": {
+          "layout": "narrative",
+          "participants": [],
+          "voiceOnlyParticipants": [],
+          "placementPolicy": "primary-left-secondary-right-swap-once",
+          "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
+        },
+        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。"
       },
       {
         "type": "narrate",
@@ -2861,25 +4387,50 @@
       {
         "type": "mode",
         "value": "tingru",
-        "label": "庭如 / 情緒崩裂"
+        "label": "庭如 / 情緒崩裂",
+        "sceneMode": "reincarnation",
+        "conversation": {
+          "layout": "stage-with-backstage-monitor",
+          "participants": [
+            "jamie",
+            "tingru"
+          ],
+          "voiceOnlyParticipants": [],
+          "placementPolicy": "primary-left-secondary-right-swap-once",
+          "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
+        },
+        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
+        "ui": "j"
       },
       {
-        "type": "clearSprites"
+        "type": "clearSprites",
+        "reason": "sceneBoundaryOrMajorVisualChange"
       },
       {
         "type": "bg",
         "id": "stage_reincarnation",
         "transition": "flash",
-        "waitAfter": 700
+        "waitAfter": 700,
+        "displayMode": "background",
+        "sceneMode": "reincarnation",
+        "avoidUiOverlap": true,
+        "mainImageFit": "contain-in-safe-stage",
+        "underlayFit": "cover-fullscreen"
       },
       {
-        "type": "clearSprites"
+        "type": "clearSprites",
+        "reason": "sceneBoundaryOrMajorVisualChange"
       },
       {
         "type": "bg",
         "id": "cg_reincarnation_boot",
         "transition": "flash",
-        "waitAfter": 700
+        "waitAfter": 700,
+        "displayMode": "cg",
+        "sceneMode": "reincarnation",
+        "avoidUiOverlap": true,
+        "mainImageFit": "contain-in-safe-stage",
+        "underlayFit": "cover-fullscreen"
       },
       {
         "type": "bgm",
@@ -2894,19 +4445,32 @@
         "volume": 0.72
       },
       {
-        "type": "clearSprites"
+        "type": "clearSprites",
+        "reason": "sceneBoundaryOrMajorVisualChange"
       },
       {
         "type": "bg",
         "id": "stage_reincarnation",
         "transition": "fade",
-        "waitAfter": 700
+        "waitAfter": 700,
+        "displayMode": "background",
+        "sceneMode": "reincarnation",
+        "avoidUiOverlap": true,
+        "mainImageFit": "contain-in-safe-stage",
+        "underlayFit": "cover-fullscreen"
       },
       {
         "type": "show",
         "id": "jamie",
         "expression": "reincarnation",
-        "position": "center"
+        "position": "center",
+        "sceneMode": "reincarnation",
+        "speakerFocus": "primary",
+        "allowedSceneMode": [
+          "stage",
+          "confession",
+          "reincarnation"
+        ]
       },
       {
         "type": "effect",
@@ -2924,60 +4488,104 @@
           "騙子",
           "天才",
           "怪物"
-        ]
+        ],
+        "direction": "down",
+        "lockInput": true,
+        "sceneMode": "empathy",
+        "duration": 7610,
+        "visualBg": "cg_empathy_fall",
+        "emotionStyle": "cool-blue-fall"
       },
       {
         "type": "say",
         "speaker": "傑米",
-        "text": "死亡，是人類的終極命題。而我，用我的一生，在為這個命題尋找答案。今天，我找到了。"
+        "text": "死亡，是人類的終極命題。而我，用我的一生，在為這個命題尋找答案。今天，我找到了。",
+        "character": "jamie",
+        "speakerFocus": "primary",
+        "sceneMode": "reincarnation",
+        "presence": "onscreen"
       },
       {
         "type": "say",
         "speaker": "傑米",
-        "text": "「輪迴」系統，是我和我的團隊，獻給這個世界的最終解答。它將完整地掃描、複製並上傳人類的意識、記憶與人格。"
+        "text": "「輪迴」系統，是我和我的團隊，獻給這個世界的最終解答。它將完整地掃描、複製並上傳人類的意識、記憶與人格。",
+        "character": "jamie",
+        "speakerFocus": "primary",
+        "sceneMode": "reincarnation",
+        "presence": "onscreen"
       },
       {
         "type": "say",
         "speaker": "傑米",
-        "text": "肉體會消亡。但「你」，將以另一種形式，永遠存在。"
+        "text": "肉體會消亡。但「你」，將以另一種形式，永遠存在。",
+        "character": "jamie",
+        "speakerFocus": "primary",
+        "sceneMode": "reincarnation",
+        "presence": "onscreen"
       },
       {
         "type": "say",
         "speaker": "庭如",
-        "text": "太多了。太多東西撞在一起了。有人覺得被騙，有人覺得看見奇蹟，有人在生氣，有人已經在想新聞標題。"
+        "text": "太多了。太多東西撞在一起了。有人覺得被騙，有人覺得看見奇蹟，有人在生氣，有人已經在想新聞標題。",
+        "character": "tingru",
+        "speakerFocus": "primary",
+        "sceneMode": "reincarnation",
+        "presence": "onscreen"
       },
       {
         "type": "hide",
-        "id": "tingru"
+        "id": "tingru",
+        "reason": "speakerLeavesOrNoLongerPrimary"
       },
       {
         "type": "say",
         "speaker": "庭如",
-        "text": "有人覺得自己贏了。可是他也很悲傷。"
+        "text": "有人覺得自己贏了。可是他也很悲傷。",
+        "character": "tingru",
+        "speakerFocus": "primary",
+        "sceneMode": "reincarnation",
+        "presence": "onscreen"
       },
       {
         "type": "hide",
-        "id": "tingru"
+        "id": "tingru",
+        "reason": "speakerLeavesOrNoLongerPrimary"
       },
       {
         "type": "say",
         "speaker": "傑米",
-        "text": "很快，我的身體將會停止運作。但是傑米・詹，將會繼續活下去。活在雲端，活在數據裡，繼續帶領奇點無限，走向下一個奇蹟。"
+        "text": "很快，我的身體將會停止運作。但是傑米・詹，將會繼續活下去。活在雲端，活在數據裡，繼續帶領奇點無限，走向下一個奇蹟。",
+        "character": "jamie",
+        "speakerFocus": "primary",
+        "sceneMode": "reincarnation",
+        "presence": "onscreen"
       },
       {
         "type": "say",
         "speaker": "傑米",
-        "text": "我將成為「輪迴」計畫的第一位使用者。第一個，數位永生人。"
+        "text": "我將成為「輪迴」計畫的第一位使用者。第一個，數位永生人。",
+        "character": "jamie",
+        "speakerFocus": "primary",
+        "sceneMode": "reincarnation",
+        "presence": "onscreen"
       },
       {
         "type": "say",
         "speaker": "傑米",
-        "text": "所以，朋友們，不要為我悲傷。這不是一場告別式，這是一場產品發表會。是我人生中，最重要、也最成功的一次。"
+        "text": "所以，朋友們，不要為我悲傷。這不是一場告別式，這是一場產品發表會。是我人生中，最重要、也最成功的一次。",
+        "character": "jamie",
+        "speakerFocus": "primary",
+        "sceneMode": "reincarnation",
+        "presence": "onscreen"
       },
       {
         "type": "say",
         "speaker": "傑米",
-        "text": "歡迎來到，永生的紀元。"
+        "text": "歡迎來到，永生的紀元。",
+        "character": "jamie",
+        "speakerFocus": "primary",
+        "sceneMode": "reincarnation",
+        "presence": "onscreen"
       },
       {
         "type": "choice",
@@ -3011,23 +4619,48 @@
             },
             "next": "after_show_01"
           }
-        ]
+        ],
+        "sceneMode": "reincarnation",
+        "choiceUi": {
+          "width": "70%",
+          "textAlign": "center",
+          "fontScale": "large"
+        }
       }
     ],
     "after_show_01": [
       {
         "type": "mode",
         "value": "oldnoodle",
-        "label": "老麵 / 演出結束"
+        "label": "老麵 / 演出結束",
+        "sceneMode": "afterward",
+        "conversation": {
+          "layout": "duo",
+          "participants": [
+            "ray",
+            "kate"
+          ],
+          "voiceOnlyParticipants": [],
+          "placementPolicy": "primary-left-secondary-right-swap-once",
+          "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
+        },
+        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
+        "ui": "g"
       },
       {
-        "type": "clearSprites"
+        "type": "clearSprites",
+        "reason": "sceneBoundaryOrMajorVisualChange"
       },
       {
         "type": "bg",
         "id": "control_room_dark",
         "transition": "fade",
-        "waitAfter": 700
+        "waitAfter": 700,
+        "displayMode": "background",
+        "sceneMode": "afterward",
+        "avoidUiOverlap": true,
+        "mainImageFit": "contain-in-safe-stage",
+        "underlayFit": "cover-fullscreen"
       },
       {
         "type": "bgm",
@@ -3037,7 +4670,8 @@
         "fade": 1200
       },
       {
-        "type": "clearSprites"
+        "type": "clearSprites",
+        "reason": "sceneBoundaryOrMajorVisualChange"
       },
       {
         "type": "sfx",
@@ -3045,36 +4679,56 @@
         "volume": 0.46
       },
       {
-        "type": "clearSprites"
+        "type": "clearSprites",
+        "reason": "sceneBoundaryOrMajorVisualChange"
       },
       {
         "type": "bg",
         "id": "cg_empty_stage_after",
         "transition": "fade",
-        "waitAfter": 700
+        "waitAfter": 700,
+        "displayMode": "cg",
+        "sceneMode": "afterward",
+        "avoidUiOverlap": true,
+        "mainImageFit": "contain-in-safe-stage",
+        "underlayFit": "cover-fullscreen"
       },
       {
         "type": "narrate",
         "text": "燈光慢慢恢復，但會場沒有恢復。媒體區像被點燃，手機亮成一片。奇點無限高層有人站起來打電話。朋友區有人沉默。林薇離開座位，沒有回頭。"
       },
       {
-        "type": "clearSprites"
+        "type": "clearSprites",
+        "reason": "sceneBoundaryOrMajorVisualChange"
       },
       {
         "type": "bg",
         "id": "control_room_dark",
         "transition": "fade",
-        "waitAfter": 700
+        "waitAfter": 700,
+        "displayMode": "background",
+        "sceneMode": "afterward",
+        "avoidUiOverlap": true,
+        "mainImageFit": "contain-in-safe-stage",
+        "underlayFit": "cover-fullscreen"
       },
       {
         "type": "say",
         "speaker": "雷老師",
-        "text": "演出結束。"
+        "text": "演出結束。",
+        "character": "ray",
+        "speakerFocus": "primary",
+        "sceneMode": "afterward",
+        "presence": "onscreen"
       },
       {
         "type": "say",
         "speaker": "凱特",
-        "text": "……這算成功嗎？"
+        "text": "……這算成功嗎？",
+        "character": "kate",
+        "speakerFocus": "primary",
+        "sceneMode": "afterward",
+        "presence": "onscreen"
       },
       {
         "type": "choice",
@@ -3108,29 +4762,62 @@
             },
             "next": "after_observe_phone"
           }
-        ]
+        ],
+        "sceneMode": "afterward",
+        "choiceUi": {
+          "width": "70%",
+          "textAlign": "center",
+          "fontScale": "large"
+        }
       }
     ],
     "after_say_completed": [
       {
         "type": "say",
         "speaker": "老麵",
-        "text": "我們完成了。"
+        "text": "我們完成了。",
+        "sceneMode": "afterward",
+        "conversation": {
+          "layout": "duo",
+          "participants": [
+            "oldnoodle",
+            "tingru"
+          ],
+          "voiceOnlyParticipants": [],
+          "placementPolicy": "primary-left-secondary-right-swap-once",
+          "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
+        },
+        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
+        "character": "oldnoodle",
+        "speakerFocus": "primary",
+        "presence": "onscreen"
       },
       {
         "type": "say",
         "speaker": "庭如",
-        "text": "我知道。"
+        "text": "我知道。",
+        "character": "tingru",
+        "speakerFocus": "primary",
+        "sceneMode": "afterward",
+        "presence": "onscreen"
       },
       {
         "type": "say",
         "speaker": "老麵",
-        "text": "妳聽起來不像高興。"
+        "text": "妳聽起來不像高興。",
+        "character": "oldnoodle",
+        "speakerFocus": "primary",
+        "sceneMode": "afterward",
+        "presence": "onscreen"
       },
       {
         "type": "say",
         "speaker": "庭如",
-        "text": "完成不是只有一種意思。有些傷害也會被完成。"
+        "text": "完成不是只有一種意思。有些傷害也會被完成。",
+        "character": "tingru",
+        "speakerFocus": "primary",
+        "sceneMode": "afterward",
+        "presence": "onscreen"
       },
       {
         "type": "jump",
@@ -3141,22 +4828,49 @@
       {
         "type": "say",
         "speaker": "老麵",
-        "text": "妳還覺得我們不該接嗎？"
+        "text": "妳還覺得我們不該接嗎？",
+        "sceneMode": "afterward",
+        "conversation": {
+          "layout": "duo",
+          "participants": [
+            "oldnoodle",
+            "tingru"
+          ],
+          "voiceOnlyParticipants": [],
+          "placementPolicy": "primary-left-secondary-right-swap-once",
+          "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
+        },
+        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
+        "character": "oldnoodle",
+        "speakerFocus": "primary",
+        "presence": "onscreen"
       },
       {
         "type": "say",
         "speaker": "庭如",
-        "text": "我現在更不知道了。"
+        "text": "我現在更不知道了。",
+        "character": "tingru",
+        "speakerFocus": "primary",
+        "sceneMode": "afterward",
+        "presence": "onscreen"
       },
       {
         "type": "say",
         "speaker": "老麵",
-        "text": "這算進步還是退步？"
+        "text": "這算進步還是退步？",
+        "character": "oldnoodle",
+        "speakerFocus": "primary",
+        "sceneMode": "afterward",
+        "presence": "onscreen"
       },
       {
         "type": "say",
         "speaker": "庭如",
-        "text": "這算事情變得比較真實。"
+        "text": "這算事情變得比較真實。",
+        "character": "tingru",
+        "speakerFocus": "primary",
+        "sceneMode": "afterward",
+        "presence": "onscreen"
       },
       {
         "type": "jump",
@@ -3167,22 +4881,49 @@
       {
         "type": "say",
         "speaker": "老麵",
-        "text": "我不知道這算什麼。"
+        "text": "我不知道這算什麼。",
+        "sceneMode": "afterward",
+        "conversation": {
+          "layout": "duo",
+          "participants": [
+            "oldnoodle",
+            "tingru"
+          ],
+          "voiceOnlyParticipants": [],
+          "placementPolicy": "primary-left-secondary-right-swap-once",
+          "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
+        },
+        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
+        "character": "oldnoodle",
+        "speakerFocus": "primary",
+        "presence": "onscreen"
       },
       {
         "type": "say",
         "speaker": "庭如",
-        "text": "你終於說了。"
+        "text": "你終於說了。",
+        "character": "tingru",
+        "speakerFocus": "primary",
+        "sceneMode": "afterward",
+        "presence": "onscreen"
       },
       {
         "type": "say",
         "speaker": "老麵",
-        "text": "說什麼？"
+        "text": "說什麼？",
+        "character": "oldnoodle",
+        "speakerFocus": "primary",
+        "sceneMode": "afterward",
+        "presence": "onscreen"
       },
       {
         "type": "say",
         "speaker": "庭如",
-        "text": "說你不知道。你一直都很會把不知道包裝成流程。"
+        "text": "說你不知道。你一直都很會把不知道包裝成流程。",
+        "character": "tingru",
+        "speakerFocus": "primary",
+        "sceneMode": "afterward",
+        "presence": "onscreen"
       },
       {
         "type": "jump",
@@ -3193,16 +4934,39 @@
       {
         "type": "mode",
         "value": "oldnoodle",
-        "label": "三個月後 / Before Fades 辦公室"
+        "label": "三個月後 / Before Fades 辦公室",
+        "sceneMode": "office",
+        "conversation": {
+          "layout": "group",
+          "participants": [
+            "kate",
+            "ray",
+            "oldnoodle",
+            "tingru"
+          ],
+          "voiceOnlyParticipants": [
+            "none"
+          ],
+          "placementPolicy": "primary-left-secondary-right-swap-once",
+          "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
+        },
+        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
+        "ui": "g"
       },
       {
-        "type": "clearSprites"
+        "type": "clearSprites",
+        "reason": "sceneBoundaryOrMajorVisualChange"
       },
       {
         "type": "bg",
         "id": "office_news",
         "transition": "fade",
-        "waitAfter": 700
+        "waitAfter": 700,
+        "displayMode": "background",
+        "sceneMode": "office",
+        "avoidUiOverlap": true,
+        "mainImageFit": "contain-in-safe-stage",
+        "underlayFit": "cover-fullscreen"
       },
       {
         "type": "bgm",
@@ -3219,7 +4983,8 @@
       {
         "type": "note",
         "title": "NEWS",
-        "text": "奇點無限創辦人傑米・詹，於今日凌晨在家中病逝，享年三十六歲。\n奇點無限股價開盤後應聲漲停。"
+        "text": "奇點無限創辦人傑米・詹，於今日凌晨在家中病逝，享年三十六歲。\n奇點無限股價開盤後應聲漲停。",
+        "sceneMode": "office"
       },
       {
         "type": "narrate",
@@ -3229,105 +4994,183 @@
         "type": "say",
         "speaker": "新聞主播",
         "text": "奇點無限創辦人傑米・詹，於今日凌晨在家中病逝，享年三十六歲。",
-        "character": "none"
+        "character": "none",
+        "speakerFocus": "voice",
+        "sceneMode": "office",
+        "presence": "voiceOnly",
+        "leaveAfter": true
       },
       {
         "type": "say",
         "speaker": "新聞主播",
         "text": "三個月前，他曾在一場極具爭議的生前告別秀中，公開發表 AI 人格備份與數位永生計畫「輪迴」。",
-        "character": "none"
+        "character": "none",
+        "speakerFocus": "voice",
+        "sceneMode": "office",
+        "presence": "voiceOnly",
+        "leaveAfter": true
       },
       {
         "type": "say",
         "speaker": "新聞主播",
         "text": "當時許多評論認為，這只是一次高明卻殘酷的死亡行銷。",
-        "character": "none"
+        "character": "none",
+        "speakerFocus": "voice",
+        "sceneMode": "office",
+        "presence": "voiceOnly",
+        "leaveAfter": true
       },
       {
         "type": "say",
         "speaker": "新聞主播",
         "text": "然而隨著傑米・詹今日正式離世，奇點無限宣布，將依照其生前安排，啟動第一階段人格上傳與董事會顧問模型測試。",
-        "character": "none"
+        "character": "none",
+        "speakerFocus": "voice",
+        "sceneMode": "office",
+        "presence": "voiceOnly",
+        "leaveAfter": true
       },
       {
         "type": "say",
         "speaker": "新聞主播",
         "text": "奇點無限股價開盤後應聲漲停。",
-        "character": "none"
+        "character": "none",
+        "speakerFocus": "voice",
+        "sceneMode": "office",
+        "presence": "voiceOnly",
+        "leaveAfter": true
       },
       {
-        "type": "clearSprites"
+        "type": "clearSprites",
+        "reason": "sceneBoundaryOrMajorVisualChange"
       },
       {
         "type": "bg",
         "id": "stock_news",
         "transition": "fade",
-        "waitAfter": 700
+        "waitAfter": 700,
+        "displayMode": "cg",
+        "sceneMode": "office",
+        "avoidUiOverlap": true,
+        "mainImageFit": "contain-in-safe-stage",
+        "underlayFit": "cover-fullscreen"
       },
       {
         "type": "say",
         "speaker": "凱特",
-        "text": "他真的死了。"
+        "text": "他真的死了。",
+        "character": "kate",
+        "speakerFocus": "primary",
+        "sceneMode": "office",
+        "presence": "onscreen"
       },
       {
         "type": "say",
         "speaker": "凱特",
-        "text": "明明知道他會死。可是看到新聞，還是覺得……"
+        "text": "明明知道他會死。可是看到新聞，還是覺得……",
+        "character": "kate",
+        "speakerFocus": "primary",
+        "sceneMode": "office",
+        "presence": "onscreen"
       },
       {
         "type": "say",
         "speaker": "雷老師",
-        "text": "我昨天還在剪那天的片。"
+        "text": "我昨天還在剪那天的片。",
+        "character": "ray",
+        "speakerFocus": "primary",
+        "sceneMode": "office",
+        "presence": "onscreen"
       },
       {
         "type": "say",
         "speaker": "老麵",
-        "text": "不是說封存？"
+        "text": "不是說封存？",
+        "character": "oldnoodle",
+        "speakerFocus": "primary",
+        "sceneMode": "office",
+        "presence": "onscreen"
       },
       {
         "type": "say",
         "speaker": "雷老師",
-        "text": "是啊。我打開看了一下，又封回去了。那個混蛋真的很會講。"
+        "text": "是啊。我打開看了一下，又封回去了。那個混蛋真的很會講。",
+        "character": "ray",
+        "speakerFocus": "primary",
+        "sceneMode": "office",
+        "presence": "onscreen"
       },
       {
         "type": "say",
         "speaker": "凱特",
-        "text": "也真的很會傷人。"
+        "text": "也真的很會傷人。",
+        "character": "kate",
+        "speakerFocus": "primary",
+        "sceneMode": "office",
+        "presence": "onscreen"
       },
       {
         "type": "say",
         "speaker": "庭如",
-        "text": "那天晚上，我感覺到的所有情緒，都是真的。"
+        "text": "那天晚上，我感覺到的所有情緒，都是真的。",
+        "character": "tingru",
+        "speakerFocus": "primary",
+        "sceneMode": "office",
+        "presence": "onscreen"
       },
       {
         "type": "say",
         "speaker": "庭如",
-        "text": "他的恐懼是真的。"
+        "text": "他的恐懼是真的。",
+        "character": "tingru",
+        "speakerFocus": "primary",
+        "sceneMode": "office",
+        "presence": "onscreen"
       },
       {
         "type": "say",
         "speaker": "庭如",
-        "text": "他的驕傲是真的。"
+        "text": "他的驕傲是真的。",
+        "character": "tingru",
+        "speakerFocus": "primary",
+        "sceneMode": "office",
+        "presence": "onscreen"
       },
       {
         "type": "say",
         "speaker": "庭如",
-        "text": "他的悲傷是真的。"
+        "text": "他的悲傷是真的。",
+        "character": "tingru",
+        "speakerFocus": "primary",
+        "sceneMode": "office",
+        "presence": "onscreen"
       },
       {
         "type": "say",
         "speaker": "庭如",
-        "text": "他的算計也是真的。"
+        "text": "他的算計也是真的。",
+        "character": "tingru",
+        "speakerFocus": "primary",
+        "sceneMode": "office",
+        "presence": "onscreen"
       },
       {
         "type": "say",
         "speaker": "庭如",
-        "text": "全部都是真的。"
+        "text": "全部都是真的。",
+        "character": "tingru",
+        "speakerFocus": "primary",
+        "sceneMode": "office",
+        "presence": "onscreen"
       },
       {
         "type": "say",
         "speaker": "老麵",
-        "text": "所以才麻煩。"
+        "text": "所以才麻煩。",
+        "character": "oldnoodle",
+        "speakerFocus": "primary",
+        "sceneMode": "office",
+        "presence": "onscreen"
       },
       {
         "type": "narrate",
@@ -3342,16 +5185,32 @@
       {
         "type": "mode",
         "value": "oldnoodle",
-        "label": "案件封存報告"
+        "label": "案件封存報告",
+        "sceneMode": "report",
+        "conversation": {
+          "layout": "choice",
+          "participants": [],
+          "voiceOnlyParticipants": [],
+          "placementPolicy": "primary-left-secondary-right-swap-once",
+          "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
+        },
+        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
+        "ui": "g"
       },
       {
-        "type": "clearSprites"
+        "type": "clearSprites",
+        "reason": "sceneBoundaryOrMajorVisualChange"
       },
       {
         "type": "bg",
         "id": "case_file",
         "transition": "fade",
-        "waitAfter": 700
+        "waitAfter": 700,
+        "displayMode": "background",
+        "sceneMode": "report",
+        "avoidUiOverlap": true,
+        "mainImageFit": "contain-in-safe-stage",
+        "underlayFit": "cover-fullscreen"
       },
       {
         "type": "bgm",
@@ -3363,16 +5222,23 @@
       {
         "type": "note",
         "title": "CASE 001 / 封存",
-        "text": "客戶：傑米・詹\n案件：生前告別秀\n狀態：待封存"
+        "text": "客戶：傑米・詹\n案件：生前告別秀\n狀態：待封存",
+        "sceneMode": "report"
       },
       {
-        "type": "clearSprites"
+        "type": "clearSprites",
+        "reason": "sceneBoundaryOrMajorVisualChange"
       },
       {
         "type": "bg",
         "id": "doc_case_report",
         "transition": "fade",
-        "waitAfter": 700
+        "waitAfter": 700,
+        "displayMode": "document",
+        "sceneMode": "report",
+        "documentTarget": "sidePanelExpandable",
+        "keepCurrentBackground": true,
+        "documentTitle": "Before Fades 案件封存報告"
       },
       {
         "type": "narrate",
@@ -3403,7 +5269,13 @@
             },
             "next": "case_report_truth"
           }
-        ]
+        ],
+        "sceneMode": "report",
+        "choiceUi": {
+          "width": "70%",
+          "textAlign": "center",
+          "fontScale": "large"
+        }
       }
     ],
     "case_report_truth": [
@@ -3439,7 +5311,21 @@
             },
             "next": "case_report_legacy"
           }
-        ]
+        ],
+        "sceneMode": "report",
+        "conversation": {
+          "layout": "choice",
+          "participants": [],
+          "voiceOnlyParticipants": [],
+          "placementPolicy": "primary-left-secondary-right-swap-once",
+          "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
+        },
+        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
+        "choiceUi": {
+          "width": "70%",
+          "textAlign": "center",
+          "fontScale": "large"
+        }
       }
     ],
     "case_report_legacy": [
@@ -3475,7 +5361,21 @@
             },
             "next": "ending_b"
           }
-        ]
+        ],
+        "sceneMode": "report",
+        "conversation": {
+          "layout": "choice",
+          "participants": [],
+          "voiceOnlyParticipants": [],
+          "placementPolicy": "primary-left-secondary-right-swap-once",
+          "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
+        },
+        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
+        "choiceUi": {
+          "width": "70%",
+          "textAlign": "center",
+          "fontScale": "large"
+        }
       }
     ],
     "ending_route_check_ethics": [
@@ -3483,7 +5383,16 @@
         "type": "if",
         "flag": "ending_ethics",
         "then": "ending_b",
-        "else": "ending_route_check_paradox"
+        "else": "ending_route_check_paradox",
+        "sceneMode": "report",
+        "conversation": {
+          "layout": "narrative",
+          "participants": [],
+          "voiceOnlyParticipants": [],
+          "placementPolicy": "primary-left-secondary-right-swap-once",
+          "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
+        },
+        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。"
       }
     ],
     "ending_route_check_paradox": [
@@ -3491,14 +5400,32 @@
         "type": "if",
         "flag": "ending_paradox",
         "then": "ending_c",
-        "else": "ending_a"
+        "else": "ending_a",
+        "sceneMode": "report",
+        "conversation": {
+          "layout": "narrative",
+          "participants": [],
+          "voiceOnlyParticipants": [],
+          "placementPolicy": "primary-left-secondary-right-swap-once",
+          "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
+        },
+        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。"
       }
     ],
     "ending_a": [
       {
         "type": "sfx",
         "id": "keyboard",
-        "volume": 0.38
+        "volume": 0.38,
+        "sceneMode": "report",
+        "conversation": {
+          "layout": "narrative",
+          "participants": [],
+          "voiceOnlyParticipants": [],
+          "placementPolicy": "primary-left-secondary-right-swap-once",
+          "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
+        },
+        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。"
       },
       {
         "type": "narrate",
@@ -3525,7 +5452,16 @@
       {
         "type": "sfx",
         "id": "keyboard",
-        "volume": 0.38
+        "volume": 0.38,
+        "sceneMode": "report",
+        "conversation": {
+          "layout": "narrative",
+          "participants": [],
+          "voiceOnlyParticipants": [],
+          "placementPolicy": "primary-left-secondary-right-swap-once",
+          "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
+        },
+        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。"
       },
       {
         "type": "narrate",
@@ -3556,7 +5492,16 @@
       {
         "type": "sfx",
         "id": "keyboard",
-        "volume": 0.38
+        "volume": 0.38,
+        "sceneMode": "report",
+        "conversation": {
+          "layout": "narrative",
+          "participants": [],
+          "voiceOnlyParticipants": [],
+          "placementPolicy": "primary-left-secondary-right-swap-once",
+          "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
+        },
+        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。"
       },
       {
         "type": "narrate",
@@ -3581,13 +5526,28 @@
     ],
     "final_screen": [
       {
-        "type": "clearSprites"
+        "type": "clearSprites",
+        "sceneMode": "title",
+        "conversation": {
+          "layout": "narrative",
+          "participants": [],
+          "voiceOnlyParticipants": [],
+          "placementPolicy": "primary-left-secondary-right-swap-once",
+          "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
+        },
+        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
+        "reason": "sceneBoundaryOrMajorVisualChange"
       },
       {
         "type": "bg",
         "id": "title",
         "transition": "fade",
-        "waitAfter": 700
+        "waitAfter": 700,
+        "displayMode": "background",
+        "sceneMode": "title",
+        "avoidUiOverlap": true,
+        "mainImageFit": "contain-in-safe-stage",
+        "underlayFit": "cover-fullscreen"
       },
       {
         "type": "bgm",
@@ -3604,7 +5564,8 @@
       {
         "type": "note",
         "title": "Before Fades",
-        "text": "CASE CLOSED"
+        "text": "CASE CLOSED",
+        "sceneMode": "title"
       },
       {
         "type": "narrate",
@@ -3620,7 +5581,19 @@
     ],
     "case_memory_win": [
       {
-        "type": "clearSprites"
+        "type": "clearSprites",
+        "sceneMode": "memory",
+        "conversation": {
+          "layout": "voiceover",
+          "participants": [],
+          "voiceOnlyParticipants": [
+            "none"
+          ],
+          "placementPolicy": "primary-left-secondary-right-swap-once",
+          "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
+        },
+        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
+        "reason": "sceneBoundaryOrMajorVisualChange"
       },
       {
         "type": "effect",
@@ -3630,7 +5603,13 @@
           "火災",
           "停不下來",
           "存在"
-        ]
+        ],
+        "direction": "up",
+        "lockInput": true,
+        "sceneMode": "empathy",
+        "duration": 6410,
+        "visualBg": "cg_empathy_warm",
+        "emotionStyle": "warm-gold-rise"
       },
       {
         "type": "narrate",
@@ -3648,13 +5627,21 @@
         "type": "say",
         "speaker": "錄音中的傑米",
         "text": "我不是想證明他們錯。",
-        "character": "none"
+        "character": "none",
+        "speakerFocus": "voice",
+        "sceneMode": "memory",
+        "presence": "voiceOnly",
+        "leaveAfter": true
       },
       {
         "type": "say",
         "speaker": "錄音中的傑米",
         "text": "我是想證明我存在。",
-        "character": "none"
+        "character": "none",
+        "speakerFocus": "voice",
+        "sceneMode": "memory",
+        "presence": "voiceOnly",
+        "leaveAfter": true
       },
       {
         "type": "jump",
@@ -3663,13 +5650,30 @@
     ],
     "case_memory_company": [
       {
-        "type": "clearSprites"
+        "type": "clearSprites",
+        "sceneMode": "memory",
+        "conversation": {
+          "layout": "voiceover",
+          "participants": [],
+          "voiceOnlyParticipants": [
+            "none"
+          ],
+          "placementPolicy": "primary-left-secondary-right-swap-once",
+          "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
+        },
+        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
+        "reason": "sceneBoundaryOrMajorVisualChange"
       },
       {
         "type": "bg",
         "id": "doc_internal_mail",
         "transition": "fade",
-        "waitAfter": 700
+        "waitAfter": 700,
+        "displayMode": "document",
+        "sceneMode": "memory",
+        "documentTarget": "sidePanelExpandable",
+        "keepCurrentBackground": true,
+        "documentTitle": "奇點無限內部危機 mail"
       },
       {
         "type": "effect",
@@ -3679,7 +5683,13 @@
           "王國",
           "墳",
           "財報"
-        ]
+        ],
+        "direction": "up",
+        "lockInput": true,
+        "sceneMode": "empathy",
+        "duration": 6410,
+        "visualBg": "cg_empathy_warm",
+        "emotionStyle": "warm-gold-rise"
       },
       {
         "type": "narrate",
@@ -3697,13 +5707,21 @@
         "type": "say",
         "speaker": "錄音中的傑米",
         "text": "我用盡一生打造一個王國。",
-        "character": "none"
+        "character": "none",
+        "speakerFocus": "voice",
+        "sceneMode": "memory",
+        "presence": "voiceOnly",
+        "leaveAfter": true
       },
       {
         "type": "say",
         "speaker": "錄音中的傑米",
         "text": "但我好像從來沒有時間，看看王國裡的風景。",
-        "character": "none"
+        "character": "none",
+        "speakerFocus": "voice",
+        "sceneMode": "memory",
+        "presence": "voiceOnly",
+        "leaveAfter": true
       },
       {
         "type": "jump",
@@ -3712,13 +5730,30 @@
     ],
     "case_memory_ex": [
       {
-        "type": "clearSprites"
+        "type": "clearSprites",
+        "sceneMode": "memory",
+        "conversation": {
+          "layout": "voiceover",
+          "participants": [],
+          "voiceOnlyParticipants": [
+            "none"
+          ],
+          "placementPolicy": "primary-left-secondary-right-swap-once",
+          "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
+        },
+        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
+        "reason": "sceneBoundaryOrMajorVisualChange"
       },
       {
         "type": "bg",
         "id": "doc_voice_wave",
         "transition": "fade",
-        "waitAfter": 700
+        "waitAfter": 700,
+        "displayMode": "document",
+        "sceneMode": "memory",
+        "documentTarget": "sidePanelExpandable",
+        "keepCurrentBackground": true,
+        "documentTitle": "訪談錄音波形畫面"
       },
       {
         "type": "effect",
@@ -3728,7 +5763,13 @@
           "被愛過的版本",
           "不是混蛋",
           "電影票"
-        ]
+        ],
+        "direction": "up",
+        "lockInput": true,
+        "sceneMode": "empathy",
+        "duration": 6410,
+        "visualBg": "cg_empathy_warm",
+        "emotionStyle": "warm-gold-rise"
       },
       {
         "type": "narrate",
@@ -3746,13 +5787,21 @@
         "type": "say",
         "speaker": "錄音中的傑米",
         "text": "她們在我還不是混蛋的時候愛過我。",
-        "character": "none"
+        "character": "none",
+        "speakerFocus": "voice",
+        "sceneMode": "memory",
+        "presence": "voiceOnly",
+        "leaveAfter": true
       },
       {
         "type": "say",
         "speaker": "錄音中的傑米",
         "text": "這很珍貴。也很不幸，因為後來我確實變成了混蛋。",
-        "character": "none"
+        "character": "none",
+        "speakerFocus": "voice",
+        "sceneMode": "memory",
+        "presence": "voiceOnly",
+        "leaveAfter": true
       },
       {
         "type": "jump",
@@ -3761,13 +5810,31 @@
     ],
     "observe_fake_family": [
       {
-        "type": "clearSprites"
+        "type": "clearSprites",
+        "sceneMode": "stage",
+        "conversation": {
+          "layout": "stage-with-backstage-monitor",
+          "participants": [
+            "tingru",
+            "oldnoodle"
+          ],
+          "voiceOnlyParticipants": [],
+          "placementPolicy": "primary-left-secondary-right-swap-once",
+          "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
+        },
+        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
+        "reason": "sceneBoundaryOrMajorVisualChange"
       },
       {
         "type": "bg",
         "id": "cg_audience_laugh",
         "transition": "fade",
-        "waitAfter": 700
+        "waitAfter": 700,
+        "displayMode": "cg",
+        "sceneMode": "stage",
+        "avoidUiOverlap": true,
+        "mainImageFit": "contain-in-safe-stage",
+        "underlayFit": "cover-fullscreen"
       },
       {
         "type": "narrate",
@@ -3784,38 +5851,59 @@
       {
         "type": "say",
         "speaker": "庭如",
-        "text": "他們原本在表演悲傷。現在真的有一點悲傷。"
+        "text": "他們原本在表演悲傷。現在真的有一點悲傷。",
+        "character": "tingru",
+        "speakerFocus": "primary",
+        "sceneMode": "stage",
+        "presence": "onscreen"
       },
       {
         "type": "hide",
-        "id": "tingru"
+        "id": "tingru",
+        "reason": "speakerLeavesOrNoLongerPrimary"
       },
       {
         "type": "say",
         "speaker": "老麵",
-        "text": "所以悲傷是真的？"
+        "text": "所以悲傷是真的？",
+        "character": "oldnoodle",
+        "speakerFocus": "primary",
+        "sceneMode": "stage",
+        "presence": "onscreen"
       },
       {
         "type": "hide",
-        "id": "oldnoodle"
+        "id": "oldnoodle",
+        "reason": "speakerLeavesOrNoLongerPrimary"
       },
       {
         "type": "say",
         "speaker": "庭如",
-        "text": "是真的。但位置不對。"
+        "text": "是真的。但位置不對。",
+        "character": "tingru",
+        "speakerFocus": "primary",
+        "sceneMode": "stage",
+        "presence": "onscreen"
       },
       {
         "type": "hide",
-        "id": "tingru"
+        "id": "tingru",
+        "reason": "speakerLeavesOrNoLongerPrimary"
       },
       {
-        "type": "clearSprites"
+        "type": "clearSprites",
+        "reason": "sceneBoundaryOrMajorVisualChange"
       },
       {
         "type": "bg",
         "id": "stage_show",
         "transition": "fade",
-        "waitAfter": 700
+        "waitAfter": 700,
+        "displayMode": "background",
+        "sceneMode": "stage",
+        "avoidUiOverlap": true,
+        "mainImageFit": "contain-in-safe-stage",
+        "underlayFit": "cover-fullscreen"
       },
       {
         "type": "jump",
@@ -3828,7 +5916,16 @@
         "id": "confession",
         "volume": 0.34,
         "loop": true,
-        "fade": 1000
+        "fade": 1000,
+        "sceneMode": "confession",
+        "conversation": {
+          "layout": "narrative",
+          "participants": [],
+          "voiceOnlyParticipants": [],
+          "placementPolicy": "primary-left-secondary-right-swap-once",
+          "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
+        },
+        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。"
       },
       {
         "type": "narrate",
@@ -3845,7 +5942,16 @@
         "id": "confession",
         "volume": 0.3,
         "loop": true,
-        "fade": 1000
+        "fade": 1000,
+        "sceneMode": "confession",
+        "conversation": {
+          "layout": "narrative",
+          "participants": [],
+          "voiceOnlyParticipants": [],
+          "placementPolicy": "primary-left-secondary-right-swap-once",
+          "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
+        },
+        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。"
       },
       {
         "type": "narrate",
@@ -3889,13 +5995,36 @@
             },
             "next": "camera_still"
           }
-        ]
+        ],
+        "sceneMode": "confession",
+        "conversation": {
+          "layout": "choice",
+          "participants": [],
+          "voiceOnlyParticipants": [],
+          "placementPolicy": "primary-left-secondary-right-swap-once",
+          "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
+        },
+        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
+        "choiceUi": {
+          "width": "70%",
+          "textAlign": "center",
+          "fontScale": "large"
+        }
       }
     ],
     "camera_close": [
       {
         "type": "narrate",
-        "text": "側邊螢幕放大傑米的臉。他的眼角有細微的紅，那不是表演能輕易做到的東西。"
+        "text": "側邊螢幕放大傑米的臉。他的眼角有細微的紅，那不是表演能輕易做到的東西。",
+        "sceneMode": "confession",
+        "conversation": {
+          "layout": "narrative",
+          "participants": [],
+          "voiceOnlyParticipants": [],
+          "placementPolicy": "primary-left-secondary-right-swap-once",
+          "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
+        },
+        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。"
       },
       {
         "type": "jump",
@@ -3905,7 +6034,16 @@
     "camera_wide": [
       {
         "type": "narrate",
-        "text": "畫面留在遠景。傑米坐在舞台中央，很小，很亮，也很孤單。"
+        "text": "畫面留在遠景。傑米坐在舞台中央，很小，很亮，也很孤單。",
+        "sceneMode": "confession",
+        "conversation": {
+          "layout": "narrative",
+          "participants": [],
+          "voiceOnlyParticipants": [],
+          "placementPolicy": "primary-left-secondary-right-swap-once",
+          "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
+        },
+        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。"
       },
       {
         "type": "jump",
@@ -3915,7 +6053,16 @@
     "camera_audience": [
       {
         "type": "narrate",
-        "text": "鏡頭掃過台下。有人還沒從笑聲裡回來，有人已經開始不安。林薇抬手擦掉眼角。"
+        "text": "鏡頭掃過台下。有人還沒從笑聲裡回來，有人已經開始不安。林薇抬手擦掉眼角。",
+        "sceneMode": "confession",
+        "conversation": {
+          "layout": "narrative",
+          "participants": [],
+          "voiceOnlyParticipants": [],
+          "placementPolicy": "primary-left-secondary-right-swap-once",
+          "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
+        },
+        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。"
       },
       {
         "type": "jump",
@@ -3925,7 +6072,16 @@
     "camera_still": [
       {
         "type": "narrate",
-        "text": "沒有螢幕特寫，沒有剪輯，沒有人替這段真話加框。傑米必須用自己的聲音穿過整個會場。"
+        "text": "沒有螢幕特寫，沒有剪輯，沒有人替這段真話加框。傑米必須用自己的聲音穿過整個會場。",
+        "sceneMode": "confession",
+        "conversation": {
+          "layout": "narrative",
+          "participants": [],
+          "voiceOnlyParticipants": [],
+          "placementPolicy": "primary-left-secondary-right-swap-once",
+          "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
+        },
+        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。"
       },
       {
         "type": "jump",
@@ -3935,7 +6091,19 @@
     "after_observe_jamie": [
       {
         "type": "narrate",
-        "text": "監控切到舞台側邊。傑米靠著牆，看起來像剛打贏一場仗。"
+        "text": "監控切到舞台側邊。傑米靠著牆，看起來像剛打贏一場仗。",
+        "sceneMode": "afterward",
+        "conversation": {
+          "layout": "duo",
+          "participants": [
+            "oldnoodle",
+            "jamie"
+          ],
+          "voiceOnlyParticipants": [],
+          "placementPolicy": "primary-left-secondary-right-swap-once",
+          "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
+        },
+        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。"
       },
       {
         "type": "narrate",
@@ -3944,40 +6112,66 @@
       {
         "type": "say",
         "speaker": "老麵",
-        "text": "傑米。你做到了。"
+        "text": "傑米。你做到了。",
+        "character": "oldnoodle",
+        "speakerFocus": "primary",
+        "sceneMode": "afterward",
+        "presence": "onscreen"
       },
       {
         "type": "say",
         "speaker": "傑米",
-        "text": "我知道。"
+        "text": "我知道。",
+        "character": "jamie",
+        "speakerFocus": "primary",
+        "sceneMode": "afterward",
+        "presence": "onscreen"
       },
       {
         "type": "say",
         "speaker": "傑米",
-        "text": "他們會記得嗎？"
+        "text": "他們會記得嗎？",
+        "character": "jamie",
+        "speakerFocus": "primary",
+        "sceneMode": "afterward",
+        "presence": "onscreen"
       },
       {
         "type": "say",
         "speaker": "老麵",
-        "text": "會。"
+        "text": "會。",
+        "character": "oldnoodle",
+        "speakerFocus": "primary",
+        "sceneMode": "afterward",
+        "presence": "onscreen"
       },
       {
         "type": "say",
         "speaker": "傑米",
-        "text": "多久？"
+        "text": "多久？",
+        "character": "jamie",
+        "speakerFocus": "primary",
+        "sceneMode": "afterward",
+        "presence": "onscreen"
       },
       {
         "type": "narrate",
         "text": "老麵沒有回答。傑米也沒有追問。"
       },
       {
-        "type": "clearSprites"
+        "type": "clearSprites",
+        "reason": "sceneBoundaryOrMajorVisualChange"
       },
       {
         "type": "bg",
         "id": "control_room_dark",
         "transition": "fade",
-        "waitAfter": 700
+        "waitAfter": 700,
+        "displayMode": "background",
+        "sceneMode": "afterward",
+        "avoidUiOverlap": true,
+        "mainImageFit": "contain-in-safe-stage",
+        "underlayFit": "cover-fullscreen"
       },
       {
         "type": "jump",
@@ -3987,36 +6181,70 @@
     "after_observe_tingru": [
       {
         "type": "narrate",
-        "text": "庭如站在控制室角落。她沒有哭，但她的表情像剛剛聽見什麼東西裂開。"
+        "text": "庭如站在控制室角落。她沒有哭，但她的表情像剛剛聽見什麼東西裂開。",
+        "sceneMode": "afterward",
+        "conversation": {
+          "layout": "duo",
+          "participants": [
+            "oldnoodle",
+            "tingru"
+          ],
+          "voiceOnlyParticipants": [],
+          "placementPolicy": "primary-left-secondary-right-swap-once",
+          "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
+        },
+        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。"
       },
       {
         "type": "say",
         "speaker": "老麵",
-        "text": "庭如。妳還好嗎？"
+        "text": "庭如。妳還好嗎？",
+        "character": "oldnoodle",
+        "speakerFocus": "primary",
+        "sceneMode": "afterward",
+        "presence": "onscreen"
       },
       {
         "type": "say",
         "speaker": "庭如",
-        "text": "不知道。"
+        "text": "不知道。",
+        "character": "tingru",
+        "speakerFocus": "primary",
+        "sceneMode": "afterward",
+        "presence": "onscreen"
       },
       {
         "type": "say",
         "speaker": "老麵",
-        "text": "這不是妳平常會給的答案。"
+        "text": "這不是妳平常會給的答案。",
+        "character": "oldnoodle",
+        "speakerFocus": "primary",
+        "sceneMode": "afterward",
+        "presence": "onscreen"
       },
       {
         "type": "say",
         "speaker": "庭如",
-        "text": "因為我平常比較知道自己感覺到什麼。現在太多了，像有人把一整間房子的燈同時打開，可是房子裡每一個人都在流血。"
+        "text": "因為我平常比較知道自己感覺到什麼。現在太多了，像有人把一整間房子的燈同時打開，可是房子裡每一個人都在流血。",
+        "character": "tingru",
+        "speakerFocus": "primary",
+        "sceneMode": "afterward",
+        "presence": "onscreen"
       },
       {
-        "type": "clearSprites"
+        "type": "clearSprites",
+        "reason": "sceneBoundaryOrMajorVisualChange"
       },
       {
         "type": "bg",
         "id": "control_room_dark",
         "transition": "fade",
-        "waitAfter": 700
+        "waitAfter": 700,
+        "displayMode": "background",
+        "sceneMode": "afterward",
+        "avoidUiOverlap": true,
+        "mainImageFit": "contain-in-safe-stage",
+        "underlayFit": "cover-fullscreen"
       },
       {
         "type": "jump",
@@ -4025,13 +6253,33 @@
     ],
     "after_observe_guests": [
       {
-        "type": "clearSprites"
+        "type": "clearSprites",
+        "sceneMode": "afterward",
+        "conversation": {
+          "layout": "duo",
+          "participants": [
+            "oldnoodle",
+            "tingru"
+          ],
+          "voiceOnlyParticipants": [
+            "none"
+          ],
+          "placementPolicy": "primary-left-secondary-right-swap-once",
+          "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
+        },
+        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
+        "reason": "sceneBoundaryOrMajorVisualChange"
       },
       {
         "type": "bg",
         "id": "cg_audience_laugh",
         "transition": "fade",
-        "waitAfter": 700
+        "waitAfter": 700,
+        "displayMode": "cg",
+        "sceneMode": "afterward",
+        "avoidUiOverlap": true,
+        "mainImageFit": "contain-in-safe-stage",
+        "underlayFit": "cover-fullscreen"
       },
       {
         "type": "narrate",
@@ -4041,46 +6289,74 @@
         "type": "say",
         "speaker": "記者A",
         "text": "死亡行銷。",
-        "character": "none"
+        "character": "none",
+        "speakerFocus": "voice",
+        "sceneMode": "afterward",
+        "presence": "voiceOnly",
+        "leaveAfter": true
       },
       {
         "type": "say",
         "speaker": "記者B",
         "text": "不，這叫數位永生第一案。",
-        "character": "none"
+        "character": "none",
+        "speakerFocus": "voice",
+        "sceneMode": "afterward",
+        "presence": "voiceOnly",
+        "leaveAfter": true
       },
       {
         "type": "say",
         "speaker": "記者C",
         "text": "標題可以下：他用自己的死亡，發表了人類的未來。",
-        "character": "none"
+        "character": "none",
+        "speakerFocus": "voice",
+        "sceneMode": "afterward",
+        "presence": "voiceOnly",
+        "leaveAfter": true
       },
       {
         "type": "say",
         "speaker": "老麵",
-        "text": "他們已經開始了。"
+        "text": "他們已經開始了。",
+        "character": "oldnoodle",
+        "speakerFocus": "primary",
+        "sceneMode": "afterward",
+        "presence": "onscreen"
       },
       {
         "type": "hide",
-        "id": "oldnoodle"
+        "id": "oldnoodle",
+        "reason": "speakerLeavesOrNoLongerPrimary"
       },
       {
         "type": "say",
         "speaker": "庭如",
-        "text": "大家都開始了。"
+        "text": "大家都開始了。",
+        "character": "tingru",
+        "speakerFocus": "primary",
+        "sceneMode": "afterward",
+        "presence": "onscreen"
       },
       {
         "type": "hide",
-        "id": "tingru"
+        "id": "tingru",
+        "reason": "speakerLeavesOrNoLongerPrimary"
       },
       {
-        "type": "clearSprites"
+        "type": "clearSprites",
+        "reason": "sceneBoundaryOrMajorVisualChange"
       },
       {
         "type": "bg",
         "id": "control_room_dark",
         "transition": "fade",
-        "waitAfter": 700
+        "waitAfter": 700,
+        "displayMode": "background",
+        "sceneMode": "afterward",
+        "avoidUiOverlap": true,
+        "mainImageFit": "contain-in-safe-stage",
+        "underlayFit": "cover-fullscreen"
       },
       {
         "type": "jump",
@@ -4089,13 +6365,32 @@
     ],
     "after_observe_phone": [
       {
-        "type": "clearSprites"
+        "type": "clearSprites",
+        "sceneMode": "afterward",
+        "conversation": {
+          "layout": "group",
+          "participants": [
+            "oldnoodle",
+            "ray",
+            "tingru"
+          ],
+          "voiceOnlyParticipants": [],
+          "placementPolicy": "primary-left-secondary-right-swap-once",
+          "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
+        },
+        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
+        "reason": "sceneBoundaryOrMajorVisualChange"
       },
       {
         "type": "bg",
         "id": "doc_media_news",
         "transition": "fade",
-        "waitAfter": 700
+        "waitAfter": 700,
+        "displayMode": "document",
+        "sceneMode": "afterward",
+        "documentTarget": "sidePanelExpandable",
+        "keepCurrentBackground": true,
+        "documentTitle": "媒體新聞網站畫面"
       },
       {
         "type": "sfx",
@@ -4105,47 +6400,69 @@
       {
         "type": "note",
         "title": "PUSH",
-        "text": "傑米・詹生前告別秀驚爆 AI 永生計畫。\n死亡行銷？科技狂人以自身生命包裝產品發表，引發倫理爭議。\n輪迴系統是突破，還是騙局？"
+        "text": "傑米・詹生前告別秀驚爆 AI 永生計畫。\n死亡行銷？科技狂人以自身生命包裝產品發表，引發倫理爭議。\n輪迴系統是突破，還是騙局？",
+        "sceneMode": "afterward"
       },
       {
         "type": "say",
         "speaker": "老麵",
-        "text": "太快了。"
+        "text": "太快了。",
+        "character": "oldnoodle",
+        "speakerFocus": "primary",
+        "sceneMode": "afterward",
+        "presence": "onscreen"
       },
       {
         "type": "hide",
-        "id": "oldnoodle"
+        "id": "oldnoodle",
+        "reason": "speakerLeavesOrNoLongerPrimary"
       },
       {
         "type": "say",
         "speaker": "雷老師",
-        "text": "網路最擅長的就是把人的一生壓縮成三十秒懶人包。"
+        "text": "網路最擅長的就是把人的一生壓縮成三十秒懶人包。",
+        "character": "ray",
+        "speakerFocus": "primary",
+        "sceneMode": "afterward",
+        "presence": "onscreen"
       },
       {
         "type": "hide",
-        "id": "ray"
+        "id": "ray",
+        "reason": "speakerLeavesOrNoLongerPrimary"
       },
       {
         "type": "say",
         "speaker": "庭如",
-        "text": "可是我們今天做的事，不也是嗎？"
+        "text": "可是我們今天做的事，不也是嗎？",
+        "character": "tingru",
+        "speakerFocus": "primary",
+        "sceneMode": "afterward",
+        "presence": "onscreen"
       },
       {
         "type": "hide",
-        "id": "tingru"
+        "id": "tingru",
+        "reason": "speakerLeavesOrNoLongerPrimary"
       },
       {
         "type": "narrate",
         "text": "控制室再次安靜。"
       },
       {
-        "type": "clearSprites"
+        "type": "clearSprites",
+        "reason": "sceneBoundaryOrMajorVisualChange"
       },
       {
         "type": "bg",
         "id": "control_room_dark",
         "transition": "fade",
-        "waitAfter": 700
+        "waitAfter": 700,
+        "displayMode": "background",
+        "sceneMode": "afterward",
+        "avoidUiOverlap": true,
+        "mainImageFit": "contain-in-safe-stage",
+        "underlayFit": "cover-fullscreen"
       },
       {
         "type": "jump",
@@ -4185,7 +6502,21 @@
             },
             "next": "three_months_later"
           }
-        ]
+        ],
+        "sceneMode": "afterward",
+        "conversation": {
+          "layout": "choice",
+          "participants": [],
+          "voiceOnlyParticipants": [],
+          "placementPolicy": "primary-left-secondary-right-swap-once",
+          "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
+        },
+        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
+        "choiceUi": {
+          "width": "70%",
+          "textAlign": "center",
+          "fontScale": "large"
+        }
       }
     ]
   }

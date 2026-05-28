@@ -129,10 +129,13 @@
 
     #bgLayer.display-cover #bgMediaFrame,
     #bgLayer.display-cg #bgMediaFrame {
-      inset: 0;
+      top: var(--top-safe);
+      right: 0;
+      bottom: calc(var(--hud-height) + var(--hud-gap));
+      left: 0;
       border: 0;
       border-radius: 0;
-      background: transparent;
+      background: rgba(0,0,0,0.10);
       box-shadow: none;
       overflow: hidden;
     }
@@ -141,9 +144,9 @@
     #bgLayer.display-cg #bgImage {
       width: 100%;
       height: 100%;
-      object-fit: cover;
-      transform: scale(1.01);
-      filter: none;
+      object-fit: contain;
+      transform: scale(1);
+      filter: drop-shadow(0 18px 34px rgba(0,0,0,0.48));
     }
 
     /*
@@ -178,9 +181,9 @@
     #titleLogo {
       position: absolute;
       left: 50%;
-      top: clamp(64px, 10vh, 110px);
-      width: min(540px, 60vw);
-      max-height: 26vh;
+      top: clamp(78px, 12vh, 128px);
+      width: min(620px, 64vw);
+      max-height: 28vh;
       object-fit: contain;
       transform: translateX(-50%) translateY(-10px);
       opacity: 0;
@@ -232,7 +235,7 @@
       filter: drop-shadow(0 24px 38px rgba(0,0,0,0.58));
       opacity: 0;
       transform: translateY(12px) scale(0.985);
-      transition: opacity 360ms ease, transform 360ms ease, filter 360ms ease;
+      transition: opacity 360ms ease, transform 360ms ease, filter 360ms ease, left 420ms ease, right 420ms ease;
     }
 
     .sprite.visible {
@@ -240,10 +243,10 @@
       transform: translateY(0) scale(1);
     }
 
-    .sprite.left { left: clamp(18px, 4.8vw, 82px); }
-    .sprite.center { left: 50%; transform: translateX(-50%) translateY(12px) scale(0.985); }
+    .sprite.left { left: clamp(18px, 4.8vw, 82px); right: auto; }
+    .sprite.center { left: 50%; right: auto; transform: translateX(-50%) translateY(12px) scale(0.985); }
     .sprite.center.visible { transform: translateX(-50%) translateY(0) scale(1); }
-    .sprite.right { right: clamp(18px, 4.8vw, 82px); }
+    .sprite.right { right: clamp(18px, 4.8vw, 82px); left: auto; }
 
     .sprite.dimmed {
       filter: grayscale(0.25) brightness(0.62) drop-shadow(0 24px 38px rgba(0,0,0,0.58));
@@ -259,31 +262,40 @@
 
     #cutinLayer {
       position: absolute;
-      top: var(--top-safe);
-      right: clamp(34px, 5vw, 90px);
-      bottom: calc(var(--hud-height) + var(--hud-gap));
-      left: clamp(34px, 5vw, 90px);
+      inset: 0;
       z-index: 2;
       display: flex;
       align-items: center;
       justify-content: center;
+      padding: var(--top-safe) 0 calc(var(--hud-height) + var(--hud-gap));
       opacity: 0;
       transform: scale(0.985);
       transition: opacity 420ms ease, transform 520ms ease;
       pointer-events: none;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
     }
 
     #cutinLayer.visible {
-      opacity: 0.86;
+      opacity: 0.88;
       transform: scale(1);
     }
 
     #cutinImage {
+      width: 100%;
+      height: 100%;
       max-width: 100%;
       max-height: 100%;
       object-fit: contain;
-      border-radius: 24px;
+      border-radius: 0;
       box-shadow: 0 28px 84px rgba(0,0,0,0.66);
+    }
+
+    #effectLayer.input-lock {
+      z-index: 11;
+      pointer-events: auto;
+      cursor: wait;
     }
 
     #flash {
@@ -352,10 +364,10 @@
     }
 
     .emotion-word.float-down {
-      color: rgba(226, 185, 168, 0.92);
-      border-color: rgba(226, 128, 105, 0.22);
-      background: rgba(18, 7, 8, 0.62);
-      text-shadow: 0 0 16px rgba(205, 73, 58, 0.78), 0 0 26px rgba(70, 0, 0, 0.55);
+      color: rgba(198, 226, 255, 0.95);
+      border-color: rgba(116, 176, 255, 0.34);
+      background: rgba(4, 12, 28, 0.68);
+      text-shadow: 0 0 16px rgba(89, 162, 255, 0.88), 0 0 30px rgba(23, 64, 155, 0.66);
       animation-name: emotionFloatDown;
     }
 
@@ -599,25 +611,26 @@
       position: absolute;
       left: 50%;
       bottom: calc(var(--hud-height) + 20px);
-      width: min(900px, calc(100vw - 48px));
+      width: min(630px, calc(100vw - 48px));
       transform: translateX(-50%);
       z-index: 5;
       display: none;
       flex-direction: column;
-      gap: 12px;
+      gap: 14px;
       pointer-events: auto;
     }
 
     .choice-btn {
       width: 100%;
-      padding: 15px 20px;
+      padding: 18px 22px;
       border: 1px solid var(--ui-border);
-      border-radius: 15px;
-      background: rgba(9, 12, 17, 0.88);
+      border-radius: 16px;
+      background: rgba(9, 12, 17, 0.90);
       color: var(--text);
-      font-size: 18px;
-      line-height: 1.58;
-      text-align: left;
+      font-size: clamp(21px, 2vw, 28px);
+      font-weight: 760;
+      line-height: 1.6;
+      text-align: center;
       cursor: pointer;
       backdrop-filter: blur(12px);
       box-shadow: 0 10px 24px rgba(0,0,0,0.38);
@@ -753,6 +766,124 @@
       outline: none;
     }
 
+
+    #loadingLayer {
+      position: absolute;
+      inset: 0;
+      z-index: 40;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: clamp(20px, 4vw, 56px);
+      background:
+        radial-gradient(circle at 50% 28%, rgba(82, 92, 118, 0.24), transparent 38%),
+        linear-gradient(180deg, rgba(5,6,9,0.96), rgba(2,3,5,0.98));
+      color: var(--text);
+      pointer-events: auto;
+      opacity: 1;
+      visibility: visible;
+      transition: opacity 420ms ease, visibility 420ms ease;
+    }
+
+    #loadingLayer.is-hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    #loadingCard {
+      width: min(680px, calc(100vw - 36px));
+      padding: clamp(24px, 4vw, 42px);
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 28px;
+      background: linear-gradient(180deg, rgba(12,15,21,0.88), rgba(6,8,12,0.94));
+      box-shadow: 0 34px 110px rgba(0,0,0,0.72), inset 0 0 34px rgba(255,255,255,0.035);
+      backdrop-filter: blur(14px);
+      text-align: center;
+    }
+
+    #loadingTitle {
+      margin: 0 0 10px;
+      font-size: clamp(30px, 5vw, 54px);
+      font-weight: 850;
+      letter-spacing: 0.08em;
+      line-height: 1.08;
+      text-shadow: 0 16px 34px rgba(0,0,0,0.68);
+    }
+
+    #loadingSubtitle {
+      margin: 0 0 28px;
+      color: rgba(244,241,234,0.74);
+      font-size: clamp(15px, 1.55vw, 19px);
+      line-height: 1.75;
+      letter-spacing: 0.05em;
+    }
+
+    #loadingProgressTrack {
+      position: relative;
+      width: 100%;
+      height: 14px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 999px;
+      background: rgba(255,255,255,0.08);
+      box-shadow: inset 0 0 18px rgba(0,0,0,0.42);
+    }
+
+    #loadingProgressBar {
+      width: 0%;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, rgba(216,179,106,0.72), rgba(130,168,255,0.84));
+      box-shadow: 0 0 22px rgba(216,179,106,0.28);
+      transition: width 180ms ease;
+    }
+
+    #loadingPercent {
+      margin-top: 14px;
+      color: rgba(255,255,255,0.92);
+      font-size: clamp(20px, 2.8vw, 30px);
+      font-weight: 800;
+      letter-spacing: 0.08em;
+    }
+
+    #loadingStatus,
+    #loadingStats,
+    #loadingCurrent {
+      margin-top: 10px;
+      color: rgba(244,241,234,0.74);
+      font-size: clamp(13px, 1.25vw, 16px);
+      line-height: 1.65;
+      letter-spacing: 0.035em;
+      word-break: break-all;
+    }
+
+    #loadingCurrent {
+      min-height: 1.65em;
+      color: rgba(244,241,234,0.58);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+
+    #loadingErrors {
+      display: none;
+      max-height: 140px;
+      margin-top: 16px;
+      padding: 12px 14px;
+      overflow: auto;
+      border: 1px solid rgba(223,107,107,0.28);
+      border-radius: 14px;
+      background: rgba(54, 13, 15, 0.34);
+      color: rgba(255,214,214,0.9);
+      font-size: 13px;
+      line-height: 1.55;
+      text-align: left;
+      white-space: pre-wrap;
+    }
+
+    #loadingLayer.has-errors #loadingErrors {
+      display: block;
+    }
+
     .hidden { display: none !important; }
 
     .shake { animation: shake 420ms cubic-bezier(.36,.07,.19,.97) both; }
@@ -798,16 +929,22 @@
       #dialogueBox { height: 190px; min-height: 0; max-height: 190px; padding: 14px 18px 18px; }
       #speakerName { font-size: 20px; min-height: 31px; margin-bottom: 10px; }
       #dialogueText { height: 104px; font-size: 18px; line-height: 1.78; }
-      #choices { bottom: calc(var(--hud-height) + 12px); width: calc(100vw - 24px); }
-      .choice-btn { font-size: 16px; padding: 12px 14px; }
+      #choices { bottom: calc(var(--hud-height) + 12px); width: min(92vw, 560px); }
+      .choice-btn { font-size: 20px; padding: 14px 16px; }
       .sprite { bottom: calc(var(--hud-height) - 12px); max-height: calc(100vh - var(--hud-height) - 48px); max-width: 56vw; }
-      .sprite.left { left: -3vw; }
-      .sprite.right { right: -3vw; }
-      #bgLayer.display-logo #bgMediaFrame,
+      .sprite.left { left: -3vw; right: auto; }
+      .sprite.right { right: -3vw; left: auto; }
+      #bgLayer.display-cover #bgMediaFrame,
+      #bgLayer.display-cg #bgMediaFrame,
+      #bgLayer.display-logo #bgMediaFrame {
+        right: 0;
+        left: 0;
+        border-radius: 0;
+      }
       #cutinLayer {
-        right: 14px;
-        left: 14px;
-        border-radius: 18px;
+        right: 0;
+        left: 0;
+        border-radius: 0;
       }
       #sidePanel.has-document {
         display: block;
@@ -843,7 +980,7 @@
       <div id="bgMediaFrame">
         <img id="bgImage" alt="" draggable="false" />
       </div>
-      <img id="titleLogo" alt="Before Fades" draggable="false" />
+      <img id="titleLogo" alt="" draggable="false" />
     </div>
     <div id="spriteLayer"></div>
     <div id="effectLayer">
@@ -897,6 +1034,20 @@
         <div id="docViewerCaption"></div>
       </div>
     </div>
+
+
+    <div id="loadingLayer" aria-live="polite" aria-busy="true">
+      <div id="loadingCard">
+        <h1 id="loadingTitle">Before Fades</h1>
+        <p id="loadingSubtitle">正在整理最後一場演出的燈光、人物與記憶……</p>
+        <div id="loadingProgressTrack" aria-hidden="true"><div id="loadingProgressBar"></div></div>
+        <div id="loadingPercent">0%</div>
+        <div id="loadingStatus">讀取劇本中……</div>
+        <div id="loadingCurrent"></div>
+        <div id="loadingStats">0 / 0</div>
+        <div id="loadingErrors"></div>
+      </div>
+    </div>
   </div>
 
   <script>
@@ -935,6 +1086,9 @@
       bgPostSwitchDelayMs: 680,
       emotionWordLifeMs: 5800,
       emotionWordStaggerMs: 150,
+      imagePreloadConcurrency: 8,
+      imagePreloadTimeoutMs: 15000,
+      keepPreloadedImageRefs: true,
       defaultBg: "radial-gradient(circle at 50% 30%, #202530 0%, #080a0e 65%, #020305 100%)"
     };
 
@@ -970,6 +1124,13 @@
       docViewerImage: $("docViewerImage"),
       docViewerCaption: $("docViewerCaption"),
       docViewerClose: $("docViewerClose"),
+      loading: $("loadingLayer"),
+      loadingProgressBar: $("loadingProgressBar"),
+      loadingPercent: $("loadingPercent"),
+      loadingStatus: $("loadingStatus"),
+      loadingCurrent: $("loadingCurrent"),
+      loadingStats: $("loadingStats"),
+      loadingErrors: $("loadingErrors"),
       btnSave: $("btnSave"),
       btnLoad: $("btnLoad"),
       btnAuto: $("btnAuto"),
@@ -994,13 +1155,21 @@
       startedAudio: false,
       currentBgmId: null,
       currentMode: "system",
+      currentSceneMode: "system",
+      currentConversation: null,
       currentBgId: "",
       currentDocId: "",
       currentUi: "g",
+      currentChoiceUi: null,
+      pendingAfterTextActions: [],
       continueAfterBusy: false,
       bgmToken: 0,
       spriteZ: 20,
-      sprites: new Map()
+      sprites: new Map(),
+      dialogueLayout: { primaryId: "", secondaryId: "", swappedOnce: false },
+      inputLocked: false,
+      preloadedImages: new Map(),
+      preloadReport: null
     };
 
     const audio = {
@@ -1039,11 +1208,14 @@
 
     async function init() {
       bindEvents();
+      showLoadingScreen("讀取劇本中……", 0, 0);
       state.script = await loadScript();
-      preloadManifestImages();
+      state.preloadReport = await preloadAllImagesWithProgress();
       validateScene(state.sceneId);
       applyFocusUi("g", "SYSTEM / READY");
-      setSideNote("SYSTEM", `腳本載入完成：${state.script.meta?.title || "Untitled"}\n按一下文字框或按 Enter / Space 推進。`);
+      setSideNote("SYSTEM", `腳本載入完成：${state.script.meta?.title || "Untitled"}\n圖片素材：${state.preloadReport.ok}/${state.preloadReport.total} 已載入，失敗 ${state.preloadReport.failed}。\n按一下文字框或按 Enter / Space 推進。`);
+      hideLoadingScreen();
+      await wait(260);
       await runCurrent();
     }
 
@@ -1061,6 +1233,10 @@
     function bindEvents() {
       dom.dialogueBox.addEventListener("click", () => advance());
       document.addEventListener("keydown", (e) => {
+        if (state.inputLocked) {
+          e.preventDefault();
+          return;
+        }
         if (isDocumentViewerOpen()) {
           if (["Escape", "Enter", " "].includes(e.key)) {
             e.preventDefault();
@@ -1132,6 +1308,8 @@
     }
 
     async function execute(cmd = {}) {
+      applyDirectingContext(cmd);
+
       if (cmd.ui || cmd.focus) {
         applyFocusUi(cmd.ui || cmd.focus, cmd.label);
       }
@@ -1149,11 +1327,11 @@
           nextCommand();
           break;
         case "mode":
-          setMode(cmd.value || cmd.v || "system", cmd.label || cmd.l || cmd.value || cmd.v || "SYSTEM");
+          setMode(cmd.value || cmd.v || "system", cmd.label || cmd.l || cmd.value || cmd.v || "SYSTEM", cmd);
           nextCommand();
           break;
         case "bg":
-          await setBackground(cmd.id, cmd.transition, cmd.waitAfter ?? cmd.delayAfter);
+          await setBackground(cmd);
           nextCommand();
           break;
         case "show":
@@ -1225,7 +1403,7 @@
     }
 
     function advance() {
-      if (state.awaitingChoice || dom.overlay.style.display === "flex" || isDocumentViewerOpen()) return;
+      if (state.inputLocked || state.awaitingChoice || dom.overlay.style.display === "flex" || isDocumentViewerOpen()) return;
       unlockAudio();
       if (state.typing) {
         finishTyping();
@@ -1235,6 +1413,7 @@
     }
 
     function nextCommand() {
+      processPendingAfterTextActions();
       state.index += 1;
       if (state.busy) {
         state.continueAfterBusy = true;
@@ -1281,7 +1460,8 @@
     }
 
     async function showText(speaker, text, className, cmd = {}) {
-      autoShowSpeakerSprite(speaker, text, cmd);
+      const shownCharacterId = autoShowSpeakerSprite(speaker, text, cmd);
+      queueAfterTextActions(cmd, shownCharacterId);
       dom.speaker.textContent = speaker || "旁白";
       dom.speaker.className = className || "narrator";
       dom.text.textContent = "";
@@ -1340,6 +1520,8 @@
     }
 
     async function showChoice(cmd) {
+      applyChoiceUi(cmd.choiceUi || state.currentChoiceUi);
+
       if (cmd.prompt) {
         dom.speaker.textContent = "選擇";
         dom.speaker.className = "system";
@@ -1369,6 +1551,131 @@
       dom.choices.style.display = "flex";
     }
 
+    function applyDirectingContext(cmd = {}) {
+      if (!cmd || typeof cmd !== "object") return;
+
+      if (cmd.sceneMode) setSceneMode(cmd.sceneMode);
+      if (cmd.conversation) setConversationContext(cmd.conversation);
+      if (cmd.choiceUi) state.currentChoiceUi = cmd.choiceUi;
+
+      if (cmd.sceneMode && !cmd.ui && !cmd.focus && cmd.type !== "mode") {
+        const focus = focusFromSceneMode(cmd.sceneMode);
+        if (focus) {
+          const current = dom.modeBadge?.dataset?.focus || "";
+          if (focus !== current) applyFocusUi(focus, labelFromSceneMode(cmd.sceneMode));
+        }
+      }
+    }
+
+    function setSceneMode(sceneMode) {
+      const next = String(sceneMode || "system").trim() || "system";
+      if (state.currentSceneMode !== next) {
+        state.currentSceneMode = next;
+        dom.game.dataset.sceneMode = next;
+      }
+    }
+
+    function setConversationContext(conversation = {}) {
+      if (!conversation || typeof conversation !== "object") return;
+
+      const prevKey = state.currentConversation?._key || "";
+      const normalized = {
+        layout: conversation.layout || "auto",
+        participants: Array.isArray(conversation.participants) ? [...conversation.participants] : [],
+        voiceOnlyParticipants: Array.isArray(conversation.voiceOnlyParticipants) ? [...conversation.voiceOnlyParticipants] : [],
+        placementPolicy: conversation.placementPolicy || "primary-left-secondary-right-swap-once",
+        clearPolicy: conversation.clearPolicy || ""
+      };
+      normalized._key = JSON.stringify({
+        layout: normalized.layout,
+        participants: normalized.participants,
+        voiceOnlyParticipants: normalized.voiceOnlyParticipants,
+        placementPolicy: normalized.placementPolicy
+      });
+
+      state.currentConversation = normalized;
+
+      if (normalized._key !== prevKey) {
+        resetDialogueLayout();
+      }
+    }
+
+    function focusFromSceneMode(sceneMode) {
+      const mode = String(sceneMode || "").toLowerCase();
+      if (["empathy"].includes(mode)) return "t";
+      if (["stage", "confession", "reincarnation"].includes(mode)) return "j";
+      if (mode) return "g";
+      return "";
+    }
+
+    function labelFromSceneMode(sceneMode) {
+      const mode = String(sceneMode || "").toLowerCase();
+      const labels = {
+        title: "Before Fades",
+        control: "老麵 / 後台控制",
+        empathy: "庭如 / 共感模式",
+        jamie_room: "老麵 / 傑米休息室",
+        memory: "記憶 / 錄音",
+        stage: "傑米 / 舞台",
+        confession: "傑米 / 告白",
+        reincarnation: "傑米 / 輪迴發表",
+        afterward: "演出後 / 觀察",
+        office: "三個月後 / 辦公室",
+        report: "案件 / 封存"
+      };
+      return labels[mode] || String(sceneMode || "SYSTEM").toUpperCase();
+    }
+
+    function normalizeSpeakerFocus(value) {
+      const v = String(value || "primary").trim().toLowerCase();
+      if (["voice", "voiceonly", "offscreen", "none"].includes(v)) return "voice";
+      if (["secondary", "right", "support"].includes(v)) return "secondary";
+      if (["center", "solo", "monologue"].includes(v)) return "center";
+      return "primary";
+    }
+
+    function normalizeDisplayMode(value) {
+      const v = String(value || "background").trim().toLowerCase();
+      if (["doc", "document", "sidepanel", "sidepanelexpandable"].includes(v)) return "document";
+      if (["cg", "cutscene"].includes(v)) return "cg";
+      if (["logo", "ui_or_publish"].includes(v)) return "logo";
+      if (["color", "solid"].includes(v)) return "color";
+      return "background";
+    }
+
+    function applyChoiceUi(choiceUi = {}) {
+      const ui = choiceUi && typeof choiceUi === "object" ? choiceUi : {};
+      dom.choices.style.width = "";
+      dom.choices.style.textAlign = "";
+
+      if (ui.width) {
+        const width = String(ui.width).trim();
+        if (width === "70%") dom.choices.style.width = "min(630px, calc(100vw - 48px))";
+        else if (/^\d+%$/.test(width)) dom.choices.style.width = `min(${width}, calc(100vw - 48px))`;
+        else dom.choices.style.width = width;
+      }
+
+      dom.choices.dataset.textAlign = ui.textAlign || "";
+      dom.choices.dataset.fontScale = ui.fontScale || "";
+    }
+
+    function queueAfterTextActions(cmd = {}, shownCharacterId = "") {
+      state.pendingAfterTextActions = [];
+      if (cmd.leaveAfter && shownCharacterId) {
+        state.pendingAfterTextActions.push({ type: "hide", id: shownCharacterId });
+      }
+    }
+
+    function processPendingAfterTextActions() {
+      const actions = state.pendingAfterTextActions || [];
+      if (!actions.length) return;
+      state.pendingAfterTextActions = [];
+      actions.forEach(action => {
+        if (action.type === "hide" && action.id) hideSprite(action.id);
+      });
+    }
+
+
     function normalizeFocus(value) {
       const v = String(value || "g").trim().toLowerCase();
       if (["t", "tingru", "warm", "yellow", "empathy"].includes(v)) return "t";
@@ -1393,8 +1700,9 @@
       dom.modeBadge.dataset.focus = focus;
     }
 
-    function setMode(value, label) {
+    function setMode(value, label, cmd = {}) {
       state.currentMode = value;
+      if (cmd.sceneMode) setSceneMode(cmd.sceneMode);
       // 舊 JSON 若使用 mode，也盡量轉成焦點 UI，但不以 speaker 觸發。
       applyFocusUi(value, label || value || "SYSTEM");
       if (normalizeFocus(value) === "t") {
@@ -1406,8 +1714,10 @@
       }
     }
 
-    async function setBackground(id, transition = "fade", postDelayMs = CONFIG.bgPostSwitchDelayMs) {
-      const requestedBgId = id || "";
+    async function setBackground(cmdOrId, transition = "fade", postDelayMs = CONFIG.bgPostSwitchDelayMs) {
+      const cmd = (cmdOrId && typeof cmdOrId === "object") ? cmdOrId : { id: cmdOrId, transition, waitAfter: postDelayMs };
+      let id = cmd.id || "";
+      const requestedBgId = id;
       id = sanitizeBackgroundIdForScene(requestedBgId);
       const bg = state.script.assets?.backgrounds?.[id];
 
@@ -1417,50 +1727,58 @@
         dom.bgImage.removeAttribute("src");
         dom.bgImage.style.opacity = "0";
         updateTitleLogo("");
-        await wait(normalizePostBgDelay(postDelayMs));
+        await wait(normalizePostBgDelay(cmd.waitAfter ?? cmd.delayAfter ?? postDelayMs));
         return;
       }
 
       const src = typeof bg === "string" ? bg : (bg.src || "");
-      const category = src ? imageCategoryFor(id, src) : "background";
+      const inferredCategory = src ? imageCategoryFor(id, src) : "background";
+      const displayMode = normalizeDisplayMode(cmd.displayMode || imageDisplayModeFor(id, src, inferredCategory));
+      const isDocument = displayMode === "document" || inferredCategory === "document" || cmd.documentTarget === "sidePanelExpandable";
 
-      // doc_ 不再切換主背景，只更新右下角 UI 縮圖，並保留目前舞台／房間背景。
-      if (category === "document") {
+      // doc_ / displayMode=document 不再切換主背景，只更新右下角 UI 縮圖，並保留目前舞台／房間背景。
+      if (isDocument) {
         state.currentDocId = id || "";
-        showDocumentInSidePanel(id);
-        await wait(normalizePostBgDelay(postDelayMs));
+        showDocumentInSidePanel(id, cmd);
+        await wait(normalizePostBgDelay(cmd.waitAfter ?? cmd.delayAfter ?? postDelayMs));
         return;
       }
 
       state.currentBgId = id || "";
       state.currentDocId = "";
       setSideImage("");
+      resetDialogueLayout();
 
       // 背景切換通常代表視覺焦點切換；先清掉不該跨場景殘留的舞台限定立繪，避免準備室或文件畫面誤出現台上傑米。
       clearInvalidSpritesForBackground(id);
 
-      if (transition === "flash") await flash(0.78, 200);
-      if (transition === "fade") {
+      const actualTransition = cmd.transition ?? transition;
+      if (actualTransition === "flash") await flash(0.78, 200);
+      if (actualTransition === "fade") {
         dom.bg.style.opacity = "0";
         await wait(260);
       }
 
       dom.bg.classList.remove("display-cover", "display-cg", "display-document", "display-logo");
 
-      if (bg.color) {
+      if (bg.color || displayMode === "color") {
         dom.bg.classList.add("display-cover");
-        dom.bg.style.background = bg.color;
+        dom.bg.style.background = bg.color || CONFIG.defaultBg;
         dom.bgImage.removeAttribute("src");
         dom.bgImage.style.opacity = "0";
         updateTitleLogo("");
       } else if (src) {
-        const displayMode = imageDisplayModeFor(id, src, category);
-        dom.bg.classList.add(`display-${displayMode}`);
-        dom.bg.style.backgroundImage = displayMode === "cover" || displayMode === "cg"
-          ? CONFIG.defaultBg
-          : `linear-gradient(rgba(0,0,0,0.36), rgba(0,0,0,0.58)), url("${cssUrl(src)}")`;
+        const classMode = displayMode === "logo" ? "logo" : (displayMode === "cg" ? "cg" : "cover");
+        dom.bg.classList.add(`display-${classMode}`);
+        dom.bg.dataset.displayMode = displayMode;
+        dom.bg.dataset.sceneMode = state.currentSceneMode || "";
+        dom.bg.dataset.mainImageFit = cmd.mainImageFit || "";
+        dom.bg.dataset.underlayFit = cmd.underlayFit || "";
+        dom.bg.dataset.avoidUiOverlap = cmd.avoidUiOverlap === false ? "false" : "true";
+        dom.bg.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.30), rgba(0,0,0,0.60)), url("${cssUrl(src)}")`;
         dom.bg.style.backgroundSize = "cover";
         dom.bg.style.backgroundPosition = "center";
+        dom.bg.style.backgroundRepeat = "no-repeat";
         dom.bgImage.style.opacity = "0";
         dom.bgImage.src = src;
         dom.bgImage.alt = assetDescriptionFor(id, src) || id || "background";
@@ -1470,7 +1788,7 @@
       }
 
       dom.bg.style.opacity = "1";
-      await wait(normalizePostBgDelay(postDelayMs));
+      await wait(normalizePostBgDelay(cmd.waitAfter ?? cmd.delayAfter ?? postDelayMs));
     }
 
     function normalizePostBgDelay(value) {
@@ -1499,16 +1817,16 @@
     }
 
     function isStageBackground(bgId = state.currentBgId) {
+      const mode = String(state.currentSceneMode || "").toLowerCase();
+      if (["stage", "confession", "reincarnation"].includes(mode)) return true;
       return /stage|show|confession|reincarnation|audience/.test(String(bgId || ""));
     }
 
     function imageDisplayModeFor(id, src, category) {
-      // cg_ 圖片與一般 bg 完全同樣：滿版 cover 顯示。
-      if (category === "cg") return "cover";
-      // doc_ 正常不會進入主背景流程；保留 fallback 是為了防呆。
       if (category === "document") return "document";
+      if (category === "cg") return "cg";
       if (category === "ui_or_publish" || /logo/i.test(id || src || "")) return "logo";
-      return "cover";
+      return "background";
     }
 
     function imageCategoryFor(id, src) {
@@ -1556,22 +1874,37 @@
 
     function updateTitleLogo(bgId) {
       const logo = resolveBackgroundSrc("logo_beforefades");
-      if (!logo) {
-        dom.titleLogo.classList.remove("visible");
+      if (!logo || !dom.titleLogo) {
+        dom.titleLogo?.classList.remove("visible");
         return;
       }
       const shouldShow = ["title", "bg_title_mic_rose", "logo_beforefades"].includes(bgId);
-      if (shouldShow) {
-        dom.titleLogo.src = logo;
-        dom.titleLogo.classList.add("visible");
-      } else {
-        dom.titleLogo.classList.remove("visible");
-      }
+      dom.titleLogo.alt = "";
+      dom.titleLogo.onload = null;
+      dom.titleLogo.onerror = null;
+      dom.titleLogo.classList.remove("visible");
+      if (!shouldShow) return;
+
+      const showWhenLoaded = () => {
+        if (dom.titleLogo.naturalWidth > 0) dom.titleLogo.classList.add("visible");
+      };
+      dom.titleLogo.onerror = () => dom.titleLogo.classList.remove("visible");
+      dom.titleLogo.onload = showWhenLoaded;
+      if (dom.titleLogo.src !== new URL(logo, window.location.href).href) dom.titleLogo.src = logo;
+      else if (dom.titleLogo.complete) showWhenLoaded();
     }
 
     async function showSprite(cmd) {
       const id = cmd.id;
-      if (!id) return;
+      if (!id || id === "none") return;
+      if (Array.isArray(cmd.allowedSceneMode) && cmd.allowedSceneMode.length) {
+        const allowed = cmd.allowedSceneMode.map(v => String(v).toLowerCase());
+        if (!allowed.includes(String(state.currentSceneMode || "").toLowerCase())) {
+          console.warn(`Skip sprite "${id}" because sceneMode "${state.currentSceneMode}" is not allowed.`, cmd);
+          return;
+        }
+      }
+
       let img = state.sprites.get(id);
       if (!img) {
         img = document.createElement("img");
@@ -1587,7 +1920,9 @@
       if (src && img.src !== new URL(src, window.location.href).href) img.src = src;
       img.dataset.auto = cmd.auto ? "true" : (img.dataset.auto || "false");
       img.dataset.expression = safeExpression;
-      img.className = `sprite ${cmd.position || "center"}`;
+      img.dataset.speakerFocus = cmd.speakerFocus || img.dataset.speakerFocus || "";
+      img.dataset.presence = cmd.presence || img.dataset.presence || "onscreen";
+      setSpritePosition(id, cmd.position || chooseDialogueSpritePosition(id, cmd));
       if (cmd.dimmed) img.classList.add("dimmed");
       bringSpriteToFront(id);
       if (cmd.instant) {
@@ -1599,6 +1934,17 @@
       img.classList.add("visible");
       focusSprite(id);
       await wait(260);
+    }
+
+    function setSpritePosition(id, position = "center") {
+      const img = state.sprites.get(id);
+      if (!img) return;
+      const visible = img.classList.contains("visible");
+      const dimmed = img.classList.contains("dimmed");
+      img.className = `sprite ${position || "center"}`;
+      if (visible) img.classList.add("visible");
+      if (dimmed) img.classList.add("dimmed");
+      img.dataset.position = position || "center";
     }
 
     function sanitizeCharacterExpression(id, expression) {
@@ -1628,6 +1974,7 @@
     function clearSprites() {
       state.sprites.forEach(img => img.remove());
       state.sprites.clear();
+      resetDialogueLayout();
     }
 
     function resolveCharacterSrc(id, expression, directSrc) {
@@ -1669,12 +2016,84 @@
 
     function autoShowSpeakerSprite(speaker, text, cmd = {}) {
       const id = cmd.character || speakerToCharacter(speaker);
-      if (!id) return;
+      const presence = String(cmd.presence || "").toLowerCase();
+      const speakerFocus = normalizeSpeakerFocus(cmd.speakerFocus);
+
+      if (!id || id === "none") return "";
+      if (speakerFocus === "voice" || presence === "voiceonly" || presence === "offscreen") return "";
+
       const expression = sanitizeCharacterExpression(id, cmd.expression || pickExpressionFor(id, text || ""));
-      const position = cmd.position || defaultSpritePositionFor(id);
+      const position = cmd.position || chooseDialogueSpritePosition(id, cmd);
       const src = resolveCharacterSrc(id, expression);
-      if (!src) return;
-      showSprite({ id, expression, position, auto: true, instant: true });
+      if (!src) return "";
+
+      showSprite({
+        id,
+        expression,
+        position,
+        auto: true,
+        instant: true,
+        speakerFocus: cmd.speakerFocus || "primary",
+        presence: cmd.presence || "onscreen",
+        allowedSceneMode: cmd.allowedSceneMode
+      });
+      return id;
+    }
+
+    function resetDialogueLayout() {
+      state.dialogueLayout = { primaryId: "", secondaryId: "", swappedOnce: false };
+    }
+
+    function chooseDialogueSpritePosition(id, cmd = {}) {
+      const focus = normalizeSpeakerFocus(cmd.speakerFocus);
+      const conversation = state.currentConversation || {};
+      const layoutType = String(conversation.layout || "").toLowerCase();
+      const participants = Array.isArray(conversation.participants) ? conversation.participants : [];
+
+      if (cmd.position) return cmd.position;
+      if (focus === "center") return "center";
+
+      // 舞台、告白、輪迴與獨白段落：主要人物不要硬塞左邊，保留舞台中央構圖。
+      if (["stage", "confession", "reincarnation"].includes(String(state.currentSceneMode || "").toLowerCase())) {
+        if (id === "jamie" || layoutType === "monologue" || layoutType.includes("stage")) return "center";
+      }
+
+      if (layoutType === "monologue" || (participants.length === 1 && participants[0] === id)) {
+        return "center";
+      }
+
+      const layout = state.dialogueLayout || (state.dialogueLayout = { primaryId: "", secondaryId: "", swappedOnce: false });
+
+      if (!layout.primaryId || !state.sprites.has(layout.primaryId)) {
+        layout.primaryId = id;
+        layout.secondaryId = "";
+        layout.swappedOnce = false;
+        return "left";
+      }
+
+      if (id === layout.primaryId) return "left";
+      if (id === layout.secondaryId) return "right";
+
+      // speakerFocus=primary 時，允許目前主講者進左邊；原主講者退到右邊。
+      // 但同一個對話片段只做一次正式交換，避免 A/B/C 不斷左右橫跳。
+      if (focus === "primary" && !layout.swappedOnce) {
+        const oldPrimary = layout.primaryId;
+        layout.secondaryId = oldPrimary;
+        layout.primaryId = id;
+        layout.swappedOnce = true;
+        if (state.sprites.has(oldPrimary)) setSpritePosition(oldPrimary, "right");
+        return "left";
+      }
+
+      if (layout.secondaryId && layout.secondaryId !== id) {
+        const oldSecondary = state.sprites.get(layout.secondaryId);
+        if (oldSecondary?.dataset?.auto === "true") {
+          oldSecondary.remove();
+          state.sprites.delete(layout.secondaryId);
+        }
+      }
+      layout.secondaryId = id;
+      return "right";
     }
 
     function pickExpressionFor(id, text) {
@@ -1703,13 +2122,11 @@
     }
 
     function defaultSpritePositionFor(id) {
-      if (id === "oldnoodle") return "left";
-      if (id === "jamie") {
-        return isStageBackground() ? "center" : "right";
-      }
+      if (["stage", "confession", "reincarnation"].includes(String(state.currentSceneMode || "").toLowerCase()) && id === "jamie") return "center";
       if (id === "linwei") return "right";
-      return "right";
+      return "left";
     }
+
 
     function focusSprite(activeId) {
       if (activeId) bringSpriteToFront(activeId);
@@ -1819,9 +2236,7 @@
         // 也可明確指定：{ "type": "effect", "name": "empathyUp", "words": [...] }
         case "empathy":
         case "empathyUp":
-          if (normalizeEmotionDirection(cmd.direction || cmd.dir || "up") === "down") showCutinImage("cg_empathy_fall", 5200);
-          else showCutinImage("cg_empathy_warm", 5200);
-          await empathyWords(cmd.words || [], cmd.direction || cmd.dir || "up");
+          await runEmpathyEffect(cmd);
           break;
 
         // 新增：負面情緒下墜。
@@ -1830,8 +2245,7 @@
         case "empathyDown":
         case "empathyFall":
         case "empathySink":
-          showCutinImage("cg_empathy_fall", 5200);
-          await empathyWords(cmd.words || [], "down");
+          await runEmpathyEffect({ ...cmd, direction: cmd.direction || cmd.dir || "down" });
           break;
 
         case "fadeBlack": await fadeBlack(cmd.ms ?? 700); break;
@@ -1879,20 +2293,53 @@
       await wait(ms);
     }
 
+    async function runEmpathyEffect(cmdOrWords = [], direction = "up") {
+      const cmd = Array.isArray(cmdOrWords) || typeof cmdOrWords === "string"
+        ? { words: cmdOrWords, direction }
+        : (cmdOrWords || {});
+      const words = cmd.words || [];
+      const dir = normalizeEmotionDirection(cmd.direction || cmd.dir || direction || "up");
+      const assetId = cmd.visualBg || (dir === "down" ? "cg_empathy_fall" : "cg_empathy_warm");
+      const duration = Number.isFinite(Number(cmd.duration)) ? Number(cmd.duration) : estimateEmotionDuration(words);
+      const shouldLock = cmd.lockInput !== false;
+
+      if (shouldLock) lockInput(true);
+      try {
+        showCutinImage(assetId, duration + 260);
+        await empathyWords(words, dir, duration);
+      } finally {
+        if (shouldLock) lockInput(false);
+      }
+    }
+
+    function estimateEmotionDuration(words) {
+      const list = Array.isArray(words) ? words : String(words || "").split(/[，,\s]+/).filter(Boolean);
+      const count = Math.max(1, list.length);
+      return CONFIG.emotionWordLifeMs + (count - 1) * CONFIG.emotionWordStaggerMs + 160;
+    }
+
+    function lockInput(locked) {
+      state.inputLocked = Boolean(locked);
+      dom.effects?.classList.toggle("input-lock", state.inputLocked);
+    }
+
     function normalizeEmotionDirection(direction) {
       const d = String(direction || "up").trim().toLowerCase();
       if (["down", "fall", "sink", "drop", "negative", "neg", "bad"].includes(d)) return "down";
       return "up";
     }
 
-    async function empathyWords(words, direction = "up") {
+    async function empathyWords(words, direction = "up", totalDurationMs = null) {
       const list = Array.isArray(words) ? words : String(words || "").split(/[，,\s]+/).filter(Boolean);
       if (!list.length) return;
 
       const dir = normalizeEmotionDirection(direction);
       const className = dir === "down" ? "emotion-word float-down" : "emotion-word float-up";
-      const lifeMs = CONFIG.emotionWordLifeMs;
       const staggerMs = CONFIG.emotionWordStaggerMs;
+      const desiredTotal = Number.isFinite(Number(totalDurationMs)) ? Number(totalDurationMs) : null;
+      const lifeMs = desiredTotal
+        ? Math.max(1800, desiredTotal - Math.max(0, list.length - 1) * staggerMs - 160)
+        : CONFIG.emotionWordLifeMs;
 
       list.forEach((word, idx) => {
         const el = document.createElement("div");
@@ -1912,36 +2359,188 @@
         dom.effects.appendChild(el);
         setTimeout(() => el.remove(), lifeMs + idx * staggerMs + 120);
       });
-      await wait(Math.min(1800, lifeMs));
+      await wait(lifeMs + Math.max(0, list.length - 1) * staggerMs + 160);
     }
 
     function showCutinImage(assetId, ms = 1800) {
       const src = resolveBackgroundSrc(assetId);
       if (!src || !dom.cutinLayer || !dom.cutinImage) return;
+      dom.cutinLayer.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.24), rgba(0,0,0,0.62)), url("${cssUrl(src)}")`;
       dom.cutinImage.src = src;
       dom.cutinImage.alt = assetDescriptionFor(assetId, src) || assetId;
       dom.cutinLayer.classList.add("visible");
       window.clearTimeout(dom.cutinLayer._timer);
       dom.cutinLayer._timer = window.setTimeout(() => {
         dom.cutinLayer.classList.remove("visible");
+        dom.cutinLayer.style.backgroundImage = "";
       }, ms);
     }
 
-    function preloadManifestImages() {
-      const srcs = new Set();
+    function showLoadingScreen(status = "讀取中……", completed = 0, total = 0) {
+      if (!dom.loading) return;
+      dom.loading.classList.remove("is-hidden", "has-errors");
+      dom.loading.setAttribute("aria-busy", "true");
+      updateLoadingProgress({ completed, total, ok: 0, failed: 0, status, current: "" });
+    }
+
+    function hideLoadingScreen() {
+      if (!dom.loading) return;
+      dom.loading.classList.add("is-hidden");
+      dom.loading.setAttribute("aria-busy", "false");
+    }
+
+    function updateLoadingProgress({ completed = 0, total = 0, ok = 0, failed = 0, status = "", current = "", failures = [] } = {}) {
+      const pct = total > 0 ? Math.round((completed / total) * 100) : 0;
+      if (dom.loadingProgressBar) dom.loadingProgressBar.style.width = `${pct}%`;
+      if (dom.loadingPercent) dom.loadingPercent.textContent = `${pct}%`;
+      if (dom.loadingStatus) dom.loadingStatus.textContent = status || "正在載入素材……";
+      if (dom.loadingCurrent) dom.loadingCurrent.textContent = current ? `讀取中：${current}` : "";
+      if (dom.loadingStats) dom.loadingStats.textContent = total ? `${completed} / ${total}　成功 ${ok}　失敗 ${failed}` : "準備素材清單……";
+      if (dom.loadingErrors) {
+        if (failures && failures.length) {
+          dom.loading?.classList.add("has-errors");
+          dom.loadingErrors.textContent = `以下素材載入失敗，遊戲仍會繼續啟動：\n${failures.map(item => `- ${item.src}${item.reason ? `（${item.reason}）` : ""}`).join("\n")}`;
+        } else {
+          dom.loading?.classList.remove("has-errors");
+          dom.loadingErrors.textContent = "";
+        }
+      }
+    }
+
+    async function preloadAllImagesWithProgress() {
+      const assets = collectImageAssets();
+      const total = assets.length;
+      const failures = [];
+      let completed = 0;
+      let ok = 0;
+      let failed = 0;
+
+      updateLoadingProgress({ completed, total, ok, failed, status: total ? "正在預載圖片素材……" : "沒有需要預載的圖片素材。" });
+
+      if (!total) {
+        await wait(220);
+        updateLoadingProgress({ completed: 0, total: 0, ok: 0, failed: 0, status: "圖片素材準備完成。" });
+        return { total: 0, ok: 0, failed: 0, failures: [] };
+      }
+
+      let cursor = 0;
+      const concurrency = Math.max(1, Math.min(CONFIG.imagePreloadConcurrency || 6, total));
+
+      async function worker() {
+        while (cursor < total) {
+          const asset = assets[cursor++];
+          updateLoadingProgress({ completed, total, ok, failed, status: "正在預載圖片素材……", current: asset.src, failures });
+          const result = await preloadImageAsset(asset);
+          completed += 1;
+          if (result.ok) ok += 1;
+          else {
+            failed += 1;
+            failures.push(result);
+          }
+          updateLoadingProgress({
+            completed,
+            total,
+            ok,
+            failed,
+            status: completed >= total ? "圖片素材載入完成。" : "正在預載圖片素材……",
+            current: completed >= total ? "" : asset.src,
+            failures
+          });
+        }
+      }
+
+      await Promise.all(Array.from({ length: concurrency }, () => worker()));
+      updateLoadingProgress({
+        completed,
+        total,
+        ok,
+        failed,
+        status: failed ? "圖片素材載入完成，但有部分檔案失敗。" : "圖片素材全部載入完成。",
+        current: "",
+        failures
+      });
+      await wait(failed ? 900 : 420);
+      return { total, ok, failed, failures };
+    }
+
+    function collectImageAssets() {
+      const assets = new Map();
+      const add = (src, id = "", category = "") => {
+        if (!src || typeof src !== "string") return;
+        if (!isImageAssetPath(src)) return;
+        const normalizedSrc = src.trim();
+        if (!assets.has(normalizedSrc)) {
+          assets.set(normalizedSrc, { src: normalizedSrc, ids: new Set(), categories: new Set() });
+        }
+        const item = assets.get(normalizedSrc);
+        if (id) item.ids.add(id);
+        if (category) item.categories.add(category);
+      };
+
       const bgs = state.script.assets?.backgrounds || {};
-      Object.values(bgs).forEach(item => {
+      Object.entries(bgs).forEach(([id, item]) => {
         const src = typeof item === "string" ? item : item?.src;
-        if (src) srcs.add(src);
+        add(src, id, imageCategoryFor(id, src));
       });
+
       const chars = state.script.assets?.characters || {};
-      Object.values(chars).forEach(char => {
-        if (typeof char === "string") srcs.add(char);
-        else Object.values(char || {}).forEach(src => src && srcs.add(src));
+      Object.entries(chars).forEach(([id, char]) => {
+        if (typeof char === "string") add(char, id, "character");
+        else Object.entries(char || {}).forEach(([expression, src]) => add(src, `${id}.${expression}`, "character"));
       });
-      srcs.forEach(src => {
+
+      const manifest = state.script.assets?.imageManifest || {};
+      Object.entries(manifest).forEach(([id, item]) => add(item?.src, id, item?.category || imageCategoryFor(id, item?.src)));
+
+      collectImageAssetsFromObject(state.script.scenes || {}, add);
+
+      return Array.from(assets.values()).map(item => ({
+        src: item.src,
+        ids: Array.from(item.ids),
+        categories: Array.from(item.categories)
+      }));
+    }
+
+    function collectImageAssetsFromObject(value, add) {
+      if (Array.isArray(value)) {
+        value.forEach(item => collectImageAssetsFromObject(item, add));
+        return;
+      }
+      if (value && typeof value === "object") {
+        Object.values(value).forEach(item => collectImageAssetsFromObject(item, add));
+        return;
+      }
+      if (typeof value === "string" && isImageAssetPath(value)) {
+        add(value, "inline", "inline");
+      }
+    }
+
+    function isImageAssetPath(src) {
+      return /\.(?:png|jpe?g|webp|gif|avif|svg)(?:[?#].*)?$/i.test(String(src || ""));
+    }
+
+    function preloadImageAsset(asset) {
+      return new Promise((resolve) => {
+        let settled = false;
         const img = new Image();
-        img.src = src;
+        const timeout = window.setTimeout(() => finish(false, "timeout"), CONFIG.imagePreloadTimeoutMs || 15000);
+
+        function finish(ok, reason = "") {
+          if (settled) return;
+          settled = true;
+          window.clearTimeout(timeout);
+          img.onload = null;
+          img.onerror = null;
+          if (ok && CONFIG.keepPreloadedImageRefs) state.preloadedImages.set(asset.src, img);
+          resolve({ ...asset, ok, reason });
+        }
+
+        img.onload = () => finish(true);
+        img.onerror = () => finish(false, "load error");
+        img.decoding = "async";
+        img.src = asset.src;
+
+        if (img.complete && img.naturalWidth > 0) finish(true);
       });
     }
 
@@ -1963,7 +2562,7 @@
       return "";
     }
 
-    function setSideImage(assetId) {
+    function setSideImage(assetId, options = {}) {
       if (!dom.sideImage || !dom.sideImageWrap) return;
       const src = resolveBackgroundSrc(assetId);
       const category = src ? imageCategoryFor(assetId, src) : "";
@@ -1979,7 +2578,7 @@
         dom.sidePanel?.classList.remove("has-document");
         return;
       }
-      const caption = assetDescriptionFor(assetId, src) || assetId;
+      const caption = options.caption || assetDescriptionFor(assetId, src) || assetId;
       dom.sideImage.src = src;
       dom.sideImage.alt = caption;
       dom.sideImageWrap.dataset.assetId = assetId;
@@ -1992,19 +2591,22 @@
       dom.sidePanel?.classList.add("has-document");
     }
 
-    function showDocumentInSidePanel(assetId) {
+    function showDocumentInSidePanel(assetId, cmd = {}) {
       const src = resolveBackgroundSrc(assetId);
-      const description = assetDescriptionFor(assetId, src) || assetId || "文件";
-      dom.sideTitle.textContent = "DOCUMENT / 文件";
+      const description = cmd.documentTitle || assetDescriptionFor(assetId, src) || assetId || "文件";
+      dom.sideTitle.textContent = cmd.documentTitle || "DOCUMENT / 文件";
       dom.sideContent.textContent = `${description}
 點擊右側縮圖可放大檢視。`;
-      setSideImage(assetId);
+      setSideImage(assetId, { caption: description });
     }
 
     function setSideNote(title, text) {
       dom.sideTitle.textContent = title || "NOTE";
       dom.sideContent.textContent = text || "";
-      setSideImage(resolveNoteImage(title, text));
+      const noteImage = resolveNoteImage(title, text);
+      if (noteImage) setSideImage(noteImage);
+      else if (state.currentDocId) setSideImage(state.currentDocId);
+      else setSideImage("");
     }
 
     function openSideDocument() {
