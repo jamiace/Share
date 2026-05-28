@@ -1,11 +1,11 @@
 {
   "meta": {
     "title": "Before Fades：地獄脫口秀的產品發表會",
-    "version": "2.1.0-directed-script-compatible",
+    "version": "2.1.1-directed-script-cleanup",
     "language": "zh-Hant",
     "engine": "Before Fades Static Web Visual Novel Engine",
     "startScene": "start",
-    "description": "完整文本版：擴充地獄脫口秀、共感、舞台cue、演出結束觀察與案件封存。 / 新增相容式導演腳本欄位：sceneMode、conversation、displayMode、documentTarget、speakerFocus、lockInput。",
+    "description": "完整文本版：擴充地獄脫口秀、共感、舞台cue、演出結束觀察與案件封存。 / 新增相容式導演腳本欄位：sceneMode、conversation、displayMode、documentTarget、speakerFocus、lockInput。 / 2.1.1：整理 Title Screen、共感滿版流程、舞台站位、錄影/文件殘留與 doc_voice_wave 顯示順序。",
     "imageAssetSet": "aligned-to-provided-assets-2026-05-28",
     "directingScript": {
       "version": "1.0",
@@ -472,7 +472,8 @@
         "displayMode": "background",
         "avoidUiOverlap": true,
         "mainImageFit": "contain-in-safe-stage",
-        "underlayFit": "cover-fullscreen"
+        "underlayFit": "cover-fullscreen",
+        "titleScreen": true
       },
       {
         "type": "bgm",
@@ -493,36 +494,23 @@
           "placementPolicy": "primary-left-secondary-right-swap-once",
           "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
         },
-        "ui": "g"
-      },
-      {
-        "type": "note",
-        "title": "TITLE",
-        "text": "地獄脫口秀的產品發表會\n你不是來拯救他。\n你是來決定，他要如何被記得。",
-        "sceneMode": "title"
-      },
-      {
-        "type": "narrate",
-        "text": "黑暗中，一支麥克風慢慢浮現。麥克風架旁，一朵白玫瑰插在透明玻璃瓶裡。花瓣很白，只有最邊緣，有一點點不容易看見的枯黃。"
+        "ui": "g",
+        "titleScreen": true
       },
       {
         "type": "choice",
-        "prompt": "開始遊戲？",
+        "prompt": "",
         "options": [
           {
             "text": "開始遊戲",
             "next": "opening_01"
-          },
-          {
-            "text": "操作說明",
-            "next": "help_01"
           }
         ],
         "sceneMode": "title",
         "choiceUi": {
-          "width": "70%",
+          "width": "title",
           "textAlign": "center",
-          "fontScale": "large"
+          "fontScale": "title"
         }
       }
     ],
@@ -634,7 +622,8 @@
         "character": "oldnoodle",
         "speakerFocus": "primary",
         "sceneMode": "control",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "right"
       },
       {
         "type": "sfx",
@@ -648,7 +637,8 @@
         "character": "kate",
         "speakerFocus": "primary",
         "sceneMode": "control",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "left"
       },
       {
         "type": "say",
@@ -657,7 +647,8 @@
         "character": "oldnoodle",
         "speakerFocus": "primary",
         "sceneMode": "control",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "right"
       },
       {
         "type": "say",
@@ -666,7 +657,8 @@
         "character": "oldnoodle",
         "speakerFocus": "primary",
         "sceneMode": "control",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "right"
       },
       {
         "type": "say",
@@ -675,7 +667,8 @@
         "character": "kate",
         "speakerFocus": "primary",
         "sceneMode": "control",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "left"
       },
       {
         "type": "clearSprites",
@@ -699,7 +692,8 @@
         "character": "ray",
         "speakerFocus": "primary",
         "sceneMode": "control",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "right"
       },
       {
         "type": "say",
@@ -708,7 +702,8 @@
         "character": "tingru",
         "speakerFocus": "primary",
         "sceneMode": "control",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "left"
       },
       {
         "type": "say",
@@ -717,7 +712,8 @@
         "character": "ray",
         "speakerFocus": "primary",
         "sceneMode": "control",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "right"
       },
       {
         "type": "say",
@@ -726,7 +722,8 @@
         "character": "tingru",
         "speakerFocus": "primary",
         "sceneMode": "control",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "left"
       },
       {
         "type": "choice",
@@ -743,9 +740,9 @@
         ],
         "sceneMode": "control",
         "choiceUi": {
-          "width": "70%",
+          "width": "78%",
           "textAlign": "center",
-          "fontScale": "large"
+          "fontScale": "standard"
         }
       }
     ],
@@ -826,7 +823,8 @@
         "character": "oldnoodle",
         "speakerFocus": "primary",
         "sceneMode": "control",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "right"
       },
       {
         "type": "clearSprites",
@@ -856,7 +854,8 @@
         "character": "oldnoodle",
         "speakerFocus": "primary",
         "sceneMode": "control",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "right"
       },
       {
         "type": "say",
@@ -865,7 +864,8 @@
         "character": "kate",
         "speakerFocus": "primary",
         "sceneMode": "control",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "left"
       },
       {
         "type": "choice",
@@ -882,9 +882,9 @@
         ],
         "sceneMode": "control",
         "choiceUi": {
-          "width": "70%",
+          "width": "78%",
           "textAlign": "center",
-          "fontScale": "large"
+          "fontScale": "standard"
         }
       }
     ],
@@ -911,17 +911,6 @@
         "reason": "sceneBoundaryOrMajorVisualChange"
       },
       {
-        "type": "bg",
-        "id": "control_room_dark",
-        "transition": "fade",
-        "waitAfter": 700,
-        "displayMode": "background",
-        "sceneMode": "empathy",
-        "avoidUiOverlap": true,
-        "mainImageFit": "contain-in-safe-stage",
-        "underlayFit": "cover-fullscreen"
-      },
-      {
         "type": "bgm",
         "id": "empathy",
         "volume": 0.38,
@@ -945,7 +934,25 @@
         "sceneMode": "empathy",
         "duration": 6860,
         "visualBg": "cg_empathy_warm",
-        "emotionStyle": "warm-gold-rise"
+        "emotionStyle": "warm-gold-rise",
+        "fadeInMs": 300,
+        "holdBeforeWordsMs": 750,
+        "fadeOutMs": 700,
+        "fullscreenOnly": true,
+        "hideUiDuringEffect": true,
+        "hideSpritesDuringEffect": true,
+        "hideBackgroundDuringEffect": true
+      },
+      {
+        "type": "bg",
+        "id": "control_room_dark",
+        "transition": "fade",
+        "waitAfter": 700,
+        "displayMode": "background",
+        "sceneMode": "empathy",
+        "avoidUiOverlap": true,
+        "mainImageFit": "contain-in-safe-stage",
+        "underlayFit": "cover-fullscreen"
       },
       {
         "type": "note",
@@ -964,7 +971,8 @@
         "character": "tingru",
         "speakerFocus": "primary",
         "sceneMode": "empathy",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "left"
       },
       {
         "type": "say",
@@ -973,7 +981,8 @@
         "character": "tingru",
         "speakerFocus": "primary",
         "sceneMode": "empathy",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "left"
       },
       {
         "type": "say",
@@ -982,7 +991,8 @@
         "character": "tingru",
         "speakerFocus": "primary",
         "sceneMode": "empathy",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "left"
       },
       {
         "type": "say",
@@ -991,7 +1001,8 @@
         "character": "tingru",
         "speakerFocus": "primary",
         "sceneMode": "empathy",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "left"
       },
       {
         "type": "say",
@@ -1000,7 +1011,8 @@
         "character": "tingru",
         "speakerFocus": "primary",
         "sceneMode": "empathy",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "left"
       },
       {
         "type": "say",
@@ -1009,7 +1021,8 @@
         "character": "tingru",
         "speakerFocus": "primary",
         "sceneMode": "empathy",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "left"
       },
       {
         "type": "say",
@@ -1018,7 +1031,8 @@
         "character": "tingru",
         "speakerFocus": "primary",
         "sceneMode": "empathy",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "left"
       },
       {
         "type": "choice",
@@ -1048,9 +1062,9 @@
         ],
         "sceneMode": "empathy",
         "choiceUi": {
-          "width": "70%",
+          "width": "78%",
           "textAlign": "center",
-          "fontScale": "large"
+          "fontScale": "standard"
         }
       }
     ],
@@ -1073,7 +1087,8 @@
         "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
         "character": "tingru",
         "speakerFocus": "primary",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "left"
       },
       {
         "type": "say",
@@ -1082,7 +1097,8 @@
         "character": "oldnoodle",
         "speakerFocus": "primary",
         "sceneMode": "empathy",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "right"
       },
       {
         "type": "say",
@@ -1091,7 +1107,8 @@
         "character": "tingru",
         "speakerFocus": "primary",
         "sceneMode": "empathy",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "left"
       },
       {
         "type": "say",
@@ -1100,7 +1117,8 @@
         "character": "oldnoodle",
         "speakerFocus": "primary",
         "sceneMode": "empathy",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "right"
       },
       {
         "type": "say",
@@ -1109,7 +1127,8 @@
         "character": "tingru",
         "speakerFocus": "primary",
         "sceneMode": "empathy",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "left"
       },
       {
         "type": "say",
@@ -1118,7 +1137,8 @@
         "character": "oldnoodle",
         "speakerFocus": "primary",
         "sceneMode": "empathy",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "right"
       },
       {
         "type": "jump",
@@ -1144,7 +1164,8 @@
         "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
         "character": "tingru",
         "speakerFocus": "primary",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "left"
       },
       {
         "type": "say",
@@ -1153,7 +1174,8 @@
         "character": "oldnoodle",
         "speakerFocus": "primary",
         "sceneMode": "empathy",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "right"
       },
       {
         "type": "say",
@@ -1162,7 +1184,8 @@
         "character": "tingru",
         "speakerFocus": "primary",
         "sceneMode": "empathy",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "left"
       },
       {
         "type": "say",
@@ -1171,7 +1194,8 @@
         "character": "oldnoodle",
         "speakerFocus": "primary",
         "sceneMode": "empathy",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "right"
       },
       {
         "type": "jump",
@@ -1197,7 +1221,8 @@
         "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
         "character": "tingru",
         "speakerFocus": "primary",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "left"
       },
       {
         "type": "say",
@@ -1206,7 +1231,8 @@
         "character": "oldnoodle",
         "speakerFocus": "primary",
         "sceneMode": "empathy",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "right"
       },
       {
         "type": "say",
@@ -1215,7 +1241,8 @@
         "character": "tingru",
         "speakerFocus": "primary",
         "sceneMode": "empathy",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "left"
       },
       {
         "type": "narrate",
@@ -1326,9 +1353,9 @@
         ],
         "sceneMode": "jamie_room",
         "choiceUi": {
-          "width": "70%",
+          "width": "78%",
           "textAlign": "center",
-          "fontScale": "large"
+          "fontScale": "standard"
         }
       }
     ],
@@ -1351,7 +1378,8 @@
         "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
         "character": "oldnoodle",
         "speakerFocus": "primary",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "right"
       },
       {
         "type": "say",
@@ -1369,7 +1397,8 @@
         "character": "oldnoodle",
         "speakerFocus": "primary",
         "sceneMode": "jamie_room",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "right"
       },
       {
         "type": "say",
@@ -1404,7 +1433,8 @@
         "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
         "character": "oldnoodle",
         "speakerFocus": "primary",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "right"
       },
       {
         "type": "narrate",
@@ -1448,7 +1478,8 @@
         "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
         "character": "oldnoodle",
         "speakerFocus": "primary",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "right"
       },
       {
         "type": "say",
@@ -1466,7 +1497,8 @@
         "character": "oldnoodle",
         "speakerFocus": "primary",
         "sceneMode": "jamie_room",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "right"
       },
       {
         "type": "jump",
@@ -1517,7 +1549,8 @@
         "character": "oldnoodle",
         "speakerFocus": "primary",
         "sceneMode": "jamie_room",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "right"
       },
       {
         "type": "say",
@@ -1586,7 +1619,8 @@
         "character": "oldnoodle",
         "speakerFocus": "primary",
         "sceneMode": "jamie_room",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "right"
       },
       {
         "type": "say",
@@ -1625,7 +1659,8 @@
         "character": "oldnoodle",
         "speakerFocus": "primary",
         "sceneMode": "jamie_room",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "right"
       },
       {
         "type": "say",
@@ -1643,7 +1678,8 @@
         "character": "oldnoodle",
         "speakerFocus": "primary",
         "sceneMode": "jamie_room",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "right"
       },
       {
         "type": "say",
@@ -1666,7 +1702,8 @@
         "character": "ray",
         "speakerFocus": "primary",
         "sceneMode": "jamie_room",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "right"
       },
       {
         "type": "hide",
@@ -1689,7 +1726,8 @@
         "character": "oldnoodle",
         "speakerFocus": "primary",
         "sceneMode": "jamie_room",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "right"
       },
       {
         "type": "say",
@@ -1707,7 +1745,8 @@
         "character": "oldnoodle",
         "speakerFocus": "primary",
         "sceneMode": "jamie_room",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "right"
       },
       {
         "type": "say",
@@ -1725,7 +1764,8 @@
         "character": "oldnoodle",
         "speakerFocus": "primary",
         "sceneMode": "jamie_room",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "right"
       },
       {
         "type": "say",
@@ -1826,7 +1866,8 @@
         "character": "kate",
         "speakerFocus": "primary",
         "sceneMode": "case_file",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "left"
       },
       {
         "type": "say",
@@ -1835,7 +1876,8 @@
         "character": "ray",
         "speakerFocus": "primary",
         "sceneMode": "case_file",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "right"
       },
       {
         "type": "say",
@@ -1844,7 +1886,8 @@
         "character": "tingru",
         "speakerFocus": "primary",
         "sceneMode": "case_file",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "left"
       },
       {
         "type": "say",
@@ -1853,7 +1896,8 @@
         "character": "oldnoodle",
         "speakerFocus": "primary",
         "sceneMode": "case_file",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "right"
       },
       {
         "type": "say",
@@ -1862,7 +1906,8 @@
         "character": "tingru",
         "speakerFocus": "primary",
         "sceneMode": "case_file",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "left"
       },
       {
         "type": "say",
@@ -1871,7 +1916,8 @@
         "character": "oldnoodle",
         "speakerFocus": "primary",
         "sceneMode": "case_file",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "right"
       },
       {
         "type": "say",
@@ -1880,7 +1926,8 @@
         "character": "tingru",
         "speakerFocus": "primary",
         "sceneMode": "case_file",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "left"
       },
       {
         "type": "say",
@@ -1889,7 +1936,8 @@
         "character": "oldnoodle",
         "speakerFocus": "primary",
         "sceneMode": "case_file",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "right"
       },
       {
         "type": "narrate",
@@ -1908,7 +1956,9 @@
         "sceneMode": "case_file",
         "documentTarget": "sidePanelExpandable",
         "keepCurrentBackground": true,
-        "documentTitle": "訪談錄音波形畫面"
+        "documentTitle": "訪談錄音波形畫面",
+        "preventMainBackgroundTakeover": true,
+        "showAfterEmpathy": true
       },
       {
         "type": "note",
@@ -1938,17 +1988,6 @@
         "reason": "sceneBoundaryOrMajorVisualChange"
       },
       {
-        "type": "bg",
-        "id": "doc_media_news",
-        "transition": "fade",
-        "waitAfter": 700,
-        "displayMode": "document",
-        "sceneMode": "memory",
-        "documentTarget": "sidePanelExpandable",
-        "keepCurrentBackground": true,
-        "documentTitle": "媒體新聞網站畫面"
-      },
-      {
         "type": "effect",
         "name": "empathyDown",
         "words": [
@@ -1962,7 +2001,25 @@
         "sceneMode": "empathy",
         "duration": 6410,
         "visualBg": "cg_empathy_fall",
-        "emotionStyle": "cool-blue-fall"
+        "emotionStyle": "cool-blue-fall",
+        "fadeInMs": 300,
+        "holdBeforeWordsMs": 750,
+        "fadeOutMs": 700,
+        "fullscreenOnly": true,
+        "hideUiDuringEffect": true,
+        "hideSpritesDuringEffect": true,
+        "hideBackgroundDuringEffect": true
+      },
+      {
+        "type": "bg",
+        "id": "doc_media_news",
+        "transition": "fade",
+        "waitAfter": 700,
+        "displayMode": "document",
+        "sceneMode": "memory",
+        "documentTarget": "sidePanelExpandable",
+        "keepCurrentBackground": true,
+        "documentTitle": "媒體新聞網站畫面"
       },
       {
         "type": "narrate",
@@ -2018,17 +2075,6 @@
         "reason": "sceneBoundaryOrMajorVisualChange"
       },
       {
-        "type": "bg",
-        "id": "cg_memory_phone",
-        "transition": "fade",
-        "waitAfter": 700,
-        "displayMode": "cg",
-        "sceneMode": "memory",
-        "avoidUiOverlap": true,
-        "mainImageFit": "contain-in-safe-stage",
-        "underlayFit": "cover-fullscreen"
-      },
-      {
         "type": "effect",
         "name": "empathyDown",
         "words": [
@@ -2042,7 +2088,25 @@
         "sceneMode": "empathy",
         "duration": 6410,
         "visualBg": "cg_empathy_fall",
-        "emotionStyle": "cool-blue-fall"
+        "emotionStyle": "cool-blue-fall",
+        "fadeInMs": 300,
+        "holdBeforeWordsMs": 750,
+        "fadeOutMs": 700,
+        "fullscreenOnly": true,
+        "hideUiDuringEffect": true,
+        "hideSpritesDuringEffect": true,
+        "hideBackgroundDuringEffect": true
+      },
+      {
+        "type": "bg",
+        "id": "cg_memory_phone",
+        "transition": "fade",
+        "waitAfter": 700,
+        "displayMode": "cg",
+        "sceneMode": "memory",
+        "avoidUiOverlap": true,
+        "mainImageFit": "contain-in-safe-stage",
+        "underlayFit": "cover-fullscreen"
       },
       {
         "type": "narrate",
@@ -2098,17 +2162,6 @@
         "reason": "sceneBoundaryOrMajorVisualChange"
       },
       {
-        "type": "bg",
-        "id": "cg_reincarnation_boot",
-        "transition": "fade",
-        "waitAfter": 700,
-        "displayMode": "cg",
-        "sceneMode": "memory",
-        "avoidUiOverlap": true,
-        "mainImageFit": "contain-in-safe-stage",
-        "underlayFit": "cover-fullscreen"
-      },
-      {
         "type": "effect",
         "name": "empathyUp",
         "words": [
@@ -2122,7 +2175,25 @@
         "sceneMode": "empathy",
         "duration": 6410,
         "visualBg": "cg_empathy_warm",
-        "emotionStyle": "warm-gold-rise"
+        "emotionStyle": "warm-gold-rise",
+        "fadeInMs": 300,
+        "holdBeforeWordsMs": 750,
+        "fadeOutMs": 700,
+        "fullscreenOnly": true,
+        "hideUiDuringEffect": true,
+        "hideSpritesDuringEffect": true,
+        "hideBackgroundDuringEffect": true
+      },
+      {
+        "type": "bg",
+        "id": "cg_reincarnation_boot",
+        "transition": "fade",
+        "waitAfter": 700,
+        "displayMode": "cg",
+        "sceneMode": "memory",
+        "avoidUiOverlap": true,
+        "mainImageFit": "contain-in-safe-stage",
+        "underlayFit": "cover-fullscreen"
       },
       {
         "type": "narrate",
@@ -2206,9 +2277,9 @@
         },
         "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
         "choiceUi": {
-          "width": "70%",
+          "width": "78%",
           "textAlign": "center",
-          "fontScale": "large"
+          "fontScale": "standard"
         }
       }
     ],
@@ -2314,9 +2385,9 @@
         ],
         "sceneMode": "control",
         "choiceUi": {
-          "width": "70%",
+          "width": "78%",
           "textAlign": "center",
-          "fontScale": "large"
+          "fontScale": "standard"
         }
       }
     ],
@@ -2346,16 +2417,17 @@
         "character": "oldnoodle",
         "speakerFocus": "primary",
         "sceneMode": "control",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "right"
       },
       {
         "type": "say",
         "speaker": "傑米",
         "text": "不要浪費眼淚。眼淚要在最有用的時候發光。直接切。",
-        "character": "jamie",
-        "speakerFocus": "primary",
+        "character": "none",
+        "speakerFocus": "voice",
         "sceneMode": "control",
-        "presence": "onscreen"
+        "presence": "voiceOnly"
       },
       {
         "type": "say",
@@ -2364,7 +2436,8 @@
         "character": "oldnoodle",
         "speakerFocus": "primary",
         "sceneMode": "control",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "right"
       },
       {
         "type": "say",
@@ -2373,7 +2446,8 @@
         "character": "tingru",
         "speakerFocus": "primary",
         "sceneMode": "control",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "left"
       },
       {
         "type": "jump",
@@ -2424,7 +2498,9 @@
         "type": "note",
         "title": "REC",
         "text": "黑白影像 / 年輕傑米 / 創業初期錄影",
-        "sceneMode": "control"
+        "sceneMode": "control",
+        "transient": true,
+        "clearOnNextBackground": true
       },
       {
         "type": "narrate",
@@ -2523,7 +2599,7 @@
       {
         "type": "show",
         "id": "jamie",
-        "expression": "show",
+        "expression": "nervous",
         "position": "center",
         "sceneMode": "stage",
         "speakerFocus": "primary",
@@ -2531,7 +2607,8 @@
           "stage",
           "confession",
           "reincarnation"
-        ]
+        ],
+        "introSafeExpression": true
       },
       {
         "type": "sfx",
@@ -2545,7 +2622,8 @@
         "character": "jamie",
         "speakerFocus": "primary",
         "sceneMode": "stage",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "center"
       },
       {
         "type": "say",
@@ -2554,7 +2632,8 @@
         "character": "jamie",
         "speakerFocus": "primary",
         "sceneMode": "stage",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "center"
       },
       {
         "type": "effect",
@@ -2572,12 +2651,8 @@
         "character": "tingru",
         "speakerFocus": "primary",
         "sceneMode": "stage",
-        "presence": "onscreen"
-      },
-      {
-        "type": "hide",
-        "id": "tingru",
-        "reason": "speakerLeavesOrNoLongerPrimary"
+        "presence": "onscreen",
+        "position": "left"
       },
       {
         "type": "choice",
@@ -2614,9 +2689,9 @@
         ],
         "sceneMode": "stage",
         "choiceUi": {
-          "width": "70%",
+          "width": "78%",
           "textAlign": "center",
-          "fontScale": "large"
+          "fontScale": "standard"
         }
       }
     ],
@@ -2646,6 +2721,24 @@
     ],
     "showtime_lowfreq": [
       {
+        "type": "mode",
+        "value": "stage",
+        "label": "舞台 / 後台監看",
+        "sceneMode": "stage",
+        "conversation": {
+          "layout": "stage-with-backstage-monitor",
+          "participants": [
+            "jamie",
+            "tingru",
+            "oldnoodle"
+          ],
+          "voiceOnlyParticipants": [],
+          "placementPolicy": "primary-left-secondary-right-swap-once",
+          "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
+        },
+        "ui": "j"
+      },
+      {
         "type": "narrate",
         "text": "很低的聲音進入空氣，幾乎聽不見，但現場的尷尬突然有了形狀。大家意識到，自己正在被允許進入一場表演。",
         "sceneMode": "stage",
@@ -2668,7 +2761,8 @@
         "character": "tingru",
         "speakerFocus": "primary",
         "sceneMode": "stage",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "left"
       },
       {
         "type": "say",
@@ -2677,7 +2771,8 @@
         "character": "oldnoodle",
         "speakerFocus": "primary",
         "sceneMode": "stage",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "right"
       },
       {
         "type": "say",
@@ -2686,7 +2781,8 @@
         "character": "tingru",
         "speakerFocus": "primary",
         "sceneMode": "stage",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "left"
       },
       {
         "type": "jump",
@@ -2719,6 +2815,23 @@
     ],
     "showtime_raw": [
       {
+        "type": "mode",
+        "value": "stage",
+        "label": "舞台 / 後台監看",
+        "sceneMode": "stage",
+        "conversation": {
+          "layout": "stage-with-backstage-monitor",
+          "participants": [
+            "jamie",
+            "tingru"
+          ],
+          "voiceOnlyParticipants": [],
+          "placementPolicy": "primary-left-secondary-right-swap-once",
+          "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
+        },
+        "ui": "j"
+      },
+      {
         "type": "narrate",
         "text": "BGM 被推到更遠。傑米的聲音變得非常清楚，清楚到每個人都無法假裝那只是段子。笑聲比較少，但每一個笑聲都帶著不安。",
         "sceneMode": "stage",
@@ -2740,7 +2853,8 @@
         "character": "tingru",
         "speakerFocus": "primary",
         "sceneMode": "stage",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "left"
       },
       {
         "type": "jump",
@@ -2748,6 +2862,26 @@
       }
     ],
     "showtime_jokes": [
+      {
+        "type": "mode",
+        "value": "stage",
+        "label": "舞台 / 脫口秀",
+        "sceneMode": "stage",
+        "conversation": {
+          "layout": "stage-with-backstage-monitor",
+          "participants": [
+            "jamie",
+            "kate",
+            "ray",
+            "tingru",
+            "oldnoodle"
+          ],
+          "voiceOnlyParticipants": [],
+          "placementPolicy": "primary-left-secondary-right-swap-once",
+          "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
+        },
+        "ui": "j"
+      },
       {
         "type": "say",
         "speaker": "傑米",
@@ -2769,7 +2903,8 @@
         "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
         "character": "jamie",
         "speakerFocus": "primary",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "center"
       },
       {
         "type": "sfx",
@@ -2783,7 +2918,8 @@
         "character": "jamie",
         "speakerFocus": "primary",
         "sceneMode": "stage",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "center"
       },
       {
         "type": "clearSprites",
@@ -2827,7 +2963,8 @@
         "character": "jamie",
         "speakerFocus": "primary",
         "sceneMode": "stage",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "center"
       },
       {
         "type": "say",
@@ -2836,7 +2973,8 @@
         "character": "jamie",
         "speakerFocus": "primary",
         "sceneMode": "stage",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "center"
       },
       {
         "type": "sfx",
@@ -2850,7 +2988,8 @@
         "character": "jamie",
         "speakerFocus": "primary",
         "sceneMode": "stage",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "center"
       },
       {
         "type": "say",
@@ -2859,7 +2998,8 @@
         "character": "jamie",
         "speakerFocus": "primary",
         "sceneMode": "stage",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "center"
       },
       {
         "type": "say",
@@ -2868,12 +3008,8 @@
         "character": "kate",
         "speakerFocus": "primary",
         "sceneMode": "stage",
-        "presence": "onscreen"
-      },
-      {
-        "type": "hide",
-        "id": "kate",
-        "reason": "speakerLeavesOrNoLongerPrimary"
+        "presence": "onscreen",
+        "position": "left"
       },
       {
         "type": "say",
@@ -2882,12 +3018,8 @@
         "character": "ray",
         "speakerFocus": "primary",
         "sceneMode": "stage",
-        "presence": "onscreen"
-      },
-      {
-        "type": "hide",
-        "id": "ray",
-        "reason": "speakerLeavesOrNoLongerPrimary"
+        "presence": "onscreen",
+        "position": "right"
       },
       {
         "type": "say",
@@ -2896,12 +3028,8 @@
         "character": "kate",
         "speakerFocus": "primary",
         "sceneMode": "stage",
-        "presence": "onscreen"
-      },
-      {
-        "type": "hide",
-        "id": "kate",
-        "reason": "speakerLeavesOrNoLongerPrimary"
+        "presence": "onscreen",
+        "position": "left"
       },
       {
         "type": "say",
@@ -2910,12 +3038,8 @@
         "character": "tingru",
         "speakerFocus": "primary",
         "sceneMode": "stage",
-        "presence": "onscreen"
-      },
-      {
-        "type": "hide",
-        "id": "tingru",
-        "reason": "speakerLeavesOrNoLongerPrimary"
+        "presence": "onscreen",
+        "position": "left"
       },
       {
         "type": "say",
@@ -2924,12 +3048,8 @@
         "character": "oldnoodle",
         "speakerFocus": "primary",
         "sceneMode": "stage",
-        "presence": "onscreen"
-      },
-      {
-        "type": "hide",
-        "id": "oldnoodle",
-        "reason": "speakerLeavesOrNoLongerPrimary"
+        "presence": "onscreen",
+        "position": "right"
       },
       {
         "type": "say",
@@ -2938,12 +3058,8 @@
         "character": "tingru",
         "speakerFocus": "primary",
         "sceneMode": "stage",
-        "presence": "onscreen"
-      },
-      {
-        "type": "hide",
-        "id": "tingru",
-        "reason": "speakerLeavesOrNoLongerPrimary"
+        "presence": "onscreen",
+        "position": "left"
       },
       {
         "type": "say",
@@ -2952,12 +3068,8 @@
         "character": "oldnoodle",
         "speakerFocus": "primary",
         "sceneMode": "stage",
-        "presence": "onscreen"
-      },
-      {
-        "type": "hide",
-        "id": "oldnoodle",
-        "reason": "speakerLeavesOrNoLongerPrimary"
+        "presence": "onscreen",
+        "position": "right"
       },
       {
         "type": "jump",
@@ -2987,17 +3099,6 @@
         "reason": "sceneBoundaryOrMajorVisualChange"
       },
       {
-        "type": "bg",
-        "id": "stage_show",
-        "transition": "fade",
-        "waitAfter": 700,
-        "displayMode": "background",
-        "sceneMode": "stage",
-        "avoidUiOverlap": true,
-        "mainImageFit": "contain-in-safe-stage",
-        "underlayFit": "cover-fullscreen"
-      },
-      {
         "type": "effect",
         "name": "empathyUp",
         "words": [
@@ -3012,7 +3113,25 @@
         "sceneMode": "empathy",
         "duration": 6560,
         "visualBg": "cg_empathy_warm",
-        "emotionStyle": "warm-gold-rise"
+        "emotionStyle": "warm-gold-rise",
+        "fadeInMs": 300,
+        "holdBeforeWordsMs": 750,
+        "fadeOutMs": 700,
+        "fullscreenOnly": true,
+        "hideUiDuringEffect": true,
+        "hideSpritesDuringEffect": true,
+        "hideBackgroundDuringEffect": true
+      },
+      {
+        "type": "bg",
+        "id": "stage_show",
+        "transition": "fade",
+        "waitAfter": 700,
+        "displayMode": "background",
+        "sceneMode": "stage",
+        "avoidUiOverlap": true,
+        "mainImageFit": "contain-in-safe-stage",
+        "underlayFit": "cover-fullscreen"
       },
       {
         "type": "say",
@@ -3021,7 +3140,8 @@
         "character": "jamie",
         "speakerFocus": "primary",
         "sceneMode": "stage",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "center"
       },
       {
         "type": "say",
@@ -3030,7 +3150,8 @@
         "character": "jamie",
         "speakerFocus": "primary",
         "sceneMode": "stage",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "center"
       },
       {
         "type": "say",
@@ -3039,7 +3160,8 @@
         "character": "jamie",
         "speakerFocus": "primary",
         "sceneMode": "stage",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "center"
       },
       {
         "type": "sfx",
@@ -3057,7 +3179,8 @@
         "character": "jamie",
         "speakerFocus": "primary",
         "sceneMode": "stage",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "center"
       },
       {
         "type": "say",
@@ -3066,7 +3189,8 @@
         "character": "jamie",
         "speakerFocus": "primary",
         "sceneMode": "stage",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "center"
       },
       {
         "type": "say",
@@ -3075,7 +3199,8 @@
         "character": "jamie",
         "speakerFocus": "primary",
         "sceneMode": "stage",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "center"
       },
       {
         "type": "sfx",
@@ -3093,7 +3218,8 @@
         "character": "jamie",
         "speakerFocus": "primary",
         "sceneMode": "stage",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "center"
       },
       {
         "type": "choice",
@@ -3130,9 +3256,9 @@
         ],
         "sceneMode": "stage",
         "choiceUi": {
-          "width": "70%",
+          "width": "78%",
           "textAlign": "center",
-          "fontScale": "large"
+          "fontScale": "standard"
         }
       }
     ],
@@ -3175,12 +3301,8 @@
         "character": "tingru",
         "speakerFocus": "primary",
         "sceneMode": "stage",
-        "presence": "onscreen"
-      },
-      {
-        "type": "hide",
-        "id": "tingru",
-        "reason": "speakerLeavesOrNoLongerPrimary"
+        "presence": "onscreen",
+        "position": "left"
       },
       {
         "type": "say",
@@ -3189,12 +3311,8 @@
         "character": "oldnoodle",
         "speakerFocus": "primary",
         "sceneMode": "stage",
-        "presence": "onscreen"
-      },
-      {
-        "type": "hide",
-        "id": "oldnoodle",
-        "reason": "speakerLeavesOrNoLongerPrimary"
+        "presence": "onscreen",
+        "position": "right"
       },
       {
         "type": "say",
@@ -3203,12 +3321,8 @@
         "character": "tingru",
         "speakerFocus": "primary",
         "sceneMode": "stage",
-        "presence": "onscreen"
-      },
-      {
-        "type": "hide",
-        "id": "tingru",
-        "reason": "speakerLeavesOrNoLongerPrimary"
+        "presence": "onscreen",
+        "position": "left"
       },
       {
         "type": "clearSprites",
@@ -3254,12 +3368,8 @@
         "character": "tingru",
         "speakerFocus": "primary",
         "sceneMode": "stage",
-        "presence": "onscreen"
-      },
-      {
-        "type": "hide",
-        "id": "tingru",
-        "reason": "speakerLeavesOrNoLongerPrimary"
+        "presence": "onscreen",
+        "position": "left"
       },
       {
         "type": "say",
@@ -3268,12 +3378,8 @@
         "character": "oldnoodle",
         "speakerFocus": "primary",
         "sceneMode": "stage",
-        "presence": "onscreen"
-      },
-      {
-        "type": "hide",
-        "id": "oldnoodle",
-        "reason": "speakerLeavesOrNoLongerPrimary"
+        "presence": "onscreen",
+        "position": "right"
       },
       {
         "type": "say",
@@ -3282,12 +3388,8 @@
         "character": "tingru",
         "speakerFocus": "primary",
         "sceneMode": "stage",
-        "presence": "onscreen"
-      },
-      {
-        "type": "hide",
-        "id": "tingru",
-        "reason": "speakerLeavesOrNoLongerPrimary"
+        "presence": "onscreen",
+        "position": "left"
       },
       {
         "type": "clearSprites",
@@ -3311,6 +3413,24 @@
     ],
     "observe_jamie": [
       {
+        "type": "mode",
+        "value": "stage",
+        "label": "舞台 / 觀察傑米",
+        "sceneMode": "stage",
+        "conversation": {
+          "layout": "stage-with-backstage-monitor",
+          "participants": [
+            "jamie",
+            "tingru",
+            "oldnoodle"
+          ],
+          "voiceOnlyParticipants": [],
+          "placementPolicy": "primary-left-secondary-right-swap-once",
+          "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
+        },
+        "ui": "j"
+      },
+      {
         "type": "narrate",
         "text": "他掌控了全場。每一次停頓，每一個笑點，每一個眼神，都像精準算過。可是他的恐懼沒有因此變小。笑聲只是蓋子，蓋住一個很深、很深的洞。",
         "sceneMode": "stage",
@@ -3333,12 +3453,8 @@
         "character": "tingru",
         "speakerFocus": "primary",
         "sceneMode": "stage",
-        "presence": "onscreen"
-      },
-      {
-        "type": "hide",
-        "id": "tingru",
-        "reason": "speakerLeavesOrNoLongerPrimary"
+        "presence": "onscreen",
+        "position": "left"
       },
       {
         "type": "say",
@@ -3347,12 +3463,8 @@
         "character": "oldnoodle",
         "speakerFocus": "primary",
         "sceneMode": "stage",
-        "presence": "onscreen"
-      },
-      {
-        "type": "hide",
-        "id": "oldnoodle",
-        "reason": "speakerLeavesOrNoLongerPrimary"
+        "presence": "onscreen",
+        "position": "right"
       },
       {
         "type": "say",
@@ -3361,12 +3473,8 @@
         "character": "tingru",
         "speakerFocus": "primary",
         "sceneMode": "stage",
-        "presence": "onscreen"
-      },
-      {
-        "type": "hide",
-        "id": "tingru",
-        "reason": "speakerLeavesOrNoLongerPrimary"
+        "presence": "onscreen",
+        "position": "left"
       },
       {
         "type": "say",
@@ -3375,12 +3483,8 @@
         "character": "oldnoodle",
         "speakerFocus": "primary",
         "sceneMode": "stage",
-        "presence": "onscreen"
-      },
-      {
-        "type": "hide",
-        "id": "oldnoodle",
-        "reason": "speakerLeavesOrNoLongerPrimary"
+        "presence": "onscreen",
+        "position": "right"
       },
       {
         "type": "clearSprites",
@@ -3420,7 +3524,8 @@
         "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
         "character": "jamie",
         "speakerFocus": "primary",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "center"
       },
       {
         "type": "narrate",
@@ -3433,7 +3538,8 @@
         "character": "jamie",
         "speakerFocus": "primary",
         "sceneMode": "stage",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "center"
       },
       {
         "type": "say",
@@ -3442,7 +3548,8 @@
         "character": "jamie",
         "speakerFocus": "primary",
         "sceneMode": "stage",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "center"
       },
       {
         "type": "say",
@@ -3451,7 +3558,8 @@
         "character": "jamie",
         "speakerFocus": "primary",
         "sceneMode": "stage",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "center"
       },
       {
         "type": "say",
@@ -3460,7 +3568,8 @@
         "character": "jamie",
         "speakerFocus": "primary",
         "sceneMode": "stage",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "center"
       },
       {
         "type": "say",
@@ -3469,7 +3578,8 @@
         "character": "jamie",
         "speakerFocus": "primary",
         "sceneMode": "stage",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "center"
       },
       {
         "type": "sfx",
@@ -3491,7 +3601,25 @@
         "sceneMode": "empathy",
         "duration": 6560,
         "visualBg": "cg_empathy_fall",
-        "emotionStyle": "cool-blue-fall"
+        "emotionStyle": "cool-blue-fall",
+        "fadeInMs": 300,
+        "holdBeforeWordsMs": 750,
+        "fadeOutMs": 700,
+        "fullscreenOnly": true,
+        "hideUiDuringEffect": true,
+        "hideSpritesDuringEffect": true,
+        "hideBackgroundDuringEffect": true
+      },
+      {
+        "type": "bg",
+        "id": "stage_show",
+        "transition": "fade",
+        "waitAfter": 350,
+        "displayMode": "background",
+        "sceneMode": "stage",
+        "avoidUiOverlap": true,
+        "mainImageFit": "contain-in-safe-stage",
+        "underlayFit": "cover-fullscreen"
       },
       {
         "type": "narrate",
@@ -3508,7 +3636,8 @@
         "character": "jamie",
         "speakerFocus": "primary",
         "sceneMode": "stage",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "center"
       },
       {
         "type": "sfx",
@@ -3522,7 +3651,8 @@
         "character": "jamie",
         "speakerFocus": "primary",
         "sceneMode": "stage",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "center"
       },
       {
         "type": "say",
@@ -3531,7 +3661,8 @@
         "character": "jamie",
         "speakerFocus": "primary",
         "sceneMode": "stage",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "center"
       },
       {
         "type": "sfx",
@@ -3545,7 +3676,8 @@
         "character": "jamie",
         "speakerFocus": "primary",
         "sceneMode": "stage",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "center"
       },
       {
         "type": "narrate",
@@ -3558,7 +3690,8 @@
         "character": "jamie",
         "speakerFocus": "primary",
         "sceneMode": "stage",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "center"
       },
       {
         "type": "sfx",
@@ -3604,9 +3737,9 @@
         ],
         "sceneMode": "stage",
         "choiceUi": {
-          "width": "70%",
+          "width": "78%",
           "textAlign": "center",
-          "fontScale": "large"
+          "fontScale": "standard"
         }
       }
     ],
@@ -3629,7 +3762,8 @@
         "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
         "character": "tingru",
         "speakerFocus": "primary",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "left"
       },
       {
         "type": "hide",
@@ -3643,7 +3777,8 @@
         "character": "oldnoodle",
         "speakerFocus": "primary",
         "sceneMode": "story",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "right"
       },
       {
         "type": "hide",
@@ -3657,7 +3792,8 @@
         "character": "tingru",
         "speakerFocus": "primary",
         "sceneMode": "story",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "left"
       },
       {
         "type": "hide",
@@ -3688,7 +3824,8 @@
         "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
         "character": "tingru",
         "speakerFocus": "primary",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "left"
       },
       {
         "type": "hide",
@@ -3702,7 +3839,8 @@
         "character": "oldnoodle",
         "speakerFocus": "primary",
         "sceneMode": "story",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "right"
       },
       {
         "type": "hide",
@@ -3716,7 +3854,8 @@
         "character": "tingru",
         "speakerFocus": "primary",
         "sceneMode": "story",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "left"
       },
       {
         "type": "hide",
@@ -3730,7 +3869,8 @@
         "character": "oldnoodle",
         "speakerFocus": "primary",
         "sceneMode": "story",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "right"
       },
       {
         "type": "hide",
@@ -3761,7 +3901,8 @@
         "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
         "character": "tingru",
         "speakerFocus": "primary",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "left"
       },
       {
         "type": "hide",
@@ -3775,7 +3916,8 @@
         "character": "oldnoodle",
         "speakerFocus": "primary",
         "sceneMode": "story",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "right"
       },
       {
         "type": "hide",
@@ -3789,7 +3931,8 @@
         "character": "tingru",
         "speakerFocus": "primary",
         "sceneMode": "story",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "left"
       },
       {
         "type": "hide",
@@ -3803,7 +3946,8 @@
         "character": "oldnoodle",
         "speakerFocus": "primary",
         "sceneMode": "story",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "right"
       },
       {
         "type": "hide",
@@ -3901,9 +4045,9 @@
         ],
         "sceneMode": "stage",
         "choiceUi": {
-          "width": "70%",
+          "width": "78%",
           "textAlign": "center",
-          "fontScale": "large"
+          "fontScale": "standard"
         }
       }
     ],
@@ -4042,9 +4186,9 @@
         },
         "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
         "choiceUi": {
-          "width": "70%",
+          "width": "78%",
           "textAlign": "center",
-          "fontScale": "large"
+          "fontScale": "standard"
         }
       }
     ],
@@ -4095,6 +4239,35 @@
     ],
     "confession_text": [
       {
+        "type": "mode",
+        "value": "stage",
+        "label": "舞台 / 真心告白",
+        "sceneMode": "confession",
+        "conversation": {
+          "layout": "stage-with-backstage-monitor",
+          "participants": [
+            "jamie",
+            "tingru",
+            "oldnoodle"
+          ],
+          "voiceOnlyParticipants": [],
+          "placementPolicy": "primary-left-secondary-right-swap-once",
+          "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
+        },
+        "ui": "j"
+      },
+      {
+        "type": "bg",
+        "id": "stage_confession",
+        "transition": "fade",
+        "waitAfter": 700,
+        "displayMode": "background",
+        "sceneMode": "confession",
+        "avoidUiOverlap": true,
+        "mainImageFit": "contain-in-safe-stage",
+        "underlayFit": "cover-fullscreen"
+      },
+      {
         "type": "bgm",
         "id": "confession",
         "volume": 0.36,
@@ -4129,7 +4302,8 @@
         "character": "jamie",
         "speakerFocus": "primary",
         "sceneMode": "confession",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "center"
       },
       {
         "type": "say",
@@ -4138,7 +4312,8 @@
         "character": "jamie",
         "speakerFocus": "primary",
         "sceneMode": "confession",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "center"
       },
       {
         "type": "sfx",
@@ -4152,7 +4327,8 @@
         "character": "jamie",
         "speakerFocus": "primary",
         "sceneMode": "confession",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "center"
       },
       {
         "type": "say",
@@ -4161,7 +4337,8 @@
         "character": "jamie",
         "speakerFocus": "primary",
         "sceneMode": "confession",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "center"
       },
       {
         "type": "say",
@@ -4170,7 +4347,8 @@
         "character": "jamie",
         "speakerFocus": "primary",
         "sceneMode": "confession",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "center"
       },
       {
         "type": "effect",
@@ -4186,7 +4364,14 @@
         "sceneMode": "empathy",
         "duration": 6410,
         "visualBg": "cg_empathy_warm",
-        "emotionStyle": "warm-gold-rise"
+        "emotionStyle": "warm-gold-rise",
+        "fadeInMs": 300,
+        "holdBeforeWordsMs": 750,
+        "fadeOutMs": 700,
+        "fullscreenOnly": true,
+        "hideUiDuringEffect": true,
+        "hideSpritesDuringEffect": true,
+        "hideBackgroundDuringEffect": true
       },
       {
         "type": "say",
@@ -4195,7 +4380,8 @@
         "character": "jamie",
         "speakerFocus": "primary",
         "sceneMode": "confession",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "center"
       },
       {
         "type": "say",
@@ -4204,7 +4390,8 @@
         "character": "jamie",
         "speakerFocus": "primary",
         "sceneMode": "confession",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "center"
       },
       {
         "type": "say",
@@ -4213,7 +4400,8 @@
         "character": "jamie",
         "speakerFocus": "primary",
         "sceneMode": "confession",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "center"
       },
       {
         "type": "say",
@@ -4222,7 +4410,8 @@
         "character": "jamie",
         "speakerFocus": "primary",
         "sceneMode": "confession",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "center"
       },
       {
         "type": "say",
@@ -4231,7 +4420,8 @@
         "character": "jamie",
         "speakerFocus": "primary",
         "sceneMode": "confession",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "center"
       },
       {
         "type": "say",
@@ -4240,7 +4430,8 @@
         "character": "jamie",
         "speakerFocus": "primary",
         "sceneMode": "confession",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "center"
       },
       {
         "type": "say",
@@ -4249,7 +4440,8 @@
         "character": "jamie",
         "speakerFocus": "primary",
         "sceneMode": "confession",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "center"
       },
       {
         "type": "narrate",
@@ -4262,12 +4454,8 @@
         "character": "tingru",
         "speakerFocus": "primary",
         "sceneMode": "confession",
-        "presence": "onscreen"
-      },
-      {
-        "type": "hide",
-        "id": "tingru",
-        "reason": "speakerLeavesOrNoLongerPrimary"
+        "presence": "onscreen",
+        "position": "left"
       },
       {
         "type": "say",
@@ -4276,12 +4464,8 @@
         "character": "oldnoodle",
         "speakerFocus": "primary",
         "sceneMode": "confession",
-        "presence": "onscreen"
-      },
-      {
-        "type": "hide",
-        "id": "oldnoodle",
-        "reason": "speakerLeavesOrNoLongerPrimary"
+        "presence": "onscreen",
+        "position": "right"
       },
       {
         "type": "say",
@@ -4290,7 +4474,8 @@
         "character": "jamie",
         "speakerFocus": "primary",
         "sceneMode": "confession",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "center"
       },
       {
         "type": "if",
@@ -4449,6 +4634,37 @@
         "reason": "sceneBoundaryOrMajorVisualChange"
       },
       {
+        "type": "effect",
+        "name": "empathyDown",
+        "words": [
+          "震驚",
+          "被背叛",
+          "欽佩",
+          "憤怒",
+          "困惑",
+          "興奮",
+          "悲傷",
+          "股價",
+          "永生",
+          "騙子",
+          "天才",
+          "怪物"
+        ],
+        "direction": "down",
+        "lockInput": true,
+        "sceneMode": "empathy",
+        "duration": 7610,
+        "visualBg": "cg_empathy_fall",
+        "emotionStyle": "cool-blue-fall",
+        "fadeInMs": 300,
+        "holdBeforeWordsMs": 750,
+        "fadeOutMs": 700,
+        "fullscreenOnly": true,
+        "hideUiDuringEffect": true,
+        "hideSpritesDuringEffect": true,
+        "hideBackgroundDuringEffect": true
+      },
+      {
         "type": "bg",
         "id": "stage_reincarnation",
         "transition": "fade",
@@ -4473,37 +4689,14 @@
         ]
       },
       {
-        "type": "effect",
-        "name": "empathyDown",
-        "words": [
-          "震驚",
-          "被背叛",
-          "欽佩",
-          "憤怒",
-          "困惑",
-          "興奮",
-          "悲傷",
-          "股價",
-          "永生",
-          "騙子",
-          "天才",
-          "怪物"
-        ],
-        "direction": "down",
-        "lockInput": true,
-        "sceneMode": "empathy",
-        "duration": 7610,
-        "visualBg": "cg_empathy_fall",
-        "emotionStyle": "cool-blue-fall"
-      },
-      {
         "type": "say",
         "speaker": "傑米",
         "text": "死亡，是人類的終極命題。而我，用我的一生，在為這個命題尋找答案。今天，我找到了。",
         "character": "jamie",
         "speakerFocus": "primary",
         "sceneMode": "reincarnation",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "center"
       },
       {
         "type": "say",
@@ -4512,7 +4705,8 @@
         "character": "jamie",
         "speakerFocus": "primary",
         "sceneMode": "reincarnation",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "center"
       },
       {
         "type": "say",
@@ -4521,7 +4715,8 @@
         "character": "jamie",
         "speakerFocus": "primary",
         "sceneMode": "reincarnation",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "center"
       },
       {
         "type": "say",
@@ -4530,12 +4725,8 @@
         "character": "tingru",
         "speakerFocus": "primary",
         "sceneMode": "reincarnation",
-        "presence": "onscreen"
-      },
-      {
-        "type": "hide",
-        "id": "tingru",
-        "reason": "speakerLeavesOrNoLongerPrimary"
+        "presence": "onscreen",
+        "position": "left"
       },
       {
         "type": "say",
@@ -4544,12 +4735,8 @@
         "character": "tingru",
         "speakerFocus": "primary",
         "sceneMode": "reincarnation",
-        "presence": "onscreen"
-      },
-      {
-        "type": "hide",
-        "id": "tingru",
-        "reason": "speakerLeavesOrNoLongerPrimary"
+        "presence": "onscreen",
+        "position": "left"
       },
       {
         "type": "say",
@@ -4558,7 +4745,8 @@
         "character": "jamie",
         "speakerFocus": "primary",
         "sceneMode": "reincarnation",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "center"
       },
       {
         "type": "say",
@@ -4567,7 +4755,8 @@
         "character": "jamie",
         "speakerFocus": "primary",
         "sceneMode": "reincarnation",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "center"
       },
       {
         "type": "say",
@@ -4576,7 +4765,8 @@
         "character": "jamie",
         "speakerFocus": "primary",
         "sceneMode": "reincarnation",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "center"
       },
       {
         "type": "say",
@@ -4585,7 +4775,8 @@
         "character": "jamie",
         "speakerFocus": "primary",
         "sceneMode": "reincarnation",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "center"
       },
       {
         "type": "choice",
@@ -4622,9 +4813,9 @@
         ],
         "sceneMode": "reincarnation",
         "choiceUi": {
-          "width": "70%",
+          "width": "78%",
           "textAlign": "center",
-          "fontScale": "large"
+          "fontScale": "standard"
         }
       }
     ],
@@ -4719,7 +4910,8 @@
         "character": "ray",
         "speakerFocus": "primary",
         "sceneMode": "afterward",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "right"
       },
       {
         "type": "say",
@@ -4728,7 +4920,8 @@
         "character": "kate",
         "speakerFocus": "primary",
         "sceneMode": "afterward",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "left"
       },
       {
         "type": "choice",
@@ -4765,9 +4958,9 @@
         ],
         "sceneMode": "afterward",
         "choiceUi": {
-          "width": "70%",
+          "width": "78%",
           "textAlign": "center",
-          "fontScale": "large"
+          "fontScale": "standard"
         }
       }
     ],
@@ -4790,7 +4983,8 @@
         "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
         "character": "oldnoodle",
         "speakerFocus": "primary",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "right"
       },
       {
         "type": "say",
@@ -4799,7 +4993,8 @@
         "character": "tingru",
         "speakerFocus": "primary",
         "sceneMode": "afterward",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "left"
       },
       {
         "type": "say",
@@ -4808,7 +5003,8 @@
         "character": "oldnoodle",
         "speakerFocus": "primary",
         "sceneMode": "afterward",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "right"
       },
       {
         "type": "say",
@@ -4817,7 +5013,8 @@
         "character": "tingru",
         "speakerFocus": "primary",
         "sceneMode": "afterward",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "left"
       },
       {
         "type": "jump",
@@ -4843,7 +5040,8 @@
         "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
         "character": "oldnoodle",
         "speakerFocus": "primary",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "right"
       },
       {
         "type": "say",
@@ -4852,7 +5050,8 @@
         "character": "tingru",
         "speakerFocus": "primary",
         "sceneMode": "afterward",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "left"
       },
       {
         "type": "say",
@@ -4861,7 +5060,8 @@
         "character": "oldnoodle",
         "speakerFocus": "primary",
         "sceneMode": "afterward",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "right"
       },
       {
         "type": "say",
@@ -4870,7 +5070,8 @@
         "character": "tingru",
         "speakerFocus": "primary",
         "sceneMode": "afterward",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "left"
       },
       {
         "type": "jump",
@@ -4896,7 +5097,8 @@
         "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
         "character": "oldnoodle",
         "speakerFocus": "primary",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "right"
       },
       {
         "type": "say",
@@ -4905,7 +5107,8 @@
         "character": "tingru",
         "speakerFocus": "primary",
         "sceneMode": "afterward",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "left"
       },
       {
         "type": "say",
@@ -4914,7 +5117,8 @@
         "character": "oldnoodle",
         "speakerFocus": "primary",
         "sceneMode": "afterward",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "right"
       },
       {
         "type": "say",
@@ -4923,7 +5127,8 @@
         "character": "tingru",
         "speakerFocus": "primary",
         "sceneMode": "afterward",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "left"
       },
       {
         "type": "jump",
@@ -5062,7 +5267,8 @@
         "character": "kate",
         "speakerFocus": "primary",
         "sceneMode": "office",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "left"
       },
       {
         "type": "say",
@@ -5071,7 +5277,8 @@
         "character": "kate",
         "speakerFocus": "primary",
         "sceneMode": "office",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "left"
       },
       {
         "type": "say",
@@ -5080,7 +5287,8 @@
         "character": "ray",
         "speakerFocus": "primary",
         "sceneMode": "office",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "right"
       },
       {
         "type": "say",
@@ -5089,7 +5297,8 @@
         "character": "oldnoodle",
         "speakerFocus": "primary",
         "sceneMode": "office",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "right"
       },
       {
         "type": "say",
@@ -5098,7 +5307,8 @@
         "character": "ray",
         "speakerFocus": "primary",
         "sceneMode": "office",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "right"
       },
       {
         "type": "say",
@@ -5107,7 +5317,8 @@
         "character": "kate",
         "speakerFocus": "primary",
         "sceneMode": "office",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "left"
       },
       {
         "type": "say",
@@ -5116,7 +5327,8 @@
         "character": "tingru",
         "speakerFocus": "primary",
         "sceneMode": "office",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "left"
       },
       {
         "type": "say",
@@ -5125,7 +5337,8 @@
         "character": "tingru",
         "speakerFocus": "primary",
         "sceneMode": "office",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "left"
       },
       {
         "type": "say",
@@ -5134,7 +5347,8 @@
         "character": "tingru",
         "speakerFocus": "primary",
         "sceneMode": "office",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "left"
       },
       {
         "type": "say",
@@ -5143,7 +5357,8 @@
         "character": "tingru",
         "speakerFocus": "primary",
         "sceneMode": "office",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "left"
       },
       {
         "type": "say",
@@ -5152,7 +5367,8 @@
         "character": "tingru",
         "speakerFocus": "primary",
         "sceneMode": "office",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "left"
       },
       {
         "type": "say",
@@ -5161,7 +5377,8 @@
         "character": "tingru",
         "speakerFocus": "primary",
         "sceneMode": "office",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "left"
       },
       {
         "type": "say",
@@ -5170,7 +5387,8 @@
         "character": "oldnoodle",
         "speakerFocus": "primary",
         "sceneMode": "office",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "right"
       },
       {
         "type": "narrate",
@@ -5272,9 +5490,9 @@
         ],
         "sceneMode": "report",
         "choiceUi": {
-          "width": "70%",
+          "width": "78%",
           "textAlign": "center",
-          "fontScale": "large"
+          "fontScale": "standard"
         }
       }
     ],
@@ -5322,9 +5540,9 @@
         },
         "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
         "choiceUi": {
-          "width": "70%",
+          "width": "78%",
           "textAlign": "center",
-          "fontScale": "large"
+          "fontScale": "standard"
         }
       }
     ],
@@ -5372,9 +5590,9 @@
         },
         "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
         "choiceUi": {
-          "width": "70%",
+          "width": "78%",
           "textAlign": "center",
-          "fontScale": "large"
+          "fontScale": "standard"
         }
       }
     ],
@@ -5609,7 +5827,14 @@
         "sceneMode": "empathy",
         "duration": 6410,
         "visualBg": "cg_empathy_warm",
-        "emotionStyle": "warm-gold-rise"
+        "emotionStyle": "warm-gold-rise",
+        "fadeInMs": 300,
+        "holdBeforeWordsMs": 750,
+        "fadeOutMs": 700,
+        "fullscreenOnly": true,
+        "hideUiDuringEffect": true,
+        "hideSpritesDuringEffect": true,
+        "hideBackgroundDuringEffect": true
       },
       {
         "type": "narrate",
@@ -5665,17 +5890,6 @@
         "reason": "sceneBoundaryOrMajorVisualChange"
       },
       {
-        "type": "bg",
-        "id": "doc_internal_mail",
-        "transition": "fade",
-        "waitAfter": 700,
-        "displayMode": "document",
-        "sceneMode": "memory",
-        "documentTarget": "sidePanelExpandable",
-        "keepCurrentBackground": true,
-        "documentTitle": "奇點無限內部危機 mail"
-      },
-      {
         "type": "effect",
         "name": "empathyUp",
         "words": [
@@ -5689,7 +5903,25 @@
         "sceneMode": "empathy",
         "duration": 6410,
         "visualBg": "cg_empathy_warm",
-        "emotionStyle": "warm-gold-rise"
+        "emotionStyle": "warm-gold-rise",
+        "fadeInMs": 300,
+        "holdBeforeWordsMs": 750,
+        "fadeOutMs": 700,
+        "fullscreenOnly": true,
+        "hideUiDuringEffect": true,
+        "hideSpritesDuringEffect": true,
+        "hideBackgroundDuringEffect": true
+      },
+      {
+        "type": "bg",
+        "id": "doc_internal_mail",
+        "transition": "fade",
+        "waitAfter": 700,
+        "displayMode": "document",
+        "sceneMode": "memory",
+        "documentTarget": "sidePanelExpandable",
+        "keepCurrentBackground": true,
+        "documentTitle": "奇點無限內部危機 mail"
       },
       {
         "type": "narrate",
@@ -5745,17 +5977,6 @@
         "reason": "sceneBoundaryOrMajorVisualChange"
       },
       {
-        "type": "bg",
-        "id": "doc_voice_wave",
-        "transition": "fade",
-        "waitAfter": 700,
-        "displayMode": "document",
-        "sceneMode": "memory",
-        "documentTarget": "sidePanelExpandable",
-        "keepCurrentBackground": true,
-        "documentTitle": "訪談錄音波形畫面"
-      },
-      {
         "type": "effect",
         "name": "empathyUp",
         "words": [
@@ -5769,7 +5990,27 @@
         "sceneMode": "empathy",
         "duration": 6410,
         "visualBg": "cg_empathy_warm",
-        "emotionStyle": "warm-gold-rise"
+        "emotionStyle": "warm-gold-rise",
+        "fadeInMs": 300,
+        "holdBeforeWordsMs": 750,
+        "fadeOutMs": 700,
+        "fullscreenOnly": true,
+        "hideUiDuringEffect": true,
+        "hideSpritesDuringEffect": true,
+        "hideBackgroundDuringEffect": true
+      },
+      {
+        "type": "bg",
+        "id": "doc_voice_wave",
+        "transition": "fade",
+        "waitAfter": 700,
+        "displayMode": "document",
+        "sceneMode": "memory",
+        "documentTarget": "sidePanelExpandable",
+        "keepCurrentBackground": true,
+        "documentTitle": "訪談錄音波形畫面",
+        "preventMainBackgroundTakeover": true,
+        "showAfterEmpathy": true
       },
       {
         "type": "narrate",
@@ -5855,12 +6096,8 @@
         "character": "tingru",
         "speakerFocus": "primary",
         "sceneMode": "stage",
-        "presence": "onscreen"
-      },
-      {
-        "type": "hide",
-        "id": "tingru",
-        "reason": "speakerLeavesOrNoLongerPrimary"
+        "presence": "onscreen",
+        "position": "left"
       },
       {
         "type": "say",
@@ -5869,12 +6106,8 @@
         "character": "oldnoodle",
         "speakerFocus": "primary",
         "sceneMode": "stage",
-        "presence": "onscreen"
-      },
-      {
-        "type": "hide",
-        "id": "oldnoodle",
-        "reason": "speakerLeavesOrNoLongerPrimary"
+        "presence": "onscreen",
+        "position": "right"
       },
       {
         "type": "say",
@@ -5883,12 +6116,8 @@
         "character": "tingru",
         "speakerFocus": "primary",
         "sceneMode": "stage",
-        "presence": "onscreen"
-      },
-      {
-        "type": "hide",
-        "id": "tingru",
-        "reason": "speakerLeavesOrNoLongerPrimary"
+        "presence": "onscreen",
+        "position": "left"
       },
       {
         "type": "clearSprites",
@@ -6006,9 +6235,9 @@
         },
         "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
         "choiceUi": {
-          "width": "70%",
+          "width": "78%",
           "textAlign": "center",
-          "fontScale": "large"
+          "fontScale": "standard"
         }
       }
     ],
@@ -6116,7 +6345,8 @@
         "character": "oldnoodle",
         "speakerFocus": "primary",
         "sceneMode": "afterward",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "right"
       },
       {
         "type": "say",
@@ -6143,7 +6373,8 @@
         "character": "oldnoodle",
         "speakerFocus": "primary",
         "sceneMode": "afterward",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "right"
       },
       {
         "type": "say",
@@ -6202,7 +6433,8 @@
         "character": "oldnoodle",
         "speakerFocus": "primary",
         "sceneMode": "afterward",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "right"
       },
       {
         "type": "say",
@@ -6211,7 +6443,8 @@
         "character": "tingru",
         "speakerFocus": "primary",
         "sceneMode": "afterward",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "left"
       },
       {
         "type": "say",
@@ -6220,7 +6453,8 @@
         "character": "oldnoodle",
         "speakerFocus": "primary",
         "sceneMode": "afterward",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "right"
       },
       {
         "type": "say",
@@ -6229,7 +6463,8 @@
         "character": "tingru",
         "speakerFocus": "primary",
         "sceneMode": "afterward",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "left"
       },
       {
         "type": "clearSprites",
@@ -6322,7 +6557,8 @@
         "character": "oldnoodle",
         "speakerFocus": "primary",
         "sceneMode": "afterward",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "right"
       },
       {
         "type": "hide",
@@ -6336,7 +6572,8 @@
         "character": "tingru",
         "speakerFocus": "primary",
         "sceneMode": "afterward",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "left"
       },
       {
         "type": "hide",
@@ -6410,7 +6647,8 @@
         "character": "oldnoodle",
         "speakerFocus": "primary",
         "sceneMode": "afterward",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "right"
       },
       {
         "type": "hide",
@@ -6424,7 +6662,8 @@
         "character": "ray",
         "speakerFocus": "primary",
         "sceneMode": "afterward",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "right"
       },
       {
         "type": "hide",
@@ -6438,7 +6677,8 @@
         "character": "tingru",
         "speakerFocus": "primary",
         "sceneMode": "afterward",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "left"
       },
       {
         "type": "hide",
@@ -6513,9 +6753,9 @@
         },
         "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
         "choiceUi": {
-          "width": "70%",
+          "width": "78%",
           "textAlign": "center",
-          "fontScale": "large"
+          "fontScale": "standard"
         }
       }
     ]

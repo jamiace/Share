@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Before Fadeout Static Web Visual Novel Engine</title>
+  <title>Before Fades Static Web Visual Novel Engine</title>
   <style>
     :root {
       --ui-bg: rgba(8, 10, 14, 0.82);
@@ -149,6 +149,17 @@
       filter: drop-shadow(0 18px 34px rgba(0,0,0,0.48));
     }
 
+    /* bg_ 背景在主舞台安全區顯示時，邊緣改成羽化淡出，避免硬邊裁切。 */
+    #bgLayer.display-cover #bgImage {
+      -webkit-mask-image: radial-gradient(ellipse at center, #000 0%, #000 60%, rgba(0,0,0,0.82) 70%, rgba(0,0,0,0.34) 84%, transparent 100%);
+      mask-image: radial-gradient(ellipse at center, #000 0%, #000 60%, rgba(0,0,0,0.82) 70%, rgba(0,0,0,0.34) 84%, transparent 100%);
+    }
+
+    #bgLayer.display-cg #bgImage {
+      -webkit-mask-image: none;
+      mask-image: none;
+    }
+
     /*
       doc_ 圖片不再作為主背景顯示；正常流程會轉到右下角 UI 縮圖。
       這裡只保留 display-document 的保護樣式，避免舊資料意外把文件塞回主舞台。
@@ -235,7 +246,7 @@
       filter: drop-shadow(0 24px 38px rgba(0,0,0,0.58));
       opacity: 0;
       transform: translateY(12px) scale(0.985);
-      transition: opacity 360ms ease, transform 360ms ease, filter 360ms ease, left 420ms ease, right 420ms ease;
+      transition: opacity 360ms ease, transform 700ms ease, filter 360ms ease, left 700ms ease;
     }
 
     .sprite.visible {
@@ -246,7 +257,8 @@
     .sprite.left { left: clamp(18px, 4.8vw, 82px); right: auto; }
     .sprite.center { left: 50%; right: auto; transform: translateX(-50%) translateY(12px) scale(0.985); }
     .sprite.center.visible { transform: translateX(-50%) translateY(0) scale(1); }
-    .sprite.right { right: clamp(18px, 4.8vw, 82px); left: auto; }
+    .sprite.right { left: calc(100vw - clamp(18px, 4.8vw, 82px)); right: auto; transform: translateX(-100%) translateY(12px) scale(0.985); }
+    .sprite.right.visible { transform: translateX(-100%) translateY(0) scale(1); }
 
     .sprite.dimmed {
       filter: grayscale(0.25) brightness(0.62) drop-shadow(0 24px 38px rgba(0,0,0,0.58));
@@ -290,6 +302,40 @@
       object-fit: contain;
       border-radius: 0;
       box-shadow: 0 28px 84px rgba(0,0,0,0.66);
+    }
+
+    #game.empathy-fullscreen-active #bgLayer,
+    #game.empathy-fullscreen-active #spriteLayer,
+    #game.empathy-fullscreen-active #uiLayer,
+    #game.empathy-fullscreen-active #choices {
+      visibility: hidden;
+    }
+
+    #game.empathy-fullscreen-active #effectLayer {
+      z-index: 20;
+      pointer-events: auto;
+      background: #000;
+    }
+
+    #game.empathy-fullscreen-active #cutinLayer {
+      inset: 0;
+      padding: 0;
+      opacity: 0;
+      transform: scale(1);
+      background-image: none !important;
+      transition: opacity var(--cutin-fade-ms, 300ms) ease;
+    }
+
+    #game.empathy-fullscreen-active #cutinLayer.visible {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    #game.empathy-fullscreen-active #cutinImage {
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      box-shadow: none;
     }
 
     #effectLayer.input-lock {
@@ -611,7 +657,7 @@
       position: absolute;
       left: 50%;
       bottom: calc(var(--hud-height) + 20px);
-      width: min(630px, calc(100vw - 48px));
+      width: min(740px, calc(100vw - 48px));
       transform: translateX(-50%);
       z-index: 5;
       display: none;
@@ -622,19 +668,43 @@
 
     .choice-btn {
       width: 100%;
-      padding: 18px 22px;
+      padding: 16px 22px;
       border: 1px solid var(--ui-border);
       border-radius: 16px;
       background: rgba(9, 12, 17, 0.90);
       color: var(--text);
-      font-size: clamp(21px, 2vw, 28px);
-      font-weight: 760;
-      line-height: 1.6;
+      font-size: clamp(19px, 1.75vw, 25px);
+      font-weight: 740;
+      line-height: 1.55;
       text-align: center;
       cursor: pointer;
       backdrop-filter: blur(12px);
       box-shadow: 0 10px 24px rgba(0,0,0,0.38);
       transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
+    }
+
+    #choices.title-choice-mode {
+      width: min(630px, calc(100vw - 48px));
+    }
+
+    #choices.title-choice-mode .choice-btn {
+      padding: 18px 22px;
+      font-size: clamp(21px, 2vw, 28px);
+      font-weight: 760;
+      line-height: 1.6;
+    }
+
+    #game.title-screen #uiLayer {
+      display: none;
+    }
+
+    #game.title-screen.title-await-click #choices {
+      display: none !important;
+    }
+
+    #game.title-screen #choices.title-choice-mode {
+      bottom: clamp(72px, 12vh, 150px);
+      z-index: 8;
     }
 
     .choice-btn:hover {
@@ -929,8 +999,10 @@
       #dialogueBox { height: 190px; min-height: 0; max-height: 190px; padding: 14px 18px 18px; }
       #speakerName { font-size: 20px; min-height: 31px; margin-bottom: 10px; }
       #dialogueText { height: 104px; font-size: 18px; line-height: 1.78; }
-      #choices { bottom: calc(var(--hud-height) + 12px); width: min(92vw, 560px); }
-      .choice-btn { font-size: 20px; padding: 14px 16px; }
+      #choices { bottom: calc(var(--hud-height) + 12px); width: min(94vw, 680px); }
+      .choice-btn { font-size: 18px; padding: 13px 16px; }
+      #choices.title-choice-mode { width: min(92vw, 560px); }
+      #choices.title-choice-mode .choice-btn { font-size: 20px; padding: 14px 16px; }
       .sprite { bottom: calc(var(--hud-height) - 12px); max-height: calc(100vh - var(--hud-height) - 48px); max-width: 56vw; }
       .sprite.left { left: -3vw; right: auto; }
       .sprite.right { right: -3vw; left: auto; }
@@ -1054,7 +1126,7 @@
     "use strict";
 
     /***********************************************************************
-     * Before Fadeout Static Web Visual Novel Engine
+     * Before Fades Static Web Visual Novel Engine
      * ---------------------------------------------------------------------
      * 使用方式：
      * 1. 將本檔命名為 index.html。
@@ -1167,6 +1239,9 @@
       spriteZ: 20,
       sprites: new Map(),
       dialogueLayout: { primaryId: "", secondaryId: "", swappedOnce: false },
+      pendingSpriteMoveMs: 0,
+      awaitingTitleChoiceClick: false,
+      titleChoiceRevealed: false,
       inputLocked: false,
       preloadedImages: new Map(),
       preloadReport: null
@@ -1231,6 +1306,12 @@
     }
 
     function bindEvents() {
+      dom.game.addEventListener("click", (e) => {
+        if (revealPendingTitleChoice()) {
+          e.preventDefault();
+          e.stopPropagation();
+        }
+      });
       dom.dialogueBox.addEventListener("click", () => advance());
       document.addEventListener("keydown", (e) => {
         if (state.inputLocked) {
@@ -1250,7 +1331,7 @@
         }
         if (["Enter", " "].includes(e.key)) {
           e.preventDefault();
-          advance();
+          if (!revealPendingTitleChoice()) advance();
         }
         if (e.key.toLowerCase() === "s") saveGame();
         if (e.key.toLowerCase() === "l") loadGame();
@@ -1319,7 +1400,8 @@
           await showText(cmd.speaker || "", cmd.text || "", classifySpeaker(cmd.speaker), cmd);
           break;
         case "narrate":
-          await showText("旁白", cmd.text || "", "narrator", cmd);
+          if (shouldSuppressInitialTitleUi(cmd)) nextCommand();
+          else await showText("旁白", cmd.text || "", "narrator", cmd);
           break;
         case "ui":
         case "focus":
@@ -1386,8 +1468,12 @@
           handleIf(cmd);
           break;
         case "note":
-          setSideNote(cmd.title || "NOTE", cmd.text || "");
-          nextCommand();
+          if (shouldSuppressInitialTitleUi(cmd)) {
+            nextCommand();
+          } else {
+            setSideNote(cmd.title || "NOTE", cmd.text || "");
+            nextCommand();
+          }
           break;
         case "overlay":
           showOverlay(cmd.title || "INFO", cmd.html || `<p>${escapeHtml(cmd.text || "")}</p>`);
@@ -1437,7 +1523,11 @@
       state.index = 0;
       dom.choices.style.display = "none";
       dom.choices.innerHTML = "";
+      dom.choices.classList.remove("title-choice-mode", "standard-choice-mode");
       state.awaitingChoice = false;
+      state.awaitingTitleChoiceClick = false;
+      state.titleChoiceRevealed = false;
+      updateTitleScreenChrome();
       if (state.busy) {
         state.continueAfterBusy = true;
         return;
@@ -1460,7 +1550,7 @@
     }
 
     async function showText(speaker, text, className, cmd = {}) {
-      const shownCharacterId = autoShowSpeakerSprite(speaker, text, cmd);
+      const shownCharacterId = await autoShowSpeakerSprite(speaker, text, cmd);
       queueAfterTextActions(cmd, shownCharacterId);
       dom.speaker.textContent = speaker || "旁白";
       dom.speaker.className = className || "narrator";
@@ -1511,7 +1601,7 @@
       if (!speaker) return "narrator";
       const s = String(speaker).trim().toLowerCase();
       if (["庭如", "tingru"].includes(s)) return "tingru";
-      if (["傑米", "jami", "啟業"].includes(s)) return "jami";
+      if (["傑米", "jami"].includes(s)) return "jami";
       if (["老麵", "老面", "oldnoodle", "laomian"].includes(s)) return "oldnoodle";
       if (["凱特", "kate"].includes(s)) return "kate";
       if (["雷老師", "老師", "lei"].includes(s)) return "lei";
@@ -1520,35 +1610,78 @@
     }
 
     async function showChoice(cmd) {
-      applyChoiceUi(cmd.choiceUi || state.currentChoiceUi);
+      const isTitleChoice = isInitialTitleScene();
+      const choiceUi = isTitleChoice ? { width: "title", textAlign: "center", fontScale: "title" } : (cmd.choiceUi || state.currentChoiceUi);
+      applyChoiceUi(choiceUi);
 
-      if (cmd.prompt) {
+      dom.choices.classList.toggle("title-choice-mode", isTitleChoice);
+      dom.choices.classList.toggle("standard-choice-mode", !isTitleChoice);
+
+      if (cmd.prompt && !isTitleChoice) {
         dom.speaker.textContent = "選擇";
         dom.speaker.className = "system";
         dom.text.textContent = cmd.prompt;
       }
+
       dom.choices.innerHTML = "";
       state.awaitingChoice = true;
       state.auto = false;
       dom.btnAuto.classList.remove("active");
 
-      (cmd.options || []).forEach((option, idx) => {
+      const rawOptions = Array.isArray(cmd.options) ? cmd.options : [];
+      const options = isTitleChoice
+        ? rawOptions.filter(option => String(option.text || "").includes("開始遊戲")).slice(0, 1)
+        : rawOptions;
+
+      options.forEach((option, idx) => {
         const btn = document.createElement("button");
         btn.className = "choice-btn";
         btn.textContent = option.text || `選項 ${idx + 1}`;
-        btn.addEventListener("click", () => {
+        btn.addEventListener("click", (e) => {
+          e.stopPropagation();
           playSfx("ui_click", 0.35);
           if (option.ui || option.focus) applyFocusUi(option.ui || option.focus, option.label);
           applySet(option.set || {});
           dom.choices.style.display = "none";
           dom.choices.innerHTML = "";
           state.awaitingChoice = false;
+          state.awaitingTitleChoiceClick = false;
+          state.titleChoiceRevealed = false;
+          dom.game.classList.remove("title-screen", "title-await-click");
           if (option.next) jumpTo(option.next);
           else nextCommand();
         });
         dom.choices.appendChild(btn);
       });
+
+      if (isTitleChoice) {
+        state.awaitingTitleChoiceClick = true;
+        state.titleChoiceRevealed = false;
+        dom.game.classList.add("title-screen", "title-await-click");
+        dom.choices.style.display = "none";
+      } else {
+        state.awaitingTitleChoiceClick = false;
+        dom.game.classList.remove("title-await-click");
+        dom.choices.style.display = "flex";
+      }
+    }
+
+    function revealPendingTitleChoice() {
+      if (!state.awaitingTitleChoiceClick || state.titleChoiceRevealed) return false;
+      state.titleChoiceRevealed = true;
+      state.awaitingTitleChoiceClick = false;
+      dom.game.classList.remove("title-await-click");
       dom.choices.style.display = "flex";
+      return true;
+    }
+
+    function shouldSuppressInitialTitleUi(cmd = {}) {
+      if (!isInitialTitleScene()) return false;
+      return ["note", "narrate"].includes(String(cmd.type || ""));
+    }
+
+    function isInitialTitleScene() {
+      return state.sceneId === "start" && String(state.currentSceneMode || "").toLowerCase() === "title";
     }
 
     function applyDirectingContext(cmd = {}) {
@@ -1572,7 +1705,14 @@
       if (state.currentSceneMode !== next) {
         state.currentSceneMode = next;
         dom.game.dataset.sceneMode = next;
+        updateTitleScreenChrome();
       }
+    }
+
+    function updateTitleScreenChrome() {
+      const active = isInitialTitleScene();
+      dom.game.classList.toggle("title-screen", active);
+      if (!active) dom.game.classList.remove("title-await-click");
     }
 
     function setConversationContext(conversation = {}) {
@@ -1597,6 +1737,7 @@
 
       if (normalized._key !== prevKey) {
         resetDialogueLayout();
+        cleanupSpritesForConversation(normalized);
       }
     }
 
@@ -1650,7 +1791,8 @@
 
       if (ui.width) {
         const width = String(ui.width).trim();
-        if (width === "70%") dom.choices.style.width = "min(630px, calc(100vw - 48px))";
+        if (width === "title") dom.choices.style.width = "min(630px, calc(100vw - 48px))";
+        else if (width === "70%") dom.choices.style.width = "min(740px, calc(100vw - 48px))";
         else if (/^\d+%$/.test(width)) dom.choices.style.width = `min(${width}, calc(100vw - 48px))`;
         else dom.choices.style.width = width;
       }
@@ -1747,6 +1889,7 @@
       state.currentBgId = id || "";
       state.currentDocId = "";
       setSideImage("");
+      clearTransientSideNoteOnBackgroundChange(id);
       resetDialogueLayout();
 
       // 背景切換通常代表視覺焦點切換；先清掉不該跨場景殘留的舞台限定立繪，避免準備室或文件畫面誤出現台上傑米。
@@ -1949,6 +2092,9 @@
 
     function sanitizeCharacterExpression(id, expression) {
       const exp = String(expression || "default");
+      if (id === "jamie" && state.currentBgId === "stage_dark" && exp === "show") {
+        return "nervous";
+      }
       if (id === "jamie" && !isStageBackground() && ["show", "reincarnation"].includes(exp)) {
         return "nervous";
       }
@@ -2014,20 +2160,53 @@
       return map[s] || "";
     }
 
-    function autoShowSpeakerSprite(speaker, text, cmd = {}) {
+    function cleanupSpritesForConversation(conversation = state.currentConversation) {
+      const convo = conversation || {};
+      const participants = Array.isArray(convo.participants) ? convo.participants : [];
+      if (!participants.length) return;
+      const allowed = new Set(participants.map(String));
+      const sceneMode = String(state.currentSceneMode || "").toLowerCase();
+      state.sprites.forEach((img, id) => {
+        if (allowed.has(id)) return;
+        // 舞台中間保留給傑米，若傑米正在舞台主位，不因工作人員對話被清掉。
+        if (["stage", "confession", "reincarnation"].includes(sceneMode) && id === "jamie") return;
+        if (img.dataset.auto === "true") {
+          img.remove();
+          state.sprites.delete(id);
+        }
+      });
+    }
+
+    function clearTransientSideNoteOnBackgroundChange(bgId = "") {
+      const title = String(dom.sideTitle?.textContent || "");
+      const shouldClear = /^(REC|DOCUMENT|VOICE|訪談錄音)/i.test(title) || dom.sidePanel?.classList.contains("has-document");
+      if (!shouldClear) return;
+      dom.sideTitle.textContent = "";
+      dom.sideContent.textContent = "";
+      setSideImage("");
+    }
+
+    async function autoShowSpeakerSprite(speaker, text, cmd = {}) {
       const id = cmd.character || speakerToCharacter(speaker);
       const presence = String(cmd.presence || "").toLowerCase();
       const speakerFocus = normalizeSpeakerFocus(cmd.speakerFocus);
 
       if (!id || id === "none") return "";
       if (speakerFocus === "voice" || presence === "voiceonly" || presence === "offscreen") return "";
+      if (isEmpathyFullscreenActive()) return "";
+
+      cleanupSpritesForConversation();
 
       const expression = sanitizeCharacterExpression(id, cmd.expression || pickExpressionFor(id, text || ""));
       const position = cmd.position || chooseDialogueSpritePosition(id, cmd);
       const src = resolveCharacterSrc(id, expression);
       if (!src) return "";
 
-      showSprite({
+      const waitBeforeShow = state.pendingSpriteMoveMs || 0;
+      state.pendingSpriteMoveMs = 0;
+      if (waitBeforeShow > 0) await wait(waitBeforeShow);
+
+      await showSprite({
         id,
         expression,
         position,
@@ -2042,6 +2221,7 @@
 
     function resetDialogueLayout() {
       state.dialogueLayout = { primaryId: "", secondaryId: "", swappedOnce: false };
+      state.pendingSpriteMoveMs = 0;
     }
 
     function chooseDialogueSpritePosition(id, cmd = {}) {
@@ -2049,17 +2229,20 @@
       const conversation = state.currentConversation || {};
       const layoutType = String(conversation.layout || "").toLowerCase();
       const participants = Array.isArray(conversation.participants) ? conversation.participants : [];
+      const sceneMode = String(state.currentSceneMode || "").toLowerCase();
+      const isStageMode = ["stage", "confession", "reincarnation"].includes(sceneMode);
+      const existing = state.sprites.get(id);
 
       if (cmd.position) return cmd.position;
-      if (focus === "center") return "center";
+      if (existing?.dataset?.position && !["center"].includes(existing.dataset.position)) return existing.dataset.position;
 
-      // 舞台、告白、輪迴與獨白段落：主要人物不要硬塞左邊，保留舞台中央構圖。
-      if (["stage", "confession", "reincarnation"].includes(String(state.currentSceneMode || "").toLowerCase())) {
-        if (id === "jamie" || layoutType === "monologue" || layoutType.includes("stage")) return "center";
-      }
+      // 舞台段中間保留給傑米；老麵、庭如、凱特、雷老師只能進左右兩端。
+      if (isStageMode && id === "jamie") return "center";
+      if (focus === "center" && !isStageMode) return "left";
 
-      if (layoutType === "monologue" || (participants.length === 1 && participants[0] === id)) {
-        return "center";
+      // 非舞台獨白也不要預設塞中間；除非是既有顯式 show 指令已經給了位置。
+      if ((layoutType === "monologue" || (participants.length === 1 && participants[0] === id)) && !isStageMode) {
+        return existing?.dataset?.position || "left";
       }
 
       const layout = state.dialogueLayout || (state.dialogueLayout = { primaryId: "", secondaryId: "", swappedOnce: false });
@@ -2074,14 +2257,17 @@
       if (id === layout.primaryId) return "left";
       if (id === layout.secondaryId) return "right";
 
-      // speakerFocus=primary 時，允許目前主講者進左邊；原主講者退到右邊。
-      // 但同一個對話片段只做一次正式交換，避免 A/B/C 不斷左右橫跳。
+      // 第一次換人主講時：A 用 700ms 移到右邊，B 再進到 A 原本的左邊。
+      // 同一段對話只交換一次，後續 A/B 交錯不再反覆出現/消失。
       if (focus === "primary" && !layout.swappedOnce) {
         const oldPrimary = layout.primaryId;
         layout.secondaryId = oldPrimary;
         layout.primaryId = id;
         layout.swappedOnce = true;
-        if (state.sprites.has(oldPrimary)) setSpritePosition(oldPrimary, "right");
+        if (state.sprites.has(oldPrimary)) {
+          setSpritePosition(oldPrimary, "right");
+          state.pendingSpriteMoveMs = 700;
+        }
         return "left";
       }
 
@@ -2302,14 +2488,64 @@
       const assetId = cmd.visualBg || (dir === "down" ? "cg_empathy_fall" : "cg_empathy_warm");
       const duration = Number.isFinite(Number(cmd.duration)) ? Number(cmd.duration) : estimateEmotionDuration(words);
       const shouldLock = cmd.lockInput !== false;
+      const fadeInMs = Number.isFinite(Number(cmd.fadeInMs)) ? Number(cmd.fadeInMs) : 300;
+      const holdBeforeWordsMs = Number.isFinite(Number(cmd.holdBeforeWordsMs)) ? Number(cmd.holdBeforeWordsMs) : 750;
+      const fadeOutMs = Number.isFinite(Number(cmd.fadeOutMs)) ? Number(cmd.fadeOutMs) : 700;
 
       if (shouldLock) lockInput(true);
+      enterEmpathyFullscreen();
       try {
-        showCutinImage(assetId, duration + 260);
+        await showEmpathyBackdrop(assetId, fadeInMs);
+        await wait(holdBeforeWordsMs);
         await empathyWords(words, dir, duration);
+        await hideCutinImage(fadeOutMs);
       } finally {
+        exitEmpathyFullscreen();
         if (shouldLock) lockInput(false);
       }
+    }
+
+    function enterEmpathyFullscreen() {
+      dom.game.classList.add("empathy-fullscreen-active");
+      dom.effects.querySelectorAll(".emotion-word").forEach(el => el.remove());
+      dom.cutinLayer?.classList.remove("visible");
+    }
+
+    function exitEmpathyFullscreen() {
+      dom.game.classList.remove("empathy-fullscreen-active");
+      dom.cutinLayer?.classList.remove("visible");
+      if (dom.cutinImage) dom.cutinImage.removeAttribute("src");
+      if (dom.cutinLayer) {
+        dom.cutinLayer.style.backgroundImage = "";
+        dom.cutinLayer.style.removeProperty("--cutin-fade-ms");
+      }
+      dom.effects.querySelectorAll(".emotion-word").forEach(el => el.remove());
+    }
+
+    function isEmpathyFullscreenActive() {
+      return dom.game?.classList.contains("empathy-fullscreen-active");
+    }
+
+    async function showEmpathyBackdrop(assetId, fadeInMs = 300) {
+      const src = resolveBackgroundSrc(assetId);
+      if (!src || !dom.cutinLayer || !dom.cutinImage) return;
+      window.clearTimeout(dom.cutinLayer._timer);
+      dom.cutinLayer.style.setProperty("--cutin-fade-ms", `${fadeInMs}ms`);
+      dom.cutinLayer.style.backgroundImage = "";
+      dom.cutinImage.src = src;
+      dom.cutinImage.alt = assetDescriptionFor(assetId, src) || assetId;
+      await waitForImage(dom.cutinImage);
+      dom.cutinLayer.classList.add("visible");
+      await wait(fadeInMs);
+    }
+
+    async function hideCutinImage(fadeOutMs = 700) {
+      if (!dom.cutinLayer) return;
+      dom.cutinLayer.style.setProperty("--cutin-fade-ms", `${fadeOutMs}ms`);
+      dom.cutinLayer.classList.remove("visible");
+      await wait(fadeOutMs);
+      if (dom.cutinImage) dom.cutinImage.removeAttribute("src");
+      dom.cutinLayer.style.backgroundImage = "";
     }
 
     function estimateEmotionDuration(words) {
