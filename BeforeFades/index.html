@@ -23,7 +23,7 @@
       --focus-glow: rgba(180, 188, 200, 0.16);
       --font: "Noto Sans TC", "Microsoft JhengHei", "PingFang TC", system-ui, sans-serif;
       --top-safe: 70px;
-      --hud-height: 236px;
+      --hud-height: 286px;
       --hud-gap: 22px;
     }
 
@@ -127,7 +127,28 @@
       user-select: none;
     }
 
-    #bgLayer.display-cover #bgMediaFrame,
+    #bgLayer.display-cover #bgMediaFrame {
+      top: calc(var(--top-safe) - 10px);
+      right: clamp(36px, 5vw, 92px);
+      bottom: calc(var(--hud-height) - 6px);
+      left: clamp(36px, 5vw, 92px);
+      border: 0;
+      border-radius: 0;
+      background: transparent;
+      box-shadow: none;
+      overflow: hidden;
+    }
+
+    #bgLayer.display-cover #bgImage {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      transform: scale(1);
+      filter: drop-shadow(0 16px 30px rgba(0,0,0,0.46));
+      -webkit-mask-image: none;
+      mask-image: none;
+    }
+
     #bgLayer.display-cg #bgMediaFrame {
       top: var(--top-safe);
       right: 0;
@@ -140,24 +161,33 @@
       overflow: hidden;
     }
 
-    #bgLayer.display-cover #bgImage,
     #bgLayer.display-cg #bgImage {
       width: 100%;
       height: 100%;
       object-fit: contain;
       transform: scale(1);
       filter: drop-shadow(0 18px 34px rgba(0,0,0,0.48));
-    }
-
-    /* bg_ 背景在主舞台安全區顯示時，邊緣改成羽化淡出，避免硬邊裁切。 */
-    #bgLayer.display-cover #bgImage {
-      -webkit-mask-image: radial-gradient(ellipse at center, #000 0%, #000 60%, rgba(0,0,0,0.82) 70%, rgba(0,0,0,0.34) 84%, transparent 100%);
-      mask-image: radial-gradient(ellipse at center, #000 0%, #000 60%, rgba(0,0,0,0.82) 70%, rgba(0,0,0,0.34) 84%, transparent 100%);
-    }
-
-    #bgLayer.display-cg #bgImage {
       -webkit-mask-image: none;
       mask-image: none;
+    }
+
+    #game.title-screen #bgLayer.display-cover #bgMediaFrame {
+      inset: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      top: 0;
+      background: transparent;
+      overflow: hidden;
+    }
+
+    #game.title-screen #bgLayer.display-cover #bgImage {
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      object-position: center;
+      filter: none;
+      transform: scale(1);
     }
 
     /*
@@ -213,23 +243,21 @@
       content: "";
       position: absolute;
       inset: 0;
-      background:
-        radial-gradient(circle at 50% 35%, rgba(255,255,255,0.05), transparent 36%),
-        linear-gradient(to bottom, rgba(0,0,0,0.15), rgba(0,0,0,0.58));
+      background: linear-gradient(to bottom, rgba(0,0,0,0.08), rgba(0,0,0,0.46));
       pointer-events: none;
       z-index: 3;
     }
 
+    #game.title-screen #bgLayer::after {
+      background: linear-gradient(to bottom, rgba(0,0,0,0.08), rgba(0,0,0,0.34));
+    }
+
     #game.theme-tingru #bgLayer::after {
-      background:
-        radial-gradient(circle at 48% 36%, rgba(241,200,95,0.07), transparent 34%),
-        linear-gradient(to bottom, rgba(0,0,0,0.10), rgba(23,15,3,0.64));
+      background: linear-gradient(to bottom, rgba(0,0,0,0.08), rgba(23,15,3,0.52));
     }
 
     #game.theme-jami #bgLayer::after {
-      background:
-        radial-gradient(circle at 50% 32%, rgba(92,140,255,0.08), transparent 34%),
-        linear-gradient(to bottom, rgba(0,0,0,0.12), rgba(3,9,24,0.66));
+      background: linear-gradient(to bottom, rgba(0,0,0,0.10), rgba(3,9,24,0.54));
     }
 
     #spriteLayer {
@@ -341,7 +369,7 @@
     #effectLayer.input-lock {
       z-index: 11;
       pointer-events: auto;
-      cursor: wait;
+      cursor: default;
     }
 
     #flash {
@@ -352,23 +380,11 @@
     }
 
     #vignette {
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at 50% 45%, transparent 35%, rgba(0,0,0,0.58) 100%);
-      opacity: 0.65;
-      pointer-events: none;
+      display: none;
     }
 
     #grain {
-      position: absolute;
-      inset: 0;
-      opacity: 0.09;
-      mix-blend-mode: overlay;
-      background-image:
-        repeating-radial-gradient(circle at 17% 31%, rgba(255,255,255,0.15), rgba(255,255,255,0.15) 1px, transparent 1px, transparent 5px),
-        repeating-linear-gradient(0deg, rgba(255,255,255,0.06), rgba(255,255,255,0.06) 1px, transparent 1px, transparent 3px);
-      pointer-events: none;
-      animation: grainMove 950ms steps(2) infinite;
+      display: none;
     }
 
     @keyframes grainMove {
@@ -493,10 +509,10 @@
     }
 
     #dialogueBox {
-      height: 212px;
+      height: 262px;
       min-height: 0;
-      max-height: 212px;
-      padding: 20px 26px 22px;
+      max-height: 262px;
+      padding: 22px 28px 24px;
       border: 1px solid var(--ui-border);
       border-radius: 22px;
       background: linear-gradient(180deg, var(--ui-bg), var(--ui-bg-strong));
@@ -535,7 +551,7 @@
     #speakerName.narrator { color: rgba(255,255,255,0.82); }
 
     #dialogueText {
-      height: 112px;
+      height: 154px;
       min-height: 0;
       color: var(--text);
       font-size: clamp(18px, 1.85vw, 25px);
@@ -562,10 +578,10 @@
     }
 
     #sidePanel {
-      height: 212px;
+      height: 262px;
       min-height: 0;
-      max-height: 212px;
-      padding: 18px 20px;
+      max-height: 262px;
+      padding: 20px 22px;
       border: 1px solid var(--ui-border);
       border-radius: 20px;
       background: var(--ui-panel);
@@ -645,7 +661,7 @@
       font-size: clamp(16px, 1.25vw, 19px);
       line-height: 1.78;
       white-space: pre-wrap;
-      max-height: 118px;
+      max-height: 168px;
       overflow: auto;
       padding-right: 4px;
     }
@@ -705,6 +721,21 @@
     #game.title-screen #choices.title-choice-mode {
       bottom: clamp(72px, 12vh, 150px);
       z-index: 8;
+    }
+
+    #game.final-ending-active #uiLayer,
+    #game.final-ending-active #choices {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    #game.final-ending-active #titleLogo {
+      left: 50%;
+      top: 50%;
+      z-index: 30;
+      opacity: 0.96;
+      transform: translateX(-50%) translateY(-50%);
+      transition: left 1600ms ease, top 1600ms ease, opacity 1200ms ease, transform 1600ms ease;
     }
 
     .choice-btn:hover {
@@ -986,7 +1017,7 @@
     }
 
     @media (max-width: 820px) {
-      :root { --top-safe: 56px; --hud-height: 210px; --hud-gap: 12px; }
+      :root { --top-safe: 56px; --hud-height: 236px; --hud-gap: 12px; }
       #topBar { padding: 10px 12px; }
       #modeBadge { min-width: auto; max-width: 52vw; font-size: 12px; padding: 8px 12px; }
       #buttonRow .top-btn:nth-child(n+5) { display: none; }
@@ -996,9 +1027,9 @@
         padding: 0 12px 12px;
       }
       #sidePanel { display: none; }
-      #dialogueBox { height: 190px; min-height: 0; max-height: 190px; padding: 14px 18px 18px; }
+      #dialogueBox { height: 214px; min-height: 0; max-height: 214px; padding: 15px 18px 18px; }
       #speakerName { font-size: 20px; min-height: 31px; margin-bottom: 10px; }
-      #dialogueText { height: 104px; font-size: 18px; line-height: 1.78; }
+      #dialogueText { height: 126px; font-size: 18px; line-height: 1.72; }
       #choices { bottom: calc(var(--hud-height) + 12px); width: min(94vw, 680px); }
       .choice-btn { font-size: 18px; padding: 13px 16px; }
       #choices.title-choice-mode { width: min(92vw, 560px); }
@@ -1012,6 +1043,13 @@
         right: 0;
         left: 0;
         border-radius: 0;
+      }
+      #bgLayer.display-cover #bgMediaFrame {
+        top: calc(var(--top-safe) - 6px);
+        bottom: calc(var(--hud-height) - 4px);
+      }
+      #game.title-screen #bgLayer.display-cover #bgMediaFrame {
+        inset: 0;
       }
       #cutinLayer {
         right: 0;
@@ -1918,10 +1956,19 @@
         dom.bg.dataset.mainImageFit = cmd.mainImageFit || "";
         dom.bg.dataset.underlayFit = cmd.underlayFit || "";
         dom.bg.dataset.avoidUiOverlap = cmd.avoidUiOverlap === false ? "false" : "true";
-        dom.bg.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.30), rgba(0,0,0,0.60)), url("${cssUrl(src)}")`;
-        dom.bg.style.backgroundSize = "cover";
-        dom.bg.style.backgroundPosition = "center";
-        dom.bg.style.backgroundRepeat = "no-repeat";
+        if (classMode === "cover") {
+          // bg_ / background 圖只顯示在主舞台安全區，不再鋪成背後的大張底圖。
+          dom.bg.style.backgroundImage = "none";
+          dom.bg.style.background = CONFIG.defaultBg;
+          dom.bg.style.backgroundSize = "cover";
+          dom.bg.style.backgroundPosition = "center";
+          dom.bg.style.backgroundRepeat = "no-repeat";
+        } else {
+          dom.bg.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.30), rgba(0,0,0,0.60)), url("${cssUrl(src)}")`;
+          dom.bg.style.backgroundSize = "cover";
+          dom.bg.style.backgroundPosition = "center";
+          dom.bg.style.backgroundRepeat = "no-repeat";
+        }
         dom.bgImage.style.opacity = "0";
         dom.bgImage.src = src;
         dom.bgImage.alt = assetDescriptionFor(id, src) || id || "background";
@@ -2082,12 +2129,41 @@
     function setSpritePosition(id, position = "center") {
       const img = state.sprites.get(id);
       if (!img) return;
+      const normalizedPosition = normalizeSpritePosition(id, position || "center");
+      clearSpriteSlot(normalizedPosition, id);
       const visible = img.classList.contains("visible");
       const dimmed = img.classList.contains("dimmed");
-      img.className = `sprite ${position || "center"}`;
+      img.className = `sprite ${normalizedPosition || "center"}`;
       if (visible) img.classList.add("visible");
       if (dimmed) img.classList.add("dimmed");
-      img.dataset.position = position || "center";
+      img.dataset.position = normalizedPosition || "center";
+    }
+
+    function normalizeSpritePosition(id, position = "center") {
+      const mode = String(state.currentSceneMode || "").toLowerCase();
+      const pos = String(position || "center").toLowerCase();
+      if (mode === "jamie_room") {
+        if (id === "jamie") return "left";
+        if (id === "oldnoodle") return "right";
+      }
+      if (["stage", "confession", "reincarnation"].includes(mode)) {
+        if (id === "jamie") return "center";
+        if (pos === "center") return "left";
+      }
+      return ["left", "right", "center"].includes(pos) ? pos : "center";
+    }
+
+    function clearSpriteSlot(position, keepId = "") {
+      const target = String(position || "center").toLowerCase();
+      state.sprites.forEach((sprite, spriteId) => {
+        if (spriteId === keepId) return;
+        const spritePosition = String(sprite.dataset.position || "").toLowerCase();
+        if (spritePosition !== target) return;
+        // 舞台中間保留傑米；其他左右欄位視為單一角色槽，避免人物互相覆蓋。
+        if (spriteId === "jamie" && target === "center" && isStageBackground()) return;
+        sprite.remove();
+        state.sprites.delete(spriteId);
+      });
     }
 
     function sanitizeCharacterExpression(id, expression) {
@@ -2187,18 +2263,24 @@
     }
 
     async function autoShowSpeakerSprite(speaker, text, cmd = {}) {
-      const id = cmd.character || speakerToCharacter(speaker);
-      const presence = String(cmd.presence || "").toLowerCase();
-      const speakerFocus = normalizeSpeakerFocus(cmd.speakerFocus);
+      const mappedId = speakerToCharacter(speaker);
+      const cmdCharacter = String(cmd.character || "").toLowerCase();
+      const forceOnscreen = shouldForceOnscreenSpeaker(speaker, text, cmd);
+      const id = forceOnscreen
+        ? mappedId
+        : ((cmdCharacter && cmdCharacter !== "none") ? cmd.character : mappedId);
+      const presence = forceOnscreen ? "onscreen" : String(cmd.presence || "").toLowerCase();
+      const speakerFocus = forceOnscreen ? "primary" : normalizeSpeakerFocus(cmd.speakerFocus);
 
       if (!id || id === "none") return "";
-      if (speakerFocus === "voice" || presence === "voiceonly" || presence === "offscreen") return "";
+      if (!forceOnscreen && (speakerFocus === "voice" || presence === "voiceonly" || presence === "offscreen")) return "";
       if (isEmpathyFullscreenActive()) return "";
 
       cleanupSpritesForConversation();
 
-      const expression = sanitizeCharacterExpression(id, cmd.expression || pickExpressionFor(id, text || ""));
-      const position = cmd.position || chooseDialogueSpritePosition(id, cmd);
+      const forcedExpression = forceOnscreen && id === "jamie" ? "nervous" : "";
+      const expression = sanitizeCharacterExpression(id, forcedExpression || cmd.expression || pickExpressionFor(id, text || ""));
+      const position = cmd.position || (forceOnscreen && id === "jamie" ? "center" : chooseDialogueSpritePosition(id, { ...cmd, speakerFocus }));
       const src = resolveCharacterSrc(id, expression);
       if (!src) return "";
 
@@ -2212,11 +2294,18 @@
         position,
         auto: true,
         instant: true,
-        speakerFocus: cmd.speakerFocus || "primary",
-        presence: cmd.presence || "onscreen",
+        speakerFocus: speakerFocus || cmd.speakerFocus || "primary",
+        presence: presence || cmd.presence || "onscreen",
         allowedSceneMode: cmd.allowedSceneMode
       });
       return id;
+    }
+
+    function shouldForceOnscreenSpeaker(speaker, text, cmd = {}) {
+      const id = speakerToCharacter(speaker);
+      const t = String(text || "");
+      if (id === "jamie" && /直接切|不要浪費眼淚|眼淚要在最有用/.test(t)) return true;
+      return false;
     }
 
     function resetDialogueLayout() {
@@ -2483,14 +2572,15 @@
       const cmd = Array.isArray(cmdOrWords) || typeof cmdOrWords === "string"
         ? { words: cmdOrWords, direction }
         : (cmdOrWords || {});
-      const words = cmd.words || [];
+      const sourceWords = cmd.words || [];
+      const words = expandEmotionWords(sourceWords, Number.isFinite(Number(cmd.wordMultiplier)) ? Number(cmd.wordMultiplier) : 3);
       const dir = normalizeEmotionDirection(cmd.direction || cmd.dir || direction || "up");
       const assetId = cmd.visualBg || (dir === "down" ? "cg_empathy_fall" : "cg_empathy_warm");
       const duration = Number.isFinite(Number(cmd.duration)) ? Number(cmd.duration) : estimateEmotionDuration(words);
       const shouldLock = cmd.lockInput !== false;
       const fadeInMs = Number.isFinite(Number(cmd.fadeInMs)) ? Number(cmd.fadeInMs) : 300;
       const holdBeforeWordsMs = Number.isFinite(Number(cmd.holdBeforeWordsMs)) ? Number(cmd.holdBeforeWordsMs) : 750;
-      const fadeOutMs = Number.isFinite(Number(cmd.fadeOutMs)) ? Number(cmd.fadeOutMs) : 700;
+      const fadeOutMs = 300;
 
       if (shouldLock) lockInput(true);
       enterEmpathyFullscreen();
@@ -2548,6 +2638,20 @@
       dom.cutinLayer.style.backgroundImage = "";
     }
 
+    function expandEmotionWords(words, multiplier = 3) {
+      const base = Array.isArray(words) ? words.filter(Boolean) : String(words || "").split(/[，,\s]+/).filter(Boolean);
+      if (!base.length) return [];
+      const count = Math.max(1, Math.round(multiplier || 1));
+      const expanded = [];
+      for (let round = 0; round < count; round += 1) {
+        base.forEach((word, idx) => {
+          // 每一輪都保留原本字詞，但用輪次錯開位置，允許重複、避免缺漏。
+          expanded.push(String(word));
+        });
+      }
+      return expanded;
+    }
+
     function estimateEmotionDuration(words) {
       const list = Array.isArray(words) ? words : String(words || "").split(/[，,\s]+/).filter(Boolean);
       const count = Math.max(1, list.length);
@@ -2583,10 +2687,10 @@
         el.textContent = word;
 
         // 上升字較平均散布；下墜字刻意更靠近畫面中上方，往下沉時會更像「被壓下去」。
-        const x = 15 + ((idx * 23) % 66);
+        const x = 9 + ((idx * 29 + Math.floor(idx / 3) * 11) % 78);
         const y = dir === "down"
-          ? 14 + ((idx * 13) % 34)
-          : 18 + ((idx * 17) % 46);
+          ? 10 + ((idx * 17 + Math.floor(idx / 2) * 7) % 42)
+          : 14 + ((idx * 19 + Math.floor(idx / 2) * 9) % 56);
 
         el.style.left = `${x}vw`;
         el.style.top = `${y}vh`;
@@ -2967,10 +3071,26 @@
     function hideOverlay() { dom.overlay.style.display = "none"; }
 
     async function endGame() {
+      clearSprites();
+      hideDocumentViewer();
+      dom.choices.style.display = "none";
+      dom.choices.innerHTML = "";
+      state.awaitingChoice = false;
       dom.speaker.textContent = "END";
       dom.speaker.className = "system";
       dom.text.textContent = "本段落結束。";
       dom.next.style.opacity = "0";
+
+      const logo = resolveBackgroundSrc("logo_beforefades");
+      if (logo && dom.titleLogo) {
+        if (dom.titleLogo.src !== new URL(logo, window.location.href).href) dom.titleLogo.src = logo;
+        dom.titleLogo.classList.add("visible");
+      }
+
+      dom.uiLayer.style.transition = "opacity 900ms ease";
+      dom.uiLayer.style.opacity = "0";
+      await fadeBlack(1500);
+      dom.game.classList.add("final-ending-active");
     }
 
     function escapeHtml(value) {

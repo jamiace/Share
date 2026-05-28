@@ -1,11 +1,11 @@
 {
   "meta": {
     "title": "Before Fades：地獄脫口秀的產品發表會",
-    "version": "2.1.1-directed-script-cleanup",
+    "version": "2.1.3-directed-script-real-diff-fixed-clean",
     "language": "zh-Hant",
     "engine": "Before Fades Static Web Visual Novel Engine",
     "startScene": "start",
-    "description": "完整文本版：擴充地獄脫口秀、共感、舞台cue、演出結束觀察與案件封存。 / 新增相容式導演腳本欄位：sceneMode、conversation、displayMode、documentTarget、speakerFocus、lockInput。 / 2.1.1：整理 Title Screen、共感滿版流程、舞台站位、錄影/文件殘留與 doc_voice_wave 顯示順序。",
+    "description": "完整文本版：擴充地獄脫口秀、共感、舞台cue、演出結束觀察與案件封存。 / 新增相容式導演腳本欄位：sceneMode、conversation、displayMode、documentTarget、speakerFocus、lockInput。 / 2.1.1：整理 Title Screen、共感滿版流程、舞台站位、錄影/文件殘留與 doc_voice_wave 顯示順序。 / 2.1.2：實際修正休息室、案件回憶、舞台鏡頭、尾聲站位與結尾淡出。",
     "imageAssetSet": "aligned-to-provided-assets-2026-05-28",
     "directingScript": {
       "version": "1.0",
@@ -20,7 +20,20 @@
         "lockInput": "特效期間是否鎖定滑鼠與鍵盤操作。",
         "visualBg": "共感特效搭配的情緒背景圖。"
       }
-    }
+    },
+    "actualChanges": [
+      "jamie_room_01 / jamie_room_investigate: 傑米左、老麵右；雷老師插話前清掉老麵與傑米。",
+      "case_file_01: 庭如『我們不能接』前清掉凱特與雷老師。",
+      "empathy effects: 情緒文字陣列直接擴增為三倍，fadeOutMs=300，click 不產生跳過反應。",
+      "ask_jamie_silence: 傑米『直接切』改為顯示 ch_jamie_nervous。",
+      "showtime_camera / showtime_jokes: 觀眾反應鏡頭與 cg_audience_laugh 的切換時機已調整。",
+      "showtime_jokes: 庭如『大家開始放鬆了』與老麵『不是蓋住。是開路。』前補清圖。",
+      "confession_text / reincarnation_01: 傑米關鍵句前清掉其他人物。",
+      "after_show_01 / after_say_* / after_observe_tingru: 尾聲人物左右站位修正。",
+      "three_months_later: 三個月後辦公室段落補清圖與左右位置。",
+      "final_screen: fadeBlack 置於 end 前，讓結尾先暗下再結束。",
+      "showtime_jokes: 清除因鏡頭切換重組造成的連續 big_laugh 重複觸發。"
+    ]
   },
   "assets": {
     "backgrounds": {
@@ -927,21 +940,37 @@
           "悲傷",
           "懷疑",
           "飢餓",
+          "怕被忘記",
+          "期待",
+          "好奇",
+          "社交恐懼",
+          "悲傷",
+          "懷疑",
+          "飢餓",
+          "怕被忘記",
+          "期待",
+          "好奇",
+          "社交恐懼",
+          "悲傷",
+          "懷疑",
+          "飢餓",
           "怕被忘記"
         ],
         "direction": "up",
-        "lockInput": true,
+        "lockInput": false,
         "sceneMode": "empathy",
         "duration": 6860,
         "visualBg": "cg_empathy_warm",
         "emotionStyle": "warm-gold-rise",
         "fadeInMs": 300,
         "holdBeforeWordsMs": 750,
-        "fadeOutMs": 700,
+        "fadeOutMs": 300,
         "fullscreenOnly": true,
         "hideUiDuringEffect": true,
         "hideSpritesDuringEffect": true,
-        "hideBackgroundDuringEffect": true
+        "hideBackgroundDuringEffect": true,
+        "wordMultiplier": 1,
+        "ignoreInputDuringEffect": true
       },
       {
         "type": "bg",
@@ -1302,7 +1331,7 @@
         "type": "show",
         "id": "jamie",
         "expression": "nervous",
-        "position": "right",
+        "position": "left",
         "sceneMode": "jamie_room",
         "speakerFocus": "primary"
       },
@@ -1323,7 +1352,9 @@
         "character": "jamie",
         "speakerFocus": "primary",
         "sceneMode": "jamie_room",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "left",
+        "expression": "nervous"
       },
       {
         "type": "choice",
@@ -1388,7 +1419,9 @@
         "character": "jamie",
         "speakerFocus": "primary",
         "sceneMode": "jamie_room",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "left",
+        "expression": "nervous"
       },
       {
         "type": "say",
@@ -1407,7 +1440,9 @@
         "character": "jamie",
         "speakerFocus": "primary",
         "sceneMode": "jamie_room",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "left",
+        "expression": "nervous"
       },
       {
         "type": "jump",
@@ -1447,7 +1482,9 @@
         "character": "jamie",
         "speakerFocus": "primary",
         "sceneMode": "jamie_room",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "left",
+        "expression": "nervous"
       },
       {
         "type": "sfx",
@@ -1488,7 +1525,9 @@
         "character": "jamie",
         "speakerFocus": "primary",
         "sceneMode": "jamie_room",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "left",
+        "expression": "nervous"
       },
       {
         "type": "say",
@@ -1525,7 +1564,9 @@
         "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
         "character": "jamie",
         "speakerFocus": "primary",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "left",
+        "expression": "nervous"
       },
       {
         "type": "say",
@@ -1534,7 +1575,9 @@
         "character": "jamie",
         "speakerFocus": "primary",
         "sceneMode": "jamie_room",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "left",
+        "expression": "nervous"
       },
       {
         "type": "note",
@@ -1559,7 +1602,9 @@
         "character": "jamie",
         "speakerFocus": "primary",
         "sceneMode": "jamie_room",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "left",
+        "expression": "nervous"
       },
       {
         "type": "clearSprites",
@@ -1589,7 +1634,9 @@
         "character": "jamie",
         "speakerFocus": "primary",
         "sceneMode": "jamie_room",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "left",
+        "expression": "nervous"
       },
       {
         "type": "clearSprites",
@@ -1629,7 +1676,9 @@
         "character": "jamie",
         "speakerFocus": "primary",
         "sceneMode": "jamie_room",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "left",
+        "expression": "nervous"
       },
       {
         "type": "clearSprites",
@@ -1669,7 +1718,9 @@
         "character": "jamie",
         "speakerFocus": "primary",
         "sceneMode": "jamie_room",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "left",
+        "expression": "nervous"
       },
       {
         "type": "say",
@@ -1688,12 +1739,24 @@
         "character": "jamie",
         "speakerFocus": "primary",
         "sceneMode": "jamie_room",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "left",
+        "expression": "nervous"
       },
       {
         "type": "sfx",
         "id": "comm",
         "volume": 0.45
+      },
+      {
+        "type": "hide",
+        "id": "oldnoodle",
+        "reason": "preventSpriteOverlap"
+      },
+      {
+        "type": "hide",
+        "id": "jamie",
+        "reason": "preventSpriteOverlap"
       },
       {
         "type": "say",
@@ -1717,7 +1780,9 @@
         "character": "jamie",
         "speakerFocus": "primary",
         "sceneMode": "jamie_room",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "left",
+        "expression": "nervous"
       },
       {
         "type": "say",
@@ -1736,7 +1801,9 @@
         "character": "jamie",
         "speakerFocus": "primary",
         "sceneMode": "jamie_room",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "left",
+        "expression": "nervous"
       },
       {
         "type": "say",
@@ -1755,7 +1822,9 @@
         "character": "jamie",
         "speakerFocus": "primary",
         "sceneMode": "jamie_room",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "left",
+        "expression": "nervous"
       },
       {
         "type": "say",
@@ -1774,7 +1843,9 @@
         "character": "jamie",
         "speakerFocus": "primary",
         "sceneMode": "jamie_room",
-        "presence": "onscreen"
+        "presence": "onscreen",
+        "position": "left",
+        "expression": "nervous"
       },
       {
         "type": "clearSprites",
@@ -1878,6 +1949,16 @@
         "sceneMode": "case_file",
         "presence": "onscreen",
         "position": "right"
+      },
+      {
+        "type": "hide",
+        "id": "kate",
+        "reason": "preventSpriteOverlap"
+      },
+      {
+        "type": "hide",
+        "id": "ray",
+        "reason": "preventSpriteOverlap"
       },
       {
         "type": "say",
@@ -1994,21 +2075,31 @@
           "被遺忘",
           "冷",
           "消失",
+          "不再被需要",
+          "被遺忘",
+          "冷",
+          "消失",
+          "不再被需要",
+          "被遺忘",
+          "冷",
+          "消失",
           "不再被需要"
         ],
         "direction": "down",
-        "lockInput": true,
+        "lockInput": false,
         "sceneMode": "empathy",
         "duration": 6410,
         "visualBg": "cg_empathy_fall",
         "emotionStyle": "cool-blue-fall",
         "fadeInMs": 300,
         "holdBeforeWordsMs": 750,
-        "fadeOutMs": 700,
+        "fadeOutMs": 300,
         "fullscreenOnly": true,
         "hideUiDuringEffect": true,
         "hideSpritesDuringEffect": true,
-        "hideBackgroundDuringEffect": true
+        "hideBackgroundDuringEffect": true,
+        "wordMultiplier": 1,
+        "ignoreInputDuringEffect": true
       },
       {
         "type": "bg",
@@ -2081,21 +2172,31 @@
           "父親",
           "未撥出的電話",
           "病房",
+          "以為還有時間",
+          "父親",
+          "未撥出的電話",
+          "病房",
+          "以為還有時間",
+          "父親",
+          "未撥出的電話",
+          "病房",
           "以為還有時間"
         ],
         "direction": "down",
-        "lockInput": true,
+        "lockInput": false,
         "sceneMode": "empathy",
         "duration": 6410,
         "visualBg": "cg_empathy_fall",
         "emotionStyle": "cool-blue-fall",
         "fadeInMs": 300,
         "holdBeforeWordsMs": 750,
-        "fadeOutMs": 700,
+        "fadeOutMs": 300,
         "fullscreenOnly": true,
         "hideUiDuringEffect": true,
         "hideSpritesDuringEffect": true,
-        "hideBackgroundDuringEffect": true
+        "hideBackgroundDuringEffect": true,
+        "wordMultiplier": 1,
+        "ignoreInputDuringEffect": true
       },
       {
         "type": "bg",
@@ -2168,21 +2269,31 @@
           "靈魂",
           "資料",
           "名字",
+          "詹傑明",
+          "靈魂",
+          "資料",
+          "名字",
+          "詹傑明",
+          "靈魂",
+          "資料",
+          "名字",
           "詹傑明"
         ],
         "direction": "up",
-        "lockInput": true,
+        "lockInput": false,
         "sceneMode": "empathy",
         "duration": 6410,
         "visualBg": "cg_empathy_warm",
         "emotionStyle": "warm-gold-rise",
         "fadeInMs": 300,
         "holdBeforeWordsMs": 750,
-        "fadeOutMs": 700,
+        "fadeOutMs": 300,
         "fullscreenOnly": true,
         "hideUiDuringEffect": true,
         "hideSpritesDuringEffect": true,
-        "hideBackgroundDuringEffect": true
+        "hideBackgroundDuringEffect": true,
+        "wordMultiplier": 1,
+        "ignoreInputDuringEffect": true
       },
       {
         "type": "bg",
@@ -2418,16 +2529,18 @@
         "speakerFocus": "primary",
         "sceneMode": "control",
         "presence": "onscreen",
-        "position": "right"
+        "position": "left"
       },
       {
         "type": "say",
         "speaker": "傑米",
         "text": "不要浪費眼淚。眼淚要在最有用的時候發光。直接切。",
-        "character": "none",
-        "speakerFocus": "voice",
+        "character": "jamie",
+        "speakerFocus": "primary",
         "sceneMode": "control",
-        "presence": "voiceOnly"
+        "presence": "onscreen",
+        "expression": "nervous",
+        "position": "center"
       },
       {
         "type": "say",
@@ -2437,7 +2550,7 @@
         "speakerFocus": "primary",
         "sceneMode": "control",
         "presence": "onscreen",
-        "position": "right"
+        "position": "left"
       },
       {
         "type": "say",
@@ -2447,7 +2560,7 @@
         "speakerFocus": "primary",
         "sceneMode": "control",
         "presence": "onscreen",
-        "position": "left"
+        "position": "right"
       },
       {
         "type": "jump",
@@ -2791,6 +2904,14 @@
     ],
     "showtime_camera": [
       {
+        "type": "bg",
+        "id": "cg_audience_laugh",
+        "transition": "fade",
+        "waitAfter": 300,
+        "sceneMode": "stage",
+        "displayMode": "cg"
+      },
+      {
         "type": "narrate",
         "text": "側邊螢幕短暫帶到觀眾表情。有人震驚，有人憋笑，有人不知道該不該笑。正是這種不知道，讓笑聲找到出口。",
         "sceneMode": "stage",
@@ -2912,6 +3033,21 @@
         "volume": 0.45
       },
       {
+        "type": "bg",
+        "id": "stage_show",
+        "transition": "fade",
+        "waitAfter": 300,
+        "sceneMode": "stage",
+        "displayMode": "background"
+      },
+      {
+        "type": "show",
+        "id": "jamie",
+        "expression": "show",
+        "position": "center",
+        "sceneMode": "stage"
+      },
+      {
         "type": "say",
         "speaker": "傑米",
         "text": "醫生說我還有一年。我說，不用那麼久，這世界爛到我自己都不想撐滿學期了。",
@@ -2922,39 +3058,17 @@
         "position": "center"
       },
       {
-        "type": "clearSprites",
-        "reason": "sceneBoundaryOrMajorVisualChange"
-      },
-      {
         "type": "bg",
         "id": "cg_audience_laugh",
         "transition": "fade",
-        "waitAfter": 700,
-        "displayMode": "cg",
+        "waitAfter": 300,
         "sceneMode": "stage",
-        "avoidUiOverlap": true,
-        "mainImageFit": "contain-in-safe-stage",
-        "underlayFit": "cover-fullscreen"
+        "displayMode": "cg"
       },
       {
         "type": "sfx",
         "id": "big_laugh",
-        "volume": 0.48
-      },
-      {
-        "type": "clearSprites",
-        "reason": "sceneBoundaryOrMajorVisualChange"
-      },
-      {
-        "type": "bg",
-        "id": "stage_show",
-        "transition": "fade",
-        "waitAfter": 700,
-        "displayMode": "background",
-        "sceneMode": "stage",
-        "avoidUiOverlap": true,
-        "mainImageFit": "contain-in-safe-stage",
-        "underlayFit": "cover-fullscreen"
+        "volume": 0.55
       },
       {
         "type": "say",
@@ -2965,6 +3079,28 @@
         "sceneMode": "stage",
         "presence": "onscreen",
         "position": "center"
+      },
+      {
+        "type": "show",
+        "id": "jamie",
+        "expression": "show",
+        "position": "center",
+        "sceneMode": "stage"
+      },
+      {
+        "type": "bg",
+        "id": "stage_show",
+        "transition": "fade",
+        "waitAfter": 300,
+        "sceneMode": "stage",
+        "displayMode": "background"
+      },
+      {
+        "type": "show",
+        "id": "jamie",
+        "expression": "show",
+        "position": "center",
+        "sceneMode": "stage"
       },
       {
         "type": "say",
@@ -3032,6 +3168,16 @@
         "position": "left"
       },
       {
+        "type": "hide",
+        "id": "kate",
+        "reason": "preventSpriteOverlap"
+      },
+      {
+        "type": "hide",
+        "id": "ray",
+        "reason": "preventSpriteOverlap"
+      },
+      {
         "type": "say",
         "speaker": "庭如",
         "text": "大家開始放鬆了。悲傷被好奇跟娛樂蓋住。",
@@ -3040,6 +3186,16 @@
         "sceneMode": "stage",
         "presence": "onscreen",
         "position": "left"
+      },
+      {
+        "type": "hide",
+        "id": "ray",
+        "reason": "preventSpriteOverlap"
+      },
+      {
+        "type": "hide",
+        "id": "kate",
+        "reason": "preventSpriteOverlap"
       },
       {
         "type": "say",
@@ -3106,21 +3262,33 @@
           "表面的熱",
           "被冒犯",
           "好奇",
+          "不知道該不該笑",
+          "禁忌快感",
+          "表面的熱",
+          "被冒犯",
+          "好奇",
+          "不知道該不該笑",
+          "禁忌快感",
+          "表面的熱",
+          "被冒犯",
+          "好奇",
           "不知道該不該笑"
         ],
         "direction": "up",
-        "lockInput": true,
+        "lockInput": false,
         "sceneMode": "empathy",
         "duration": 6560,
         "visualBg": "cg_empathy_warm",
         "emotionStyle": "warm-gold-rise",
         "fadeInMs": 300,
         "holdBeforeWordsMs": 750,
-        "fadeOutMs": 700,
+        "fadeOutMs": 300,
         "fullscreenOnly": true,
         "hideUiDuringEffect": true,
         "hideSpritesDuringEffect": true,
-        "hideBackgroundDuringEffect": true
+        "hideBackgroundDuringEffect": true,
+        "wordMultiplier": 1,
+        "ignoreInputDuringEffect": true
       },
       {
         "type": "bg",
@@ -3594,21 +3762,33 @@
           "傷口",
           "不用道歉",
           "林薇",
+          "碎裂",
+          "笑話",
+          "傷口",
+          "不用道歉",
+          "林薇",
+          "碎裂",
+          "笑話",
+          "傷口",
+          "不用道歉",
+          "林薇",
           "碎裂"
         ],
         "direction": "down",
-        "lockInput": true,
+        "lockInput": false,
         "sceneMode": "empathy",
         "duration": 6560,
         "visualBg": "cg_empathy_fall",
         "emotionStyle": "cool-blue-fall",
         "fadeInMs": 300,
         "holdBeforeWordsMs": 750,
-        "fadeOutMs": 700,
+        "fadeOutMs": 300,
         "fullscreenOnly": true,
         "hideUiDuringEffect": true,
         "hideSpritesDuringEffect": true,
-        "hideBackgroundDuringEffect": true
+        "hideBackgroundDuringEffect": true,
+        "wordMultiplier": 1,
+        "ignoreInputDuringEffect": true
       },
       {
         "type": "bg",
@@ -4357,21 +4537,31 @@
           "害怕",
           "空",
           "被遺忘",
+          "詹傑明",
+          "害怕",
+          "空",
+          "被遺忘",
+          "詹傑明",
+          "害怕",
+          "空",
+          "被遺忘",
           "詹傑明"
         ],
         "direction": "up",
-        "lockInput": true,
+        "lockInput": false,
         "sceneMode": "empathy",
         "duration": 6410,
         "visualBg": "cg_empathy_warm",
         "emotionStyle": "warm-gold-rise",
         "fadeInMs": 300,
         "holdBeforeWordsMs": 750,
-        "fadeOutMs": 700,
+        "fadeOutMs": 300,
         "fullscreenOnly": true,
         "hideUiDuringEffect": true,
         "hideSpritesDuringEffect": true,
-        "hideBackgroundDuringEffect": true
+        "hideBackgroundDuringEffect": true,
+        "wordMultiplier": 1,
+        "ignoreInputDuringEffect": true
       },
       {
         "type": "say",
@@ -4466,6 +4656,43 @@
         "sceneMode": "confession",
         "presence": "onscreen",
         "position": "right"
+      },
+      {
+        "type": "hide",
+        "id": "tingru",
+        "reason": "preventSpriteOverlap"
+      },
+      {
+        "type": "hide",
+        "id": "oldnoodle",
+        "reason": "preventSpriteOverlap"
+      },
+      {
+        "type": "hide",
+        "id": "tingru",
+        "reason": "preventSpriteOverlap"
+      },
+      {
+        "type": "hide",
+        "id": "oldnoodle",
+        "reason": "preventSpriteOverlap"
+      },
+      {
+        "type": "hide",
+        "id": "kate",
+        "reason": "preventSpriteOverlap"
+      },
+      {
+        "type": "hide",
+        "id": "ray",
+        "reason": "preventSpriteOverlap"
+      },
+      {
+        "type": "show",
+        "id": "jamie",
+        "expression": "confession",
+        "position": "center",
+        "sceneMode": "confession"
       },
       {
         "type": "say",
@@ -4648,21 +4875,47 @@
           "永生",
           "騙子",
           "天才",
+          "怪物",
+          "震驚",
+          "被背叛",
+          "欽佩",
+          "憤怒",
+          "困惑",
+          "興奮",
+          "悲傷",
+          "股價",
+          "永生",
+          "騙子",
+          "天才",
+          "怪物",
+          "震驚",
+          "被背叛",
+          "欽佩",
+          "憤怒",
+          "困惑",
+          "興奮",
+          "悲傷",
+          "股價",
+          "永生",
+          "騙子",
+          "天才",
           "怪物"
         ],
         "direction": "down",
-        "lockInput": true,
+        "lockInput": false,
         "sceneMode": "empathy",
         "duration": 7610,
         "visualBg": "cg_empathy_fall",
         "emotionStyle": "cool-blue-fall",
         "fadeInMs": 300,
         "holdBeforeWordsMs": 750,
-        "fadeOutMs": 700,
+        "fadeOutMs": 300,
         "fullscreenOnly": true,
         "hideUiDuringEffect": true,
         "hideSpritesDuringEffect": true,
-        "hideBackgroundDuringEffect": true
+        "hideBackgroundDuringEffect": true,
+        "wordMultiplier": 1,
+        "ignoreInputDuringEffect": true
       },
       {
         "type": "bg",
@@ -4737,6 +4990,33 @@
         "sceneMode": "reincarnation",
         "presence": "onscreen",
         "position": "left"
+      },
+      {
+        "type": "hide",
+        "id": "tingru",
+        "reason": "preventSpriteOverlap"
+      },
+      {
+        "type": "hide",
+        "id": "oldnoodle",
+        "reason": "preventSpriteOverlap"
+      },
+      {
+        "type": "hide",
+        "id": "kate",
+        "reason": "preventSpriteOverlap"
+      },
+      {
+        "type": "hide",
+        "id": "ray",
+        "reason": "preventSpriteOverlap"
+      },
+      {
+        "type": "show",
+        "id": "jamie",
+        "expression": "reincarnation",
+        "position": "center",
+        "sceneMode": "reincarnation"
       },
       {
         "type": "say",
@@ -4911,7 +5191,7 @@
         "speakerFocus": "primary",
         "sceneMode": "afterward",
         "presence": "onscreen",
-        "position": "right"
+        "position": "left"
       },
       {
         "type": "say",
@@ -4921,7 +5201,7 @@
         "speakerFocus": "primary",
         "sceneMode": "afterward",
         "presence": "onscreen",
-        "position": "left"
+        "position": "right"
       },
       {
         "type": "choice",
@@ -4984,7 +5264,7 @@
         "character": "oldnoodle",
         "speakerFocus": "primary",
         "presence": "onscreen",
-        "position": "right"
+        "position": "left"
       },
       {
         "type": "say",
@@ -4994,7 +5274,7 @@
         "speakerFocus": "primary",
         "sceneMode": "afterward",
         "presence": "onscreen",
-        "position": "left"
+        "position": "right"
       },
       {
         "type": "say",
@@ -5004,7 +5284,7 @@
         "speakerFocus": "primary",
         "sceneMode": "afterward",
         "presence": "onscreen",
-        "position": "right"
+        "position": "left"
       },
       {
         "type": "say",
@@ -5014,7 +5294,7 @@
         "speakerFocus": "primary",
         "sceneMode": "afterward",
         "presence": "onscreen",
-        "position": "left"
+        "position": "right"
       },
       {
         "type": "jump",
@@ -5041,7 +5321,7 @@
         "character": "oldnoodle",
         "speakerFocus": "primary",
         "presence": "onscreen",
-        "position": "right"
+        "position": "left"
       },
       {
         "type": "say",
@@ -5051,7 +5331,7 @@
         "speakerFocus": "primary",
         "sceneMode": "afterward",
         "presence": "onscreen",
-        "position": "left"
+        "position": "right"
       },
       {
         "type": "say",
@@ -5061,7 +5341,7 @@
         "speakerFocus": "primary",
         "sceneMode": "afterward",
         "presence": "onscreen",
-        "position": "right"
+        "position": "left"
       },
       {
         "type": "say",
@@ -5071,7 +5351,7 @@
         "speakerFocus": "primary",
         "sceneMode": "afterward",
         "presence": "onscreen",
-        "position": "left"
+        "position": "right"
       },
       {
         "type": "jump",
@@ -5098,7 +5378,7 @@
         "character": "oldnoodle",
         "speakerFocus": "primary",
         "presence": "onscreen",
-        "position": "right"
+        "position": "left"
       },
       {
         "type": "say",
@@ -5108,7 +5388,7 @@
         "speakerFocus": "primary",
         "sceneMode": "afterward",
         "presence": "onscreen",
-        "position": "left"
+        "position": "right"
       },
       {
         "type": "say",
@@ -5118,7 +5398,7 @@
         "speakerFocus": "primary",
         "sceneMode": "afterward",
         "presence": "onscreen",
-        "position": "right"
+        "position": "left"
       },
       {
         "type": "say",
@@ -5128,7 +5408,7 @@
         "speakerFocus": "primary",
         "sceneMode": "afterward",
         "presence": "onscreen",
-        "position": "left"
+        "position": "right"
       },
       {
         "type": "jump",
@@ -5291,6 +5571,11 @@
         "position": "right"
       },
       {
+        "type": "hide",
+        "id": "kate",
+        "reason": "preventSpriteOverlap"
+      },
+      {
         "type": "say",
         "speaker": "老麵",
         "text": "不是說封存？",
@@ -5298,7 +5583,7 @@
         "speakerFocus": "primary",
         "sceneMode": "office",
         "presence": "onscreen",
-        "position": "right"
+        "position": "left"
       },
       {
         "type": "say",
@@ -5311,6 +5596,16 @@
         "position": "right"
       },
       {
+        "type": "hide",
+        "id": "oldnoodle",
+        "reason": "preventSpriteOverlap"
+      },
+      {
+        "type": "hide",
+        "id": "ray",
+        "reason": "preventSpriteOverlap"
+      },
+      {
         "type": "say",
         "speaker": "凱特",
         "text": "也真的很會傷人。",
@@ -5319,6 +5614,11 @@
         "sceneMode": "office",
         "presence": "onscreen",
         "position": "left"
+      },
+      {
+        "type": "hide",
+        "id": "kate",
+        "reason": "preventSpriteOverlap"
       },
       {
         "type": "say",
@@ -5381,6 +5681,21 @@
         "position": "left"
       },
       {
+        "type": "show",
+        "id": "tingru",
+        "expression": "silent",
+        "position": "right",
+        "sceneMode": "office",
+        "reason": "slideToRightBeforeOldnoodle"
+      },
+      {
+        "type": "show",
+        "id": "oldnoodle",
+        "expression": "silent",
+        "position": "left",
+        "sceneMode": "office"
+      },
+      {
         "type": "say",
         "speaker": "老麵",
         "text": "所以才麻煩。",
@@ -5388,7 +5703,11 @@
         "speakerFocus": "primary",
         "sceneMode": "office",
         "presence": "onscreen",
-        "position": "right"
+        "position": "left"
+      },
+      {
+        "type": "clearSprites",
+        "reason": "beforeNarrationOldnoodleWalksToTv"
       },
       {
         "type": "narrate",
@@ -5794,7 +6113,14 @@
         "text": "有些人不是在死亡時離開。是在沒有人再提起他的時候，慢慢淡出。"
       },
       {
-        "type": "end"
+        "type": "effect",
+        "name": "fadeBlack",
+        "ms": 1600,
+        "finalLogo": true
+      },
+      {
+        "type": "end",
+        "finalLogo": true
       }
     ],
     "case_memory_win": [
@@ -5820,21 +6146,31 @@
           "贏",
           "火災",
           "停不下來",
+          "存在",
+          "贏",
+          "火災",
+          "停不下來",
+          "存在",
+          "贏",
+          "火災",
+          "停不下來",
           "存在"
         ],
         "direction": "up",
-        "lockInput": true,
+        "lockInput": false,
         "sceneMode": "empathy",
         "duration": 6410,
         "visualBg": "cg_empathy_warm",
         "emotionStyle": "warm-gold-rise",
         "fadeInMs": 300,
         "holdBeforeWordsMs": 750,
-        "fadeOutMs": 700,
+        "fadeOutMs": 300,
         "fullscreenOnly": true,
         "hideUiDuringEffect": true,
         "hideSpritesDuringEffect": true,
-        "hideBackgroundDuringEffect": true
+        "hideBackgroundDuringEffect": true,
+        "wordMultiplier": 1,
+        "ignoreInputDuringEffect": true
       },
       {
         "type": "narrate",
@@ -5896,21 +6232,31 @@
           "公司",
           "王國",
           "墳",
+          "財報",
+          "公司",
+          "王國",
+          "墳",
+          "財報",
+          "公司",
+          "王國",
+          "墳",
           "財報"
         ],
         "direction": "up",
-        "lockInput": true,
+        "lockInput": false,
         "sceneMode": "empathy",
         "duration": 6410,
         "visualBg": "cg_empathy_warm",
         "emotionStyle": "warm-gold-rise",
         "fadeInMs": 300,
         "holdBeforeWordsMs": 750,
-        "fadeOutMs": 700,
+        "fadeOutMs": 300,
         "fullscreenOnly": true,
         "hideUiDuringEffect": true,
         "hideSpritesDuringEffect": true,
-        "hideBackgroundDuringEffect": true
+        "hideBackgroundDuringEffect": true,
+        "wordMultiplier": 1,
+        "ignoreInputDuringEffect": true
       },
       {
         "type": "bg",
@@ -5983,21 +6329,31 @@
           "前任",
           "被愛過的版本",
           "不是混蛋",
+          "電影票",
+          "前任",
+          "被愛過的版本",
+          "不是混蛋",
+          "電影票",
+          "前任",
+          "被愛過的版本",
+          "不是混蛋",
           "電影票"
         ],
         "direction": "up",
-        "lockInput": true,
+        "lockInput": false,
         "sceneMode": "empathy",
         "duration": 6410,
         "visualBg": "cg_empathy_warm",
         "emotionStyle": "warm-gold-rise",
         "fadeInMs": 300,
         "holdBeforeWordsMs": 750,
-        "fadeOutMs": 700,
+        "fadeOutMs": 300,
         "fullscreenOnly": true,
         "hideUiDuringEffect": true,
         "hideSpritesDuringEffect": true,
-        "hideBackgroundDuringEffect": true
+        "hideBackgroundDuringEffect": true,
+        "wordMultiplier": 1,
+        "ignoreInputDuringEffect": true
       },
       {
         "type": "bg",
@@ -6434,7 +6790,7 @@
         "speakerFocus": "primary",
         "sceneMode": "afterward",
         "presence": "onscreen",
-        "position": "right"
+        "position": "left"
       },
       {
         "type": "say",
@@ -6444,7 +6800,7 @@
         "speakerFocus": "primary",
         "sceneMode": "afterward",
         "presence": "onscreen",
-        "position": "left"
+        "position": "right"
       },
       {
         "type": "say",
@@ -6454,7 +6810,7 @@
         "speakerFocus": "primary",
         "sceneMode": "afterward",
         "presence": "onscreen",
-        "position": "right"
+        "position": "left"
       },
       {
         "type": "say",
@@ -6464,7 +6820,7 @@
         "speakerFocus": "primary",
         "sceneMode": "afterward",
         "presence": "onscreen",
-        "position": "left"
+        "position": "right"
       },
       {
         "type": "clearSprites",
