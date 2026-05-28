@@ -1,11 +1,11 @@
 {
   "meta": {
     "title": "Before Fadeout：地獄脫口秀的產品發表會",
-    "version": "2.0.1-images-aligned",
+    "version": "2.0.2-index-layering-fix-r2",
     "language": "zh-Hant",
     "engine": "Before Fadeout Static Web Visual Novel Engine",
     "startScene": "start",
-    "description": "完整文本版：擴充地獄脫口秀、共感、舞台cue、演出結束觀察與案件封存。",
+    "description": "完整文本版：擴充地獄脫口秀、共感、舞台cue、演出結束觀察與案件封存。 / 調整角色圖層清除、舞台限定傑米立繪、錄音回憶背景與背景切換節奏。",
     "imageAssetSet": "aligned-to-provided-assets-2026-05-28"
   },
   "assets": {
@@ -444,7 +444,8 @@
       {
         "type": "bg",
         "id": "title",
-        "transition": "fade"
+        "transition": "fade",
+        "waitAfter": 700
       },
       {
         "type": "bgm",
@@ -504,9 +505,13 @@
         "label": "老麵 / 後台控制"
       },
       {
+        "type": "clearSprites"
+      },
+      {
         "type": "bg",
         "id": "control_room",
-        "transition": "fade"
+        "transition": "fade",
+        "waitAfter": 700
       },
       {
         "type": "bgm",
@@ -534,9 +539,13 @@
         "text": "這裡不像傳統告別式。沒有罐頭塔，沒有輓聯，沒有誦經聲。取而代之的是冷灰色水泥牆、訂製香氛、半圓形排列的設計師單椅、巨大的 LED 螢幕，以及一支孤零零立在舞台中央的麥克風。"
       },
       {
+        "type": "clearSprites"
+      },
+      {
         "type": "bg",
         "id": "white_rose",
-        "transition": "fade"
+        "transition": "fade",
+        "waitAfter": 700
       },
       {
         "type": "say",
@@ -569,9 +578,13 @@
         "text": "你這句話很帥，但我還是要說，變態。"
       },
       {
+        "type": "clearSprites"
+      },
+      {
         "type": "bg",
         "id": "control_room",
-        "transition": "fade"
+        "transition": "fade",
+        "waitAfter": 700
       },
       {
         "type": "say",
@@ -615,9 +628,13 @@
         "label": "老麵 / 調查"
       },
       {
+        "type": "clearSprites"
+      },
+      {
         "type": "bg",
         "id": "control_room",
-        "transition": "fade"
+        "transition": "fade",
+        "waitAfter": 700
       },
       {
         "type": "sfx",
@@ -634,9 +651,13 @@
         "text": "十二格監控畫面持續跳動。每個人都以為舞台在前面，其實舞台到處都是。"
       },
       {
+        "type": "clearSprites"
+      },
+      {
         "type": "bg",
         "id": "doc_rundown",
-        "transition": "fade"
+        "transition": "fade",
+        "waitAfter": 700
       },
       {
         "type": "note",
@@ -649,9 +670,13 @@
         "text": "最難的不是讓人哭。最難的是知道，眼淚掉下來的那一秒，要不要把燈打亮。"
       },
       {
+        "type": "clearSprites"
+      },
+      {
         "type": "bg",
         "id": "doc_guest_list",
-        "transition": "fade"
+        "transition": "fade",
+        "waitAfter": 700
       },
       {
         "type": "note",
@@ -690,9 +715,13 @@
         "label": "庭如 / 共感模式"
       },
       {
+        "type": "clearSprites"
+      },
+      {
         "type": "bg",
         "id": "control_room_dark",
-        "transition": "fade"
+        "transition": "fade",
+        "waitAfter": 700
       },
       {
         "type": "bgm",
@@ -880,9 +909,13 @@
         "label": "老麵 / 傑米休息室"
       },
       {
+        "type": "clearSprites"
+      },
+      {
         "type": "bg",
         "id": "jamie_room",
-        "transition": "fade"
+        "transition": "fade",
+        "waitAfter": 700
       },
       {
         "type": "bgm",
@@ -1043,9 +1076,13 @@
         "text": "吃了。放心，我不會在台上倒下。至少不會在輪迴發表前。"
       },
       {
+        "type": "clearSprites"
+      },
+      {
         "type": "bg",
         "id": "doc_medical_report",
-        "transition": "fade"
+        "transition": "fade",
+        "waitAfter": 700
       },
       {
         "type": "note",
@@ -1058,9 +1095,13 @@
         "text": "我第一次看到那張紙的時候，第一個想法不是我會死。我想，這份文件排版很爛。然後我才開始發抖。"
       },
       {
+        "type": "clearSprites"
+      },
+      {
         "type": "bg",
         "id": "doc_reincarnation_pitch",
-        "transition": "fade"
+        "transition": "fade",
+        "waitAfter": 700
       },
       {
         "type": "note",
@@ -1078,9 +1119,13 @@
         "text": "所有偉大的科技，在剛開始看起來都像邪教。也可能只是邪教，所以我才需要先死一次，讓大家閉嘴。"
       },
       {
+        "type": "clearSprites"
+      },
+      {
         "type": "bg",
         "id": "doc_jamie_script",
-        "transition": "fade"
+        "transition": "fade",
+        "waitAfter": 700
       },
       {
         "type": "note",
@@ -1116,6 +1161,10 @@
         "type": "say",
         "speaker": "雷老師",
         "text": "麵老闆，倒數十分鐘。主舞台已經準備好讓人類文明開始丟臉了。"
+      },
+      {
+        "type": "hide",
+        "id": "ray"
       },
       {
         "type": "say",
@@ -1167,9 +1216,13 @@
         "label": "庭如 / 案件資料"
       },
       {
+        "type": "clearSprites"
+      },
+      {
         "type": "bg",
         "id": "case_file",
-        "transition": "fade"
+        "transition": "fade",
+        "waitAfter": 700
       },
       {
         "type": "bgm",
@@ -1179,9 +1232,13 @@
         "fade": 900
       },
       {
+        "type": "clearSprites"
+      },
+      {
         "type": "bg",
         "id": "doc_case_report",
-        "transition": "fade"
+        "transition": "fade",
+        "waitAfter": 700
       },
       {
         "type": "note",
@@ -1242,9 +1299,13 @@
         "text": "庭如看著那行會議紀錄。那時候她以為自己已經夠堅持了。現在回頭看，她只覺得還不夠。"
       },
       {
+        "type": "clearSprites"
+      },
+      {
         "type": "bg",
         "id": "doc_voice_wave",
-        "transition": "fade"
+        "transition": "fade",
+        "waitAfter": 700
       },
       {
         "type": "note",
@@ -1258,9 +1319,13 @@
     ],
     "case_memory_forgotten": [
       {
+        "type": "clearSprites"
+      },
+      {
         "type": "bg",
         "id": "doc_media_news",
-        "transition": "fade"
+        "transition": "fade",
+        "waitAfter": 700
       },
       {
         "type": "effect",
@@ -1287,12 +1352,14 @@
       {
         "type": "say",
         "speaker": "錄音中的傑米",
-        "text": "人不是死掉才消失。"
+        "text": "人不是死掉才消失。",
+        "character": "none"
       },
       {
         "type": "say",
         "speaker": "錄音中的傑米",
-        "text": "人是在不再被需要的時候，開始消失。"
+        "text": "人是在不再被需要的時候，開始消失。",
+        "character": "none"
       },
       {
         "type": "jump",
@@ -1301,9 +1368,13 @@
     ],
     "case_memory_father": [
       {
+        "type": "clearSprites"
+      },
+      {
         "type": "bg",
         "id": "cg_memory_phone",
-        "transition": "fade"
+        "transition": "fade",
+        "waitAfter": 700
       },
       {
         "type": "effect",
@@ -1330,12 +1401,14 @@
       {
         "type": "say",
         "speaker": "錄音中的傑米",
-        "text": "我爸最後一次清醒的時候，我在開會。"
+        "text": "我爸最後一次清醒的時候，我在開會。",
+        "character": "none"
       },
       {
         "type": "say",
         "speaker": "錄音中的傑米",
-        "text": "那場會後來其實沒有那麼重要。"
+        "text": "那場會後來其實沒有那麼重要。",
+        "character": "none"
       },
       {
         "type": "jump",
@@ -1344,9 +1417,13 @@
     ],
     "case_memory_soul": [
       {
+        "type": "clearSprites"
+      },
+      {
         "type": "bg",
         "id": "cg_reincarnation_boot",
-        "transition": "fade"
+        "transition": "fade",
+        "waitAfter": 700
       },
       {
         "type": "effect",
@@ -1373,12 +1450,14 @@
       {
         "type": "say",
         "speaker": "錄音中的傑米",
-        "text": "我想留下的不是身體。"
+        "text": "我想留下的不是身體。",
+        "character": "none"
       },
       {
         "type": "say",
         "speaker": "錄音中的傑米",
-        "text": "我想留下的是，他們還能知道我是誰。"
+        "text": "我想留下的是，他們還能知道我是誰。",
+        "character": "none"
       },
       {
         "type": "jump",
@@ -1429,9 +1508,13 @@
         "label": "老麵 / 演出流程確認"
       },
       {
+        "type": "clearSprites"
+      },
+      {
         "type": "bg",
         "id": "control_room",
-        "transition": "fade"
+        "transition": "fade",
+        "waitAfter": 700
       },
       {
         "type": "bgm",
@@ -1441,9 +1524,13 @@
         "fade": 800
       },
       {
+        "type": "clearSprites"
+      },
+      {
         "type": "bg",
         "id": "doc_rundown",
-        "transition": "fade"
+        "transition": "fade",
+        "waitAfter": 700
       },
       {
         "type": "note",
@@ -1531,9 +1618,13 @@
         "label": "主舞台 / 開場影片"
       },
       {
+        "type": "clearSprites"
+      },
+      {
         "type": "bg",
         "id": "young_jamie_video",
-        "transition": "fade"
+        "transition": "fade",
+        "waitAfter": 700
       },
       {
         "type": "bgm",
@@ -1587,9 +1678,13 @@
         "label": "老麵 / 舞台監控"
       },
       {
+        "type": "clearSprites"
+      },
+      {
         "type": "bg",
         "id": "stage_dark",
-        "transition": "fade"
+        "transition": "fade",
+        "waitAfter": 700
       },
       {
         "type": "bgm",
@@ -1632,6 +1727,10 @@
         "type": "say",
         "speaker": "庭如",
         "text": "困惑上升。前排有一點憤怒。媒體區……更興奮了。"
+      },
+      {
+        "type": "hide",
+        "id": "tingru"
       },
       {
         "type": "choice",
@@ -1755,14 +1854,27 @@
         "text": "醫生說我還有一年。我說，不用那麼久，這世界爛到我自己都不想撐滿學期了。"
       },
       {
+        "type": "clearSprites"
+      },
+      {
         "type": "bg",
         "id": "cg_audience_laugh",
-        "transition": "fade"
+        "transition": "fade",
+        "waitAfter": 700
       },
       {
         "type": "sfx",
         "id": "big_laugh",
         "volume": 0.48
+      },
+      {
+        "type": "clearSprites"
+      },
+      {
+        "type": "bg",
+        "id": "stage_show",
+        "transition": "fade",
+        "waitAfter": 700
       },
       {
         "type": "say",
@@ -1795,9 +1907,17 @@
         "text": "他把我的紀念冊講得像死亡筆記本。"
       },
       {
+        "type": "hide",
+        "id": "kate"
+      },
+      {
         "type": "say",
         "speaker": "雷老師",
         "text": "效果拔群。"
+      },
+      {
+        "type": "hide",
+        "id": "ray"
       },
       {
         "type": "say",
@@ -1805,9 +1925,17 @@
         "text": "我知道，所以我更生氣。"
       },
       {
+        "type": "hide",
+        "id": "kate"
+      },
+      {
         "type": "say",
         "speaker": "庭如",
         "text": "大家開始放鬆了。悲傷被好奇跟娛樂蓋住。"
+      },
+      {
+        "type": "hide",
+        "id": "tingru"
       },
       {
         "type": "say",
@@ -1815,14 +1943,26 @@
         "text": "不是蓋住。是開路。"
       },
       {
+        "type": "hide",
+        "id": "oldnoodle"
+      },
+      {
         "type": "say",
         "speaker": "庭如",
         "text": "你最好是對的。"
       },
       {
+        "type": "hide",
+        "id": "tingru"
+      },
+      {
         "type": "say",
         "speaker": "老麵",
         "text": "我也希望。"
+      },
+      {
+        "type": "hide",
+        "id": "oldnoodle"
       },
       {
         "type": "jump",
@@ -1836,9 +1976,13 @@
         "label": "庭如 / 笑聲底下"
       },
       {
+        "type": "clearSprites"
+      },
+      {
         "type": "bg",
         "id": "stage_show",
-        "transition": "fade"
+        "transition": "fade",
+        "waitAfter": 700
       },
       {
         "type": "effect",
@@ -1941,9 +2085,13 @@
     ],
     "observe_linwei": [
       {
+        "type": "clearSprites"
+      },
+      {
         "type": "bg",
         "id": "cg_linwei_silent",
-        "transition": "fade"
+        "transition": "fade",
+        "waitAfter": 700
       },
       {
         "type": "narrate",
@@ -1955,14 +2103,35 @@
         "text": "她很痛。"
       },
       {
+        "type": "hide",
+        "id": "tingru"
+      },
+      {
         "type": "say",
         "speaker": "老麵",
         "text": "誰？"
       },
       {
+        "type": "hide",
+        "id": "oldnoodle"
+      },
+      {
         "type": "say",
         "speaker": "庭如",
         "text": "林薇。她不是恨他，只是忽然明白，自己曾經愛過的那個人，已經學會把所有東西都變成舞台效果。"
+      },
+      {
+        "type": "hide",
+        "id": "tingru"
+      },
+      {
+        "type": "clearSprites"
+      },
+      {
+        "type": "bg",
+        "id": "stage_show",
+        "transition": "fade",
+        "waitAfter": 700
       },
       {
         "type": "jump",
@@ -1980,14 +2149,35 @@
         "text": "他們在笑，也在算。"
       },
       {
+        "type": "hide",
+        "id": "tingru"
+      },
+      {
         "type": "say",
         "speaker": "老麵",
         "text": "這不衝突。"
       },
       {
+        "type": "hide",
+        "id": "oldnoodle"
+      },
+      {
         "type": "say",
         "speaker": "庭如",
         "text": "我知道，所以才可怕。"
+      },
+      {
+        "type": "hide",
+        "id": "tingru"
+      },
+      {
+        "type": "clearSprites"
+      },
+      {
+        "type": "bg",
+        "id": "stage_show",
+        "transition": "fade",
+        "waitAfter": 700
       },
       {
         "type": "jump",
@@ -2005,9 +2195,17 @@
         "text": "他在燃燒自己。"
       },
       {
+        "type": "hide",
+        "id": "tingru"
+      },
+      {
         "type": "say",
         "speaker": "老麵",
         "text": "我知道。"
+      },
+      {
+        "type": "hide",
+        "id": "oldnoodle"
       },
       {
         "type": "say",
@@ -2015,9 +2213,26 @@
         "text": "你知道還讓他繼續？"
       },
       {
+        "type": "hide",
+        "id": "tingru"
+      },
+      {
         "type": "say",
         "speaker": "老麵",
         "text": "這是他選的燃燒方式。"
+      },
+      {
+        "type": "hide",
+        "id": "oldnoodle"
+      },
+      {
+        "type": "clearSprites"
+      },
+      {
+        "type": "bg",
+        "id": "stage_show",
+        "transition": "fade",
+        "waitAfter": 700
       },
       {
         "type": "jump",
@@ -2173,14 +2388,26 @@
         "text": "他在燃燒自己。不是舞台效果的那種。"
       },
       {
+        "type": "hide",
+        "id": "tingru"
+      },
+      {
         "type": "say",
         "speaker": "老麵",
         "text": "幫我看著他什麼時候開始不是在演，而是在消耗自己。"
       },
       {
+        "type": "hide",
+        "id": "oldnoodle"
+      },
+      {
         "type": "say",
         "speaker": "庭如",
         "text": "也許已經開始了。"
+      },
+      {
+        "type": "hide",
+        "id": "tingru"
       },
       {
         "type": "jump",
@@ -2194,9 +2421,17 @@
         "text": "觀眾已經被他帶走了。"
       },
       {
+        "type": "hide",
+        "id": "tingru"
+      },
+      {
         "type": "say",
         "speaker": "老麵",
         "text": "很好。"
+      },
+      {
+        "type": "hide",
+        "id": "oldnoodle"
       },
       {
         "type": "say",
@@ -2204,9 +2439,17 @@
         "text": "你聽起來像在看數據。"
       },
       {
+        "type": "hide",
+        "id": "tingru"
+      },
+      {
         "type": "say",
         "speaker": "老麵",
         "text": "我現在必須像在看數據。"
+      },
+      {
+        "type": "hide",
+        "id": "oldnoodle"
       },
       {
         "type": "jump",
@@ -2220,9 +2463,17 @@
         "text": "這些笑聲有點不真實。"
       },
       {
+        "type": "hide",
+        "id": "tingru"
+      },
+      {
         "type": "say",
         "speaker": "老麵",
         "text": "越大的聲音，越容易讓人忘記自己在逃避什麼。"
+      },
+      {
+        "type": "hide",
+        "id": "oldnoodle"
       },
       {
         "type": "say",
@@ -2230,9 +2481,17 @@
         "text": "所以你知道。"
       },
       {
+        "type": "hide",
+        "id": "tingru"
+      },
+      {
         "type": "say",
         "speaker": "老麵",
         "text": "我知道很多事，不代表我每次都能處理得好。"
+      },
+      {
+        "type": "hide",
+        "id": "oldnoodle"
       },
       {
         "type": "jump",
@@ -2246,9 +2505,13 @@
         "label": "老麵 / 真心告白 CUE"
       },
       {
+        "type": "clearSprites"
+      },
+      {
         "type": "bg",
         "id": "stage_confession",
-        "transition": "fade"
+        "transition": "fade",
+        "waitAfter": 700
       },
       {
         "type": "bgm",
@@ -2522,9 +2785,17 @@
         "text": "這就是你說的餘韻，對嗎？"
       },
       {
+        "type": "hide",
+        "id": "tingru"
+      },
+      {
         "type": "say",
         "speaker": "老麵",
         "text": "……對。"
+      },
+      {
+        "type": "hide",
+        "id": "oldnoodle"
       },
       {
         "type": "say",
@@ -2593,14 +2864,22 @@
         "label": "庭如 / 情緒崩裂"
       },
       {
+        "type": "clearSprites"
+      },
+      {
         "type": "bg",
         "id": "stage_reincarnation",
-        "transition": "flash"
+        "transition": "flash",
+        "waitAfter": 700
+      },
+      {
+        "type": "clearSprites"
       },
       {
         "type": "bg",
         "id": "cg_reincarnation_boot",
-        "transition": "flash"
+        "transition": "flash",
+        "waitAfter": 700
       },
       {
         "type": "bgm",
@@ -2613,6 +2892,15 @@
         "type": "sfx",
         "id": "led",
         "volume": 0.72
+      },
+      {
+        "type": "clearSprites"
+      },
+      {
+        "type": "bg",
+        "id": "stage_reincarnation",
+        "transition": "fade",
+        "waitAfter": 700
       },
       {
         "type": "show",
@@ -2659,9 +2947,17 @@
         "text": "太多了。太多東西撞在一起了。有人覺得被騙，有人覺得看見奇蹟，有人在生氣，有人已經在想新聞標題。"
       },
       {
+        "type": "hide",
+        "id": "tingru"
+      },
+      {
         "type": "say",
         "speaker": "庭如",
         "text": "有人覺得自己贏了。可是他也很悲傷。"
+      },
+      {
+        "type": "hide",
+        "id": "tingru"
       },
       {
         "type": "say",
@@ -2725,9 +3021,13 @@
         "label": "老麵 / 演出結束"
       },
       {
+        "type": "clearSprites"
+      },
+      {
         "type": "bg",
         "id": "control_room_dark",
-        "transition": "fade"
+        "transition": "fade",
+        "waitAfter": 700
       },
       {
         "type": "bgm",
@@ -2745,18 +3045,26 @@
         "volume": 0.46
       },
       {
+        "type": "clearSprites"
+      },
+      {
         "type": "bg",
         "id": "cg_empty_stage_after",
-        "transition": "fade"
+        "transition": "fade",
+        "waitAfter": 700
       },
       {
         "type": "narrate",
         "text": "燈光慢慢恢復，但會場沒有恢復。媒體區像被點燃，手機亮成一片。奇點無限高層有人站起來打電話。朋友區有人沉默。林薇離開座位，沒有回頭。"
       },
       {
+        "type": "clearSprites"
+      },
+      {
         "type": "bg",
         "id": "control_room_dark",
-        "transition": "fade"
+        "transition": "fade",
+        "waitAfter": 700
       },
       {
         "type": "say",
@@ -2888,9 +3196,13 @@
         "label": "三個月後 / Before Fadeout 辦公室"
       },
       {
+        "type": "clearSprites"
+      },
+      {
         "type": "bg",
         "id": "office_news",
-        "transition": "fade"
+        "transition": "fade",
+        "waitAfter": 700
       },
       {
         "type": "bgm",
@@ -2916,32 +3228,41 @@
       {
         "type": "say",
         "speaker": "新聞主播",
-        "text": "奇點無限創辦人傑米・詹，於今日凌晨在家中病逝，享年三十六歲。"
+        "text": "奇點無限創辦人傑米・詹，於今日凌晨在家中病逝，享年三十六歲。",
+        "character": "none"
       },
       {
         "type": "say",
         "speaker": "新聞主播",
-        "text": "三個月前，他曾在一場極具爭議的生前告別秀中，公開發表 AI 人格備份與數位永生計畫「輪迴」。"
+        "text": "三個月前，他曾在一場極具爭議的生前告別秀中，公開發表 AI 人格備份與數位永生計畫「輪迴」。",
+        "character": "none"
       },
       {
         "type": "say",
         "speaker": "新聞主播",
-        "text": "當時許多評論認為，這只是一次高明卻殘酷的死亡行銷。"
+        "text": "當時許多評論認為，這只是一次高明卻殘酷的死亡行銷。",
+        "character": "none"
       },
       {
         "type": "say",
         "speaker": "新聞主播",
-        "text": "然而隨著傑米・詹今日正式離世，奇點無限宣布，將依照其生前安排，啟動第一階段人格上傳與董事會顧問模型測試。"
+        "text": "然而隨著傑米・詹今日正式離世，奇點無限宣布，將依照其生前安排，啟動第一階段人格上傳與董事會顧問模型測試。",
+        "character": "none"
       },
       {
         "type": "say",
         "speaker": "新聞主播",
-        "text": "奇點無限股價開盤後應聲漲停。"
+        "text": "奇點無限股價開盤後應聲漲停。",
+        "character": "none"
+      },
+      {
+        "type": "clearSprites"
       },
       {
         "type": "bg",
         "id": "stock_news",
-        "transition": "fade"
+        "transition": "fade",
+        "waitAfter": 700
       },
       {
         "type": "say",
@@ -3024,9 +3345,13 @@
         "label": "案件封存報告"
       },
       {
+        "type": "clearSprites"
+      },
+      {
         "type": "bg",
         "id": "case_file",
-        "transition": "fade"
+        "transition": "fade",
+        "waitAfter": 700
       },
       {
         "type": "bgm",
@@ -3041,9 +3366,13 @@
         "text": "客戶：傑米・詹\n案件：生前告別秀\n狀態：待封存"
       },
       {
+        "type": "clearSprites"
+      },
+      {
         "type": "bg",
         "id": "doc_case_report",
-        "transition": "fade"
+        "transition": "fade",
+        "waitAfter": 700
       },
       {
         "type": "narrate",
@@ -3252,14 +3581,13 @@
     ],
     "final_screen": [
       {
-        "type": "bg",
-        "id": "title",
-        "transition": "fade"
+        "type": "clearSprites"
       },
       {
         "type": "bg",
         "id": "title",
-        "transition": "fade"
+        "transition": "fade",
+        "waitAfter": 700
       },
       {
         "type": "bgm",
@@ -3292,6 +3620,9 @@
     ],
     "case_memory_win": [
       {
+        "type": "clearSprites"
+      },
+      {
         "type": "effect",
         "name": "empathyUp",
         "words": [
@@ -3316,12 +3647,14 @@
       {
         "type": "say",
         "speaker": "錄音中的傑米",
-        "text": "我不是想證明他們錯。"
+        "text": "我不是想證明他們錯。",
+        "character": "none"
       },
       {
         "type": "say",
         "speaker": "錄音中的傑米",
-        "text": "我是想證明我存在。"
+        "text": "我是想證明我存在。",
+        "character": "none"
       },
       {
         "type": "jump",
@@ -3330,9 +3663,13 @@
     ],
     "case_memory_company": [
       {
+        "type": "clearSprites"
+      },
+      {
         "type": "bg",
         "id": "doc_internal_mail",
-        "transition": "fade"
+        "transition": "fade",
+        "waitAfter": 700
       },
       {
         "type": "effect",
@@ -3359,12 +3696,14 @@
       {
         "type": "say",
         "speaker": "錄音中的傑米",
-        "text": "我用盡一生打造一個王國。"
+        "text": "我用盡一生打造一個王國。",
+        "character": "none"
       },
       {
         "type": "say",
         "speaker": "錄音中的傑米",
-        "text": "但我好像從來沒有時間，看看王國裡的風景。"
+        "text": "但我好像從來沒有時間，看看王國裡的風景。",
+        "character": "none"
       },
       {
         "type": "jump",
@@ -3373,9 +3712,13 @@
     ],
     "case_memory_ex": [
       {
+        "type": "clearSprites"
+      },
+      {
         "type": "bg",
-        "id": "cg_linwei_silent",
-        "transition": "fade"
+        "id": "doc_voice_wave",
+        "transition": "fade",
+        "waitAfter": 700
       },
       {
         "type": "effect",
@@ -3402,12 +3745,14 @@
       {
         "type": "say",
         "speaker": "錄音中的傑米",
-        "text": "她們在我還不是混蛋的時候愛過我。"
+        "text": "她們在我還不是混蛋的時候愛過我。",
+        "character": "none"
       },
       {
         "type": "say",
         "speaker": "錄音中的傑米",
-        "text": "這很珍貴。也很不幸，因為後來我確實變成了混蛋。"
+        "text": "這很珍貴。也很不幸，因為後來我確實變成了混蛋。",
+        "character": "none"
       },
       {
         "type": "jump",
@@ -3416,9 +3761,13 @@
     ],
     "observe_fake_family": [
       {
+        "type": "clearSprites"
+      },
+      {
         "type": "bg",
         "id": "cg_audience_laugh",
-        "transition": "fade"
+        "transition": "fade",
+        "waitAfter": 700
       },
       {
         "type": "narrate",
@@ -3438,14 +3787,35 @@
         "text": "他們原本在表演悲傷。現在真的有一點悲傷。"
       },
       {
+        "type": "hide",
+        "id": "tingru"
+      },
+      {
         "type": "say",
         "speaker": "老麵",
         "text": "所以悲傷是真的？"
       },
       {
+        "type": "hide",
+        "id": "oldnoodle"
+      },
+      {
         "type": "say",
         "speaker": "庭如",
         "text": "是真的。但位置不對。"
+      },
+      {
+        "type": "hide",
+        "id": "tingru"
+      },
+      {
+        "type": "clearSprites"
+      },
+      {
+        "type": "bg",
+        "id": "stage_show",
+        "transition": "fade",
+        "waitAfter": 700
       },
       {
         "type": "jump",
@@ -3601,6 +3971,15 @@
         "text": "老麵沒有回答。傑米也沒有追問。"
       },
       {
+        "type": "clearSprites"
+      },
+      {
+        "type": "bg",
+        "id": "control_room_dark",
+        "transition": "fade",
+        "waitAfter": 700
+      },
+      {
         "type": "jump",
         "next": "after_tingru_choice"
       }
@@ -3631,15 +4010,28 @@
         "text": "因為我平常比較知道自己感覺到什麼。現在太多了，像有人把一整間房子的燈同時打開，可是房子裡每一個人都在流血。"
       },
       {
+        "type": "clearSprites"
+      },
+      {
+        "type": "bg",
+        "id": "control_room_dark",
+        "transition": "fade",
+        "waitAfter": 700
+      },
+      {
         "type": "jump",
         "next": "after_tingru_choice"
       }
     ],
     "after_observe_guests": [
       {
+        "type": "clearSprites"
+      },
+      {
         "type": "bg",
         "id": "cg_audience_laugh",
-        "transition": "fade"
+        "transition": "fade",
+        "waitAfter": 700
       },
       {
         "type": "narrate",
@@ -3648,17 +4040,20 @@
       {
         "type": "say",
         "speaker": "記者A",
-        "text": "死亡行銷。"
+        "text": "死亡行銷。",
+        "character": "none"
       },
       {
         "type": "say",
         "speaker": "記者B",
-        "text": "不，這叫數位永生第一案。"
+        "text": "不，這叫數位永生第一案。",
+        "character": "none"
       },
       {
         "type": "say",
         "speaker": "記者C",
-        "text": "標題可以下：他用自己的死亡，發表了人類的未來。"
+        "text": "標題可以下：他用自己的死亡，發表了人類的未來。",
+        "character": "none"
       },
       {
         "type": "say",
@@ -3666,9 +4061,26 @@
         "text": "他們已經開始了。"
       },
       {
+        "type": "hide",
+        "id": "oldnoodle"
+      },
+      {
         "type": "say",
         "speaker": "庭如",
         "text": "大家都開始了。"
+      },
+      {
+        "type": "hide",
+        "id": "tingru"
+      },
+      {
+        "type": "clearSprites"
+      },
+      {
+        "type": "bg",
+        "id": "control_room_dark",
+        "transition": "fade",
+        "waitAfter": 700
       },
       {
         "type": "jump",
@@ -3677,9 +4089,13 @@
     ],
     "after_observe_phone": [
       {
+        "type": "clearSprites"
+      },
+      {
         "type": "bg",
         "id": "doc_media_news",
-        "transition": "fade"
+        "transition": "fade",
+        "waitAfter": 700
       },
       {
         "type": "sfx",
@@ -3697,9 +4113,17 @@
         "text": "太快了。"
       },
       {
+        "type": "hide",
+        "id": "oldnoodle"
+      },
+      {
         "type": "say",
         "speaker": "雷老師",
         "text": "網路最擅長的就是把人的一生壓縮成三十秒懶人包。"
+      },
+      {
+        "type": "hide",
+        "id": "ray"
       },
       {
         "type": "say",
@@ -3707,8 +4131,21 @@
         "text": "可是我們今天做的事，不也是嗎？"
       },
       {
+        "type": "hide",
+        "id": "tingru"
+      },
+      {
         "type": "narrate",
         "text": "控制室再次安靜。"
+      },
+      {
+        "type": "clearSprites"
+      },
+      {
+        "type": "bg",
+        "id": "control_room_dark",
+        "transition": "fade",
+        "waitAfter": 700
       },
       {
         "type": "jump",

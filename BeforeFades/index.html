@@ -326,17 +326,19 @@
 
     .emotion-word {
       position: absolute;
+      z-index: 8;
       padding: 6px 10px;
       border: 1px solid rgba(255,255,255,0.16);
       border-radius: 999px;
-      background: rgba(6, 9, 14, 0.56);
+      background: rgba(6, 9, 14, 0.64);
       color: rgba(255, 239, 196, 0.92);
       font-size: clamp(15px, 1.65vw, 25px);
       letter-spacing: 0.12em;
       text-shadow: 0 0 14px rgba(241, 200, 95, 0.85);
-      animation: emotionFloatUp 3.2s ease forwards;
+      animation: emotionFloatUp var(--emotion-life, 5800ms) ease forwards;
       pointer-events: none;
       white-space: nowrap;
+      will-change: opacity, transform, filter;
     }
 
     /*
@@ -794,6 +796,9 @@
       autoDelayBase: 1200,
       autoDelayPerChar: 38,
       bgmFadeMs: 900,
+      bgPostSwitchDelayMs: 680,
+      emotionWordLifeMs: 5800,
+      emotionWordStaggerMs: 150,
       defaultBg: "radial-gradient(circle at 50% 30%, #202530 0%, #080a0e 65%, #020305 100%)"
     };
 
@@ -852,6 +857,7 @@
       currentUi: "g",
       continueAfterBusy: false,
       bgmToken: 0,
+      spriteZ: 20,
       sprites: new Map()
     };
 
@@ -989,7 +995,7 @@
           nextCommand();
           break;
         case "bg":
-          await setBackground(cmd.id, cmd.transition);
+          await setBackground(cmd.id, cmd.transition, cmd.waitAfter ?? cmd.delayAfter);
           nextCommand();
           break;
         case "show":
@@ -1242,15 +1248,22 @@
       }
     }
 
-    async function setBackground(id, transition = "fade") {
+    async function setBackground(id, transition = "fade", postDelayMs = CONFIG.bgPostSwitchDelayMs) {
+      const requestedBgId = id || "";
+      id = sanitizeBackgroundIdForScene(requestedBgId);
       const bg = state.script.assets?.backgrounds?.[id];
       state.currentBgId = id || "";
+
+      // 背景切換通常代表視覺焦點切換；先清掉不該跨場景殘留的舞台限定立繪，避免準備室或文件畫面誤出現台上傑米。
+      clearInvalidSpritesForBackground(id);
+
       if (!bg) {
-        console.warn("Missing background:", id);
+        console.warn("Missing background:", id, requestedBgId && requestedBgId !== id ? `(requested: ${requestedBgId})` : "");
         dom.bg.style.background = CONFIG.defaultBg;
         dom.bgImage.removeAttribute("src");
         dom.bgImage.style.opacity = "0";
         updateTitleLogo("");
+        await wait(normalizePostBgDelay(postDelayMs));
         return;
       }
 
@@ -1287,7 +1300,36 @@
       }
 
       dom.bg.style.opacity = "1";
-      await wait(120);
+      await wait(normalizePostBgDelay(postDelayMs));
+    }
+
+    function normalizePostBgDelay(value) {
+      const n = Number(value);
+      if (!Number.isFinite(n)) return CONFIG.bgPostSwitchDelayMs;
+      return Math.max(0, n);
+    }
+
+    function sanitizeBackgroundIdForScene(id) {
+      // 傑米錄音回憶段不要誤切到林薇 CG。保留 observe_linwei 那種正式觀察段的使用權。
+      if (id === "cg_linwei_silent" && /^case_memory/i.test(String(state.sceneId || ""))) {
+        return resolveBackgroundSrc("doc_voice_wave") ? "doc_voice_wave" : "case_file";
+      }
+      return id;
+    }
+
+    function clearInvalidSpritesForBackground(bgId) {
+      const isStage = isStageBackground(bgId);
+      state.sprites.forEach((img, id) => {
+        const expression = String(img.dataset.expression || "");
+        if (id === "jamie" && !isStage && ["show", "reincarnation"].includes(expression)) {
+          img.remove();
+          state.sprites.delete(id);
+        }
+      });
+    }
+
+    function isStageBackground(bgId = state.currentBgId) {
+      return /stage|show|confession|reincarnation|audience/.test(String(bgId || ""));
     }
 
     function imageDisplayModeFor(id, src, category) {
@@ -1367,12 +1409,15 @@
         state.sprites.set(id, img);
       }
 
-      const src = resolveCharacterSrc(id, cmd.expression, cmd.src);
+      const requestedExpression = cmd.expression || img.dataset.expression || "default";
+      const safeExpression = sanitizeCharacterExpression(id, requestedExpression);
+      const src = resolveCharacterSrc(id, safeExpression, cmd.src);
       if (src && img.src !== new URL(src, window.location.href).href) img.src = src;
       img.dataset.auto = cmd.auto ? "true" : (img.dataset.auto || "false");
-      img.dataset.expression = cmd.expression || img.dataset.expression || "default";
+      img.dataset.expression = safeExpression;
       img.className = `sprite ${cmd.position || "center"}`;
       if (cmd.dimmed) img.classList.add("dimmed");
+      bringSpriteToFront(id);
       if (cmd.instant) {
         requestAnimationFrame(() => img.classList.add("visible"));
         focusSprite(id);
@@ -1382,6 +1427,21 @@
       img.classList.add("visible");
       focusSprite(id);
       await wait(260);
+    }
+
+    function sanitizeCharacterExpression(id, expression) {
+      const exp = String(expression || "default");
+      if (id === "jamie" && !isStageBackground() && ["show", "reincarnation"].includes(exp)) {
+        return "nervous";
+      }
+      return exp;
+    }
+
+    function bringSpriteToFront(id) {
+      const img = state.sprites.get(id);
+      if (!img) return;
+      state.spriteZ = (state.spriteZ || 20) + 1;
+      img.style.zIndex = String(state.spriteZ);
     }
 
     async function hideSprite(id) {
@@ -1438,7 +1498,7 @@
     function autoShowSpeakerSprite(speaker, text, cmd = {}) {
       const id = cmd.character || speakerToCharacter(speaker);
       if (!id) return;
-      const expression = cmd.expression || pickExpressionFor(id, text || "");
+      const expression = sanitizeCharacterExpression(id, cmd.expression || pickExpressionFor(id, text || ""));
       const position = cmd.position || defaultSpritePositionFor(id);
       const src = resolveCharacterSrc(id, expression);
       if (!src) return;
@@ -1460,10 +1520,12 @@
         return "default";
       }
       if (id === "jamie") {
+        const isStage = isStageBackground(bg);
+        if (!isStage) return "nervous";
         if (/reincarnation|輪迴/.test(bg) || /升級|輪迴|產品|人格掃描|意志/.test(t)) return "reincarnation";
         if (/confession|告白/.test(bg) || /害怕|真心|死亡|忘記|坦承|不要笑/.test(t)) return "confession";
         if (/stage_show|showtime|audience_laugh/.test(bg) || /笑|地獄|台上|段子|觀眾/.test(t)) return "show";
-        return "nervous";
+        return "confession";
       }
       return "default";
     }
@@ -1471,13 +1533,14 @@
     function defaultSpritePositionFor(id) {
       if (id === "oldnoodle") return "left";
       if (id === "jamie") {
-        return /stage|show|confession|reincarnation|audience/.test(String(state.currentBgId || "")) ? "center" : "right";
+        return isStageBackground() ? "center" : "right";
       }
       if (id === "linwei") return "right";
       return "right";
     }
 
     function focusSprite(activeId) {
+      if (activeId) bringSpriteToFront(activeId);
       state.sprites.forEach((img, id) => {
         if (!activeId || id === activeId) img.classList.remove("dimmed");
         else img.classList.add("dimmed");
@@ -1584,8 +1647,8 @@
         // 也可明確指定：{ "type": "effect", "name": "empathyUp", "words": [...] }
         case "empathy":
         case "empathyUp":
-          if (normalizeEmotionDirection(cmd.direction || cmd.dir || "up") === "down") showCutinImage("cg_empathy_fall", 1900);
-          else showCutinImage("cg_empathy_warm", 1800);
+          if (normalizeEmotionDirection(cmd.direction || cmd.dir || "up") === "down") showCutinImage("cg_empathy_fall", 5200);
+          else showCutinImage("cg_empathy_warm", 5200);
           await empathyWords(cmd.words || [], cmd.direction || cmd.dir || "up");
           break;
 
@@ -1595,7 +1658,7 @@
         case "empathyDown":
         case "empathyFall":
         case "empathySink":
-          showCutinImage("cg_empathy_fall", 2100);
+          showCutinImage("cg_empathy_fall", 5200);
           await empathyWords(cmd.words || [], "down");
           break;
 
@@ -1656,7 +1719,8 @@
 
       const dir = normalizeEmotionDirection(direction);
       const className = dir === "down" ? "emotion-word float-down" : "emotion-word float-up";
-      const lifeMs = dir === "down" ? 4100 : 3800;
+      const lifeMs = CONFIG.emotionWordLifeMs;
+      const staggerMs = CONFIG.emotionWordStaggerMs;
 
       list.forEach((word, idx) => {
         const el = document.createElement("div");
@@ -1671,11 +1735,12 @@
 
         el.style.left = `${x}vw`;
         el.style.top = `${y}vh`;
-        el.style.animationDelay = `${idx * 130}ms`;
+        el.style.animationDelay = `${idx * staggerMs}ms`;
+        el.style.animationDuration = `${lifeMs}ms`;
         dom.effects.appendChild(el);
-        setTimeout(() => el.remove(), lifeMs + idx * 130);
+        setTimeout(() => el.remove(), lifeMs + idx * staggerMs + 120);
       });
-      await wait(900);
+      await wait(Math.min(1800, lifeMs));
     }
 
     function showCutinImage(assetId, ms = 1800) {
