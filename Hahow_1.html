@@ -3,907 +3,1202 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>HaHow AI 完課增強方案｜企劃發想稿</title>
+  <title>HaHow 影片課程 AI 完課增強方案｜產品企劃發想</title>
   <style>
-    :root {
-      --bg: #f6f3ee;
-      --paper: #fffdf8;
-      --ink: #24211c;
-      --muted: #706a60;
-      --line: #e6ded1;
-      --primary: #ffb000;
-      --primary-dark: #a56800;
-      --blue: #2f6f9f;
-      --green: #3d7b59;
-      --red: #a85a4a;
-      --purple: #6a5da8;
-      --shadow: 0 18px 50px rgba(67, 50, 20, 0.10);
-      --radius: 24px;
+    :root{
+      --bg:#f6f3ee;
+      --paper:#fffdf8;
+      --ink:#1f2933;
+      --muted:#667085;
+      --line:#e7dfd2;
+      --brand:#e8673f;
+      --brand-dark:#b94828;
+      --brand-soft:#fff0e9;
+      --blue:#2d6cdf;
+      --blue-soft:#eef5ff;
+      --green:#168a62;
+      --green-soft:#eafaf3;
+      --yellow:#b7791f;
+      --yellow-soft:#fff8e7;
+      --purple:#7c3aed;
+      --purple-soft:#f4efff;
+      --gray-soft:#f3f4f6;
+      --danger:#c2410c;
+      --shadow:0 18px 45px rgba(31,41,51,.08);
+      --radius:22px;
     }
-
-    * { box-sizing: border-box; }
-
-    body {
-      margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+    *{box-sizing:border-box}
+    body{
+      margin:0;
       background:
-        radial-gradient(circle at top left, rgba(255, 176, 0, 0.20), transparent 34rem),
-        radial-gradient(circle at top right, rgba(47, 111, 159, 0.13), transparent 34rem),
+        radial-gradient(circle at top left, rgba(232,103,63,.14), transparent 32rem),
+        radial-gradient(circle at top right, rgba(45,108,223,.10), transparent 30rem),
         var(--bg);
-      color: var(--ink);
-      line-height: 1.75;
+      color:var(--ink);
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC","Microsoft JhengHei",Arial,sans-serif;
+      line-height:1.72;
+      letter-spacing:.01em;
     }
-
-    a { color: inherit; }
-
-    .page {
-      width: min(1120px, calc(100% - 36px));
-      margin: 0 auto;
-      padding: 34px 0 80px;
+    .wrap{max-width:1180px;margin:0 auto;padding:42px 24px 80px}
+    .hero{
+      background:linear-gradient(135deg,#fffdf8 0%,#fff7ef 48%,#f2f7ff 100%);
+      border:1px solid rgba(231,223,210,.95);
+      border-radius:32px;
+      padding:46px 48px;
+      box-shadow:var(--shadow);
+      position:relative;
+      overflow:hidden;
     }
-
-    .hero {
-      position: relative;
-      overflow: hidden;
-      background: linear-gradient(135deg, #221a11 0%, #3a2a16 58%, #74521b 100%);
-      color: #fff8e7;
-      border-radius: 32px;
-      padding: 56px;
-      box-shadow: var(--shadow);
+    .hero:after{
+      content:"";
+      position:absolute;
+      right:-80px;top:-80px;
+      width:280px;height:280px;
+      background:rgba(232,103,63,.13);
+      border-radius:50%;
+      filter:blur(2px);
     }
-
-    .hero::after {
-      content: "";
-      position: absolute;
-      width: 360px;
-      height: 360px;
-      right: -110px;
-      top: -120px;
-      background: radial-gradient(circle, rgba(255, 176, 0, .45), rgba(255,176,0,0));
-      border-radius: 50%;
+    .kicker{
+      display:inline-flex;align-items:center;gap:8px;
+      color:var(--brand-dark);
+      background:rgba(255,240,233,.9);
+      border:1px solid rgba(232,103,63,.22);
+      border-radius:999px;
+      padding:6px 14px;
+      font-size:14px;
+      font-weight:700;
+      margin-bottom:18px;
     }
-
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 7px 14px;
-      border: 1px solid rgba(255,255,255,.22);
-      background: rgba(255,255,255,.08);
-      border-radius: 999px;
-      font-size: 14px;
-      letter-spacing: .06em;
-      color: #ffe3a3;
+    h1{
+      margin:0 0 16px;
+      font-size:42px;
+      line-height:1.18;
+      letter-spacing:-.035em;
     }
-
-    .hero h1 {
-      position: relative;
-      z-index: 1;
-      margin: 24px 0 18px;
-      max-width: 820px;
-      font-size: clamp(36px, 5vw, 64px);
-      line-height: 1.12;
-      letter-spacing: -0.045em;
+    .subtitle{
+      max-width:850px;
+      font-size:19px;
+      color:#475467;
+      margin:0 0 28px;
     }
-
-    .hero .subtitle {
-      position: relative;
-      z-index: 1;
-      max-width: 820px;
-      font-size: 20px;
-      color: #f5e6c5;
-      margin: 0;
+    .meta{
+      display:flex;flex-wrap:wrap;gap:12px;
+      margin-top:24px;
+      color:#475467;
+      font-size:14px;
     }
-
-    .hero-grid {
-      position: relative;
-      z-index: 1;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
-      margin-top: 34px;
+    .pill{
+      display:inline-flex;align-items:center;
+      padding:7px 12px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.72);
+      font-weight:650;
     }
-
-    .hero-card {
-      background: rgba(255,255,255,.09);
-      border: 1px solid rgba(255,255,255,.16);
-      border-radius: 18px;
-      padding: 18px;
-      backdrop-filter: blur(8px);
+    .grid{display:grid;gap:22px}
+    .g2{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .g3{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .g4{grid-template-columns:repeat(4,minmax(0,1fr))}
+    section{
+      margin-top:30px;
+      background:rgba(255,253,248,.94);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      padding:30px;
+      box-shadow:0 12px 30px rgba(31,41,51,.045);
     }
-
-    .hero-card b {
-      display: block;
-      color: #ffd06a;
-      font-size: 15px;
-      margin-bottom: 8px;
+    section.plain{
+      background:transparent;
+      border:none;
+      box-shadow:none;
+      padding:0;
     }
-
-    .hero-card span {
-      color: #f4ead2;
-      font-size: 15px;
+    h2{
+      margin:0 0 16px;
+      font-size:28px;
+      line-height:1.25;
+      letter-spacing:-.025em;
     }
-
-    .nav {
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      margin: 18px 0 28px;
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      padding: 12px;
-      background: rgba(246, 243, 238, .86);
-      border: 1px solid rgba(230, 222, 209, .9);
-      border-radius: 20px;
-      backdrop-filter: blur(12px);
+    h3{
+      margin:0 0 10px;
+      font-size:20px;
+      line-height:1.35;
     }
-
-    .nav a {
-      text-decoration: none;
-      color: var(--muted);
-      background: var(--paper);
-      border: 1px solid var(--line);
-      padding: 8px 12px;
-      border-radius: 999px;
-      font-size: 14px;
-      transition: .18s ease;
+    h4{
+      margin:0 0 8px;
+      font-size:16px;
     }
-
-    .nav a:hover {
-      color: var(--ink);
-      border-color: #d0b471;
-      transform: translateY(-1px);
+    p{margin:0 0 12px}
+    .lead{font-size:17px;color:#475467}
+    .card{
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:20px;
+      padding:22px;
+      box-shadow:0 10px 24px rgba(31,41,51,.04);
     }
-
-    section {
-      margin-top: 28px;
-      background: rgba(255,253,248,.86);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      padding: 34px;
-      box-shadow: 0 10px 30px rgba(67, 50, 20, 0.045);
+    .card.soft-orange{background:var(--brand-soft);border-color:rgba(232,103,63,.24)}
+    .card.soft-blue{background:var(--blue-soft);border-color:rgba(45,108,223,.20)}
+    .card.soft-green{background:var(--green-soft);border-color:rgba(22,138,98,.20)}
+    .card.soft-yellow{background:var(--yellow-soft);border-color:rgba(183,121,31,.22)}
+    .card.soft-purple{background:var(--purple-soft);border-color:rgba(124,58,237,.18)}
+    .tag{
+      display:inline-block;
+      font-size:12px;
+      font-weight:800;
+      letter-spacing:.05em;
+      padding:4px 9px;
+      border-radius:999px;
+      background:var(--gray-soft);
+      color:#475467;
+      margin-bottom:10px;
     }
-
-    section h2 {
-      margin: 0 0 14px;
-      font-size: 30px;
-      line-height: 1.25;
-      letter-spacing: -0.03em;
+    .tag.orange{background:var(--brand-soft);color:var(--brand-dark)}
+    .tag.blue{background:var(--blue-soft);color:#1d4ed8}
+    .tag.green{background:var(--green-soft);color:#047857}
+    .tag.yellow{background:var(--yellow-soft);color:#92400e}
+    .tag.purple{background:var(--purple-soft);color:#6d28d9}
+    ul,ol{margin:10px 0 0 1.2em;padding:0}
+    li{margin:6px 0}
+    .checklist{list-style:none;margin-left:0}
+    .checklist li{position:relative;padding-left:28px}
+    .checklist li:before{
+      content:"✓";
+      position:absolute;left:0;top:0;
+      color:var(--green);
+      font-weight:900;
     }
-
-    section h3 {
-      margin: 28px 0 10px;
-      font-size: 22px;
-      letter-spacing: -0.02em;
+    .warnlist{list-style:none;margin-left:0}
+    .warnlist li{position:relative;padding-left:28px}
+    .warnlist li:before{
+      content:"!";
+      position:absolute;left:0;top:2px;
+      width:18px;height:18px;
+      border-radius:50%;
+      background:var(--yellow-soft);
+      color:var(--yellow);
+      text-align:center;
+      line-height:18px;
+      font-size:12px;
+      font-weight:900;
     }
-
-    section p {
-      margin: 10px 0;
-      color: #3a352d;
+    .quote{
+      border-left:5px solid var(--brand);
+      background:#fff8f2;
+      border-radius:14px;
+      padding:20px 22px;
+      font-size:20px;
+      font-weight:800;
+      line-height:1.55;
+      margin:18px 0 0;
     }
-
-    .lead {
-      font-size: 18px;
-      color: #3e3528;
+    .small{font-size:13px;color:var(--muted)}
+    .muted{color:var(--muted)}
+    table{
+      width:100%;
+      border-collapse:separate;
+      border-spacing:0;
+      overflow:hidden;
+      border:1px solid var(--line);
+      border-radius:16px;
+      background:#fff;
+      margin-top:16px;
     }
-
-    .quote {
-      margin: 20px 0;
-      padding: 20px 22px;
-      border-left: 5px solid var(--primary);
-      background: #fff6dd;
-      border-radius: 16px;
-      font-size: 19px;
-      font-weight: 700;
-      color: #3c2b0e;
+    th,td{
+      padding:14px 16px;
+      border-bottom:1px solid var(--line);
+      vertical-align:top;
+      text-align:left;
     }
-
-    .grid-2 {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 16px;
+    th{
+      background:#fbf6ef;
+      font-size:14px;
+      color:#475467;
+      font-weight:800;
     }
-
-    .grid-3 {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
+    tr:last-child td{border-bottom:none}
+    .num{
+      font-size:30px;
+      font-weight:900;
+      line-height:1;
+      color:var(--brand-dark);
+      letter-spacing:-.04em;
     }
-
-    .card {
-      background: #fffdfa;
-      border: 1px solid var(--line);
-      border-radius: 20px;
-      padding: 22px;
+    .flow{
+      display:grid;
+      grid-template-columns:1fr 52px 1fr 52px 1fr;
+      align-items:stretch;
+      gap:12px;
+      margin-top:18px;
     }
-
-    .card h3, .card h4 {
-      margin-top: 0;
+    .node{
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:18px;
+      padding:20px;
+      min-height:150px;
     }
-
-    .card h4 {
-      font-size: 19px;
-      margin-bottom: 8px;
+    .arrow{
+      display:flex;align-items:center;justify-content:center;
+      color:var(--brand);
+      font-size:28px;
+      font-weight:900;
     }
-
-    .tag {
-      display: inline-block;
-      padding: 4px 10px;
-      border-radius: 999px;
-      background: #f1eadc;
-      color: #6b5a3b;
-      font-size: 13px;
-      font-weight: 700;
-      margin-bottom: 10px;
+    .lane{
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:18px;
+      overflow:hidden;
     }
-
-    .tag.blue { background: #e8f2f8; color: var(--blue); }
-    .tag.green { background: #e9f4ed; color: var(--green); }
-    .tag.red { background: #f8e9e5; color: var(--red); }
-    .tag.purple { background: #eeeaf8; color: var(--purple); }
-    .tag.gold { background: #fff1ca; color: var(--primary-dark); }
-
-    ul, ol { padding-left: 1.3em; }
-    li { margin: 7px 0; }
-
-    .matrix {
-      width: 100%;
-      border-collapse: collapse;
-      overflow: hidden;
-      border-radius: 18px;
-      font-size: 15px;
-      background: #fff;
+    .lane-head{
+      padding:14px 18px;
+      font-weight:900;
+      background:#fbf6ef;
+      border-bottom:1px solid var(--line);
     }
-
-    .matrix th, .matrix td {
-      border: 1px solid var(--line);
-      padding: 13px 14px;
-      vertical-align: top;
-      text-align: left;
+    .lane-body{padding:16px 18px}
+    .bar{
+      height:10px;
+      background:#eee7dc;
+      border-radius:999px;
+      overflow:hidden;
+      margin:12px 0 4px;
     }
-
-    .matrix th {
-      background: #2d251a;
-      color: #fff4dc;
-      font-weight: 700;
+    .bar span{
+      display:block;height:100%;
+      background:linear-gradient(90deg,var(--brand),#f59e0b);
+      border-radius:999px;
     }
-
-    .matrix tr:nth-child(even) td {
-      background: #fffaf0;
+    .timeline{
+      position:relative;
+      margin-top:18px;
+      padding-left:24px;
+      border-left:3px solid #eadfd2;
     }
-
-    .cost-low { color: var(--green); font-weight: 800; }
-    .cost-mid { color: var(--primary-dark); font-weight: 800; }
-    .cost-high { color: var(--red); font-weight: 800; }
-
-    .timeline {
-      display: grid;
-      gap: 16px;
-      margin-top: 18px;
+    .mile{
+      position:relative;
+      margin:0 0 20px;
+      padding:18px 20px;
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:18px;
     }
-
-    .phase {
-      display: grid;
-      grid-template-columns: 130px 1fr;
-      gap: 18px;
-      align-items: stretch;
+    .mile:before{
+      content:"";
+      position:absolute;
+      left:-34px;top:24px;
+      width:17px;height:17px;
+      background:var(--brand);
+      border:4px solid #fff8ef;
+      border-radius:50%;
+      box-shadow:0 0 0 1px rgba(232,103,63,.28);
     }
-
-    .phase .time {
-      border-radius: 18px;
-      background: #2d251a;
-      color: #ffe5a3;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 16px;
-      font-weight: 900;
+    .budget{
+      display:grid;
+      grid-template-columns:1.2fr .9fr .9fr .9fr;
+      gap:14px;
+      margin-top:18px;
     }
-
-    .phase .body {
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      background: #fffdfa;
-      padding: 18px 22px;
+    .budget .card{padding:18px}
+    .price{
+      font-size:25px;
+      font-weight:950;
+      letter-spacing:-.04em;
+      color:#111827;
     }
-
-    .phase h3 {
-      margin: 0 0 8px;
-      font-size: 20px;
+    .badge{
+      display:inline-block;
+      padding:3px 8px;
+      border-radius:7px;
+      font-size:12px;
+      font-weight:800;
+      background:#eef2ff;
+      color:#3730a3;
+      margin-left:6px;
+      vertical-align:middle;
     }
-
-    .kpi-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 14px;
-      margin-top: 18px;
+    .footer{
+      margin-top:34px;
+      color:var(--muted);
+      font-size:13px;
+      text-align:center;
     }
-
-    .kpi {
-      border-radius: 20px;
-      padding: 18px;
-      background: #fff7e5;
-      border: 1px solid #efd79e;
+    .print-note{
+      display:none;
+      font-size:12px;
+      color:#667085;
+      margin-top:10px;
     }
-
-    .kpi strong {
-      display: block;
-      font-size: 25px;
-      line-height: 1.2;
-      color: #805100;
-      margin-bottom: 8px;
+    @media (max-width: 900px){
+      .wrap{padding:22px 14px 56px}
+      .hero{padding:30px 24px}
+      h1{font-size:32px}
+      .subtitle{font-size:17px}
+      .g2,.g3,.g4{grid-template-columns:1fr}
+      .flow{grid-template-columns:1fr}
+      .arrow{transform:rotate(90deg);min-height:28px}
+      .budget{grid-template-columns:1fr}
+      table{font-size:14px}
+      th,td{padding:12px}
     }
-
-    .kpi span {
-      font-size: 14px;
-      color: #65543a;
-    }
-
-    .callout {
-      padding: 22px;
-      border-radius: 22px;
-      background: linear-gradient(135deg, #fff3d0, #fffdf8);
-      border: 1px solid #ead299;
-      margin: 18px 0;
-    }
-
-    .warning {
-      padding: 20px 22px;
-      border-radius: 20px;
-      background: #fff2ee;
-      border: 1px solid #f0cbc0;
-    }
-
-    .footer {
-      text-align: center;
-      color: var(--muted);
-      padding: 36px 0 0;
-      font-size: 14px;
-    }
-
-    .pill-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin: 16px 0 0;
-    }
-
-    .pill-list span {
-      background: #f3ead9;
-      border: 1px solid #e0d2ba;
-      color: #6c5732;
-      border-radius: 999px;
-      padding: 7px 12px;
-      font-size: 14px;
-      font-weight: 700;
-    }
-
-    .product-title {
-      display: flex;
-      justify-content: space-between;
-      gap: 14px;
-      align-items: flex-start;
-    }
-
-    .product-title h3 {
-      margin: 0;
-    }
-
-    .mini {
-      font-size: 14px;
-      color: var(--muted);
-    }
-
-    .print-note {
-      margin-top: 18px;
-      color: #8d7851;
-      font-size: 13px;
-    }
-
-    @media (max-width: 860px) {
-      .hero { padding: 34px 24px; }
-      .hero-grid, .grid-2, .grid-3, .kpi-grid { grid-template-columns: 1fr; }
-      section { padding: 24px 20px; }
-      .phase { grid-template-columns: 1fr; }
-      .phase .time { justify-content: flex-start; }
-      .matrix { font-size: 14px; }
-      .matrix th, .matrix td { padding: 10px; }
-      .nav { position: relative; }
-    }
-
-    @media print {
-      body { background: #fff; }
-      .page { width: 100%; padding: 0; }
-      .nav { display: none; }
-      section, .hero { break-inside: avoid; box-shadow: none; }
+    @media print{
+      body{background:#fff}
+      .wrap{max-width:none;padding:0}
+      .hero,section,.card,.node,.lane,.mile{box-shadow:none}
+      .hero{border-radius:0}
+      section{break-inside:avoid}
+      .print-note{display:block}
     }
   </style>
 </head>
 <body>
-  <main class="page">
+  <main class="wrap">
     <header class="hero">
-      <div class="eyebrow">企劃發想稿｜AI × 線上影片課程 × 完課率提升</div>
-      <h1>HaHow AI 完課增強方案</h1>
-      <p class="subtitle">以低成本、限量使用、預生成優先的 AI 輔助模組，提升線上課程的觀看完成率、回訪率與學習吸收感，而不取代 HaHow 既有影片教學主體。</p>
-      <div class="hero-grid">
-        <div class="hero-card">
-          <b>產品核心</b>
-          <span>影片是主菜，AI 是導覽、提醒、重點整理與有限解惑。</span>
-        </div>
-        <div class="hero-card">
-          <b>成本策略</b>
-          <span>大量內容預生成；即時 LLM 問答採配額制、快取與短答限制。</span>
-        </div>
-        <div class="hero-card">
-          <b>合作切入</b>
-          <span>先做 3 門課 PoC，驗證回訪、章節完成、小測驗與完課率提升。</span>
-        </div>
+      <div class="kicker">產品企劃發想｜影片課程 AI 完課增強方案</div>
+      <h1>HaHow 影片課程 AI 完課增強方案</h1>
+      <p class="subtitle">
+        以 HaHow 既有課程內容、會員入口與觀看行為為基礎，透過外部 LLM／RAG 能力建立低成本、限量使用、以影片為核心的 AI 學習輔助模組。
+        目標不是取代課程，而是提升看課回訪、章節理解、完課率與課後吸收感。
+      </p>
+      <div class="meta">
+        <span class="pill">版本：企劃發想 v3</span>
+        <span class="pill">日期：2026/05/28</span>
+        <span class="pill">適用：合作提案 / PoC 規劃 / 內部討論</span>
+        <span class="pill">產品定位：輕量 AI 增強層</span>
       </div>
     </header>
 
-    <nav class="nav">
-      <a href="#positioning">定位</a>
-      <a href="#principles">產品原則</a>
-      <a href="#products">產品模組</a>
-      <a href="#ta">TA</a>
-      <a href="#cost">成本週期</a>
-      <a href="#mvp">MVP</a>
-      <a href="#business">商業模式</a>
-      <a href="#risk">風險</a>
-      <a href="#proposal">提案話術</a>
-    </nav>
+    <section>
+      <h2>一、企劃摘要</h2>
+      <div class="grid g3">
+        <div class="card soft-orange">
+          <span class="tag orange">核心目標</span>
+          <h3>讓影片課更容易被看完</h3>
+          <p>以章節重點卡、小測驗、站內／LINE 提醒與有限問答，降低學員中斷率，讓使用者從「買課」更容易走到「持續學習」。</p>
+        </div>
+        <div class="card soft-blue">
+          <span class="tag blue">成本策略</span>
+          <h3>AI 只在關鍵處出手</h3>
+          <p>大量內容採批次預生成，使用者端即時 LLM 僅用於限量答疑與少量任務簡評，避免無限制聊天造成成本黑洞。</p>
+        </div>
+        <div class="card soft-green">
+          <span class="tag green">合作模式</span>
+          <h3>我方主導產品與整合</h3>
+          <p>我方負責產品規劃、資料需求定義、API contract、三方協調、驗收規格與商業模式設計；LLM 廠商提供模型與 RAG 能力。</p>
+        </div>
+      </div>
 
-    <section id="positioning">
-      <h2>一、重新定位：不是 AI 學習平台，而是影片課程的增強層</h2>
-      <p class="lead">本案不應把 HaHow 轉成另一套 AI 學習後台，也不應讓 AI 喧賓奪主。HaHow 的核心價值仍然是老師、課程、影片內容、平台流量、購課體驗與課程品牌。</p>
-      <div class="quote">我們要做的是：用低成本 AI 增強既有影片課程，讓學員更容易看完、看懂、回來繼續看，並透過有限互動確認吸收狀況。</div>
-      <div class="grid-3">
-        <div class="card">
-          <span class="tag gold">不做</span>
-          <h4>無限 AI 家教</h4>
-          <p>不提供無限制聊天，不讓使用者把 AI 當成替代課程的通用問答機。</p>
-        </div>
-        <div class="card">
-          <span class="tag green">要做</span>
-          <h4>完課率增強</h4>
-          <p>協助使用者回到影片、完成章節、理解重點、被提醒繼續學。</p>
-        </div>
-        <div class="card">
-          <span class="tag blue">商業重點</span>
-          <h4>可量化實驗</h4>
-          <p>用回訪率、章節完成率、小測驗完成率、AI 問答後續觀看率驗證價值。</p>
-        </div>
+      <div class="quote">
+        一句話定位：影片是主菜，AI 是導覽、提醒、整理、有限解惑與學習確認工具。
       </div>
     </section>
 
-    <section id="principles">
-      <h2>二、四個產品設計原則</h2>
-      <div class="grid-2">
-        <div class="card">
-          <span class="tag green">原則 1</span>
-          <h3>預生成優先，即時 AI 次之</h3>
-          <p>章節摘要、小測驗、答案解析、常見問題、提醒文案、複習卡，優先在課程上架前或批次排程生成。這類成本是一次性的，不會隨每位學生重複燃燒。</p>
-        </div>
-        <div class="card">
-          <span class="tag gold">原則 2</span>
-          <h3>問答限量，不做無限制陪聊</h3>
-          <p>每門課只提供少量免費問答，更多問答採加購或企業配額。每次回答限制長度、追問次數與回答範圍。</p>
-        </div>
-        <div class="card">
-          <span class="tag blue">原則 3</span>
-          <h3>AI 要把人導回影片</h3>
-          <p>AI 回答不應完整取代老師講解，而是短解釋後指向「第幾章、第幾分鐘」回看。AI 是導覽，不是主菜。</p>
-        </div>
-        <div class="card">
-          <span class="tag purple">原則 4</span>
-          <h3>規則能做的，不要用 LLM</h3>
-          <p>進度提醒、未完課召回、章節完成徽章、定期推播、測驗判分，能用資料庫與規則完成，就不呼叫 AI。</p>
-        </div>
-      </div>
-    </section>
+    <section>
+      <h2>二、合作架構與權責界面</h2>
+      <p class="lead">
+        本方案適合採三方協作：HaHow 提供課程與使用場景，LLM 外包商提供模型與知識檢索能力，我方負責產品方案、資料規格、流程整合與驗收管理。
+      </p>
 
-    <section id="products">
-      <h2>三、建議開發的六個產品模組</h2>
-      <p class="lead">以下由低成本、低風險、容易導入的功能開始排列。第一階段不建議全部做，應先選擇能快速驗證完課率提升的模組。</p>
-
-      <div class="card">
-        <div class="product-title">
-          <h3>產品 1｜AI 課程重點卡</h3>
-          <span class="tag green">低成本 / 優先</span>
-        </div>
-        <p>在每個章節影片旁提供本章重點、常見誤解、看完應具備的能力、推薦複習段落與 3 題小測驗入口。</p>
-        <ul>
-          <li><strong>TA：</strong>一般購課者、上班族、零碎時間學習者。</li>
-          <li><strong>價值：</strong>降低理解門檻，讓使用者更快知道這章在學什麼。</li>
-          <li><strong>AI 成本：</strong>低，可課前批次生成。</li>
-          <li><strong>開發週期：</strong>約 6～8 週。</li>
-          <li><strong>開發成本：</strong>約 NT$80 萬～180 萬。</li>
-        </ul>
-      </div>
-
-      <div class="card">
-        <div class="product-title">
-          <h3>產品 2｜AI 生成小測驗</h3>
-          <span class="tag green">低成本 / 優先</span>
-        </div>
-        <p>每章影片後提供 3～5 題理解測驗。學生作答不用即時 AI，答錯時顯示預生成解析並導回影片段落。</p>
-        <ul>
-          <li><strong>TA：</strong>一般學員、職場課、AI 工具課、程式與資料課。</li>
-          <li><strong>價值：</strong>讓使用者知道自己是否真的吸收，而不是滑過影片。</li>
-          <li><strong>AI 成本：</strong>低，題目與解析預生成。</li>
-          <li><strong>開發週期：</strong>約 8～10 週。</li>
-          <li><strong>開發成本：</strong>約 NT$120 萬～280 萬。</li>
-        </ul>
-      </div>
-
-      <div class="card">
-        <div class="product-title">
-          <h3>產品 3｜LINE / 站內完課提醒 Bot</h3>
-          <span class="tag blue">低 AI 成本 / 高回訪價值</span>
-        </div>
-        <p>根據學習進度推送提醒：今天該看哪一章、你已經幾天沒回來、看完一半了、答一題小測驗、一鍵回到課程。</p>
-        <ul>
-          <li><strong>TA：</strong>買課後容易忘記、手機使用者、上班族。</li>
-          <li><strong>價值：</strong>提升回訪率、觀看次數與完課率。</li>
-          <li><strong>AI 成本：</strong>極低，文案預生成或模板化。</li>
-          <li><strong>開發週期：</strong>約 6～10 週。</li>
-          <li><strong>開發成本：</strong>約 NT$80 萬～220 萬。</li>
-        </ul>
-      </div>
-
-      <div class="card">
-        <div class="product-title">
-          <h3>產品 4｜限量 AI 課程問答</h3>
-          <span class="tag gold">中成本 / 第二階段</span>
-        </div>
-        <p>提供每門課有限次數的課程內容問答。AI 只回答該門課、該章節或相關片段問題，並將使用者導回影片。</p>
-        <ul>
-          <li><strong>TA：</strong>高動機學員、中高單價課程、程式、資料、商用英文、管理課。</li>
-          <li><strong>價值：</strong>解決卡關，減少因不懂而中斷。</li>
-          <li><strong>AI 成本：</strong>中，需配額、快取、短答限制。</li>
-          <li><strong>開發週期：</strong>約 8～12 週。</li>
-          <li><strong>開發成本：</strong>約 NT$150 萬～350 萬。</li>
-        </ul>
-      </div>
-
-      <div class="card">
-        <div class="product-title">
-          <h3>產品 5｜課後任務模板 + 限量 AI 簡評</h3>
-          <span class="tag purple">中高成本 / 第三階段</span>
-        </div>
-        <p>每門課設計 1～3 個輕量實作任務，例如職場問題拆解、英文 email、提案大綱、學習心得。AI 僅提供短評與改善方向。</p>
-        <ul>
-          <li><strong>TA：</strong>求職者、職場升遷者、企業培訓學員、高單價課學員。</li>
-          <li><strong>價值：</strong>把「看完」往「做出來」推進。</li>
-          <li><strong>AI 成本：</strong>中高，需限制每人簡評次數。</li>
-          <li><strong>開發週期：</strong>約 10～14 週。</li>
-          <li><strong>開發成本：</strong>約 NT$180 萬～420 萬。</li>
-        </ul>
-      </div>
-
-      <div class="card">
-        <div class="product-title">
-          <h3>產品 6｜企業版輕量學習成果報告</h3>
-          <span class="tag red">第二 / 三階段</span>
-        </div>
-        <p>不是重做企業 LMS，而是提供 HaHow for Business 可加值的輕量報告：完成率、測驗通過率、常見卡關、匿名化問題摘要、課程推薦。</p>
-        <ul>
-          <li><strong>TA：</strong>企業 HR、L&D、購買 HaHow for Business 的企業客戶。</li>
-          <li><strong>價值：</strong>協助企業證明培訓成效。</li>
-          <li><strong>AI 成本：</strong>低～中，採週期性批次生成。</li>
-          <li><strong>開發週期：</strong>約 10～16 週。</li>
-          <li><strong>開發成本：</strong>約 NT$200 萬～500 萬。</li>
-        </ul>
-      </div>
-    </section>
-
-    <section id="ta">
-      <h2>四、TA 分層與優先順序</h2>
-      <div class="grid-3">
-        <div class="card">
-          <span class="tag green">第一優先</span>
-          <h3>一般購課者</h3>
-          <p>目標不是讓他們大量使用 AI，而是讓他們更容易回到課程、完成章節、理解重點。</p>
+      <div class="flow">
+        <div class="node">
+          <span class="tag orange">HaHow</span>
+          <h3>課程與平台入口</h3>
           <ul>
-            <li>買課後容易忘記的人</li>
-            <li>上班族與零碎時間學習者</li>
-            <li>看完但不確定自己懂不懂的人</li>
+            <li>課程、章節、影片、講義、逐字稿</li>
+            <li>會員與購課權限</li>
+            <li>觀看進度與行為事件</li>
+            <li>播放器旁元件或跳轉入口</li>
+            <li>LINE / App / 站內通知能力</li>
           </ul>
         </div>
-        <div class="card">
-          <span class="tag gold">第二優先</span>
-          <h3>高動機學員</h3>
-          <p>這群人願意為「解惑、問答、實作回饋」付費，適合 AI 問答包與簡評包。</p>
+        <div class="arrow">→</div>
+        <div class="node">
+          <span class="tag green">我方</span>
+          <h3>產品整合與營運主控</h3>
           <ul>
-            <li>求職 / 轉職者</li>
-            <li>需要工作技能升級者</li>
-            <li>程式、資料、商用英文學員</li>
+            <li>產品需求與 MVP 範圍</li>
+            <li>API contract 與資料流設計</li>
+            <li>額度、快取、紀錄、報表邏輯</li>
+            <li>三方測試、驗收、風險控管</li>
+            <li>商業模式與導入節奏</li>
           </ul>
         </div>
-        <div class="card">
-          <span class="tag blue">第三優先</span>
-          <h3>企業 HR / L&D</h3>
-          <p>企業端在意是否能證明培訓有效，但不建議第一階段就做完整企業後台。</p>
+        <div class="arrow">→</div>
+        <div class="node">
+          <span class="tag blue">LLM 外包商</span>
+          <h3>模型與 RAG 能力</h3>
           <ul>
-            <li>企業培訓負責人</li>
-            <li>需要向主管交代成效的人</li>
-            <li>購買 HaHow for Business 的企業</li>
+            <li>課程資料 ingestion</li>
+            <li>章節摘要與測驗生成</li>
+            <li>課程限定問答</li>
+            <li>簡評與學習建議生成</li>
+            <li>模型使用量、成本與品質回報</li>
           </ul>
         </div>
       </div>
-      <div class="callout">
-        <strong>課程類型優先順序：</strong>
-        <div class="pill-list">
-          <span>職場技能</span>
-          <span>AI 工具</span>
-          <span>商用英文</span>
-          <span>簡報提案</span>
-          <span>Python / SQL / 統計</span>
-          <span>管理 / 領導</span>
-        </div>
-      </div>
-    </section>
 
-    <section id="cost">
-      <h2>五、產品模組成本、週期與 AI 用量比較</h2>
-      <table class="matrix">
+      <table>
         <thead>
           <tr>
-            <th>產品模組</th>
-            <th>主要 TA</th>
-            <th>主要價值</th>
-            <th>AI 成本</th>
-            <th>開發週期</th>
-            <th>開發成本粗估</th>
+            <th>工作項目</th>
+            <th>HaHow</th>
+            <th>我方</th>
+            <th>LLM 外包商</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td><strong>AI 課程重點卡</strong></td>
-            <td>一般學員</td>
-            <td>提高看懂率，降低章節中斷</td>
-            <td class="cost-low">低</td>
-            <td>6～8 週</td>
-            <td>NT$80～180 萬</td>
+            <td>課程資料提供與授權範圍</td>
+            <td>主責</td>
+            <td>協助定義欄位與使用情境</td>
+            <td>依授權範圍處理資料</td>
           </tr>
           <tr>
-            <td><strong>AI 生成小測驗</strong></td>
-            <td>一般學員 / 平台</td>
-            <td>確認理解，建立學會感</td>
-            <td class="cost-low">低</td>
-            <td>8～10 週</td>
-            <td>NT$120～280 萬</td>
+            <td>API 規格與資料流</td>
+            <td>提供平台 API / webhook / 匯出機制</td>
+            <td>主責規格協調與驗收</td>
+            <td>提供 LLM API / ingestion API</td>
           </tr>
           <tr>
-            <td><strong>LINE 完課提醒</strong></td>
-            <td>一般學員</td>
-            <td>提高回訪與觀看次數</td>
-            <td class="cost-low">極低</td>
-            <td>6～10 週</td>
-            <td>NT$80～220 萬</td>
+            <td>產品功能與 UX</td>
+            <td>確認平台入口與品牌一致性</td>
+            <td>主責產品方案、流程與介面需求</td>
+            <td>配合 AI 輸出格式</td>
           </tr>
           <tr>
-            <td><strong>限量 AI 問答</strong></td>
-            <td>高動機學員</td>
-            <td>解決卡關，提高黏著</td>
-            <td class="cost-mid">中</td>
-            <td>8～12 週</td>
-            <td>NT$150～350 萬</td>
+            <td>AI 成本控管</td>
+            <td>確認商業限制與可接受成本</td>
+            <td>主責額度、快取、付費牆設計</td>
+            <td>提供 token / 使用量 / 成本報表</td>
           </tr>
           <tr>
-            <td><strong>課後任務簡評</strong></td>
-            <td>高單價課 / 職場課</td>
-            <td>從看完走向做出來</td>
-            <td class="cost-high">中高</td>
-            <td>10～14 週</td>
-            <td>NT$180～420 萬</td>
-          </tr>
-          <tr>
-            <td><strong>企業成果報告</strong></td>
-            <td>HR / 企業客戶</td>
-            <td>證明培訓成效</td>
-            <td class="cost-mid">低～中</td>
-            <td>10～16 週</td>
-            <td>NT$200～500 萬</td>
+            <td>測試與上線</td>
+            <td>平台整合測試、真實使用者入口</td>
+            <td>主責 UAT、問題分派、驗收標準</td>
+            <td>模型品質與回應正確性修正</td>
           </tr>
         </tbody>
       </table>
-      <p class="print-note">以上為初步企劃估算，實際成本會受 HaHow 端 API、會員權限、影片進度資料、LINE 綁定、前端整合方式與審稿流程影響。</p>
     </section>
 
-    <section id="mvp">
-      <h2>六、建議 MVP：HaHow AI 完課增強包</h2>
-      <p class="lead">第一階段不要做完整 AI 後台，也不要做獨立 App。建議以 3 門課、8～12 週、低 AI 成本為原則，驗證是否能改善學習行為。</p>
+    <section>
+      <h2>三、產品設計原則</h2>
+      <div class="grid g4">
+        <div class="card">
+          <span class="num">01</span>
+          <h3>影片優先</h3>
+          <p>AI 回答不取代課程內容，而是把學員導回對應章節、時間點與老師講解。</p>
+        </div>
+        <div class="card">
+          <span class="num">02</span>
+          <h3>限量使用</h3>
+          <p>問答、簡評與個人化生成皆採額度制，避免無上限對話造成成本失控。</p>
+        </div>
+        <div class="card">
+          <span class="num">03</span>
+          <h3>預生成優先</h3>
+          <p>章節摘要、小測驗、FAQ、提醒文案、課後複習卡盡量批次生成。</p>
+        </div>
+        <div class="card">
+          <span class="num">04</span>
+          <h3>三方可驗收</h3>
+          <p>資料、API、AI 輸出、成本、品質與上線範圍都要能被明確驗收。</p>
+        </div>
+      </div>
+    </section>
 
-      <div class="grid-3">
-        <div class="card">
-          <span class="tag green">MVP 功能 1</span>
-          <h3>章節重點卡</h3>
-          <p>每章提供重點、常見誤解、看完應具備能力與複習段落。</p>
+    <section>
+      <h2>四、目標 TA 與產品價值</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>TA</th>
+            <th>痛點</th>
+            <th>對應產品價值</th>
+            <th>適合收費模式</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>一般購課學員</strong></td>
+            <td>買課後忘記看、看到一半中斷、看完不確定自己是否理解。</td>
+            <td>章節重點卡、小測驗、提醒、有限問答，讓學習變得更容易開始與持續。</td>
+            <td>課程內建 / 小額加購</td>
+          </tr>
+          <tr>
+            <td><strong>高動機學員</strong></td>
+            <td>學程式、職場、英文、AI 工具時會卡關，需要針對課程內容解惑。</td>
+            <td>限量 AI 問答、課後任務簡評、複習建議。</td>
+            <td>AI 問答包 / 實作包</td>
+          </tr>
+          <tr>
+            <td><strong>HaHow 課程創作者</strong></td>
+            <td>學生重複提問、課程章節卡點不明、難以知道學生哪裡不懂。</td>
+            <td>常見問題彙整、卡關章節統計、測驗錯題分析。</td>
+            <td>平台提供創作者工具 / 重點課程加值</td>
+          </tr>
+          <tr>
+            <td><strong>企業 HR / L&D</strong></td>
+            <td>買了企業課程包，但難以證明員工是否學完與吸收。</td>
+            <td>輕量學習成效報告、測驗通過率、匿名卡關分析。</td>
+            <td>企業版模組月費 / 專案費</td>
+          </tr>
+          <tr>
+            <td><strong>HaHow 平台營運 / BD</strong></td>
+            <td>需要提升課程回訪、完課、加購與企業版差異化。</td>
+            <td>完課率增強包、AI 加購商品、企業銷售亮點。</td>
+            <td>平台導入 / 分潤 / 年約</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>五、產品模組設計</h2>
+      <div class="grid g3">
+        <div class="card soft-orange">
+          <span class="tag orange">模組 A｜低 AI 成本</span>
+          <h3>AI 章節重點卡</h3>
+          <p>每個章節提供「本章重點、常見誤解、看完應會、複習段落」。由 LLM 批次生成後進入審核流程。</p>
+          <ul class="checklist">
+            <li>適合全課程導入</li>
+            <li>不消耗即時問答成本</li>
+            <li>可放在播放器旁或章節頁</li>
+          </ul>
         </div>
-        <div class="card">
-          <span class="tag green">MVP 功能 2</span>
-          <h3>章節小測驗</h3>
-          <p>每章 3 題，答錯時給預生成解析，並提示回看影片段落。</p>
+
+        <div class="card soft-blue">
+          <span class="tag blue">模組 B｜低 AI 成本</span>
+          <h3>AI 生成章節小測驗</h3>
+          <p>每章 3～5 題選擇題／判斷題／情境題。作答與批改採規則式，AI 僅用於題目生成與答案解析。</p>
+          <ul class="checklist">
+            <li>用來確認理解</li>
+            <li>可提升章節完成感</li>
+            <li>適合接入完課率分析</li>
+          </ul>
         </div>
+
+        <div class="card soft-green">
+          <span class="tag green">模組 C｜低營運成本</span>
+          <h3>LINE / 站內完課提醒</h3>
+          <p>依照觀看進度與中斷天數推送提醒、複習卡、小測驗或回課程連結。文案可預生成與模板化。</p>
+          <ul class="checklist">
+            <li>主攻回訪率</li>
+            <li>不需要即時 LLM</li>
+            <li>可配合 HaHow 既有 LINE 綁定</li>
+          </ul>
+        </div>
+
+        <div class="card soft-purple">
+          <span class="tag purple">模組 D｜限量 AI</span>
+          <h3>課程限定 AI 問答</h3>
+          <p>每門課提供免費 3～5 題，付費加購 20～50 題。回答必須引用課程章節，並導回影片。</p>
+          <ul class="checklist">
+            <li>適合高單價與高卡關課程</li>
+            <li>採額度制控管成本</li>
+            <li>可建立常見問題快取</li>
+          </ul>
+        </div>
+
+        <div class="card soft-yellow">
+          <span class="tag yellow">模組 E｜第二階段</span>
+          <h3>課後任務與 AI 簡評</h3>
+          <p>每門課設計 1～3 個文字型任務，由 AI 依課程框架給簡短回饋。不做重度批改，不處理複雜檔案。</p>
+          <ul class="checklist">
+            <li>從「看完」推向「做出來」</li>
+            <li>每人限 1～3 次簡評</li>
+            <li>適合職場、英文、AI 工具課</li>
+          </ul>
+        </div>
+
         <div class="card">
-          <span class="tag green">MVP 功能 3</span>
-          <h3>LINE / 站內提醒</h3>
-          <p>根據進度召回：幾天沒看、下個章節、完成一半、今日小測驗。</p>
+          <span class="tag">模組 F｜企業加值</span>
+          <h3>輕量學習成效報告</h3>
+          <p>提供企業 HR 觀看完成、測驗通過、常見卡點與匿名化學習摘要。不取代完整 LMS，只作為銷售與續約輔助。</p>
+          <ul class="checklist">
+            <li>適合 HaHow for Business</li>
+            <li>每週／每月批次生成</li>
+            <li>避免即時大報告成本</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>六、資料與 API 需求</h2>
+      <p class="lead">
+        PoC 成敗高度取決於資料取得與 API 串接成熟度。建議在開發前先完成 API contract 與資料授權確認。
+      </p>
+
+      <div class="grid g2">
+        <div class="lane">
+          <div class="lane-head">HaHow 端建議提供資料 / API</div>
+          <div class="lane-body">
+            <ul>
+              <li><strong>課程資料：</strong>course_id、課程名稱、講師、分類、售價、課程狀態。</li>
+              <li><strong>章節資料：</strong>lesson_id、章節標題、順序、影片長度、時間軸。</li>
+              <li><strong>教材資料：</strong>逐字稿、講義、投影片、作業說明、FAQ。</li>
+              <li><strong>會員權限：</strong>匿名 user_id、是否購買、是否可使用 AI 模組。</li>
+              <li><strong>觀看進度：</strong>開始觀看、觀看比例、最後觀看時間、完課狀態。</li>
+              <li><strong>入口整合：</strong>播放器旁 widget、章節頁嵌入、deep link 回課程。</li>
+              <li><strong>通知能力：</strong>LINE 綁定狀態、站內通知、App 推播或 email 事件。</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="lane">
+          <div class="lane-head">LLM 外包商建議提供 API</div>
+          <div class="lane-body">
+            <ul>
+              <li><strong>資料匯入：</strong>課程內容 ingestion、chunking、向量化、metadata 設定。</li>
+              <li><strong>批次生成：</strong>章節摘要、小測驗、答案解析、FAQ、提醒文案。</li>
+              <li><strong>課程問答：</strong>限定課程範圍回答、引用來源、回答字數限制。</li>
+              <li><strong>簡評：</strong>依任務 rubric 產生短回饋與下一步建議。</li>
+              <li><strong>用量紀錄：</strong>token、請求次數、模型版本、成本估算、錯誤碼。</li>
+              <li><strong>品質回報：</strong>低信心回答、無資料回答、使用者負評回收。</li>
+            </ul>
+          </div>
         </div>
       </div>
 
-      <h3>可選功能：免費 5 題 AI 問答</h3>
-      <p>為了驗證「即時問答是否能推動後續觀看」，每位學員每門課可提供 5 題免費問答，但必須限制回答長度、追問次數與範圍。</p>
+      <table>
+        <thead>
+          <tr>
+            <th>資料類型</th>
+            <th>用途</th>
+            <th>必要性</th>
+            <th>風險 / 注意事項</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>逐字稿</td>
+            <td>摘要、測驗、問答、引用來源</td>
+            <td>高</td>
+            <td>若無逐字稿，需要先轉寫或改用講義與章節摘要，品質會下降。</td>
+          </tr>
+          <tr>
+            <td>課程章節與時間碼</td>
+            <td>導回影片、產生複習段落</td>
+            <td>高</td>
+            <td>若時間碼不足，AI 無法精準導回播放器位置。</td>
+          </tr>
+          <tr>
+            <td>觀看進度</td>
+            <td>提醒、完課分析、A/B test</td>
+            <td>高</td>
+            <td>需確認事件定義一致，例如何謂完成章節、何謂回訪。</td>
+          </tr>
+          <tr>
+            <td>購課權限</td>
+            <td>限制只有購買者可使用 AI</td>
+            <td>高</td>
+            <td>需避免未購買者透過 AI 取得完整課程內容。</td>
+          </tr>
+          <tr>
+            <td>LINE / 通知狀態</td>
+            <td>召回與提醒</td>
+            <td>中</td>
+            <td>若短期無法整合，可先用 email 或站內提醒替代。</td>
+          </tr>
+          <tr>
+            <td>學生提問紀錄</td>
+            <td>FAQ 快取、卡點分析</td>
+            <td>中</td>
+            <td>需匿名化與設定資料保留期間。</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>七、AI 使用量與成本控管</h2>
+      <div class="grid g3">
+        <div class="card">
+          <h3>批次型 AI</h3>
+          <p>用於課程上架前或定期更新。</p>
+          <ul>
+            <li>章節摘要</li>
+            <li>小測驗</li>
+            <li>FAQ 初稿</li>
+            <li>提醒文案</li>
+          </ul>
+          <div class="bar"><span style="width:22%"></span></div>
+          <p class="small">成本：低，可預估，可攤提。</p>
+        </div>
+        <div class="card">
+          <h3>即時型 AI</h3>
+          <p>用於使用者提出個人問題。</p>
+          <ul>
+            <li>課程限定問答</li>
+            <li>少量追問</li>
+            <li>任務簡評</li>
+          </ul>
+          <div class="bar"><span style="width:58%"></span></div>
+          <p class="small">成本：中，需要額度、快取與回答長度限制。</p>
+        </div>
+        <div class="card">
+          <h3>高成本 AI</h3>
+          <p>第一階段不建議開放。</p>
+          <ul>
+            <li>無限聊天</li>
+            <li>長篇報告</li>
+            <li>圖片／影片批改</li>
+            <li>程式執行與除錯環境</li>
+          </ul>
+          <div class="bar"><span style="width:88%"></span></div>
+          <p class="small">成本：高，應放到付費方案或後期版本。</p>
+        </div>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>控管機制</th>
+            <th>設計方式</th>
+            <th>目的</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>額度制</td>
+            <td>每門課免費 3～5 題；加購 20～50 題；企業版依合約配額。</td>
+            <td>避免無限制問答。</td>
+          </tr>
+          <tr>
+            <td>語意快取</td>
+            <td>相似問題優先回 FAQ / cache，不重複呼叫 LLM。</td>
+            <td>降低熱門課程反覆問答成本。</td>
+          </tr>
+          <tr>
+            <td>回答長度限制</td>
+            <td>預設 300～800 字，不提供整門課完整代讀。</td>
+            <td>控 token，也避免取代課程。</td>
+          </tr>
+          <tr>
+            <td>課程範圍限制</td>
+            <td>只回答該使用者已購買課程內容，超出範圍則引導縮小問題。</td>
+            <td>保護課程價值與授權邊界。</td>
+          </tr>
+          <tr>
+            <td>導回影片</td>
+            <td>回答結尾附對應章節與時間段。</td>
+            <td>讓 AI 成為影片入口，而非影片替代品。</td>
+          </tr>
+          <tr>
+            <td>使用量儀表</td>
+            <td>依課程、使用者、功能、模型記錄成本。</td>
+            <td>便於報價、分潤與成本預警。</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>八、MVP 建議範圍</h2>
+      <p class="lead">
+        第一階段不建議做完整 App、完整 LMS、無限 AI 家教或企業大後台。建議先用 3 門課驗證完課增強效果。
+      </p>
+
+      <div class="grid g2">
+        <div class="card soft-green">
+          <h3>MVP 建議包含</h3>
+          <ul class="checklist">
+            <li>3 門課程資料匯入與 AI 處理</li>
+            <li>章節重點卡</li>
+            <li>章節小測驗</li>
+            <li>站內或 LINE 提醒機制擇一</li>
+            <li>每位使用者每門課免費 3～5 題 AI 問答</li>
+            <li>問答額度、快取與使用量紀錄</li>
+            <li>基礎成效報表：觀看、回訪、測驗、問答使用</li>
+          </ul>
+        </div>
+
+        <div class="card soft-yellow">
+          <h3>MVP 不建議包含</h3>
+          <ul class="warnlist">
+            <li>無限制 AI 聊天</li>
+            <li>完整企業 LMS 後台</li>
+            <li>圖片、影片、聲音作業批改</li>
+            <li>程式碼執行環境</li>
+            <li>多角色複雜權限管理</li>
+            <li>大規模全站課程自動導入</li>
+            <li>深度個人化學習路徑重算</li>
+          </ul>
+        </div>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>PoC 課程建議</th>
+            <th>原因</th>
+            <th>適合模組</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>職場技能 / 問題解決 / 管理課</td>
+            <td>容易設計情境題與任務，企業版價值高。</td>
+            <td>重點卡、小測驗、限量問答、任務簡評</td>
+          </tr>
+          <tr>
+            <td>AI 工具 / Canva / Excel x AI</td>
+            <td>市場熱度高，學員期待快速上手，適合提醒與章節任務。</td>
+            <td>重點卡、小測驗、提醒、問答</td>
+          </tr>
+          <tr>
+            <td>程式 / SQL / Python / 統計</td>
+            <td>卡關機率高，課程限定問答價值明顯。</td>
+            <td>重點卡、小測驗、限量問答</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>九、開發週期規劃</h2>
+      <p class="lead">
+        以下以「三方協作、3 門課 PoC、需串接 HaHow API 與 LLM 廠商 API」為估算前提。實際時程取決於 HaHow API 成熟度、課程資料完整度與 LLM 廠商可用能力。
+      </p>
 
       <div class="timeline">
-        <div class="phase">
-          <div class="time">第 1～2 週</div>
-          <div class="body">
-            <h3>課程選定與資料盤點</h3>
-            <p>選擇 3 門課：一門職場技能、一門 AI 工具、一門程式 / 資料課。確認逐字稿、章節資料、講義、影片時間戳、測試樣本。</p>
-          </div>
+        <div class="mile">
+          <h3>Phase 0｜需求確認與合作規格 <span class="badge">2～3 週</span></h3>
+          <p>確認 PoC 課程、使用者範圍、資料授權、功能邊界、成功指標、三方窗口與驗收方式。</p>
         </div>
-        <div class="phase">
-          <div class="time">第 3～5 週</div>
-          <div class="body">
-            <h3>AI 預生成與人工校稿</h3>
-            <p>產生章節重點卡、小測驗、答案解析、提醒文案與常見問題。建立簡易審稿流程。</p>
-          </div>
+        <div class="mile">
+          <h3>Phase 1｜API Contract 與資料沙盒 <span class="badge">3～5 週</span></h3>
+          <p>定義 HaHow → 我方、我方 → LLM 廠商的 API 規格，建立測試資料、權限驗證、log 與錯誤處理流程。</p>
         </div>
-        <div class="phase">
-          <div class="time">第 6～9 週</div>
-          <div class="body">
-            <h3>前台元件與提醒機制開發</h3>
-            <p>開發課程頁旁的重點卡與小測驗元件，串接學習進度，建立 LINE / 站內提醒規則。</p>
-          </div>
+        <div class="mile">
+          <h3>Phase 2｜課程內容處理與預生成 <span class="badge">4～6 週</span></h3>
+          <p>處理逐字稿、章節 metadata、講義，建立 RAG 知識庫，產出章節重點卡、小測驗、答案解析與 FAQ 初稿。</p>
         </div>
-        <div class="phase">
-          <div class="time">第 10～12 週</div>
-          <div class="body">
-            <h3>小規模上線與成效追蹤</h3>
-            <p>以 A/B test 或分群方式觀察回訪率、章節完成率、小測驗完成率與完課率。</p>
-          </div>
+        <div class="mile">
+          <h3>Phase 3｜前台模組與提醒機制 <span class="badge">4～6 週</span></h3>
+          <p>建置播放器旁或課程頁元件、測驗流程、問答入口、站內／LINE 提醒、deep link 回課程。</p>
+        </div>
+        <div class="mile">
+          <h3>Phase 4｜額度、快取與成本儀表 <span class="badge">3～5 週</span></h3>
+          <p>建立問答配額、cache、使用量紀錄、token / 請求成本回收、基本營運報表。</p>
+        </div>
+        <div class="mile">
+          <h3>Phase 5｜UAT、A/B Test 與上線 <span class="badge">3～4 週</span></h3>
+          <p>三方測試、資料正確性、AI 回答品質、權限與成本壓測、小規模使用者導入與成效追蹤。</p>
         </div>
       </div>
 
-      <h3>PoC 成功指標</h3>
-      <div class="kpi-grid">
-        <div class="kpi"><strong>+10～20%</strong><span>課程回訪率提升</span></div>
-        <div class="kpi"><strong>+10～20%</strong><span>章節完成率提升</span></div>
-        <div class="kpi"><strong>30～50%</strong><span>小測驗完成率</span></div>
-        <div class="kpi"><strong>4 / 5</strong><span>使用者滿意度目標</span></div>
+      <div class="quote">
+        建議 PoC 總週期：12～18 週。若 HaHow API 與資料格式成熟，可壓至 10～14 週；若需大量平台客製，可能延長至 20 週以上。
       </div>
     </section>
 
-    <section id="business">
-      <h2>七、商業模式設計</h2>
-      <div class="grid-3">
-        <div class="card">
-          <span class="tag blue">模式 1</span>
-          <h3>平台採購模組</h3>
-          <p>HaHow 以平台模組方式採購，優先導入熱門課、募資課、企業版課程。</p>
+    <section>
+      <h2>十、預算估算</h2>
+      <p class="lead">
+        以下為產品企劃階段的粗估區間，正式報價需在 API 規格、資料格式、權限範圍、LLM 廠商收費與 HaHow 端整合責任確認後拆估。
+      </p>
+
+      <div class="budget">
+        <div class="card soft-green">
+          <span class="tag green">A｜展示型 Prototype</span>
+          <h3>無真實 API，使用模擬資料</h3>
+          <p class="price">NT$80～180 萬</p>
+          <p>適合拿去提案、驗證 UX 與功能想像。可用 1～2 門課資料做靜態或半動態展示。</p>
           <ul>
-            <li>PoC：3 門課，8～12 週</li>
-            <li>報價參考：NT$120～300 萬</li>
-            <li>正式導入：月維護 + AI 使用量另計</li>
+            <li>週期：4～7 週</li>
+            <li>不含正式權限與觀看進度</li>
+            <li>不含正式 LLM 成本控管</li>
           </ul>
         </div>
-        <div class="card">
-          <span class="tag gold">模式 2</span>
-          <h3>課程加購包</h3>
-          <p>一般消費者買課時可加購 AI 助學包，包含更多問答額度、總複習、任務簡評。</p>
+
+        <div class="card soft-blue">
+          <span class="tag blue">B｜3 門課 PoC</span>
+          <h3>含 API 沙盒與 LLM 串接</h3>
+          <p class="price">NT$300～650 萬</p>
+          <p>建議第一個正式合作版本。驗證觀看、回訪、測驗、問答與成本控制。</p>
           <ul>
-            <li>AI 助學包：NT$99</li>
-            <li>AI 問答包：NT$199</li>
-            <li>AI 實作包：NT$499 起</li>
+            <li>週期：12～18 週</li>
+            <li>3 門課</li>
+            <li>含基礎報表與使用量紀錄</li>
           </ul>
         </div>
-        <div class="card">
-          <span class="tag green">模式 3</span>
-          <h3>企業版加值</h3>
-          <p>提供給 HaHow for Business 作為培訓成效加值，主打報告與學習完成率。</p>
+
+        <div class="card soft-yellow">
+          <span class="tag yellow">C｜10～20 門課 Pilot</span>
+          <h3>擴大課程與加購測試</h3>
+          <p class="price">NT$700～1,200 萬</p>
+          <p>加入更多課程類型、加購問答包、任務簡評與較完整營運後台。</p>
           <ul>
-            <li>每人每月：NT$50～150</li>
-            <li>企業月費：NT$30,000～150,000+</li>
-            <li>每門課 AI 化建置費另計</li>
+            <li>週期：20～28 週</li>
+            <li>含內容審核流程</li>
+            <li>可開始測試商業轉換</li>
+          </ul>
+        </div>
+
+        <div class="card soft-purple">
+          <span class="tag purple">D｜企業版模組</span>
+          <h3>接企業訓練報告</h3>
+          <p class="price">另案估算</p>
+          <p>若接 HaHow for Business，需處理企業權限、匿名化報表、部門資料與週期性摘要。</p>
+          <ul>
+            <li>追加：NT$250～600 萬+</li>
+            <li>週期：追加 10～16 週</li>
+            <li>視企業資料架構而定</li>
           </ul>
         </div>
       </div>
 
-      <h3>建議的使用量限制</h3>
-      <table class="matrix">
+      <table>
         <thead>
           <tr>
-            <th>方案</th>
-            <th>內容</th>
-            <th>限制策略</th>
+            <th>成本項目</th>
+            <th>3 門課 PoC 粗估</th>
+            <th>說明</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td><strong>免費層</strong></td>
-            <td>重點卡、小測驗、5 題 AI 問答</td>
-            <td>即時 AI 極低量，用於體驗與數據驗證</td>
+            <td>產品規劃 / PM / 三方協調</td>
+            <td>NT$60～120 萬</td>
+            <td>需求定義、會議協調、驗收規格、風險控管。</td>
           </tr>
           <tr>
-            <td><strong>標準加購</strong></td>
-            <td>20～50 題 AI 問答、課程總複習 1 次</td>
-            <td>問答採點數制，回答短篇化</td>
+            <td>API middleware / 權限 / log</td>
+            <td>NT$80～180 萬</td>
+            <td>串接 HaHow 與 LLM，處理權限、錯誤碼、紀錄與資料轉換。</td>
           </tr>
           <tr>
-            <td><strong>進階加購</strong></td>
-            <td>100 題 AI 問答、1～3 次任務簡評</td>
-            <td>高成本功能收費，避免無限消耗</td>
+            <td>前台元件</td>
+            <td>NT$60～140 萬</td>
+            <td>重點卡、小測驗、問答入口、播放器或課程頁嵌入。</td>
           </tr>
           <tr>
-            <td><strong>企業版</strong></td>
-            <td>每人每月固定問答額度、每月報告</td>
-            <td>合約內設定總量上限與超額計費</td>
+            <td>課程資料處理 / 內容審核工具</td>
+            <td>NT$50～130 萬</td>
+            <td>逐字稿整理、metadata、摘要與測驗審核流程。</td>
+          </tr>
+          <tr>
+            <td>提醒機制</td>
+            <td>NT$40～100 萬</td>
+            <td>站內通知、LINE 或 email 擇一實作。</td>
+          </tr>
+          <tr>
+            <td>成本控管 / 快取 / 額度</td>
+            <td>NT$50～120 萬</td>
+            <td>問答額度、快取、使用量與成本報表。</td>
+          </tr>
+          <tr>
+            <td>QA / UAT / 上線支援</td>
+            <td>NT$40～90 萬</td>
+            <td>三方測試、權限測試、AI 品質測試、問題修正。</td>
+          </tr>
+          <tr>
+            <td><strong>合計</strong></td>
+            <td><strong>NT$300～650 萬</strong></td>
+            <td>不含 HaHow 內部人力成本、LLM 廠商固定授權費、正式大量 token 成本與法務授權費。</td>
           </tr>
         </tbody>
       </table>
     </section>
 
-    <section id="risk">
-      <h2>八、風險與避雷</h2>
-      <div class="grid-2">
-        <div class="warning">
-          <h3>風險 1：AI 成本失控</h3>
-          <p>避免開放無限問答。所有即時 AI 都應採配額制、短答限制、語意快取與範圍限制。</p>
+    <section>
+      <h2>十一、商業模式建議</h2>
+      <div class="grid g3">
+        <div class="card">
+          <span class="tag orange">平台導入</span>
+          <h3>HaHow 採購模組</h3>
+          <p>HaHow 以平台功能形式導入，先套用於重點課程、募資課程或企業課程。</p>
+          <ul>
+            <li>PoC 專案費</li>
+            <li>月維護費</li>
+            <li>AI 使用量另計</li>
+          </ul>
         </div>
-        <div class="warning">
-          <h3>風險 2：取代影片主體</h3>
-          <p>AI 回答要導回影片章節，不提供整門課完整代講，避免削弱老師與課程價值。</p>
+        <div class="card">
+          <span class="tag blue">使用者加購</span>
+          <h3>AI 問答包 / 助學包</h3>
+          <p>課程購買時加購有限額度的 AI 問答與複習功能。</p>
+          <ul>
+            <li>NT$99：20 題</li>
+            <li>NT$199：50 題</li>
+            <li>NT$499：問答 + 任務簡評</li>
+          </ul>
         </div>
-        <div class="warning">
-          <h3>風險 3：老師內容授權</h3>
-          <p>需確認逐字稿、講義、投影片、作業是否可進入 RAG 與生成小測驗。</p>
-        </div>
-        <div class="warning">
-          <h3>風險 4：高風險課程誤導</h3>
-          <p>投資、心理、健康、法律相關課程不建議第一階段做深度問答，需加入免責與回答邊界。</p>
+        <div class="card">
+          <span class="tag green">企業加值</span>
+          <h3>學習成效報告</h3>
+          <p>企業版提供匿名化學習摘要、測驗通過率與常見卡點分析。</p>
+          <ul>
+            <li>每企業月費</li>
+            <li>每人每月加價</li>
+            <li>企業專案報告費</li>
+          </ul>
         </div>
       </div>
 
-      <h3>成本控制技術策略</h3>
-      <ul>
-        <li>章節摘要、測驗、解析、FAQ、提醒文案全部預生成。</li>
-        <li>即時問答只抓當前章節與相關 3～5 個 chunk，不塞整門課。</li>
-        <li>相似問題使用語意快取，常見問法不重複呼叫 LLM。</li>
-        <li>回答字數限制在 300～800 字，拒絕「整理整門課」這類高成本問題。</li>
-        <li>使用者問超出課程範圍時，引導回課程或請他縮小問題。</li>
-      </ul>
+      <table>
+        <thead>
+          <tr>
+            <th>模式</th>
+            <th>收入來源</th>
+            <th>優點</th>
+            <th>注意事項</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>專案建置費</td>
+            <td>HaHow 支付 PoC / Pilot 費用</td>
+            <td>前期現金流明確，適合降低雙方風險。</td>
+            <td>需明確區分建置費、維護費、AI 使用費。</td>
+          </tr>
+          <tr>
+            <td>AI 加購分潤</td>
+            <td>使用者購買 AI 問答包</td>
+            <td>與平台 GMV 成長綁定。</td>
+            <td>需設計分潤比例、退款規則、老師授權分配。</td>
+          </tr>
+          <tr>
+            <td>企業版月費</td>
+            <td>企業客戶加購 AI 成效模組</td>
+            <td>客單價高，續約價值大。</td>
+            <td>企業權限與資料隱私要求較高。</td>
+          </tr>
+          <tr>
+            <td>每門課 AI 化費用</td>
+            <td>依課程收取資料處理與設定費</td>
+            <td>可反映內容處理成本。</td>
+            <td>需建立標準化工具，否則人力成本高。</td>
+          </tr>
+        </tbody>
+      </table>
     </section>
 
-    <section id="proposal">
-      <h2>九、對 HaHow 的提案話術</h2>
-      <div class="quote">我們不是要把 HaHow 變成 AI 學習平台，而是要用低成本 AI 增強現有影片課程，讓學員更容易看完、看懂、回來繼續看，並用有限互動驗證他真的有吸收。</div>
+    <section>
+      <h2>十二、成功指標與驗收方式</h2>
+      <div class="grid g4">
+        <div class="card">
+          <h3>觀看行為</h3>
+          <ul>
+            <li>7 日回訪率</li>
+            <li>章節完成率</li>
+            <li>平均觀看百分比</li>
+            <li>完課率</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>學習互動</h3>
+          <ul>
+            <li>小測驗開啟率</li>
+            <li>小測驗完成率</li>
+            <li>平均答對率</li>
+            <li>錯題回看率</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>AI 使用</h3>
+          <ul>
+            <li>AI 問答使用率</li>
+            <li>每人平均題數</li>
+            <li>快取命中率</li>
+            <li>每次問答成本</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>商業指標</h3>
+          <ul>
+            <li>AI 加購率</li>
+            <li>課程評價提升</li>
+            <li>退款率變化</li>
+            <li>企業版銷售輔助</li>
+          </ul>
+        </div>
+      </div>
 
-      <h3>建議提案主軸</h3>
-      <p>HaHow 已經有大量優質影片課程與成熟的購課場景，但線上課程普遍面臨「買了未必看完、看了未必吸收、吸收難以驗證」的問題。本案希望以輕量 AI 模組，在不改變影片教學主體的前提下，增加章節重點卡、小測驗、進度提醒與限量問答，讓學員在既有學習流程中被適度推進。</p>
-
-      <h3>第一階段合作提案</h3>
-      <ol>
-        <li>選擇 3 門課進行 8～12 週 PoC。</li>
-        <li>導入章節重點卡、AI 預生成小測驗、LINE / 站內提醒。</li>
-        <li>可選擇加入每人每門課 5 題限量 AI 問答。</li>
-        <li>以回訪率、章節完成率、小測驗完成率、完課率作為成效指標。</li>
-        <li>若數據有效，再擴展到熱門課、募資課與企業版課程。</li>
-      </ol>
-
-      <div class="callout">
-        <h3>最終一句話</h3>
-        <p><strong>影片是主菜，AI 是讓學生願意繼續吃下去、吃懂、吃完的輔助工具。</strong></p>
+      <div class="quote">
+        PoC 判斷重點：不只看 AI 有沒有人用，而是使用 AI 輔助後，是否真的讓學員更常回來、更願意看完、更清楚自己學到什麼。
       </div>
     </section>
 
-    <footer class="footer">
-      <p>HaHow AI 完課增強方案｜企劃發想稿</p>
-      <p>版本：MVP 發想版｜重點：低 AI 成本、限制使用量、不取代影片主體</p>
-    </footer>
+    <section>
+      <h2>十三、主要風險與處理策略</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>風險</th>
+            <th>影響</th>
+            <th>處理策略</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>HaHow API 或資料不足</td>
+            <td>無法精準導回影片、提醒與權限控管。</td>
+            <td>先用匯出資料與 deep link 做 PoC；正式版再深化 API。</td>
+          </tr>
+          <tr>
+            <td>逐字稿品質不足</td>
+            <td>摘要、測驗與問答品質下降。</td>
+            <td>建立逐字稿清洗流程與人工抽審機制。</td>
+          </tr>
+          <tr>
+            <td>LLM 成本失控</td>
+            <td>加購收入無法覆蓋營運成本。</td>
+            <td>額度制、快取、短答、批次生成、成本儀表。</td>
+          </tr>
+          <tr>
+            <td>AI 回答取代課程</td>
+            <td>傷害影片觀看與老師內容價值。</td>
+            <td>回答限制字數，並固定導回章節與時間碼。</td>
+          </tr>
+          <tr>
+            <td>課程授權不清</td>
+            <td>講師或平台內容使用爭議。</td>
+            <td>上線前確認資料可用範圍、保存期限、生成內容權利歸屬。</td>
+          </tr>
+          <tr>
+            <td>三方溝通成本高</td>
+            <td>時程延誤與責任不清。</td>
+            <td>建立單一 issue tracker、API 文件、驗收表、週會節奏與問題分級。</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>十四、建議下一步</h2>
+      <div class="grid g2">
+        <div class="card soft-green">
+          <h3>第一步：先做合作需求盤點</h3>
+          <ul class="checklist">
+            <li>確認 HaHow 願意提供哪些資料與 API。</li>
+            <li>確認 3 門 PoC 課程與講師授權。</li>
+            <li>確認使用者入口：播放器旁、章節頁、站內通知或 LINE。</li>
+            <li>確認 PoC 成功指標。</li>
+          </ul>
+        </div>
+        <div class="card soft-blue">
+          <h3>第二步：要求 LLM 廠商提供技術能力清單</h3>
+          <ul class="checklist">
+            <li>支援哪些資料格式與 ingestion 流程。</li>
+            <li>是否可回傳引用來源與信心分數。</li>
+            <li>是否提供 token / request 成本報表。</li>
+            <li>是否支援快取、模型切換與回答長度限制。</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="quote">
+        對外提案主軸：用低成本 AI 增強 HaHow 既有影片課程，先用 3 門課驗證回訪率、章節完成率、測驗完成率與限量問答的商業可行性。
+      </div>
+      <p class="print-note">列印建議：A4、邊界預設、背景圖形開啟。</p>
+    </section>
+
+    <div class="footer">
+      HaHow 影片課程 AI 完課增強方案｜產品企劃發想 v3｜此文件為概念規劃，正式開發範圍與預算需依 API、授權、資料品質與 LLM 廠商規格確認後拆估。
+    </div>
   </main>
 </body>
 </html>

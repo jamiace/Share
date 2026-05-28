@@ -3,22 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hahow 線上學習平台 AI 輔助系統產品企劃書</title>
+    <title>Hahow 影音學習 AI 續航模組產品企劃書</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #00BFA5; /* Hahow-like teal */
+            --primary-color: #00BFA5;
             --secondary-color: #00897B;
-            --background-color: #F7F9FA;
-            --text-color: #333333;
-            --light-text: #666666;
+            --dark-color: #263238;
+            --bg-color: #F4F7F6;
             --card-bg: #FFFFFF;
-            --border-color: #E0E0E0;
+            --border-color: #CFD8DC;
+            --text-color: #37474F;
         }
 
         body {
             font-family: 'Noto Sans TC', sans-serif;
-            background-color: var(--background-color);
+            background-color: var(--bg-color);
             color: var(--text-color);
             line-height: 1.6;
             margin: 0;
@@ -26,11 +26,11 @@
         }
 
         .container {
-            max-width: 900px;
+            max-width: 950px;
             margin: 40px auto;
             background-color: var(--card-bg);
             border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            box-shadow: 0 4px 24px rgba(0,0,0,0.06);
             overflow: hidden;
         }
 
@@ -43,13 +43,14 @@
 
         .header h1 {
             margin: 0 0 10px 0;
-            font-size: 28px;
+            font-size: 26px;
             font-weight: 700;
+            letter-spacing: 1px;
         }
 
         .header p {
             margin: 0;
-            font-size: 16px;
+            font-size: 15px;
             opacity: 0.9;
         }
 
@@ -59,49 +60,50 @@
 
         h2 {
             color: var(--secondary-color);
-            font-size: 22px;
-            border-bottom: 2px solid var(--primary-color);
-            padding-bottom: 8px;
+            font-size: 20px;
+            border-left: 4px solid var(--primary-color);
+            padding-left: 12px;
             margin-top: 40px;
             margin-bottom: 20px;
-            display: inline-block;
+            font-weight: 700;
         }
 
         h3 {
-            color: var(--text-color);
-            font-size: 18px;
+            color: var(--dark-color);
+            font-size: 16px;
             margin-top: 24px;
             font-weight: 700;
         }
 
         p, li {
-            color: var(--light-text);
-            font-size: 16px;
+            color: #546E7A;
+            font-size: 15px;
+            text-align: justify;
         }
 
-        ul {
-            padding-left: 24px;
+        ul, ol {
+            padding-left: 20px;
         }
 
         li {
-            margin-bottom: 10px;
+            margin-bottom: 12px;
         }
 
-        .highlight-box {
-            background-color: rgba(0, 191, 165, 0.1);
-            border-left: 4px solid var(--primary-color);
+        .alert-box {
+            background-color: #ECEFF1;
+            border-left: 4px solid #78909C;
             padding: 16px 20px;
             border-radius: 0 8px 8px 0;
             margin: 20px 0;
         }
 
-        .highlight-box strong {
-            color: var(--secondary-color);
+        .alert-box strong {
+            color: var(--dark-color);
         }
 
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 20px;
             margin-top: 20px;
         }
@@ -110,51 +112,61 @@
             background-color: var(--card-bg);
             border: 1px solid var(--border-color);
             border-radius: 8px;
-            padding: 24px;
-            transition: transform 0.2s ease;
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+            padding: 20px;
         }
 
         .card h4 {
             margin-top: 0;
-            color: var(--primary-color);
-            font-size: 18px;
+            color: var(--secondary-color);
+            font-size: 16px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 8px;
         }
 
-        .timeline {
-            position: relative;
-            max-width: 100%;
-            margin: 0 auto;
-        }
-        
         table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
+            font-size: 14px;
         }
         
         th, td {
             border: 1px solid var(--border-color);
-            padding: 12px 16px;
+            padding: 12px 14px;
             text-align: left;
+            vertical-align: top;
         }
         
         th {
-            background-color: #F0F4F8;
-            color: var(--secondary-color);
+            background-color: #ECEFF1;
+            color: var(--dark-color);
             font-weight: 500;
+        }
+
+        .flow-step {
+            background: #FAFAFA;
+            border: 1px dashed var(--border-color);
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 6px;
+        }
+
+        .flow-step span {
+            background: var(--primary-color);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-right: 8px;
         }
 
         .footer {
             text-align: center;
-            padding: 24px;
-            background-color: #f1f1f1;
-            color: #888;
-            font-size: 14px;
+            padding: 20px;
+            background-color: #ECEFF1;
+            color: #78909C;
+            font-size: 13px;
             border-top: 1px solid var(--border-color);
         }
     </style>
@@ -163,87 +175,112 @@
 
 <div class="container">
     <div class="header">
-        <h1>Hahow 線上學習平台 AI 輔助系統</h1>
-        <p>輕量化產品企劃書｜提升完課率與學習成效的解決方案</p>
+        <h1>Hahow 影音學習 AI 續航模組</h1>
+        <p>跨組織協調與商業級架構之產品開發企劃書</p>
     </div>
 
     <div class="content">
-        <div class="highlight-box">
-            <strong>專案核心理念：</strong><br>
-            從「考高分」的高中生市場轉向「求即戰力、克服拖延」的成人學習市場。產品定位為<strong>「影音教材的防腐劑與調味專家」</strong>，以最低的 Token 成本與最輕量的認知負載，將學生的注意力精準導回影片本身，達成「完課率」與「確保學會」的雙重目標。
+        <div class="alert-box">
+            <strong>【專案定位與開發原則】</strong><br>
+            鑑於我方非 Hahow 平台方，且技術由外包廠商開發，本專案放棄「修改 Hahow 核心播放器」與「高頻率即時對話」等高風險作法。產品定位為<strong>「低侵入式網頁組件」</strong>，核心任務是<strong>「防囤課（拉高完課率）」</strong>與<strong>「微測驗（確保學會）」</strong>。開發原則為：Hahow 研發負擔最小化、外包 Token 成本固定化。
         </div>
 
-        <h2>一、 產品設計原則與技術架構</h2>
-        <p>為了解決 AI 資源濫用導致成本失控，以及避免本末倒置干擾影音學習體驗，本專案導入嚴格的限制與快取機制。透過完善的前後端 API 協作與高效能的題庫資料庫部署，確保服務穩定且輕量：</p>
-        <ul>
-            <li><strong>一次性批次生成（Batch Processing）：</strong> LLM 僅在課程上架時讀取教材文本，預先生成所有「隨堂點心題」與「章節摘要」並寫入資料庫緩存，將呼叫次數從「用戶觀看數」降至「課程數」。</li>
-            <li><strong>嚴格使用量控制（Quota 鎖）：</strong> 捨棄無限制發問，設定每位用戶單日最高 3 次對話額度，引導用戶善用既有影片資源。</li>
-            <li><strong>完全依附影音體驗：</strong> AI 工具作為輔助組件內嵌，不設立搶奪流量的獨立入口，一切互動皆指向「引導觀看影片進度」。</li>
-        </ul>
-
-        <h2>二、 產品功能規劃 (MVP)</h2>
+        <h2>一、 產品發想與技術架構</h2>
+        <p>為克服三方跨組織（我方、外包、Hahow）在法務、資安與 API 權限審查上的摩擦力，產品全面改用低度對接的設計：</p>
+        
         <div class="grid">
             <div class="card">
-                <h4>1. Web 端內嵌式「精簡版隨堂組件」</h4>
-                <p><strong>功能描述：</strong> 內建於 Hahow 影片播放器旁的輕量化外掛模組。</p>
-                <ul>
-                    <li><strong>觀念隨堂點心：</strong> 影片播放至特定節點（如 50%），跳出預先生成的單選題。答錯不作長篇解釋，而是引導：「建議回到影片 03:15 處重新觀看。」</li>
-                    <li><strong>AI 影音書籤：</strong> 將預生成的 300 字章節精華置於網頁側邊欄，方便快速抓取重點。</li>
-                </ul>
+                <h4>1. Web 端：「貼行代碼」輕量組件</h4>
+                <p><strong>運作方式：</strong> 外包廠商將組件開發完成後託管於我方伺服器。Hahow 研發團隊完全不需要改動影音核心程式，只需在前端網頁貼上一行類似 Google Analytics 的 JavaScript 代碼即可完成部署。</p>
+                <p><strong>功能機制：</strong> 網頁組件自動監聽網頁原生的 HTML5 影片時間軸。當播放進度到達 50% 時，組件自動在側邊欄跳出預先生成的單選微測驗。答錯時，系統直接讀取快取資料提示：「建議回到影片 03:15 處重新觀看。」</p>
             </div>
             <div class="card">
-                <h4>2. LINE「完課衝刺」輕量通知 Bot</h4>
-                <p><strong>功能描述：</strong> 專注於進度追蹤與痛點誘因推播，不作耗能的深度對練。</p>
-                <ul>
-                    <li><strong>防囤課機制：</strong> 偵測停滯觀看達 3 天，即發送 50 字內預先生成的「微劇透」或「實用痛點金句」。</li>
-                    <li><strong>一鍵喚醒：</strong> 推播內容附帶直達 Hahow 該章節播放頁面的連結，以最低阻力促發行動。</li>
-                </ul>
+                <h4>2. LINE 端：純推播「防囤課」機器人</h4>
+                <p><strong>運作方式：</strong> 放棄高成本、多輪對話的即時互動。當 Hahow 系統偵測到使用者買課後超過 3 天未觀看，僅需透過一個極簡的 Webhook 發送訊號給我方 LINE 伺服器。</p>
+                <p><strong>功能機制：</strong> LINE 自動發送一則 50 字內的預生成「實用痛點金句」或「單元微劇透」，並附上直接喚醒網頁回到該課程單元的超連結，以最低阻力引導學員回看影片。</p>
             </div>
         </div>
 
-        <h2>三、 目標客群 (Target Audience)</h2>
-        <p>初期專注鎖定 Hahow 上具備明確痛點的白領在職進修族群，避開過度發散：</p>
+        <div class="alert-box">
+            <strong>【Token 成本與算力控管】</strong><br>
+            LLM 僅在課程測試啟動時，由外包後台跑一次腳本，讀取字幕（SRT）與講義文字，<strong>一次性批次生成</strong>所有摘要與題目存入資料庫（快取）。使用者前端互動僅為「讀取靜態資料」，<strong>AI 呼叫次數與用戶觀看數無關</strong>；另針對前端發問設定「單人每日 3 次 Quota 鎖」，將即時算力成本鎖死在可預測的範圍。
+        </div>
+
+        <h2>二、 跨組織商業合作策略</h2>
+        <p><strong>目標客群 (TA)：</strong> 鎖定 Hahow 平台上買了課卻容易囤課、時間破碎化的「三分鐘熱度上班族」。</p>
+        <p><strong>封閉式 Pilot 測試方案（降低商務阻力）：</strong><br>
+        不要求 Hahow 開放全站資料庫。提案時由 Hahow 挑選 3 堂最想拉高指標的熱門職場課。由 Hahow 課程 PM 人工下載這 3 堂課的講義 PDF 與字幕文字檔（SRT）提供給我方，再轉交外包廠商。這樣能達成 <strong>Hahow 零資安風險、外包廠商開發環境封閉</strong> 的安全合作架喚。</p>
+
+        <h2>三、 專案開發與協調週期 (務實預估：5 ~ 6 個月)</h2>
+        <p>考量跨公司行政流程、合約修訂、規格澄清與三方聯合調試，拉長並梳理出以下務實流程：</p>
+        
+        <div class="flow-step">
+            <span>第 1 ~ 2 個月</span> <strong>商務對齊與資料準備期（我方主導）</strong><br>
+            <ul>
+                <li>與 Hahow 談定合作意向，確認 Pilot 測試的 3 堂課程，並人工取得講義與字幕資料。</li>
+                <li>與外包廠商釐清規格，控管外包合約。將技術架構定案為「後台批次預生成」，確認 API 規格書（Spec）與計費防禦機制。</li>
+            </ul>
+        </div>
+
+        <div class="flow-step">
+            <span>第 3 ~ 4 個月</span> <strong>封閉式研發與後台生成期（外包廠商開發）</strong><br>
+            <ul>
+                <li>外包廠商建立 RAG Pipeline，將 3 堂課資料餵給 LLM 批次生成章節精華、題庫與引導秒數。</li>
+                <li>外包廠商開發 Web 輕量內嵌代碼與 LINE Bot 基礎接收功能。</li>
+                <li><strong>品質驗收點（我方審查）：</strong> 由我方 PM 人工抽驗外包廠商生出的題庫品質，校正 Prompt 消除幻覺。</li>
+            </ul>
+        </div>
+
+        <div class="flow-step">
+            <span>第 5 ~ 6 個月</span> <strong>三方聯合測試與正式上線（三方聯調）</strong><br>
+            <ul>
+                <li>Hahow 研發團隊於測試環境（Staging）貼上網頁嵌入碼，測試組件監聽影片時間軸的穩定度。</li>
+                <li>聯調 Hahow 進度事件與我方 LINE 伺服器的 Webhook 接收。</li>
+                <li>小規模學員封測、排除 Bug，正式投放上線。</li>
+            </ul>
+        </div>
+
+        <h2>四、 商業級預算與成本結構精算</h2>
+        <p>基於標準軟體工程人力市場行情（以 1 PM、1 前端、1 後端/AI 之基本配置，時程 6 個月計算）以及承載萬人級 Hahow 流量之商業雲端架構，預算重新精算如下：</p>
+        
         <table>
             <tr>
-                <th>TA 分眾</th>
-                <th>學習痛點</th>
-                <th>產品切入價值</th>
+                <th>預算項目</th>
+                <th>估算金額 (NTD)</th>
+                <th>費用屬性與說明</th>
             </tr>
             <tr>
-                <td><strong>三分鐘熱度上班族</strong><br>(職場技能/管理類)</td>
-                <td>買課後下班太累容易囤課，意志力薄弱。</td>
-                <td>LINE 微推播打破怠惰；單一選擇題降低測試壓力。</td>
+                <td><strong>外包廠商研發與聯調費用</strong></td>
+                <td>$1,500,000 ~ $2,400,000</td>
+                <td><strong>一次性開發費用。</strong><br>
+                依據台灣市場合規軟體外包行情，資深工程師與專案管理每人月（Man-Month）綜合管銷成本約 12 ~ 15 萬元。半年期專案（總計約 12~15 人月）之合理商業報價區間在此範圍。包含跨組織（Hahow）技術規格對接、客製化 RAG 斷點生成腳本、Web 嵌入式 JavaScript 組件及企業級 LINE Webhook 伺服器建置。
+                </td>
             </tr>
             <tr>
-                <td><strong>硬實力技術剛需者</strong><br>(程式/數據類)</td>
-                <td>實作卡關易放棄，需要精準驗證觀念。</td>
-                <td>隨堂點心直接點出影片回顧秒數，快速解惑不迷失。</td>
+                <td><strong>商業級雲端基礎建設費 (Cloud Infra)</strong></td>
+                <td>$35,000 ~ $50,000 / 月</td>
+                <td><strong>持續性營運費用。</strong><br>
+                此為承載 Hahow 平台高併發流量之標準 AWS / GCP 企業級配置。包含：自動擴展伺服器（Auto-scaling EC2）、高可用性資料庫快取（Redis / Managed MySQL）、靜態資源加速（CDN）、以及符合企業標準的基礎資安防護（WAF、DDoS 防禦與定期備份機制）。
+                </td>
+            </tr>
+            <tr>
+                <td><strong>LLM API Token 算力費</strong></td>
+                <td>$15,000 ~ $30,000 / 月</td>
+                <td><strong>持續性營運費用（變動成本）。</strong><br>
+                即使採取「後台批次預生成」以節省算力，當 Pilot 測試擴大至數萬名學員、且每人每日享有 3 次提問 Quota 時，企業級模型（如 GPT-4o 或 Claude 3.5 Sonnet）的即時上下文解析仍會產生相應的 Token 消耗。此處以月活躍用戶（MAU）達 5,000 人進行商業推估。
+                </td>
+            </tr>
+            <tr>
+                <td><strong>我方專案管理（PM）內部成本</strong></td>
+                <td>視公司內部編制而定</td>
+                <td>負責介接 Hahow 與外包廠商，主導階段二的題庫品質人工抽驗與商務談判。</td>
             </tr>
         </table>
-
-        <h2>四、 商業模式推動策略</h2>
-        <p>採階段性推進，從單點驗證走向全域授權：</p>
-        <ol>
-            <li><strong>B2B2C 課程加價購（概念驗證期）：</strong> 與特定熱門課程（如 Python、行銷管理）老師合作，購課時提供「加購 AI 專屬導師/題庫服務」，由開發團隊、老師、平台三方分潤。</li>
-            <li><strong>B2B 企業端加值服務（獲利成長期）：</strong> 包裝為「企業人資考核與完課保證模組」導入 Hahow for Business，為企業端提供去識別化的學習成效微型看板，收取高溢價。</li>
-            <li><strong>B2B SaaS 平台級授權（規模化期）：</strong> 以「訂閱年費 + MAU」形式，將底層題庫與批次生成架構授權給 Hahow 作為全站 VIP 標配功能。</li>
-        </ol>
-
-        <h2>五、 專案時程與成本預估 (6-8 週敏捷開發)</h2>
-        <p>基於輕量化與高緩存架構，大幅壓縮研發與營運成本：</p>
-        <ul>
-            <li><strong>W1-W2 核心架構建置：</strong> 教材 Ingestion Pipeline、撰寫 Prompt 批次生成腳本、資料庫快取建置。</li>
-            <li><strong>W3-W4 前端與 API 串接：</strong> Web 內嵌 UI 開發、Quota 鎖機制建立、LINE Bot 基礎推送 API 整合。</li>
-            <li><strong>W5-W6 內部整合測試：</strong> 擇定 3~5 堂指標課程進行跑模，驗證題目精準度與答錯引導秒數。</li>
-            <li><strong>W7-W8 MVP 上線：</strong> 數據看板建置，正式對小規模使用者進行封測與投放。</li>
-        </ul>
-        <p><em>* 營運 Token 成本因採「批次預處理」模式，僅需支付極低的單次生成費，不再隨使用者觀看次數呈線性暴增。</em></p>
     </div>
-    
+
     <div class="footer">
-        © 2026 AI 產品企劃提案｜為成人線上學習打造的高效續航引擎
+        © 2026 線上學習 AI 續航模組建置案｜務實、低風險、可控成本之 B2B2C 企劃
     </div>
 </div>
-
 </body>
 </html>
