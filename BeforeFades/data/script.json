@@ -1,9 +1,9 @@
 {
   "meta": {
-    "title": "Before Fadeout：地獄脫口秀的產品發表會",
+    "title": "Before Fades：地獄脫口秀的產品發表會",
     "version": "2.0.2-index-layering-fix-r2",
     "language": "zh-Hant",
-    "engine": "Before Fadeout Static Web Visual Novel Engine",
+    "engine": "Before Fades Static Web Visual Novel Engine",
     "startScene": "start",
     "description": "完整文本版：擴充地獄脫口秀、共感、舞台cue、演出結束觀察與案件封存。 / 調整角色圖層清除、舞台限定傑米立繪、錄音回憶背景與背景切換節奏。",
     "imageAssetSet": "aligned-to-provided-assets-2026-05-28"
@@ -220,7 +220,7 @@
       "bg_control_room": {
         "src": "assets/images/bg_control_room.jpg",
         "category": "background",
-        "description": "Before Fadeout 的後台臨時指揮中心。"
+        "description": "Before Fades 的後台臨時指揮中心。"
       },
       "bg_control_room_dark": {
         "src": "assets/images/bg_control_room_dark.jpg",
@@ -260,7 +260,7 @@
       "bg_office_news": {
         "src": "assets/images/bg_office_news.jpg",
         "category": "background",
-        "description": "三個月後 Before Fadeout 辦公室。"
+        "description": "三個月後 Before Fades 辦公室。"
       },
       "cg_white_rose": {
         "src": "assets/images/cg_white_rose.jpg",
@@ -390,7 +390,7 @@
       "doc_case_report": {
         "src": "assets/images/doc_case_report.jpg",
         "category": "document",
-        "description": "Before Fadeout 案件封存報告。"
+        "description": "Before Fades 案件封存報告。"
       },
       "doc_jamie_script": {
         "src": "assets/images/doc_jamie_script.jpg",
@@ -457,7 +457,7 @@
       {
         "type": "mode",
         "value": "system",
-        "label": "Before Fadeout"
+        "label": "Before Fades"
       },
       {
         "type": "note",
@@ -1189,7 +1189,7 @@
       {
         "type": "say",
         "speaker": "傑米",
-        "text": "你們 Before Fadeout 真的有病。"
+        "text": "你們 Before Fades 真的有病。"
       },
       {
         "type": "say",
@@ -3193,7 +3193,7 @@
       {
         "type": "mode",
         "value": "oldnoodle",
-        "label": "三個月後 / Before Fadeout 辦公室"
+        "label": "三個月後 / Before Fades 辦公室"
       },
       {
         "type": "clearSprites"
@@ -3223,7 +3223,7 @@
       },
       {
         "type": "narrate",
-        "text": "Before Fadeout 辦公室裡，光線很冷。電視新聞聲音正在播放。老麵、凱特、雷老師、庭如都在，沒有一個人坐得很舒服。"
+        "text": "Before Fades 辦公室裡，光線很冷。電視新聞聲音正在播放。老麵、凱特、雷老師、庭如都在，沒有一個人坐得很舒服。"
       },
       {
         "type": "say",
@@ -3445,7 +3445,7 @@
     "case_report_legacy": [
       {
         "type": "choice",
-        "prompt": "Before Fadeout 留下了什麼？",
+        "prompt": "Before Fades 留下了什麼？",
         "options": [
           {
             "text": "一場成功案例。",
@@ -3603,7 +3603,7 @@
       },
       {
         "type": "note",
-        "title": "Before Fadeout",
+        "title": "Before Fades",
         "text": "CASE CLOSED"
       },
       {
