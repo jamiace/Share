@@ -127,7 +127,8 @@
       user-select: none;
     }
 
-    #bgLayer.display-cover #bgMediaFrame {
+    #bgLayer.display-cover #bgMediaFrame,
+    #bgLayer.display-cg #bgMediaFrame {
       inset: 0;
       border: 0;
       border-radius: 0;
@@ -136,13 +137,23 @@
       overflow: hidden;
     }
 
-    #bgLayer.display-cover #bgImage {
+    #bgLayer.display-cover #bgImage,
+    #bgLayer.display-cg #bgImage {
+      width: 100%;
+      height: 100%;
       object-fit: cover;
       transform: scale(1.01);
+      filter: none;
     }
 
-    #bgLayer.display-cg #bgMediaFrame,
-    #bgLayer.display-document #bgMediaFrame,
+    /*
+      doc_ 圖片不再作為主背景顯示；正常流程會轉到右下角 UI 縮圖。
+      這裡只保留 display-document 的保護樣式，避免舊資料意外把文件塞回主舞台。
+    */
+    #bgLayer.display-document #bgMediaFrame {
+      display: none;
+    }
+
     #bgLayer.display-logo #bgMediaFrame {
       top: var(--top-safe);
       right: clamp(28px, 4.2vw, 76px);
@@ -150,32 +161,18 @@
       left: clamp(28px, 4.2vw, 76px);
       border: 1px solid rgba(255,255,255,0.16);
       border-radius: 24px;
-      background: rgba(0,0,0,0.34);
-      box-shadow: 0 22px 70px rgba(0,0,0,0.58), inset 0 0 34px rgba(255,255,255,0.035);
+      background: transparent;
+      box-shadow: none;
       overflow: hidden;
       backdrop-filter: blur(2px);
     }
 
-    #bgLayer.display-cg #bgImage,
-    #bgLayer.display-document #bgImage,
     #bgLayer.display-logo #bgImage {
       width: 100%;
       height: 100%;
       object-fit: contain;
       transform: scale(0.985);
       filter: drop-shadow(0 20px 36px rgba(0,0,0,0.56));
-    }
-
-    #bgLayer.display-document #bgMediaFrame {
-      padding: clamp(12px, 1.5vw, 22px);
-      background: linear-gradient(135deg, rgba(12,14,18,0.76), rgba(2,3,5,0.52));
-      border-color: rgba(230, 220, 190, 0.22);
-    }
-
-    #bgLayer.display-logo #bgMediaFrame {
-      background: transparent;
-      border-color: transparent;
-      box-shadow: none;
     }
 
     #titleLogo {
@@ -521,6 +518,10 @@
       transition: background 240ms ease, border-color 240ms ease, box-shadow 240ms ease;
     }
 
+    #sidePanel.has-document {
+      border-color: color-mix(in srgb, var(--accent) 48%, rgba(255,255,255,0.18));
+    }
+
     #sideImageWrap {
       float: right;
       width: min(142px, 38%);
@@ -533,12 +534,43 @@
       box-shadow: 0 8px 22px rgba(0,0,0,0.36);
     }
 
+    #sideImageWrap.doc-thumb {
+      cursor: zoom-in;
+      position: relative;
+      border-color: color-mix(in srgb, var(--accent) 42%, rgba(255,255,255,0.16));
+      background: rgba(255,255,255,0.07);
+      transition: transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
+    }
+
+    #sideImageWrap.doc-thumb:hover,
+    #sideImageWrap.doc-thumb:focus-visible {
+      transform: translateY(-1px);
+      border-color: var(--accent);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.46), 0 0 18px var(--focus-glow);
+      outline: none;
+    }
+
+    #sideImageWrap.doc-thumb::after {
+      content: "點擊放大";
+      position: absolute;
+      right: 6px;
+      bottom: 5px;
+      padding: 2px 7px;
+      border-radius: 999px;
+      background: rgba(0,0,0,0.66);
+      color: rgba(255,255,255,0.86);
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      pointer-events: none;
+    }
+
     #sideImage {
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      object-fit: contain;
       object-position: center;
       display: block;
+      background: rgba(0,0,0,0.18);
     }
 
     #sideTitle {
@@ -648,6 +680,79 @@
       cursor: pointer;
     }
 
+    #docViewerLayer {
+      position: absolute;
+      inset: 0;
+      z-index: 12;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: clamp(18px, 4vw, 54px);
+      background: rgba(0,0,0,0.78);
+      backdrop-filter: blur(10px);
+      pointer-events: auto;
+    }
+
+    #docViewerLayer.visible {
+      display: flex;
+    }
+
+    #docViewerFrame {
+      position: relative;
+      width: min(1180px, 92vw);
+      max-height: 88vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      padding: clamp(12px, 1.6vw, 20px);
+      border: 1px solid rgba(255,255,255,0.20);
+      border-radius: 24px;
+      background: rgba(8, 10, 14, 0.92);
+      box-shadow: 0 34px 110px rgba(0,0,0,0.78), 0 0 36px var(--focus-glow);
+    }
+
+    #docViewerImage {
+      max-width: 100%;
+      max-height: min(78vh, 820px);
+      object-fit: contain;
+      border-radius: 16px;
+      background: rgba(0,0,0,0.28);
+      box-shadow: 0 18px 60px rgba(0,0,0,0.62);
+    }
+
+    #docViewerCaption {
+      width: 100%;
+      color: rgba(255,255,255,0.78);
+      font-size: clamp(13px, 1.1vw, 16px);
+      line-height: 1.55;
+      text-align: center;
+      letter-spacing: 0.04em;
+    }
+
+    #docViewerClose {
+      position: absolute;
+      top: -14px;
+      right: -14px;
+      width: 42px;
+      height: 42px;
+      border: 1px solid rgba(255,255,255,0.24);
+      border-radius: 999px;
+      background: rgba(5, 6, 9, 0.94);
+      color: rgba(255,255,255,0.92);
+      font-size: 26px;
+      line-height: 1;
+      cursor: pointer;
+      box-shadow: 0 10px 28px rgba(0,0,0,0.58);
+    }
+
+    #docViewerClose:hover,
+    #docViewerClose:focus-visible {
+      color: #fff;
+      border-color: var(--accent);
+      outline: none;
+    }
+
     .hidden { display: none !important; }
 
     .shake { animation: shake 420ms cubic-bezier(.36,.07,.19,.97) both; }
@@ -698,13 +803,36 @@
       .sprite { bottom: calc(var(--hud-height) - 12px); max-height: calc(100vh - var(--hud-height) - 48px); max-width: 56vw; }
       .sprite.left { left: -3vw; }
       .sprite.right { right: -3vw; }
-      #bgLayer.display-cg #bgMediaFrame,
-      #bgLayer.display-document #bgMediaFrame,
       #bgLayer.display-logo #bgMediaFrame,
       #cutinLayer {
         right: 14px;
         left: 14px;
         border-radius: 18px;
+      }
+      #sidePanel.has-document {
+        display: block;
+        position: absolute;
+        right: 12px;
+        bottom: calc(var(--hud-height) + 10px);
+        width: min(260px, calc(100vw - 24px));
+        height: auto;
+        max-height: 138px;
+        padding: 12px;
+        z-index: 6;
+      }
+      #sidePanel.has-document #sideTitle,
+      #sidePanel.has-document #sideContent {
+        display: none;
+      }
+      #sidePanel.has-document #sideImageWrap {
+        float: none;
+        width: 100%;
+        height: 104px;
+        margin: 0;
+      }
+      #docViewerClose {
+        top: 8px;
+        right: 8px;
       }
     }
   </style>
@@ -759,6 +887,14 @@
         <h2 id="overlayTitle">HELP</h2>
         <div id="overlayBody"></div>
         <button id="overlayClose">關閉</button>
+      </div>
+    </div>
+
+    <div id="docViewerLayer" aria-hidden="true">
+      <div id="docViewerFrame" role="dialog" aria-modal="true" aria-label="文件放大檢視">
+        <button id="docViewerClose" type="button" aria-label="關閉文件檢視">×</button>
+        <img id="docViewerImage" alt="" draggable="false" />
+        <div id="docViewerCaption"></div>
       </div>
     </div>
   </div>
@@ -821,6 +957,7 @@
       dialogueBox: $("dialogueBox"),
       next: $("nextIndicator"),
       choices: $("choices"),
+      sidePanel: $("sidePanel"),
       sideTitle: $("sideTitle"),
       sideContent: $("sideContent"),
       sideImageWrap: $("sideImageWrap"),
@@ -829,6 +966,10 @@
       overlayTitle: $("overlayTitle"),
       overlayBody: $("overlayBody"),
       overlayClose: $("overlayClose"),
+      docViewer: $("docViewerLayer"),
+      docViewerImage: $("docViewerImage"),
+      docViewerCaption: $("docViewerCaption"),
+      docViewerClose: $("docViewerClose"),
       btnSave: $("btnSave"),
       btnLoad: $("btnLoad"),
       btnAuto: $("btnAuto"),
@@ -854,6 +995,7 @@
       currentBgmId: null,
       currentMode: "system",
       currentBgId: "",
+      currentDocId: "",
       currentUi: "g",
       continueAfterBusy: false,
       bgmToken: 0,
@@ -919,6 +1061,13 @@
     function bindEvents() {
       dom.dialogueBox.addEventListener("click", () => advance());
       document.addEventListener("keydown", (e) => {
+        if (isDocumentViewerOpen()) {
+          if (["Escape", "Enter", " "].includes(e.key)) {
+            e.preventDefault();
+            hideDocumentViewer();
+          }
+          return;
+        }
         if (dom.overlay.style.display === "flex") {
           if (e.key === "Escape" || e.key === "Enter") hideOverlay();
           return;
@@ -940,6 +1089,15 @@
       dom.btnHelp.addEventListener("click", showHelp);
       dom.overlayClose.addEventListener("click", hideOverlay);
       dom.overlay.addEventListener("click", (e) => { if (e.target === dom.overlay) hideOverlay(); });
+      dom.sideImageWrap.addEventListener("click", openSideDocument);
+      dom.sideImageWrap.addEventListener("keydown", (e) => {
+        if (["Enter", " "].includes(e.key)) {
+          e.preventDefault();
+          openSideDocument();
+        }
+      });
+      dom.docViewerClose.addEventListener("click", hideDocumentViewer);
+      dom.docViewer.addEventListener("click", (e) => { if (e.target === dom.docViewer) hideDocumentViewer(); });
 
       ["click", "keydown", "touchstart"].forEach((eventName) => {
         document.addEventListener(eventName, unlockAudio, { once: true });
@@ -1067,7 +1225,7 @@
     }
 
     function advance() {
-      if (state.awaitingChoice || dom.overlay.style.display === "flex") return;
+      if (state.awaitingChoice || dom.overlay.style.display === "flex" || isDocumentViewerOpen()) return;
       unlockAudio();
       if (state.typing) {
         finishTyping();
@@ -1252,10 +1410,6 @@
       const requestedBgId = id || "";
       id = sanitizeBackgroundIdForScene(requestedBgId);
       const bg = state.script.assets?.backgrounds?.[id];
-      state.currentBgId = id || "";
-
-      // 背景切換通常代表視覺焦點切換；先清掉不該跨場景殘留的舞台限定立繪，避免準備室或文件畫面誤出現台上傑米。
-      clearInvalidSpritesForBackground(id);
 
       if (!bg) {
         console.warn("Missing background:", id, requestedBgId && requestedBgId !== id ? `(requested: ${requestedBgId})` : "");
@@ -1266,6 +1420,24 @@
         await wait(normalizePostBgDelay(postDelayMs));
         return;
       }
+
+      const src = typeof bg === "string" ? bg : (bg.src || "");
+      const category = src ? imageCategoryFor(id, src) : "background";
+
+      // doc_ 不再切換主背景，只更新右下角 UI 縮圖，並保留目前舞台／房間背景。
+      if (category === "document") {
+        state.currentDocId = id || "";
+        showDocumentInSidePanel(id);
+        await wait(normalizePostBgDelay(postDelayMs));
+        return;
+      }
+
+      state.currentBgId = id || "";
+      state.currentDocId = "";
+      setSideImage("");
+
+      // 背景切換通常代表視覺焦點切換；先清掉不該跨場景殘留的舞台限定立繪，避免準備室或文件畫面誤出現台上傑米。
+      clearInvalidSpritesForBackground(id);
 
       if (transition === "flash") await flash(0.78, 200);
       if (transition === "fade") {
@@ -1281,12 +1453,10 @@
         dom.bgImage.removeAttribute("src");
         dom.bgImage.style.opacity = "0";
         updateTitleLogo("");
-      } else if (bg.src || typeof bg === "string") {
-        const src = bg.src || bg;
-        const category = imageCategoryFor(id, src);
+      } else if (src) {
         const displayMode = imageDisplayModeFor(id, src, category);
         dom.bg.classList.add(`display-${displayMode}`);
-        dom.bg.style.backgroundImage = displayMode === "cover"
+        dom.bg.style.backgroundImage = displayMode === "cover" || displayMode === "cg"
           ? CONFIG.defaultBg
           : `linear-gradient(rgba(0,0,0,0.36), rgba(0,0,0,0.58)), url("${cssUrl(src)}")`;
         dom.bg.style.backgroundSize = "cover";
@@ -1333,8 +1503,10 @@
     }
 
     function imageDisplayModeFor(id, src, category) {
+      // cg_ 圖片與一般 bg 完全同樣：滿版 cover 顯示。
+      if (category === "cg") return "cover";
+      // doc_ 正常不會進入主背景流程；保留 fallback 是為了防呆。
       if (category === "document") return "document";
-      if (category === "cg") return "cg";
       if (category === "ui_or_publish" || /logo/i.test(id || src || "")) return "logo";
       return "cover";
     }
@@ -1777,13 +1949,13 @@
       const key = `${title || ""}\n${text || ""}`;
       if (/TITLE|Before/.test(key)) return "logo_beforefades";
       if (/CASE \/ STATUS|座位|來賓|地點/.test(key)) return "doc_seating_plan";
-      if (/MONITOR|監控/.test(key)) return "bg_control_room";
+      if (/MONITOR|監控/.test(key)) return "";
       if (/RUN-DOWN|rundown|流程/.test(key)) return "doc_rundown";
       if (/GUEST LIST|來賓名單|家屬席/.test(key)) return "doc_guest_list";
       if (/ROOM|藥瓶|診斷摘要|神經退化/.test(key)) return "doc_medical_report";
       if (/REINCARNATION|輪迴|人格掃描|決策延續/.test(key)) return "doc_reincarnation_pitch";
       if (/講稿|脫口秀講稿/.test(key)) return "doc_jamie_script";
-      if (/EMPATHY|共感/.test(key)) return "cg_empathy_warm";
+      if (/EMPATHY|共感/.test(key)) return "";
       if (/VOICE|錄音|訪談|波形/.test(key)) return "doc_voice_wave";
       if (/MAIL|內部|危機/.test(key)) return "doc_internal_mail";
       if (/NEWS|MEDIA|新聞|股價/.test(key)) return "doc_media_news";
@@ -1794,20 +1966,72 @@
     function setSideImage(assetId) {
       if (!dom.sideImage || !dom.sideImageWrap) return;
       const src = resolveBackgroundSrc(assetId);
-      if (!assetId || !src) {
+      const category = src ? imageCategoryFor(assetId, src) : "";
+      if (!assetId || !src || category !== "document") {
         dom.sideImageWrap.classList.add("hidden");
+        dom.sideImageWrap.classList.remove("doc-thumb");
+        dom.sideImageWrap.removeAttribute("role");
+        dom.sideImageWrap.removeAttribute("tabindex");
+        delete dom.sideImageWrap.dataset.assetId;
+        delete dom.sideImageWrap.dataset.src;
+        delete dom.sideImageWrap.dataset.caption;
         dom.sideImage.removeAttribute("src");
+        dom.sidePanel?.classList.remove("has-document");
         return;
       }
+      const caption = assetDescriptionFor(assetId, src) || assetId;
       dom.sideImage.src = src;
-      dom.sideImage.alt = assetDescriptionFor(assetId, src) || assetId;
+      dom.sideImage.alt = caption;
+      dom.sideImageWrap.dataset.assetId = assetId;
+      dom.sideImageWrap.dataset.src = src;
+      dom.sideImageWrap.dataset.caption = caption;
+      dom.sideImageWrap.setAttribute("role", "button");
+      dom.sideImageWrap.setAttribute("tabindex", "0");
+      dom.sideImageWrap.classList.add("doc-thumb");
       dom.sideImageWrap.classList.remove("hidden");
+      dom.sidePanel?.classList.add("has-document");
+    }
+
+    function showDocumentInSidePanel(assetId) {
+      const src = resolveBackgroundSrc(assetId);
+      const description = assetDescriptionFor(assetId, src) || assetId || "文件";
+      dom.sideTitle.textContent = "DOCUMENT / 文件";
+      dom.sideContent.textContent = `${description}
+點擊右側縮圖可放大檢視。`;
+      setSideImage(assetId);
     }
 
     function setSideNote(title, text) {
       dom.sideTitle.textContent = title || "NOTE";
       dom.sideContent.textContent = text || "";
       setSideImage(resolveNoteImage(title, text));
+    }
+
+    function openSideDocument() {
+      const assetId = dom.sideImageWrap?.dataset?.assetId;
+      if (!assetId) return;
+      const src = dom.sideImageWrap.dataset.src || resolveBackgroundSrc(assetId);
+      if (!src) return;
+      showDocumentViewer(src, dom.sideImageWrap.dataset.caption || assetDescriptionFor(assetId, src) || assetId);
+    }
+
+    function showDocumentViewer(src, caption = "") {
+      dom.docViewerImage.src = src;
+      dom.docViewerImage.alt = caption || "文件放大檢視";
+      dom.docViewerCaption.textContent = caption || "";
+      dom.docViewer.classList.add("visible");
+      dom.docViewer.setAttribute("aria-hidden", "false");
+      dom.docViewerClose.focus({ preventScroll: true });
+    }
+
+    function hideDocumentViewer() {
+      if (!dom.docViewer) return;
+      dom.docViewer.classList.remove("visible");
+      dom.docViewer.setAttribute("aria-hidden", "true");
+    }
+
+    function isDocumentViewerOpen() {
+      return Boolean(dom.docViewer?.classList.contains("visible"));
     }
 
     function saveGame() {
@@ -1889,6 +2113,7 @@
           <li><code>{"type":"effect","name":"empathyDown","words":["恐懼"]}</code>：下墜，適合負面情緒。</li>
           <li><code>{"type":"effect","name":"empathy","direction":"down","words":["恐懼"]}</code>：同樣觸發下墜。</li>
         </ul>
+        <p><code>cg_</code> 圖片會像一般背景一樣滿版顯示；<code>doc_</code> 圖片只會進入右下角文件縮圖，點擊後可放大，點背景或右上角 × 可關閉。</p>
         <p>本機測試時不要直接用 <code>file://</code> 開啟，建議用 VS Code Live Server。</p>
       `);
     }
