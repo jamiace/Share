@@ -91,7 +91,7 @@
       --focus-glow: rgba(82, 138, 255, 0.22);
     }
 
-    #bgLayer, #spriteLayer, #effectLayer, #uiLayer, #overlayLayer {
+    #bgLayer, #spriteLayer, #effectLayer, #uiLayer {
       position: absolute;
       inset: 0;
     }
@@ -392,22 +392,6 @@
       pointer-events: none;
     }
 
-    #vignette {
-      display: none;
-    }
-
-    #grain {
-      display: none;
-    }
-
-    @keyframes grainMove {
-      0% { transform: translate(0, 0); }
-      25% { transform: translate(-1%, 1%); }
-      50% { transform: translate(1%, -1%); }
-      75% { transform: translate(1%, 1%); }
-      100% { transform: translate(0, 0); }
-    }
-
     .emotion-word {
       position: absolute;
       z-index: 8;
@@ -489,25 +473,6 @@
       box-shadow: 0 0 26px var(--focus-glow);
       transition: color 240ms ease, border-color 240ms ease, box-shadow 240ms ease;
     }
-
-    #buttonRow {
-      display: none;
-    }
-
-    .top-btn {
-      padding: 8px 10px;
-      border: 1px solid var(--ui-border);
-      border-radius: 10px;
-      color: var(--muted);
-      background: rgba(0,0,0,0.36);
-      font-size: 13px;
-      cursor: pointer;
-      backdrop-filter: blur(8px);
-      transition: color 160ms ease, border-color 160ms ease, background 160ms ease;
-    }
-
-    .top-btn:hover { color: var(--text); border-color: rgba(255,255,255,0.34); }
-    .top-btn.active { color: var(--accent); border-color: var(--accent); background: var(--accent-soft); }
 
     #mainHud {
       display: grid;
@@ -769,56 +734,6 @@
       background: var(--ui-bg-strong);
     }
 
-    #overlayLayer {
-      z-index: 10;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      background: rgba(0,0,0,0.72);
-      backdrop-filter: blur(8px);
-      pointer-events: auto;
-    }
-
-    #overlayCard {
-      width: min(760px, calc(100vw - 34px));
-      max-height: calc(100vh - 60px);
-      overflow: auto;
-      padding: 26px;
-      border: 1px solid var(--ui-border);
-      border-radius: 22px;
-      background: rgba(9, 12, 17, 0.96);
-      box-shadow: 0 30px 90px rgba(0,0,0,0.7);
-    }
-
-    #overlayCard h2 {
-      margin: 0 0 10px;
-      color: var(--accent);
-      font-size: 24px;
-    }
-
-    #overlayCard p, #overlayCard li {
-      color: rgba(255,255,255,0.82);
-      line-height: 1.76;
-      font-size: 16px;
-    }
-
-    #overlayCard code {
-      padding: 2px 6px;
-      border-radius: 6px;
-      background: rgba(255,255,255,0.09);
-      color: #fff3ce;
-    }
-
-    #overlayClose {
-      margin-top: 18px;
-      padding: 10px 14px;
-      border: 1px solid rgba(255,255,255,0.18);
-      border-radius: 12px;
-      background: rgba(255,255,255,0.08);
-      color: var(--text);
-      cursor: pointer;
-    }
-
     #docViewerLayer {
       position: absolute;
       inset: 0;
@@ -1021,16 +936,6 @@
       40%, 60% { transform: translate3d(4px, 0, 0); }
     }
 
-    .glitch { animation: glitch 520ms steps(2) both; }
-
-    @keyframes glitch {
-      0% { filter: hue-rotate(0deg) contrast(1); transform: translate(0,0); }
-      20% { filter: hue-rotate(35deg) contrast(1.4); transform: translate(-3px,2px); }
-      45% { filter: hue-rotate(-28deg) contrast(1.55); transform: translate(3px,-1px); }
-      70% { filter: hue-rotate(12deg) contrast(1.2); transform: translate(-1px,1px); }
-      100% { filter: hue-rotate(0deg) contrast(1); transform: translate(0,0); }
-    }
-
     @media (max-width: 980px) {
       #mainHud {
         grid-template-columns: 1fr minmax(300px, 35vw);
@@ -1045,7 +950,6 @@
       :root { --top-safe: 56px; --hud-height: 236px; --hud-gap: 12px; }
       #topBar { padding: 10px 12px; }
       #modeBadge { min-width: auto; max-width: 52vw; font-size: 12px; padding: 8px 12px; }
-      #buttonRow .top-btn:nth-child(n+5) { display: none; }
       #mainHud {
         grid-template-columns: 1fr;
         gap: 10px;
@@ -1121,21 +1025,11 @@
     <div id="effectLayer">
       <div id="cutinLayer"><img id="cutinImage" alt="" draggable="false" /></div>
       <div id="flash"></div>
-      <div id="vignette"></div>
-      <div id="grain"></div>
     </div>
 
     <div id="uiLayer">
       <div id="topBar">
         <div id="modeBadge">SYSTEM / WAITING</div>
-        <div id="buttonRow">
-          <button class="top-btn" id="btnSave">SAVE</button>
-          <button class="top-btn" id="btnLoad">LOAD</button>
-          <button class="top-btn" id="btnAuto">AUTO</button>
-          <button class="top-btn" id="btnSkip">SKIP</button>
-          <button class="top-btn" id="btnLog">LOG</button>
-          <button class="top-btn" id="btnHelp">HELP</button>
-        </div>
       </div>
 
       <div id="mainHud">
@@ -1153,14 +1047,6 @@
     </div>
 
     <div id="choices"></div>
-
-    <div id="overlayLayer">
-      <div id="overlayCard">
-        <h2 id="overlayTitle">HELP</h2>
-        <div id="overlayBody"></div>
-        <button id="overlayClose">關閉</button>
-      </div>
-    </div>
 
     <div id="docViewerLayer" aria-hidden="true">
       <div id="docViewerFrame" role="dialog" aria-modal="true" aria-label="文件放大檢視">
@@ -1213,10 +1099,7 @@
 
     const CONFIG = {
       scriptPath: "./data/script.json",
-      saveKey: "before_fadeout_save_v2",
       textSpeed: 26,
-      autoDelayBase: 1200,
-      autoDelayPerChar: 38,
       bgmFadeMs: 900,
       bgPostSwitchDelayMs: 680,
       emotionWordLifeMs: 5800,
@@ -1252,10 +1135,6 @@
       sideContent: $("sideContent"),
       sideImageWrap: $("sideImageWrap"),
       sideImage: $("sideImage"),
-      overlay: $("overlayLayer"),
-      overlayTitle: $("overlayTitle"),
-      overlayBody: $("overlayBody"),
-      overlayClose: $("overlayClose"),
       docViewer: $("docViewerLayer"),
       docViewerImage: $("docViewerImage"),
       docViewerCaption: $("docViewerCaption"),
@@ -1266,13 +1145,7 @@
       loadingStatus: $("loadingStatus"),
       loadingCurrent: $("loadingCurrent"),
       loadingStats: $("loadingStats"),
-      loadingErrors: $("loadingErrors"),
-      btnSave: $("btnSave"),
-      btnLoad: $("btnLoad"),
-      btnAuto: $("btnAuto"),
-      btnSkip: $("btnSkip"),
-      btnLog: $("btnLog"),
-      btnHelp: $("btnHelp")
+      loadingErrors: $("loadingErrors")
     };
 
     const state = {
@@ -1280,14 +1153,11 @@
       sceneId: "start",
       index: 0,
       flags: {},
-      log: [],
       busy: false,
       typing: false,
       fullText: "",
       typeTimer: null,
       awaitingChoice: false,
-      auto: false,
-      skip: false,
       startedAudio: false,
       currentBgmId: null,
       currentMode: "system",
@@ -1389,27 +1259,11 @@
           }
           return;
         }
-        if (dom.overlay.style.display === "flex") {
-          if (e.key === "Escape" || e.key === "Enter") hideOverlay();
-          return;
-        }
         if (["Enter", " "].includes(e.key)) {
           e.preventDefault();
           if (!revealPendingTitleChoice()) advance();
         }
-        //if (e.key.toLowerCase() === "s") saveGame();
-        //if (e.key.toLowerCase() === "l") loadGame();
-        //if (e.key.toLowerCase() === "a") toggleAuto();
       });
-
-      dom.btnSave.addEventListener("click", saveGame);
-      dom.btnLoad.addEventListener("click", loadGame);
-      dom.btnAuto.addEventListener("click", toggleAuto);
-      dom.btnSkip.addEventListener("click", toggleSkip);
-      dom.btnLog.addEventListener("click", showLog);
-      dom.btnHelp.addEventListener("click", showHelp);
-      dom.overlayClose.addEventListener("click", hideOverlay);
-      dom.overlay.addEventListener("click", (e) => { if (e.target === dom.overlay) hideOverlay(); });
       dom.sideImageWrap.addEventListener("click", openSideDocument);
       dom.sideImageWrap.addEventListener("keydown", (e) => {
         if (["Enter", " "].includes(e.key)) {
@@ -1496,16 +1350,6 @@
           await playBgm(cmd.id, cmd.volume, cmd.loop, cmd.fade);
           nextCommand();
           break;
-        case "stopBgm":
-          await fadeOutAudio(audio.bgm, cmd.fade ?? CONFIG.bgmFadeMs);
-          audio.bgm.pause();
-          state.currentBgmId = null;
-          nextCommand();
-          break;
-        case "ambience":
-          await playAmbience(cmd.id, cmd.volume, cmd.loop);
-          nextCommand();
-          break;
         case "sfx":
           playSfx(cmd.id, cmd.volume);
           nextCommand();
@@ -1521,10 +1365,6 @@
         case "choice":
           await showChoice(cmd);
           break;
-        case "set":
-          applySet(cmd.values || cmd.set || {});
-          nextCommand();
-          break;
         case "jump":
           jumpTo(cmd.next);
           break;
@@ -1539,10 +1379,6 @@
             nextCommand();
           }
           break;
-        case "overlay":
-          showOverlay(cmd.title || "INFO", cmd.html || `<p>${escapeHtml(cmd.text || "")}</p>`);
-          nextCommand();
-          break;
         case "end":
           await endGame();
           break;
@@ -1553,7 +1389,7 @@
     }
 
     function advance() {
-      if (state.inputLocked || state.awaitingChoice || dom.overlay.style.display === "flex" || isDocumentViewerOpen()) return;
+      if (state.inputLocked || state.awaitingChoice || isDocumentViewerOpen()) return;
       unlockAudio();
       if (state.typing) {
         finishTyping();
@@ -1648,16 +1484,6 @@
       state.typing = true;
       dom.next.style.opacity = "0";
 
-      if (speaker || text) {
-        state.log.push({ speaker: speaker || "旁白", text: text || "" });
-        if (state.log.length > 100) state.log.shift();
-      }
-
-      if (state.skip) {
-        finishTyping();
-        return;
-      }
-
       let i = 0;
       clearInterval(state.typeTimer);
       state.typeTimer = setInterval(() => {
@@ -1673,17 +1499,6 @@
       dom.text.textContent = state.fullText;
       state.typing = false;
       dom.next.style.opacity = "1";
-      if (state.auto) {
-        const delay = CONFIG.autoDelayBase + Math.min(3600, state.fullText.length * CONFIG.autoDelayPerChar);
-        setTimeout(() => {
-          if (state.auto && !state.typing && !state.awaitingChoice && !state.busy) nextCommand();
-        }, delay);
-      }
-      if (state.skip) {
-        setTimeout(() => {
-          if (!state.awaitingChoice && !state.busy) nextCommand();
-        }, 60);
-      }
     }
 
     function classifySpeaker(speaker) {
@@ -1714,9 +1529,6 @@
 
       dom.choices.innerHTML = "";
       state.awaitingChoice = true;
-      state.auto = false;
-      dom.btnAuto.classList.remove("active");
-
       const rawOptions = Array.isArray(cmd.options) ? cmd.options : [];
       const options = isTitleChoice
         ? rawOptions.filter(option => String(option.text || "").includes("開始遊戲")).slice(0, 1)
@@ -2559,7 +2371,6 @@
       switch (cmd.name) {
         case "shake": await shake(cmd.target || "game"); break;
         case "flash": await flash(cmd.opacity ?? 0.85, cmd.ms ?? 260); break;
-        case "glitch": await glitch(cmd.target || "bg"); break;
 
         // 原本的庭如共感文字：上升。
         // JSON: { "type": "effect", "name": "empathy", "words": ["期待", "好奇"] }
@@ -2579,7 +2390,6 @@
           break;
 
         case "fadeBlack": await fadeBlack(cmd.ms ?? 700, cmd); break;
-        case "fadeClear": await fadeClear(cmd.ms ?? 700); break;
         default: console.warn("Unknown effect:", cmd.name);
       }
     }
@@ -2591,15 +2401,6 @@
       el.classList.add("shake");
       await wait(450);
       el.classList.remove("shake");
-    }
-
-    async function glitch(target) {
-      const el = target === "game" ? dom.game : dom.bg;
-      el.classList.remove("glitch");
-      void el.offsetWidth;
-      el.classList.add("glitch");
-      await wait(560);
-      el.classList.remove("glitch");
     }
 
     async function flash(opacity = 0.8, ms = 240) {
@@ -2630,12 +2431,6 @@
 	  dom.effects.style.background = "#000";
 	  await wait(ms);
 	}
-
-    async function fadeClear(ms = 700) {
-      dom.effects.style.transition = `background ${ms}ms ease`;
-      dom.effects.style.background = "transparent";
-      await wait(ms);
-    }
 
     async function runEmpathyEffect(cmdOrWords = [], direction = "up") {
       const cmd = Array.isArray(cmdOrWords) || typeof cmdOrWords === "string"
@@ -3045,100 +2840,6 @@
       return Boolean(dom.docViewer?.classList.contains("visible"));
     }
 
-    function saveGame() {
-      const payload = {
-        sceneId: state.sceneId,
-        index: state.index,
-        flags: state.flags,
-        log: state.log,
-        currentMode: state.currentMode,
-        currentUi: state.currentUi,
-        savedAt: new Date().toISOString()
-      };
-      localStorage.setItem(CONFIG.saveKey, JSON.stringify(payload));
-      toast("已儲存進度。", "SAVE");
-    }
-
-    function loadGame() {
-      const raw = localStorage.getItem(CONFIG.saveKey);
-      if (!raw) {
-        toast("沒有找到儲存資料。", "LOAD");
-        return;
-      }
-      try {
-        const payload = JSON.parse(raw);
-        state.sceneId = payload.sceneId || "start";
-        state.index = payload.index || 0;
-        state.flags = payload.flags || {};
-        state.log = payload.log || [];
-        state.awaitingChoice = false;
-        state.busy = false;
-        state.typing = false;
-        if (payload.currentUi) applyFocusUi(payload.currentUi);
-        dom.choices.style.display = "none";
-        toast("已讀取進度。", "LOAD");
-        runCurrent();
-      } catch (err) {
-        toast("讀取失敗：儲存資料損毀。", "LOAD");
-      }
-    }
-
-    function toggleAuto() {
-      state.auto = !state.auto;
-      if (state.auto) state.skip = false;
-      dom.btnAuto.classList.toggle("active", state.auto);
-      dom.btnSkip.classList.toggle("active", state.skip);
-      toast(state.auto ? "AUTO 已開啟。" : "AUTO 已關閉。", "AUTO");
-    }
-
-    function toggleSkip() {
-      state.skip = !state.skip;
-      if (state.skip) state.auto = false;
-      dom.btnSkip.classList.toggle("active", state.skip);
-      dom.btnAuto.classList.toggle("active", state.auto);
-      toast(state.skip ? "SKIP 已開啟。" : "SKIP 已關閉。", "SKIP");
-      if (state.skip && !state.busy && !state.awaitingChoice) nextCommand();
-    }
-
-    function showLog() {
-      const html = state.log.length
-        ? state.log.map(item => `<p><strong>${escapeHtml(item.speaker)}</strong><br>${escapeHtml(item.text)}</p>`).join("")
-        : "<p>目前沒有對話紀錄。</p>";
-      showOverlay("對話紀錄", html);
-    }
-
-    function showHelp() {
-      showOverlay("操作說明", `
-        <p><strong>滑鼠左鍵 / Enter / Space</strong>：推進文字。文字播放中可直接顯示完整句子。</p>
-        <p><strong>S</strong>：儲存。<strong>L</strong>：讀取。<strong>A</strong>：AUTO。</p>
-        <p>UI 焦點色不是看誰說話，而是看目前故事焦點。JSON 可用短指令：</p>
-        <ul>
-          <li><code>{"type":"ui","v":"g"}</code>：灰色，一般案件／老麵／凱特／雷老師／系統旁白。</li>
-          <li><code>{"type":"ui","v":"t"}</code>：暖黃色，庭如操作／共感。</li>
-          <li><code>{"type":"ui","v":"j"}</code>：冷藍色，傑米台上表演。</li>
-        </ul>
-        <p>也可以直接掛在任一指令上，例如 <code>{"type":"say","ui":"t","speaker":"庭如","text":"..."}</code>。</p>
-        <p>庭如共感文字支援兩種方向：</p>
-        <ul>
-          <li><code>{"type":"effect","name":"empathy","words":["期待"]}</code>：上升，保留原本效果。</li>
-          <li><code>{"type":"effect","name":"empathyDown","words":["恐懼"]}</code>：下墜，適合負面情緒。</li>
-          <li><code>{"type":"effect","name":"empathy","direction":"down","words":["恐懼"]}</code>：同樣觸發下墜。</li>
-        </ul>
-        <p><code>cg_</code> 圖片會像一般背景一樣滿版顯示；<code>doc_</code> 圖片只會進入右下角文件縮圖，點擊後可放大，點背景或右上角 × 可關閉。</p>
-        <p>本機測試時不要直接用 <code>file://</code> 開啟，建議用 VS Code Live Server。</p>
-      `);
-    }
-
-    function toast(text, title = "SYSTEM") { setSideNote(title, text); }
-
-    function showOverlay(title, html) {
-      dom.overlayTitle.textContent = title;
-      dom.overlayBody.innerHTML = html;
-      dom.overlay.style.display = "flex";
-    }
-
-    function hideOverlay() { dom.overlay.style.display = "none"; }
-
     async function endGame() {
       clearSprites();
       hideDocumentViewer();
@@ -3157,6 +2858,7 @@
 
       await fadeBlack(900);
     }
+
 
     function escapeHtml(value) {
       return String(value ?? "")

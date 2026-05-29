@@ -1,39 +1,19 @@
 {
   "meta": {
     "title": "Before Fades：地獄脫口秀的產品發表會",
-    "version": "2.1.3-directed-script-real-diff-fixed-clean",
+    "version": "2.1.3-directed-script-real-diff-fixed-runtime-clean",
     "language": "zh-Hant",
     "engine": "Before Fades Static Web Visual Novel Engine",
     "startScene": "start",
     "description": "完整文本版：擴充地獄脫口秀、共感、舞台cue、演出結束觀察與案件封存。 / 新增相容式導演腳本欄位：sceneMode、conversation、displayMode、documentTarget、speakerFocus、lockInput。 / 2.1.1：整理 Title Screen、共感滿版流程、舞台站位、錄影/文件殘留與 doc_voice_wave 顯示順序。 / 2.1.2：實際修正休息室、案件回憶、舞台鏡頭、尾聲站位與結尾淡出。",
-    "imageAssetSet": "aligned-to-provided-assets-2026-05-28",
-    "directingScript": {
-      "version": "1.0",
-      "compatibleWithLegacyIndex": true,
-      "principle": "保留既有可執行指令，不新增未知 command type；以現有指令欄位補足演出語意。",
-      "fields": {
-        "sceneMode": "描述目前場域/演出狀態，例如 title、control、empathy、jamie_room、memory、stage、confession、reincarnation、afterward、office、report。",
-        "conversation": "描述此片段的人物參與結構；舊引擎忽略，新引擎可據此穩定排版。",
-        "displayMode": "描述圖片用法：background、cg、document、logo、color。",
-        "documentTarget": "document 圖片顯示位置，目前設定為 sidePanelExpandable。",
-        "speakerFocus": "描述說話者在畫面上的重要性：primary、voice。避免把錄音/新聞/影片聲音誤當現場人物。",
-        "lockInput": "特效期間是否鎖定滑鼠與鍵盤操作。",
-        "visualBg": "共感特效搭配的情緒背景圖。"
-      }
-    },
-    "actualChanges": [
-      "jamie_room_01 / jamie_room_investigate: 傑米左、老麵右；雷老師插話前清掉老麵與傑米。",
-      "case_file_01: 庭如『我們不能接』前清掉凱特與雷老師。",
-      "empathy effects: 情緒文字陣列直接擴增為三倍，fadeOutMs=300，click 不產生跳過反應。",
-      "ask_jamie_silence: 傑米『直接切』改為顯示 ch_jamie_nervous。",
-      "showtime_camera / showtime_jokes: 觀眾反應鏡頭與 cg_audience_laugh 的切換時機已調整。",
-      "showtime_jokes: 庭如『大家開始放鬆了』與老麵『不是蓋住。是開路。』前補清圖。",
-      "confession_text / reincarnation_01: 傑米關鍵句前清掉其他人物。",
-      "after_show_01 / after_say_* / after_observe_tingru: 尾聲人物左右站位修正。",
-      "three_months_later: 三個月後辦公室段落補清圖與左右位置。",
-      "final_screen: fadeBlack 置於 end 前，讓結尾先暗下再結束。",
-      "showtime_jokes: 清除因鏡頭切換重組造成的連續 big_laugh 重複觸發。"
-    ]
+    "cleanup": {
+      "scope": "runtime-safe cleanup for current index.html",
+      "removed": [
+        "unreachable help scene",
+        "unused duplicate asset aliases",
+        "unused annotation fields"
+      ]
+    }
   },
   "assets": {
     "backgrounds": {
@@ -74,48 +54,6 @@
         "src": "assets/images/cg_young_jamie_video.jpg"
       },
       "stock_news": {
-        "src": "assets/images/cg_stock_news.jpg"
-      },
-      "black": {
-        "color": "linear-gradient(#000000, #000000)"
-      },
-      "bg_title_mic_rose": {
-        "src": "assets/images/bg_title_mic_rose.jpg"
-      },
-      "bg_control_room": {
-        "src": "assets/images/bg_control_room.jpg"
-      },
-      "bg_control_room_dark": {
-        "src": "assets/images/bg_control_room_dark.jpg"
-      },
-      "bg_stage_dark": {
-        "src": "assets/images/bg_stage_dark.jpg"
-      },
-      "bg_stage_show": {
-        "src": "assets/images/bg_stage_show.jpg"
-      },
-      "bg_stage_confession": {
-        "src": "assets/images/bg_stage_confession.jpg"
-      },
-      "bg_stage_reincarnation": {
-        "src": "assets/images/bg_stage_reincarnation.jpg"
-      },
-      "bg_jamie_room": {
-        "src": "assets/images/bg_jamie_room.jpg"
-      },
-      "bg_case_file": {
-        "src": "assets/images/bg_case_file.jpg"
-      },
-      "bg_office_news": {
-        "src": "assets/images/bg_office_news.jpg"
-      },
-      "cg_white_rose": {
-        "src": "assets/images/cg_white_rose.jpg"
-      },
-      "cg_young_jamie_video": {
-        "src": "assets/images/cg_young_jamie_video.jpg"
-      },
-      "cg_stock_news": {
         "src": "assets/images/cg_stock_news.jpg"
       },
       "cg_empathy_warm": {
@@ -196,9 +134,6 @@
       },
       "ray": {
         "default": "assets/images/ch_ray_default.png"
-      },
-      "linwei": {
-        "default": "assets/images/ch_linwei_default.png"
       }
     },
     "bgm": {
@@ -220,7 +155,6 @@
       "keyboard": "assets/sfx/keyboard.mp3",
       "door": "assets/sfx/door_open.mp3",
       "glass": "assets/sfx/glass_down.mp3",
-      "whiskey": "assets/sfx/whiskey_pour.mp3",
       "mic": "assets/sfx/mic_touch.mp3",
       "spotlight": "assets/sfx/spotlight_on.mp3",
       "audience_murmur": "assets/sfx/audience_murmur.mp3",
@@ -232,11 +166,6 @@
       "phone": "assets/sfx/phone_vibrate.mp3",
       "news": "assets/sfx/news_sting.mp3",
       "stamp": "assets/sfx/case_stamp.mp3"
-    },
-    "ambience": {
-      "hall": "assets/sfx/ambience_hall.mp3",
-      "backstage": "assets/sfx/ambience_backstage.mp3",
-      "office": "assets/sfx/ambience_office.mp3"
     },
     "imageManifest": {
       "bg_title_mic_rose": {
@@ -404,11 +333,6 @@
         "category": "character",
         "description": "雷老師。"
       },
-      "ch_linwei_default": {
-        "src": "assets/images/ch_linwei_default.png",
-        "category": "character",
-        "description": "林薇。"
-      },
       "doc_medical_report": {
         "src": "assets/images/doc_medical_report.jpg",
         "category": "document",
@@ -481,12 +405,7 @@
           "placementPolicy": "primary-left-secondary-right-swap-once",
           "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
         },
-        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
-        "displayMode": "background",
-        "avoidUiOverlap": true,
-        "mainImageFit": "contain-in-safe-stage",
-        "underlayFit": "cover-fullscreen",
-        "titleScreen": true
+        "displayMode": "background"
       },
       {
         "type": "bgm",
@@ -507,8 +426,7 @@
           "placementPolicy": "primary-left-secondary-right-swap-once",
           "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
         },
-        "ui": "g",
-        "titleScreen": true
+        "ui": "g"
       },
       {
         "type": "choice",
@@ -525,30 +443,6 @@
           "textAlign": "center",
           "fontScale": "title"
         }
-      }
-    ],
-    "help_01": [
-      {
-        "type": "note",
-        "title": "HELP",
-        "text": "滑鼠左鍵 / Enter / Space：推進文字\n文字播放中再次點擊：立即顯示完整句子\nSAVE / LOAD：瀏覽器本機存讀檔\nAUTO：自動播放\nSKIP：略過已讀文字或快速前進",
-        "sceneMode": "help",
-        "conversation": {
-          "layout": "narrative",
-          "participants": [],
-          "voiceOnlyParticipants": [],
-          "placementPolicy": "primary-left-secondary-right-swap-once",
-          "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
-        },
-        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。"
-      },
-      {
-        "type": "narrate",
-        "text": "本遊戲為純前端網頁遊戲。劇情、圖片、音樂與音效都由 data/script.json 控制。"
-      },
-      {
-        "type": "jump",
-        "next": "start"
       }
     ],
     "opening_01": [
@@ -569,12 +463,10 @@
           "placementPolicy": "primary-left-secondary-right-swap-once",
           "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
         },
-        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
         "ui": "g"
       },
       {
-        "type": "clearSprites",
-        "reason": "sceneBoundaryOrMajorVisualChange"
+        "type": "clearSprites"
       },
       {
         "type": "bg",
@@ -582,10 +474,7 @@
         "transition": "fade",
         "waitAfter": 700,
         "displayMode": "background",
-        "sceneMode": "control",
-        "avoidUiOverlap": true,
-        "mainImageFit": "contain-in-safe-stage",
-        "underlayFit": "cover-fullscreen"
+        "sceneMode": "control"
       },
       {
         "type": "bgm",
@@ -614,8 +503,7 @@
         "text": "這裡不像傳統告別式。沒有罐頭塔，沒有輓聯，沒有誦經聲。取而代之的是冷灰色水泥牆、訂製香氛、半圓形排列的設計師單椅、巨大的 LED 螢幕，以及一支孤零零立在舞台中央的麥克風。"
       },
       {
-        "type": "clearSprites",
-        "reason": "sceneBoundaryOrMajorVisualChange"
+        "type": "clearSprites"
       },
       {
         "type": "bg",
@@ -623,10 +511,7 @@
         "transition": "fade",
         "waitAfter": 700,
         "displayMode": "background",
-        "sceneMode": "control",
-        "avoidUiOverlap": true,
-        "mainImageFit": "contain-in-safe-stage",
-        "underlayFit": "cover-fullscreen"
+        "sceneMode": "control"
       },
       {
         "type": "say",
@@ -684,8 +569,7 @@
         "position": "right"
       },
       {
-        "type": "clearSprites",
-        "reason": "sceneBoundaryOrMajorVisualChange"
+        "type": "clearSprites"
       },
       {
         "type": "bg",
@@ -693,10 +577,7 @@
         "transition": "fade",
         "waitAfter": 700,
         "displayMode": "background",
-        "sceneMode": "control",
-        "avoidUiOverlap": true,
-        "mainImageFit": "contain-in-safe-stage",
-        "underlayFit": "cover-fullscreen"
+        "sceneMode": "control"
       },
       {
         "type": "say",
@@ -739,8 +620,7 @@
         "position": "right"
       },
       {
-        "type": "clearSprites",
-        "reason": "sceneBoundaryOrMajorVisualChange"
+        "type": "clearSprites"
       },
       {
         "type": "choice",
@@ -779,12 +659,10 @@
           "placementPolicy": "primary-left-secondary-right-swap-once",
           "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
         },
-        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
         "ui": "g"
       },
       {
-        "type": "clearSprites",
-        "reason": "sceneBoundaryOrMajorVisualChange"
+        "type": "clearSprites"
       },
       {
         "type": "bg",
@@ -792,10 +670,7 @@
         "transition": "fade",
         "waitAfter": 700,
         "displayMode": "background",
-        "sceneMode": "control",
-        "avoidUiOverlap": true,
-        "mainImageFit": "contain-in-safe-stage",
-        "underlayFit": "cover-fullscreen"
+        "sceneMode": "control"
       },
       {
         "type": "sfx",
@@ -813,8 +688,7 @@
         "text": "十二格監控畫面持續跳動。\n每個人都以為舞台在前面，其實舞台到處都是。"
       },
       {
-        "type": "clearSprites",
-        "reason": "sceneBoundaryOrMajorVisualChange"
+        "type": "clearSprites"
       },
       {
         "type": "bg",
@@ -824,7 +698,6 @@
         "displayMode": "document",
         "sceneMode": "control",
         "documentTarget": "sidePanelExpandable",
-        "keepCurrentBackground": true,
         "documentTitle": "演出 rundown 流程表"
       },
       {
@@ -851,7 +724,6 @@
         "displayMode": "document",
         "sceneMode": "control",
         "documentTarget": "sidePanelExpandable",
-        "keepCurrentBackground": true,
         "documentTitle": "生前告別秀來賓名單"
       },
       {
@@ -916,12 +788,10 @@
           "placementPolicy": "primary-left-secondary-right-swap-once",
           "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
         },
-        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
         "ui": "t"
       },
       {
-        "type": "clearSprites",
-        "reason": "sceneBoundaryOrMajorVisualChange"
+        "type": "clearSprites"
       },
       {
         "type": "bgm",
@@ -961,16 +831,10 @@
         "sceneMode": "empathy",
         "duration": 6860,
         "visualBg": "cg_empathy_warm",
-        "emotionStyle": "warm-gold-rise",
         "fadeInMs": 300,
         "holdBeforeWordsMs": 750,
-        "fadeOutMs": 300,
-        "fullscreenOnly": true,
         "hideUiDuringEffect": true,
-        "hideSpritesDuringEffect": true,
-        "hideBackgroundDuringEffect": true,
-        "wordMultiplier": 1,
-        "ignoreInputDuringEffect": true
+        "wordMultiplier": 1
       },
       {
         "type": "bg",
@@ -978,10 +842,7 @@
         "transition": "fade",
         "waitAfter": 700,
         "displayMode": "background",
-        "sceneMode": "empathy",
-        "avoidUiOverlap": true,
-        "mainImageFit": "contain-in-safe-stage",
-        "underlayFit": "cover-fullscreen"
+        "sceneMode": "empathy"
       },
       {
         "type": "note",
@@ -1113,7 +974,6 @@
           "placementPolicy": "primary-left-secondary-right-swap-once",
           "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
         },
-        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
         "character": "tingru",
         "speakerFocus": "primary",
         "presence": "onscreen",
@@ -1190,7 +1050,6 @@
           "placementPolicy": "primary-left-secondary-right-swap-once",
           "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
         },
-        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
         "character": "tingru",
         "speakerFocus": "primary",
         "presence": "onscreen",
@@ -1247,7 +1106,6 @@
           "placementPolicy": "primary-left-secondary-right-swap-once",
           "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
         },
-        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
         "character": "tingru",
         "speakerFocus": "primary",
         "presence": "onscreen",
@@ -1297,12 +1155,10 @@
           "placementPolicy": "primary-left-secondary-right-swap-once",
           "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
         },
-        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
         "ui": "g"
       },
       {
-        "type": "clearSprites",
-        "reason": "sceneBoundaryOrMajorVisualChange"
+        "type": "clearSprites"
       },
       {
         "type": "bg",
@@ -1310,10 +1166,7 @@
         "transition": "fade",
         "waitAfter": 700,
         "displayMode": "background",
-        "sceneMode": "jamie_room",
-        "avoidUiOverlap": true,
-        "mainImageFit": "contain-in-safe-stage",
-        "underlayFit": "cover-fullscreen"
+        "sceneMode": "jamie_room"
       },
       {
         "type": "bgm",
@@ -1406,7 +1259,6 @@
           "placementPolicy": "primary-left-secondary-right-swap-once",
           "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
         },
-        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
         "character": "oldnoodle",
         "speakerFocus": "primary",
         "presence": "onscreen",
@@ -1465,7 +1317,6 @@
           "placementPolicy": "primary-left-secondary-right-swap-once",
           "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
         },
-        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
         "character": "oldnoodle",
         "speakerFocus": "primary",
         "presence": "onscreen",
@@ -1512,7 +1363,6 @@
           "placementPolicy": "primary-left-secondary-right-swap-once",
           "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
         },
-        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
         "character": "oldnoodle",
         "speakerFocus": "primary",
         "presence": "onscreen",
@@ -1561,7 +1411,6 @@
           "placementPolicy": "primary-left-secondary-right-swap-once",
           "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
         },
-        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
         "character": "jamie",
         "speakerFocus": "primary",
         "presence": "onscreen",
@@ -1614,7 +1463,6 @@
         "displayMode": "document",
         "sceneMode": "jamie_room",
         "documentTarget": "sidePanelExpandable",
-        "keepCurrentBackground": true,
         "documentTitle": "傑米的診斷摘要"
       },
       {
@@ -1642,7 +1490,6 @@
         "displayMode": "document",
         "sceneMode": "jamie_room",
         "documentTarget": "sidePanelExpandable",
-        "keepCurrentBackground": true,
         "documentTitle": "【輪迴】產品簡報頁"
       },
       {
@@ -1680,7 +1527,6 @@
         "displayMode": "document",
         "sceneMode": "jamie_room",
         "documentTarget": "sidePanelExpandable",
-        "keepCurrentBackground": true,
         "documentTitle": "傑米手寫脫口秀講稿"
       },
       {
@@ -1738,13 +1584,11 @@
       },
       {
         "type": "hide",
-        "id": "oldnoodle",
-        "reason": "preventSpriteOverlap"
+        "id": "oldnoodle"
       },
       {
         "type": "hide",
-        "id": "jamie",
-        "reason": "preventSpriteOverlap"
+        "id": "jamie"
       },
       {
         "type": "say",
@@ -1758,8 +1602,7 @@
       },
       {
         "type": "hide",
-        "id": "ray",
-        "reason": "speakerLeavesOrNoLongerPrimary"
+        "id": "ray"
       },
       {
         "type": "say",
@@ -1836,8 +1679,7 @@
         "expression": "nervous"
       },
       {
-        "type": "clearSprites",
-        "reason": "sceneBoundaryOrMajorVisualChange"
+        "type": "clearSprites"
       },
       {
         "type": "jump",
@@ -1862,12 +1704,10 @@
           "placementPolicy": "primary-left-secondary-right-swap-once",
           "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
         },
-        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
         "ui": "g"
       },
       {
-        "type": "clearSprites",
-        "reason": "sceneBoundaryOrMajorVisualChange"
+        "type": "clearSprites"
       },
       {
         "type": "bg",
@@ -1875,10 +1715,7 @@
         "transition": "fade",
         "waitAfter": 700,
         "displayMode": "background",
-        "sceneMode": "case_file",
-        "avoidUiOverlap": true,
-        "mainImageFit": "contain-in-safe-stage",
-        "underlayFit": "cover-fullscreen"
+        "sceneMode": "case_file"
       },
       {
         "type": "bgm",
@@ -1888,8 +1725,7 @@
         "fade": 900
       },
       {
-        "type": "clearSprites",
-        "reason": "sceneBoundaryOrMajorVisualChange"
+        "type": "clearSprites"
       },
       {
         "type": "bg",
@@ -1899,7 +1735,6 @@
         "displayMode": "document",
         "sceneMode": "case_file",
         "documentTarget": "sidePanelExpandable",
-        "keepCurrentBackground": true,
         "documentTitle": "Before Fades 案件封存報告"
       },
       {
@@ -1924,8 +1759,7 @@
         "sceneMode": "case_file"
       },
       {
-        "type": "clearSprites",
-        "reason": "sceneBoundaryOrMajorVisualChange"
+        "type": "clearSprites"
       },
       {
         "type": "say",
@@ -1949,13 +1783,11 @@
       },
       {
         "type": "hide",
-        "id": "kate",
-        "reason": "preventSpriteOverlap"
+        "id": "kate"
       },
       {
         "type": "hide",
-        "id": "ray",
-        "reason": "preventSpriteOverlap"
+        "id": "ray"
       },
       {
         "type": "say",
@@ -2022,8 +1854,7 @@
         "text": "庭如看著那行會議紀錄。那時候她以為自己已經夠堅持了。現在回頭看，她只覺得還不夠。"
       },
       {
-        "type": "clearSprites",
-        "reason": "sceneBoundaryOrMajorVisualChange"
+        "type": "clearSprites"
       },
       {
         "type": "bg",
@@ -2033,10 +1864,7 @@
         "displayMode": "document",
         "sceneMode": "case_file",
         "documentTarget": "sidePanelExpandable",
-        "keepCurrentBackground": true,
-        "documentTitle": "訪談錄音波形畫面",
-        "preventMainBackgroundTakeover": true,
-        "showAfterEmpathy": true
+        "documentTitle": "訪談錄音波形畫面"
       },
       {
         "type": "note",
@@ -2061,9 +1889,7 @@
           ],
           "placementPolicy": "primary-left-secondary-right-swap-once",
           "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
-        },
-        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
-        "reason": "sceneBoundaryOrMajorVisualChange"
+        }
       },
       {
         "type": "effect",
@@ -2087,16 +1913,10 @@
         "sceneMode": "empathy",
         "duration": 6410,
         "visualBg": "cg_empathy_fall",
-        "emotionStyle": "cool-blue-fall",
         "fadeInMs": 300,
         "holdBeforeWordsMs": 750,
-        "fadeOutMs": 300,
-        "fullscreenOnly": true,
         "hideUiDuringEffect": true,
-        "hideSpritesDuringEffect": true,
-        "hideBackgroundDuringEffect": true,
-        "wordMultiplier": 1,
-        "ignoreInputDuringEffect": true
+        "wordMultiplier": 1
       },
       {
         "type": "bg",
@@ -2106,7 +1926,6 @@
         "displayMode": "document",
         "sceneMode": "memory",
         "documentTarget": "sidePanelExpandable",
-        "keepCurrentBackground": true,
         "documentTitle": "媒體新聞網站畫面"
       },
       {
@@ -2158,9 +1977,7 @@
           ],
           "placementPolicy": "primary-left-secondary-right-swap-once",
           "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
-        },
-        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
-        "reason": "sceneBoundaryOrMajorVisualChange"
+        }
       },
       {
         "type": "effect",
@@ -2184,16 +2001,10 @@
         "sceneMode": "empathy",
         "duration": 6410,
         "visualBg": "cg_empathy_fall",
-        "emotionStyle": "cool-blue-fall",
         "fadeInMs": 300,
         "holdBeforeWordsMs": 750,
-        "fadeOutMs": 300,
-        "fullscreenOnly": true,
         "hideUiDuringEffect": true,
-        "hideSpritesDuringEffect": true,
-        "hideBackgroundDuringEffect": true,
-        "wordMultiplier": 1,
-        "ignoreInputDuringEffect": true
+        "wordMultiplier": 1
       },
       {
         "type": "bg",
@@ -2201,10 +2012,7 @@
         "transition": "fade",
         "waitAfter": 700,
         "displayMode": "bg",
-        "sceneMode": "memory",
-        "avoidUiOverlap": true,
-        "mainImageFit": "contain-in-safe-stage",
-        "underlayFit": "cover-fullscreen"
+        "sceneMode": "memory"
       },
       {
         "type": "narrate",
@@ -2255,9 +2063,7 @@
           ],
           "placementPolicy": "primary-left-secondary-right-swap-once",
           "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
-        },
-        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
-        "reason": "sceneBoundaryOrMajorVisualChange"
+        }
       },
       {
         "type": "effect",
@@ -2281,16 +2087,10 @@
         "sceneMode": "empathy",
         "duration": 6410,
         "visualBg": "cg_empathy_warm",
-        "emotionStyle": "warm-gold-rise",
         "fadeInMs": 300,
         "holdBeforeWordsMs": 750,
-        "fadeOutMs": 300,
-        "fullscreenOnly": true,
         "hideUiDuringEffect": true,
-        "hideSpritesDuringEffect": true,
-        "hideBackgroundDuringEffect": true,
-        "wordMultiplier": 1,
-        "ignoreInputDuringEffect": true
+        "wordMultiplier": 1
       },
       {
         "type": "bg",
@@ -2298,10 +2098,7 @@
         "transition": "fade",
         "waitAfter": 700,
         "displayMode": "bg",
-        "sceneMode": "memory",
-        "avoidUiOverlap": true,
-        "mainImageFit": "contain-in-safe-stage",
-        "underlayFit": "cover-fullscreen"
+        "sceneMode": "memory"
       },
       {
         "type": "narrate",
@@ -2383,7 +2180,6 @@
           "placementPolicy": "primary-left-secondary-right-swap-once",
           "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
         },
-        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
         "choiceUi": {
           "width": "78%",
           "textAlign": "center",
@@ -2404,12 +2200,10 @@
           "placementPolicy": "primary-left-secondary-right-swap-once",
           "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
         },
-        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
         "ui": "g"
       },
       {
-        "type": "clearSprites",
-        "reason": "sceneBoundaryOrMajorVisualChange"
+        "type": "clearSprites"
       },
       {
         "type": "bg",
@@ -2417,10 +2211,7 @@
         "transition": "fade",
         "waitAfter": 700,
         "displayMode": "background",
-        "sceneMode": "control",
-        "avoidUiOverlap": true,
-        "mainImageFit": "contain-in-safe-stage",
-        "underlayFit": "cover-fullscreen"
+        "sceneMode": "control"
       },
       {
         "type": "bgm",
@@ -2430,8 +2221,7 @@
         "fade": 800
       },
       {
-        "type": "clearSprites",
-        "reason": "sceneBoundaryOrMajorVisualChange"
+        "type": "clearSprites"
       },
       {
         "type": "bg",
@@ -2441,7 +2231,6 @@
         "displayMode": "document",
         "sceneMode": "control",
         "documentTarget": "sidePanelExpandable",
-        "keepCurrentBackground": true,
         "documentTitle": "演出 rundown 流程表"
       },
       {
@@ -2515,8 +2304,7 @@
           "voiceOnlyParticipants": [],
           "placementPolicy": "primary-left-secondary-right-swap-once",
           "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
-        },
-        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。"
+        }
       },
       {
         "type": "say",
@@ -2579,12 +2367,10 @@
           "placementPolicy": "primary-left-secondary-right-swap-once",
           "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
         },
-        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
         "ui": "g"
       },
       {
-        "type": "clearSprites",
-        "reason": "sceneBoundaryOrMajorVisualChange"
+        "type": "clearSprites"
       },
       {
         "type": "bg",
@@ -2592,10 +2378,7 @@
         "transition": "fade",
         "waitAfter": 700,
         "displayMode": "bg",
-        "sceneMode": "control",
-        "avoidUiOverlap": true,
-        "mainImageFit": "contain-in-safe-stage",
-        "underlayFit": "cover-fullscreen"
+        "sceneMode": "control"
       },
       {
         "type": "bgm",
@@ -2608,9 +2391,7 @@
         "type": "note",
         "title": "REC",
         "text": "黑白影像 / 年輕傑米 / 創業初期錄影",
-        "sceneMode": "control",
-        "transient": true,
-        "clearOnNextBackground": true
+        "sceneMode": "control"
       },
       {
         "type": "narrate",
@@ -2681,12 +2462,10 @@
           "placementPolicy": "primary-left-secondary-right-swap-once",
           "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
         },
-        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
         "ui": "j"
       },
       {
-        "type": "clearSprites",
-        "reason": "sceneBoundaryOrMajorVisualChange"
+        "type": "clearSprites"
       },
       {
         "type": "bg",
@@ -2694,10 +2473,7 @@
         "transition": "fade",
         "waitAfter": 700,
         "displayMode": "background",
-        "sceneMode": "stage",
-        "avoidUiOverlap": true,
-        "mainImageFit": "contain-in-safe-stage",
-        "underlayFit": "cover-fullscreen"
+        "sceneMode": "stage"
       },
       {
         "type": "bgm",
@@ -2717,8 +2493,7 @@
           "stage",
           "confession",
           "reincarnation"
-        ],
-        "introSafeExpression": true
+        ]
       },
       {
         "type": "sfx",
@@ -2765,8 +2540,7 @@
         "position": "left"
       },
       {
-        "type": "clearSprites",
-        "reason": "sceneBoundaryOrMajorVisualChange"
+        "type": "clearSprites"
       },
       {
         "type": "choice",
@@ -2820,8 +2594,7 @@
           "voiceOnlyParticipants": [],
           "placementPolicy": "primary-left-secondary-right-swap-once",
           "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
-        },
-        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。"
+        }
       },
       {
         "type": "sfx",
@@ -2865,8 +2638,7 @@
           "voiceOnlyParticipants": [],
           "placementPolicy": "primary-left-secondary-right-swap-once",
           "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
-        },
-        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。"
+        }
       },
       {
         "type": "say",
@@ -2922,8 +2694,7 @@
           "voiceOnlyParticipants": [],
           "placementPolicy": "primary-left-secondary-right-swap-once",
           "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
-        },
-        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。"
+        }
       },
       {
         "type": "sfx",
@@ -2965,8 +2736,7 @@
           "voiceOnlyParticipants": [],
           "placementPolicy": "primary-left-secondary-right-swap-once",
           "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
-        },
-        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。"
+        }
       },
       {
         "type": "say",
@@ -3022,7 +2792,6 @@
           "placementPolicy": "primary-left-secondary-right-swap-once",
           "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
         },
-        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
         "character": "jamie",
         "speakerFocus": "primary",
         "presence": "onscreen",
@@ -3170,13 +2939,11 @@
       },
       {
         "type": "hide",
-        "id": "kate",
-        "reason": "preventSpriteOverlap"
+        "id": "kate"
       },
       {
         "type": "hide",
-        "id": "ray",
-        "reason": "preventSpriteOverlap"
+        "id": "ray"
       },
       {
         "type": "say",
@@ -3190,13 +2957,11 @@
       },
       {
         "type": "hide",
-        "id": "ray",
-        "reason": "preventSpriteOverlap"
+        "id": "ray"
       },
       {
         "type": "hide",
-        "id": "kate",
-        "reason": "preventSpriteOverlap"
+        "id": "kate"
       },
       {
         "type": "say",
@@ -3248,12 +3013,10 @@
           "placementPolicy": "primary-left-secondary-right-swap-once",
           "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
         },
-        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
         "ui": "j"
       },
       {
-        "type": "clearSprites",
-        "reason": "sceneBoundaryOrMajorVisualChange"
+        "type": "clearSprites"
       },
       {
         "type": "effect",
@@ -3280,16 +3043,10 @@
         "sceneMode": "empathy",
         "duration": 6560,
         "visualBg": "cg_empathy_warm",
-        "emotionStyle": "warm-gold-rise",
         "fadeInMs": 300,
         "holdBeforeWordsMs": 750,
-        "fadeOutMs": 300,
-        "fullscreenOnly": true,
         "hideUiDuringEffect": true,
-        "hideSpritesDuringEffect": true,
-        "hideBackgroundDuringEffect": true,
-        "wordMultiplier": 1,
-        "ignoreInputDuringEffect": true
+        "wordMultiplier": 1
       },
       {
         "type": "bg",
@@ -3297,10 +3054,7 @@
         "transition": "fade",
         "waitAfter": 700,
         "displayMode": "background",
-        "sceneMode": "stage",
-        "avoidUiOverlap": true,
-        "mainImageFit": "contain-in-safe-stage",
-        "underlayFit": "cover-fullscreen"
+        "sceneMode": "stage"
       },
       {
         "type": "say",
@@ -3444,9 +3198,7 @@
           "voiceOnlyParticipants": [],
           "placementPolicy": "primary-left-secondary-right-swap-once",
           "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
-        },
-        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
-        "reason": "sceneBoundaryOrMajorVisualChange"
+        }
       },
       {
         "type": "bg",
@@ -3454,10 +3206,7 @@
         "transition": "fade",
         "waitAfter": 700,
         "displayMode": "bg",
-        "sceneMode": "stage",
-        "avoidUiOverlap": true,
-        "mainImageFit": "contain-in-safe-stage",
-        "underlayFit": "cover-fullscreen"
+        "sceneMode": "stage"
       },
       {
         "type": "narrate",
@@ -3494,8 +3243,7 @@
         "position": "left"
       },
       {
-        "type": "clearSprites",
-        "reason": "sceneBoundaryOrMajorVisualChange"
+        "type": "clearSprites"
       },
       {
         "type": "bg",
@@ -3503,10 +3251,7 @@
         "transition": "fade",
         "waitAfter": 700,
         "displayMode": "background",
-        "sceneMode": "stage",
-        "avoidUiOverlap": true,
-        "mainImageFit": "contain-in-safe-stage",
-        "underlayFit": "cover-fullscreen"
+        "sceneMode": "stage"
       },
       {
         "type": "jump",
@@ -3527,8 +3272,7 @@
           "voiceOnlyParticipants": [],
           "placementPolicy": "primary-left-secondary-right-swap-once",
           "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
-        },
-        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。"
+        }
       },
       {
         "type": "say",
@@ -3561,8 +3305,7 @@
         "position": "left"
       },
       {
-        "type": "clearSprites",
-        "reason": "sceneBoundaryOrMajorVisualChange"
+        "type": "clearSprites"
       },
       {
         "type": "bg",
@@ -3570,10 +3313,7 @@
         "transition": "fade",
         "waitAfter": 700,
         "displayMode": "background",
-        "sceneMode": "stage",
-        "avoidUiOverlap": true,
-        "mainImageFit": "contain-in-safe-stage",
-        "underlayFit": "cover-fullscreen"
+        "sceneMode": "stage"
       },
       {
         "type": "jump",
@@ -3612,8 +3352,7 @@
           "voiceOnlyParticipants": [],
           "placementPolicy": "primary-left-secondary-right-swap-once",
           "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
-        },
-        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。"
+        }
       },
       {
         "type": "say",
@@ -3656,8 +3395,7 @@
         "position": "right"
       },
       {
-        "type": "clearSprites",
-        "reason": "sceneBoundaryOrMajorVisualChange"
+        "type": "clearSprites"
       },
       {
         "type": "bg",
@@ -3665,10 +3403,7 @@
         "transition": "fade",
         "waitAfter": 700,
         "displayMode": "background",
-        "sceneMode": "stage",
-        "avoidUiOverlap": true,
-        "mainImageFit": "contain-in-safe-stage",
-        "underlayFit": "cover-fullscreen"
+        "sceneMode": "stage"
       },
       {
         "type": "jump",
@@ -3690,7 +3425,6 @@
           "placementPolicy": "primary-left-secondary-right-swap-once",
           "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
         },
-        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
         "character": "jamie",
         "speakerFocus": "primary",
         "presence": "onscreen",
@@ -3780,16 +3514,10 @@
         "sceneMode": "empathy",
         "duration": 6560,
         "visualBg": "cg_empathy_fall",
-        "emotionStyle": "cool-blue-fall",
         "fadeInMs": 300,
         "holdBeforeWordsMs": 750,
-        "fadeOutMs": 300,
-        "fullscreenOnly": true,
         "hideUiDuringEffect": true,
-        "hideSpritesDuringEffect": true,
-        "hideBackgroundDuringEffect": true,
-        "wordMultiplier": 1,
-        "ignoreInputDuringEffect": true
+        "wordMultiplier": 1
       },
       {
         "type": "bg",
@@ -3797,10 +3525,7 @@
         "transition": "fade",
         "waitAfter": 350,
         "displayMode": "background",
-        "sceneMode": "stage",
-        "avoidUiOverlap": true,
-        "mainImageFit": "contain-in-safe-stage",
-        "underlayFit": "cover-fullscreen"
+        "sceneMode": "stage"
       },
       {
         "type": "narrate",
@@ -3940,7 +3665,6 @@
           "placementPolicy": "primary-left-secondary-right-swap-once",
           "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
         },
-        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
         "character": "tingru",
         "speakerFocus": "primary",
         "presence": "onscreen",
@@ -3987,7 +3711,6 @@
           "placementPolicy": "primary-left-secondary-right-swap-once",
           "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
         },
-        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
         "character": "tingru",
         "speakerFocus": "primary",
         "presence": "onscreen",
@@ -4044,7 +3767,6 @@
           "placementPolicy": "primary-left-secondary-right-swap-once",
           "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
         },
-        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
         "character": "tingru",
         "speakerFocus": "primary",
         "presence": "onscreen",
@@ -4098,12 +3820,10 @@
           "placementPolicy": "primary-left-secondary-right-swap-once",
           "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
         },
-        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
         "ui": "j"
       },
       {
-        "type": "clearSprites",
-        "reason": "sceneBoundaryOrMajorVisualChange"
+        "type": "clearSprites"
       },
       {
         "type": "bg",
@@ -4111,10 +3831,7 @@
         "transition": "fade",
         "waitAfter": 700,
         "displayMode": "background",
-        "sceneMode": "stage",
-        "avoidUiOverlap": true,
-        "mainImageFit": "contain-in-safe-stage",
-        "underlayFit": "cover-fullscreen"
+        "sceneMode": "stage"
       },
       {
         "type": "bgm",
@@ -4189,8 +3906,7 @@
           "voiceOnlyParticipants": [],
           "placementPolicy": "primary-left-secondary-right-swap-once",
           "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
-        },
-        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。"
+        }
       },
       {
         "type": "narrate",
@@ -4213,8 +3929,7 @@
           "voiceOnlyParticipants": [],
           "placementPolicy": "primary-left-secondary-right-swap-once",
           "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
-        },
-        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。"
+        }
       },
       {
         "type": "narrate",
@@ -4237,8 +3952,7 @@
           "voiceOnlyParticipants": [],
           "placementPolicy": "primary-left-secondary-right-swap-once",
           "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
-        },
-        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。"
+        }
       },
       {
         "type": "narrate",
@@ -4260,8 +3974,7 @@
           "voiceOnlyParticipants": [],
           "placementPolicy": "primary-left-secondary-right-swap-once",
           "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
-        },
-        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。"
+        }
       },
       {
         "type": "jump",
@@ -4310,7 +4023,6 @@
           "placementPolicy": "primary-left-secondary-right-swap-once",
           "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
         },
-        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
         "choiceUi": {
           "width": "78%",
           "textAlign": "center",
@@ -4329,8 +4041,7 @@
           "voiceOnlyParticipants": [],
           "placementPolicy": "primary-left-secondary-right-swap-once",
           "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
-        },
-        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。"
+        }
       },
       {
         "type": "jump",
@@ -4351,8 +4062,7 @@
           "voiceOnlyParticipants": [],
           "placementPolicy": "primary-left-secondary-right-swap-once",
           "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
-        },
-        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。"
+        }
       },
       {
         "type": "narrate",
@@ -4388,10 +4098,7 @@
         "transition": "fade",
         "waitAfter": 700,
         "displayMode": "background",
-        "sceneMode": "confession",
-        "avoidUiOverlap": true,
-        "mainImageFit": "contain-in-safe-stage",
-        "underlayFit": "cover-fullscreen"
+        "sceneMode": "confession"
       },
       {
         "type": "bgm",
@@ -4410,8 +4117,7 @@
           "voiceOnlyParticipants": [],
           "placementPolicy": "primary-left-secondary-right-swap-once",
           "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
-        },
-        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。"
+        }
       },
       {
         "type": "show",
@@ -4498,16 +4204,10 @@
         "sceneMode": "empathy",
         "duration": 6410,
         "visualBg": "cg_empathy_warm",
-        "emotionStyle": "warm-gold-rise",
         "fadeInMs": 300,
         "holdBeforeWordsMs": 750,
-        "fadeOutMs": 300,
-        "fullscreenOnly": true,
         "hideUiDuringEffect": true,
-        "hideSpritesDuringEffect": true,
-        "hideBackgroundDuringEffect": true,
-        "wordMultiplier": 1,
-        "ignoreInputDuringEffect": true
+        "wordMultiplier": 1
       },
       {
         "type": "say",
@@ -4605,33 +4305,27 @@
       },
       {
         "type": "hide",
-        "id": "tingru",
-        "reason": "preventSpriteOverlap"
+        "id": "tingru"
       },
       {
         "type": "hide",
-        "id": "oldnoodle",
-        "reason": "preventSpriteOverlap"
+        "id": "oldnoodle"
       },
       {
         "type": "hide",
-        "id": "tingru",
-        "reason": "preventSpriteOverlap"
+        "id": "tingru"
       },
       {
         "type": "hide",
-        "id": "oldnoodle",
-        "reason": "preventSpriteOverlap"
+        "id": "oldnoodle"
       },
       {
         "type": "hide",
-        "id": "kate",
-        "reason": "preventSpriteOverlap"
+        "id": "kate"
       },
       {
         "type": "hide",
-        "id": "ray",
-        "reason": "preventSpriteOverlap"
+        "id": "ray"
       },
       {
         "type": "show",
@@ -4672,8 +4366,7 @@
           "voiceOnlyParticipants": [],
           "placementPolicy": "primary-left-secondary-right-swap-once",
           "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
-        },
-        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。"
+        }
       }
     ],
     "reincarnation_silence0": [
@@ -4687,8 +4380,7 @@
           "voiceOnlyParticipants": [],
           "placementPolicy": "primary-left-secondary-right-swap-once",
           "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
-        },
-        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。"
+        }
       },
       {
         "type": "jump",
@@ -4706,8 +4398,7 @@
           "voiceOnlyParticipants": [],
           "placementPolicy": "primary-left-secondary-right-swap-once",
           "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
-        },
-        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。"
+        }
       },
       {
         "type": "narrate",
@@ -4729,8 +4420,7 @@
           "voiceOnlyParticipants": [],
           "placementPolicy": "primary-left-secondary-right-swap-once",
           "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
-        },
-        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。"
+        }
       },
       {
         "type": "narrate",
@@ -4757,12 +4447,10 @@
           "placementPolicy": "primary-left-secondary-right-swap-once",
           "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
         },
-        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
         "ui": "j"
       },
       {
-        "type": "clearSprites",
-        "reason": "sceneBoundaryOrMajorVisualChange"
+        "type": "clearSprites"
       },
       {
         "type": "bg",
@@ -4770,14 +4458,10 @@
         "transition": "flash",
         "waitAfter": 700,
         "displayMode": "background",
-        "sceneMode": "reincarnation",
-        "avoidUiOverlap": true,
-        "mainImageFit": "contain-in-safe-stage",
-        "underlayFit": "cover-fullscreen"
+        "sceneMode": "reincarnation"
       },
       {
-        "type": "clearSprites",
-        "reason": "sceneBoundaryOrMajorVisualChange"
+        "type": "clearSprites"
       },
       {
         "type": "bgm",
@@ -4792,8 +4476,7 @@
         "volume": 0.72
       },
       {
-        "type": "clearSprites",
-        "reason": "sceneBoundaryOrMajorVisualChange"
+        "type": "clearSprites"
       },
       {
         "type": "effect",
@@ -4829,16 +4512,10 @@
         "sceneMode": "empathy",
         "duration": 7610,
         "visualBg": "cg_empathy_fall",
-        "emotionStyle": "cool-blue-fall",
         "fadeInMs": 300,
         "holdBeforeWordsMs": 750,
-        "fadeOutMs": 300,
-        "fullscreenOnly": true,
         "hideUiDuringEffect": true,
-        "hideSpritesDuringEffect": true,
-        "hideBackgroundDuringEffect": true,
-        "wordMultiplier": 1,
-        "ignoreInputDuringEffect": true
+        "wordMultiplier": 1
       },
       {
         "type": "bg",
@@ -4846,10 +4523,7 @@
         "transition": "fade",
         "waitAfter": 700,
         "displayMode": "background",
-        "sceneMode": "reincarnation",
-        "avoidUiOverlap": true,
-        "mainImageFit": "contain-in-safe-stage",
-        "underlayFit": "cover-fullscreen"
+        "sceneMode": "reincarnation"
       },
       {
         "type": "show",
@@ -4916,23 +4590,19 @@
       },
       {
         "type": "hide",
-        "id": "tingru",
-        "reason": "preventSpriteOverlap"
+        "id": "tingru"
       },
       {
         "type": "hide",
-        "id": "oldnoodle",
-        "reason": "preventSpriteOverlap"
+        "id": "oldnoodle"
       },
       {
         "type": "hide",
-        "id": "kate",
-        "reason": "preventSpriteOverlap"
+        "id": "kate"
       },
       {
         "type": "hide",
-        "id": "ray",
-        "reason": "preventSpriteOverlap"
+        "id": "ray"
       },
       {
         "type": "show",
@@ -5038,12 +4708,10 @@
           "placementPolicy": "primary-left-secondary-right-swap-once",
           "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
         },
-        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
         "ui": "g"
       },
       {
-        "type": "clearSprites",
-        "reason": "sceneBoundaryOrMajorVisualChange"
+        "type": "clearSprites"
       },
       {
         "type": "bgm",
@@ -5053,8 +4721,7 @@
         "fade": 1200
       },
       {
-        "type": "clearSprites",
-        "reason": "sceneBoundaryOrMajorVisualChange"
+        "type": "clearSprites"
       },
       {
         "type": "sfx",
@@ -5062,8 +4729,7 @@
         "volume": 0.46
       },
       {
-        "type": "clearSprites",
-        "reason": "sceneBoundaryOrMajorVisualChange"
+        "type": "clearSprites"
       },
       {
         "type": "bg",
@@ -5071,18 +4737,14 @@
         "transition": "fade",
         "waitAfter": 700,
         "displayMode": "bg",
-        "sceneMode": "afterward",
-        "avoidUiOverlap": true,
-        "mainImageFit": "contain-in-safe-stage",
-        "underlayFit": "cover-fullscreen"
+        "sceneMode": "afterward"
       },
       {
         "type": "narrate",
         "text": "燈光慢慢恢復，但會場沒有恢復。媒體區像被點燃，手機亮成一片。奇點無限高層有人站起來打電話。朋友區有人沉默。林薇離開座位，沒有回頭。"
       },
       {
-        "type": "clearSprites",
-        "reason": "sceneBoundaryOrMajorVisualChange"
+        "type": "clearSprites"
       },
       {
         "type": "bg",
@@ -5090,10 +4752,7 @@
         "transition": "fade",
         "waitAfter": 700,
         "displayMode": "background",
-        "sceneMode": "afterward",
-        "avoidUiOverlap": true,
-        "mainImageFit": "contain-in-safe-stage",
-        "underlayFit": "cover-fullscreen"
+        "sceneMode": "afterward"
       },
       {
         "type": "say",
@@ -5172,7 +4831,6 @@
           "placementPolicy": "primary-left-secondary-right-swap-once",
           "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
         },
-        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
         "character": "oldnoodle",
         "speakerFocus": "primary",
         "presence": "onscreen",
@@ -5229,7 +4887,6 @@
           "placementPolicy": "primary-left-secondary-right-swap-once",
           "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
         },
-        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
         "character": "oldnoodle",
         "speakerFocus": "primary",
         "presence": "onscreen",
@@ -5286,7 +4943,6 @@
           "placementPolicy": "primary-left-secondary-right-swap-once",
           "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
         },
-        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
         "character": "oldnoodle",
         "speakerFocus": "primary",
         "presence": "onscreen",
@@ -5347,12 +5003,10 @@
           "placementPolicy": "primary-left-secondary-right-swap-once",
           "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
         },
-        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
         "ui": "g"
       },
       {
-        "type": "clearSprites",
-        "reason": "sceneBoundaryOrMajorVisualChange"
+        "type": "clearSprites"
       },
       {
         "type": "bg",
@@ -5360,10 +5014,7 @@
         "transition": "fade",
         "waitAfter": 700,
         "displayMode": "background",
-        "sceneMode": "office",
-        "avoidUiOverlap": true,
-        "mainImageFit": "contain-in-safe-stage",
-        "underlayFit": "cover-fullscreen"
+        "sceneMode": "office"
       },
       {
         "type": "bgm",
@@ -5438,8 +5089,7 @@
         "leaveAfter": true
       },
       {
-        "type": "clearSprites",
-        "reason": "sceneBoundaryOrMajorVisualChange"
+        "type": "clearSprites"
       },
       {
         "type": "bg",
@@ -5447,10 +5097,7 @@
         "transition": "fade",
         "waitAfter": 700,
         "displayMode": "bg",
-        "sceneMode": "office",
-        "avoidUiOverlap": true,
-        "mainImageFit": "contain-in-safe-stage",
-        "underlayFit": "cover-fullscreen"
+        "sceneMode": "office"
       },
       {
         "type": "say",
@@ -5484,8 +5131,7 @@
       },
       {
         "type": "hide",
-        "id": "kate",
-        "reason": "preventSpriteOverlap"
+        "id": "kate"
       },
       {
         "type": "say",
@@ -5509,13 +5155,11 @@
       },
       {
         "type": "hide",
-        "id": "oldnoodle",
-        "reason": "preventSpriteOverlap"
+        "id": "oldnoodle"
       },
       {
         "type": "hide",
-        "id": "ray",
-        "reason": "preventSpriteOverlap"
+        "id": "ray"
       },
       {
         "type": "say",
@@ -5529,8 +5173,7 @@
       },
       {
         "type": "hide",
-        "id": "kate",
-        "reason": "preventSpriteOverlap"
+        "id": "kate"
       },
       {
         "type": "say",
@@ -5603,8 +5246,7 @@
         "position": "right"
       },
       {
-        "type": "clearSprites",
-        "reason": "beforeNarrationOldnoodleWalksToTv"
+        "type": "clearSprites"
       },
       {
         "type": "narrate",
@@ -5628,12 +5270,10 @@
           "placementPolicy": "primary-left-secondary-right-swap-once",
           "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
         },
-        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
         "ui": "g"
       },
       {
-        "type": "clearSprites",
-        "reason": "sceneBoundaryOrMajorVisualChange"
+        "type": "clearSprites"
       },
       {
         "type": "bg",
@@ -5641,10 +5281,7 @@
         "transition": "fade",
         "waitAfter": 700,
         "displayMode": "background",
-        "sceneMode": "report",
-        "avoidUiOverlap": true,
-        "mainImageFit": "contain-in-safe-stage",
-        "underlayFit": "cover-fullscreen"
+        "sceneMode": "report"
       },
       {
         "type": "bgm",
@@ -5660,8 +5297,7 @@
         "sceneMode": "report"
       },
       {
-        "type": "clearSprites",
-        "reason": "sceneBoundaryOrMajorVisualChange"
+        "type": "clearSprites"
       },
       {
         "type": "bg",
@@ -5671,7 +5307,6 @@
         "displayMode": "document",
         "sceneMode": "report",
         "documentTarget": "sidePanelExpandable",
-        "keepCurrentBackground": true,
         "documentTitle": "Before Fades 案件封存報告"
       },
       {
@@ -5754,7 +5389,6 @@
           "placementPolicy": "primary-left-secondary-right-swap-once",
           "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
         },
-        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
         "choiceUi": {
           "width": "78%",
           "textAlign": "center",
@@ -5804,7 +5438,6 @@
           "placementPolicy": "primary-left-secondary-right-swap-once",
           "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
         },
-        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
         "choiceUi": {
           "width": "78%",
           "textAlign": "center",
@@ -5825,8 +5458,7 @@
           "voiceOnlyParticipants": [],
           "placementPolicy": "primary-left-secondary-right-swap-once",
           "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
-        },
-        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。"
+        }
       }
     ],
     "ending_route_check_paradox": [
@@ -5842,8 +5474,7 @@
           "voiceOnlyParticipants": [],
           "placementPolicy": "primary-left-secondary-right-swap-once",
           "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
-        },
-        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。"
+        }
       }
     ],
     "ending_a": [
@@ -5858,8 +5489,7 @@
           "voiceOnlyParticipants": [],
           "placementPolicy": "primary-left-secondary-right-swap-once",
           "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
-        },
-        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。"
+        }
       },
       {
         "type": "narrate",
@@ -5894,8 +5524,7 @@
           "voiceOnlyParticipants": [],
           "placementPolicy": "primary-left-secondary-right-swap-once",
           "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
-        },
-        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。"
+        }
       },
       {
         "type": "narrate",
@@ -5934,8 +5563,7 @@
           "voiceOnlyParticipants": [],
           "placementPolicy": "primary-left-secondary-right-swap-once",
           "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
-        },
-        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。"
+        }
       },
       {
         "type": "narrate",
@@ -5968,9 +5596,7 @@
           "voiceOnlyParticipants": [],
           "placementPolicy": "primary-left-secondary-right-swap-once",
           "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
-        },
-        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
-        "reason": "sceneBoundaryOrMajorVisualChange"
+        }
       },
       {
         "type": "bg",
@@ -5978,10 +5604,7 @@
         "transition": "fade",
         "waitAfter": 700,
         "displayMode": "background",
-        "sceneMode": "title",
-        "avoidUiOverlap": true,
-        "mainImageFit": "contain-in-safe-stage",
-        "underlayFit": "cover-fullscreen"
+        "sceneMode": "title"
       },
       {
         "type": "bgm",
@@ -6032,9 +5655,7 @@
           ],
           "placementPolicy": "primary-left-secondary-right-swap-once",
           "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
-        },
-        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
-        "reason": "sceneBoundaryOrMajorVisualChange"
+        }
       },
       {
         "type": "effect",
@@ -6058,16 +5679,10 @@
         "sceneMode": "empathy",
         "duration": 6410,
         "visualBg": "cg_empathy_warm",
-        "emotionStyle": "warm-gold-rise",
         "fadeInMs": 300,
         "holdBeforeWordsMs": 750,
-        "fadeOutMs": 300,
-        "fullscreenOnly": true,
         "hideUiDuringEffect": true,
-        "hideSpritesDuringEffect": true,
-        "hideBackgroundDuringEffect": true,
-        "wordMultiplier": 1,
-        "ignoreInputDuringEffect": true
+        "wordMultiplier": 1
       },
       {
         "type": "narrate",
@@ -6118,9 +5733,7 @@
           ],
           "placementPolicy": "primary-left-secondary-right-swap-once",
           "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
-        },
-        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
-        "reason": "sceneBoundaryOrMajorVisualChange"
+        }
       },
       {
         "type": "effect",
@@ -6144,16 +5757,10 @@
         "sceneMode": "empathy",
         "duration": 6410,
         "visualBg": "cg_empathy_warm",
-        "emotionStyle": "warm-gold-rise",
         "fadeInMs": 300,
         "holdBeforeWordsMs": 750,
-        "fadeOutMs": 300,
-        "fullscreenOnly": true,
         "hideUiDuringEffect": true,
-        "hideSpritesDuringEffect": true,
-        "hideBackgroundDuringEffect": true,
-        "wordMultiplier": 1,
-        "ignoreInputDuringEffect": true
+        "wordMultiplier": 1
       },
       {
         "type": "bg",
@@ -6163,7 +5770,6 @@
         "displayMode": "document",
         "sceneMode": "memory",
         "documentTarget": "sidePanelExpandable",
-        "keepCurrentBackground": true,
         "documentTitle": "奇點無限內部危機 mail"
       },
       {
@@ -6215,9 +5821,7 @@
           ],
           "placementPolicy": "primary-left-secondary-right-swap-once",
           "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
-        },
-        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
-        "reason": "sceneBoundaryOrMajorVisualChange"
+        }
       },
       {
         "type": "effect",
@@ -6241,16 +5845,10 @@
         "sceneMode": "empathy",
         "duration": 6410,
         "visualBg": "cg_empathy_warm",
-        "emotionStyle": "warm-gold-rise",
         "fadeInMs": 300,
         "holdBeforeWordsMs": 750,
-        "fadeOutMs": 300,
-        "fullscreenOnly": true,
         "hideUiDuringEffect": true,
-        "hideSpritesDuringEffect": true,
-        "hideBackgroundDuringEffect": true,
-        "wordMultiplier": 1,
-        "ignoreInputDuringEffect": true
+        "wordMultiplier": 1
       },
       {
         "type": "bg",
@@ -6260,10 +5858,7 @@
         "displayMode": "document",
         "sceneMode": "memory",
         "documentTarget": "sidePanelExpandable",
-        "keepCurrentBackground": true,
-        "documentTitle": "訪談錄音波形畫面",
-        "preventMainBackgroundTakeover": true,
-        "showAfterEmpathy": true
+        "documentTitle": "訪談錄音波形畫面"
       },
       {
         "type": "narrate",
@@ -6315,9 +5910,7 @@
           "voiceOnlyParticipants": [],
           "placementPolicy": "primary-left-secondary-right-swap-once",
           "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
-        },
-        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
-        "reason": "sceneBoundaryOrMajorVisualChange"
+        }
       },
       {
         "type": "bg",
@@ -6325,10 +5918,7 @@
         "transition": "fade",
         "waitAfter": 700,
         "displayMode": "bg",
-        "sceneMode": "stage",
-        "avoidUiOverlap": true,
-        "mainImageFit": "contain-in-safe-stage",
-        "underlayFit": "cover-fullscreen"
+        "sceneMode": "stage"
       },
       {
         "type": "narrate",
@@ -6373,8 +5963,7 @@
         "position": "left"
       },
       {
-        "type": "clearSprites",
-        "reason": "sceneBoundaryOrMajorVisualChange"
+        "type": "clearSprites"
       },
       {
         "type": "bg",
@@ -6382,10 +5971,7 @@
         "transition": "fade",
         "waitAfter": 700,
         "displayMode": "background",
-        "sceneMode": "stage",
-        "avoidUiOverlap": true,
-        "mainImageFit": "contain-in-safe-stage",
-        "underlayFit": "cover-fullscreen"
+        "sceneMode": "stage"
       },
       {
         "type": "jump",
@@ -6406,8 +5992,7 @@
           "voiceOnlyParticipants": [],
           "placementPolicy": "primary-left-secondary-right-swap-once",
           "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
-        },
-        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。"
+        }
       },
       {
         "type": "narrate",
@@ -6432,8 +6017,7 @@
           "voiceOnlyParticipants": [],
           "placementPolicy": "primary-left-secondary-right-swap-once",
           "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
-        },
-        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。"
+        }
       },
       {
         "type": "narrate",
@@ -6486,7 +6070,6 @@
           "placementPolicy": "primary-left-secondary-right-swap-once",
           "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
         },
-        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
         "choiceUi": {
           "width": "78%",
           "textAlign": "center",
@@ -6505,8 +6088,7 @@
           "voiceOnlyParticipants": [],
           "placementPolicy": "primary-left-secondary-right-swap-once",
           "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
-        },
-        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。"
+        }
       },
       {
         "type": "jump",
@@ -6524,8 +6106,7 @@
           "voiceOnlyParticipants": [],
           "placementPolicy": "primary-left-secondary-right-swap-once",
           "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
-        },
-        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。"
+        }
       },
       {
         "type": "jump",
@@ -6543,8 +6124,7 @@
           "voiceOnlyParticipants": [],
           "placementPolicy": "primary-left-secondary-right-swap-once",
           "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
-        },
-        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。"
+        }
       },
       {
         "type": "jump",
@@ -6562,8 +6142,7 @@
           "voiceOnlyParticipants": [],
           "placementPolicy": "primary-left-secondary-right-swap-once",
           "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
-        },
-        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。"
+        }
       },
       {
         "type": "jump",
@@ -6584,8 +6163,7 @@
           "voiceOnlyParticipants": [],
           "placementPolicy": "primary-left-secondary-right-swap-once",
           "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
-        },
-        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。"
+        }
       },
       {
         "type": "narrate",
@@ -6609,7 +6187,7 @@
         "speakerFocus": "primary",
         "sceneMode": "afterward",
         "presence": "onscreen",
-		"position": "right"
+        "position": "right"
       },
       {
         "type": "say",
@@ -6619,7 +6197,7 @@
         "speakerFocus": "primary",
         "sceneMode": "afterward",
         "presence": "onscreen",
-		"position": "right"
+        "position": "right"
       },
       {
         "type": "say",
@@ -6639,15 +6217,14 @@
         "speakerFocus": "primary",
         "sceneMode": "afterward",
         "presence": "onscreen",
-		"position": "right"
+        "position": "right"
       },
       {
         "type": "narrate",
         "text": "老麵沒有回答。傑米也沒有追問。"
       },
       {
-        "type": "clearSprites",
-        "reason": "sceneBoundaryOrMajorVisualChange"
+        "type": "clearSprites"
       },
       {
         "type": "bg",
@@ -6655,10 +6232,7 @@
         "transition": "fade",
         "waitAfter": 700,
         "displayMode": "background",
-        "sceneMode": "afterward",
-        "avoidUiOverlap": true,
-        "mainImageFit": "contain-in-safe-stage",
-        "underlayFit": "cover-fullscreen"
+        "sceneMode": "afterward"
       },
       {
         "type": "jump",
@@ -6679,8 +6253,7 @@
           "voiceOnlyParticipants": [],
           "placementPolicy": "primary-left-secondary-right-swap-once",
           "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
-        },
-        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。"
+        }
       },
       {
         "type": "say",
@@ -6723,8 +6296,7 @@
         "position": "right"
       },
       {
-        "type": "clearSprites",
-        "reason": "sceneBoundaryOrMajorVisualChange"
+        "type": "clearSprites"
       },
       {
         "type": "bg",
@@ -6732,10 +6304,7 @@
         "transition": "fade",
         "waitAfter": 700,
         "displayMode": "background",
-        "sceneMode": "afterward",
-        "avoidUiOverlap": true,
-        "mainImageFit": "contain-in-safe-stage",
-        "underlayFit": "cover-fullscreen"
+        "sceneMode": "afterward"
       },
       {
         "type": "jump",
@@ -6757,9 +6326,7 @@
           ],
           "placementPolicy": "primary-left-secondary-right-swap-once",
           "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
-        },
-        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
-        "reason": "sceneBoundaryOrMajorVisualChange"
+        }
       },
       {
         "type": "bg",
@@ -6767,10 +6334,7 @@
         "transition": "fade",
         "waitAfter": 700,
         "displayMode": "bg",
-        "sceneMode": "afterward",
-        "avoidUiOverlap": true,
-        "mainImageFit": "contain-in-safe-stage",
-        "underlayFit": "cover-fullscreen"
+        "sceneMode": "afterward"
       },
       {
         "type": "narrate",
@@ -6818,8 +6382,7 @@
       },
       {
         "type": "hide",
-        "id": "oldnoodle",
-        "reason": "speakerLeavesOrNoLongerPrimary"
+        "id": "oldnoodle"
       },
       {
         "type": "say",
@@ -6833,12 +6396,10 @@
       },
       {
         "type": "hide",
-        "id": "tingru",
-        "reason": "speakerLeavesOrNoLongerPrimary"
+        "id": "tingru"
       },
       {
-        "type": "clearSprites",
-        "reason": "sceneBoundaryOrMajorVisualChange"
+        "type": "clearSprites"
       },
       {
         "type": "bg",
@@ -6846,10 +6407,7 @@
         "transition": "fade",
         "waitAfter": 700,
         "displayMode": "background",
-        "sceneMode": "afterward",
-        "avoidUiOverlap": true,
-        "mainImageFit": "contain-in-safe-stage",
-        "underlayFit": "cover-fullscreen"
+        "sceneMode": "afterward"
       },
       {
         "type": "jump",
@@ -6870,9 +6428,7 @@
           "voiceOnlyParticipants": [],
           "placementPolicy": "primary-left-secondary-right-swap-once",
           "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
-        },
-        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
-        "reason": "sceneBoundaryOrMajorVisualChange"
+        }
       },
       {
         "type": "bg",
@@ -6882,7 +6438,6 @@
         "displayMode": "document",
         "sceneMode": "afterward",
         "documentTarget": "sidePanelExpandable",
-        "keepCurrentBackground": true,
         "documentTitle": "媒體新聞網站畫面"
       },
       {
@@ -6908,8 +6463,7 @@
       },
       {
         "type": "hide",
-        "id": "oldnoodle",
-        "reason": "speakerLeavesOrNoLongerPrimary"
+        "id": "oldnoodle"
       },
       {
         "type": "say",
@@ -6923,8 +6477,7 @@
       },
       {
         "type": "hide",
-        "id": "ray",
-        "reason": "speakerLeavesOrNoLongerPrimary"
+        "id": "ray"
       },
       {
         "type": "say",
@@ -6938,16 +6491,14 @@
       },
       {
         "type": "hide",
-        "id": "tingru",
-        "reason": "speakerLeavesOrNoLongerPrimary"
+        "id": "tingru"
       },
       {
         "type": "narrate",
         "text": "控制室再次安靜。"
       },
       {
-        "type": "clearSprites",
-        "reason": "sceneBoundaryOrMajorVisualChange"
+        "type": "clearSprites"
       },
       {
         "type": "bg",
@@ -6955,10 +6506,7 @@
         "transition": "fade",
         "waitAfter": 700,
         "displayMode": "background",
-        "sceneMode": "afterward",
-        "avoidUiOverlap": true,
-        "mainImageFit": "contain-in-safe-stage",
-        "underlayFit": "cover-fullscreen"
+        "sceneMode": "afterward"
       },
       {
         "type": "jump",
@@ -7007,7 +6555,6 @@
           "placementPolicy": "primary-left-secondary-right-swap-once",
           "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
         },
-        "directorNote": "相容式導演欄位；目前 index 可忽略，後續引擎可用於穩定人物站位與演出節奏。",
         "choiceUi": {
           "width": "78%",
           "textAlign": "center",
