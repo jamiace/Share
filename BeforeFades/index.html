@@ -480,9 +480,7 @@
     }
 
     #buttonRow {
-      display: flex;
-      gap: 8px;
-      pointer-events: auto;
+      display: none;
     }
 
     .top-btn {
@@ -1388,9 +1386,9 @@
           e.preventDefault();
           if (!revealPendingTitleChoice()) advance();
         }
-        if (e.key.toLowerCase() === "s") saveGame();
-        if (e.key.toLowerCase() === "l") loadGame();
-        if (e.key.toLowerCase() === "a") toggleAuto();
+        //if (e.key.toLowerCase() === "s") saveGame();
+        //if (e.key.toLowerCase() === "l") loadGame();
+        //if (e.key.toLowerCase() === "a") toggleAuto();
       });
 
       dom.btnSave.addEventListener("click", saveGame);
