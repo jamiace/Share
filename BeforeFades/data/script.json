@@ -4822,7 +4822,7 @@
           "永生",
           "騙子",
           "天才",
-          "怪物",
+          "怪物"
         ],
         "direction": "down",
         "lockInput": false,
@@ -6608,7 +6608,7 @@
         "character": "jamie",
         "speakerFocus": "primary",
         "sceneMode": "afterward",
-        "presence": "onscreen"
+        "presence": "onscreen",
 		"position": "right"
       },
       {
@@ -6618,7 +6618,7 @@
         "character": "jamie",
         "speakerFocus": "primary",
         "sceneMode": "afterward",
-        "presence": "onscreen"
+        "presence": "onscreen",
 		"position": "right"
       },
       {
@@ -6638,7 +6638,7 @@
         "character": "jamie",
         "speakerFocus": "primary",
         "sceneMode": "afterward",
-        "presence": "onscreen"
+        "presence": "onscreen",
 		"position": "right"
       },
       {
