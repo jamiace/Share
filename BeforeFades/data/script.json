@@ -2591,7 +2591,7 @@
         "id": "young_jamie_video",
         "transition": "fade",
         "waitAfter": 700,
-        "displayMode": "cg",
+        "displayMode": "bg",
         "sceneMode": "control",
         "avoidUiOverlap": true,
         "mainImageFit": "contain-in-safe-stage",
@@ -2763,6 +2763,10 @@
         "sceneMode": "stage",
         "presence": "onscreen",
         "position": "left"
+      },
+      {
+        "type": "clearSprites",
+        "reason": "sceneBoundaryOrMajorVisualChange"
       },
       {
         "type": "choice",
@@ -3102,7 +3106,7 @@
       {
         "type": "say",
         "speaker": "傑米",
-        "text": "你知道你真的要死了，是什麼感覺嗎？就像你手機掉進馬桶後撿起來發現……乾，其實沒差，它本來就沒電了。",
+        "text": "你知道你真的要死了，是什麼感覺嗎？\n就像你手機掉進馬桶後撿起來發現……\n乾，其實沒差，它本來就沒電了。",
         "character": "jamie",
         "speakerFocus": "primary",
         "sceneMode": "stage",
@@ -3117,7 +3121,7 @@
       {
         "type": "say",
         "speaker": "傑米",
-        "text": "你們今天每個人都有一本紀念冊，對吧？如果你們不想看也沒關係，反正我也沒在讀你們的留言。",
+        "text": "你們今天每個人都有一本紀念冊，對吧？\n如果你們不想看也沒關係，反正我也沒在讀你們的留言。",
         "character": "jamie",
         "speakerFocus": "primary",
         "sceneMode": "stage",
@@ -3177,7 +3181,7 @@
       {
         "type": "say",
         "speaker": "庭如",
-        "text": "大家開始放鬆了。悲傷被好奇跟娛樂蓋住。",
+        "text": "大家開始放鬆了。\n悲傷被好奇跟娛樂蓋住。",
         "character": "tingru",
         "speakerFocus": "primary",
         "sceneMode": "stage",
@@ -3311,7 +3315,7 @@
       {
         "type": "say",
         "speaker": "傑米",
-        "text": "給我爸。我爸年輕的時候常說，男人就要硬起來。",
+        "text": "給我爸。\n我爸年輕的時候常說，男人就要硬起來。",
         "character": "jamie",
         "speakerFocus": "primary",
         "sceneMode": "stage",
@@ -3321,7 +3325,7 @@
       {
         "type": "say",
         "speaker": "傑米",
-        "text": "現在我躺在病床上，看著一堆醫療管線插進我身體裡……我終於明白了，原來硬起來的真正意思，是屍斑。",
+        "text": "現在我躺在病床上，看著一堆醫療管線插進我身體裡……\n我終於明白了，原來硬起來的真正意思，是屍斑。",
         "character": "jamie",
         "speakerFocus": "primary",
         "sceneMode": "stage",
@@ -3335,12 +3339,12 @@
       },
       {
         "type": "narrate",
-        "text": "笑聲很熱。但熱的不是心，是表面。那種快感來自一個被禁止的地方。大家知道這不應該好笑，所以它更好笑。"
+        "text": "笑聲很熱。但熱的不是心，是表面。\n那種快感來自一個被禁止的地方。\n大家知道這不應該好笑，所以它更好笑。"
       },
       {
         "type": "say",
         "speaker": "傑米",
-        "text": "給我媽。我媽這輩子最大的遺憾，是沒看到我結婚。",
+        "text": "給我媽。\n我媽這輩子最大的遺憾，是沒看到我結婚。",
         "character": "jamie",
         "speakerFocus": "primary",
         "sceneMode": "stage",
@@ -3374,12 +3378,12 @@
       },
       {
         "type": "narrate",
-        "text": "前排臨時母親也笑了。那個笑有一點不小心。她一開始是在演，可是人有時候演得太久，會被自己的表演拖進去。"
+        "text": "前排臨時母親也笑了。\n那個笑有一點不小心。她一開始是在演，可是人有時候演得太久，會被自己的表演拖進去。"
       },
       {
         "type": "say",
         "speaker": "傑米",
-        "text": "而且拜託，不結婚就怎樣？你們那些結婚的，不是也整天在臉書說婚姻像墳墓嗎？現在好了，我直接住進去，贏你們一整輪。",
+        "text": "而且拜託，不結婚就怎樣？你們那些結婚的，不是也整天在臉書說婚姻像墳墓嗎？\n現在好了，我直接住進去，贏你們一整輪。",
         "character": "jamie",
         "speakerFocus": "primary",
         "sceneMode": "stage",
@@ -3457,7 +3461,7 @@
       },
       {
         "type": "narrate",
-        "text": "林薇沒有笑。她看著台上的傑米，像看著一間曾經住過的房子，被拆掉隔間、打上燈，改裝成供人拍照的展覽館。"
+        "text": "林薇沒有笑。\n她看著台上的傑米，像看著一間曾經住過的房子，被拆掉隔間、打上燈，改裝成供人拍照的展覽館。"
       },
       {
         "type": "say",
@@ -3699,7 +3703,7 @@
       {
         "type": "say",
         "speaker": "傑米",
-        "text": "我有幾任前女友今天沒來，沒關係，我原諒妳們。畢竟妳們平常連我的生日都忘記，我死了妳們記得才奇怪。",
+        "text": "我有幾任前女友今天沒來，沒關係，我原諒妳們。\n畢竟妳們平常連我的生日都忘記，我死了妳們記得才奇怪。",
         "character": "jamie",
         "speakerFocus": "primary",
         "sceneMode": "stage",
@@ -3709,7 +3713,7 @@
       {
         "type": "say",
         "speaker": "傑米",
-        "text": "但妳們要知道一件事。我雖然人快走了，但我最後的願望之一，就是希望妳們過得比我活著時更痛苦。",
+        "text": "但妳們要知道一件事。\n我雖然人快走了，但我最後的願望之一，就是希望妳們過得比我活著時更痛苦。",
         "character": "jamie",
         "speakerFocus": "primary",
         "sceneMode": "stage",
@@ -3719,7 +3723,7 @@
       {
         "type": "say",
         "speaker": "傑米",
-        "text": "所以我安排了 AI 語音留言。每年七夕，會寄一段我對妳說的情話到妳們公司的 LINE 群組裡。",
+        "text": "所以我安排了AI語音留言。\n每年七夕，會寄一段我對妳說的情話到妳們公司的 LINE 群組裡。",
         "character": "jamie",
         "speakerFocus": "primary",
         "sceneMode": "stage",
@@ -3800,7 +3804,7 @@
       },
       {
         "type": "narrate",
-        "text": "庭如感覺到一個小小的碎裂聲。不是很大，可能連林薇自己都不想承認，但它存在。"
+        "text": "庭如感覺到一個小小的碎裂聲。\n不是很大，可能連林薇自己都不想承認，但它存在。"
       },
       {
         "type": "narrate",
@@ -3824,7 +3828,7 @@
       {
         "type": "say",
         "speaker": "傑米",
-        "text": "不過也好啦，今天你們終於都來了，我也終於知道誰只會在我 IG 底下打 emoji，誰是真的肯為我出門的人。",
+        "text": "不過也好啦，今天你們終於都來了，我也終於知道誰只會在我IG底下打emoji，誰是真的肯為我出門的人。",
         "character": "jamie",
         "speakerFocus": "primary",
         "sceneMode": "stage",
@@ -3877,7 +3881,7 @@
       },
       {
         "type": "narrate",
-        "text": "笑聲像浪潮一樣，一波接著一波。人們開始享受這種在肅穆場合大笑的禁忌快感。"
+        "text": "笑聲像浪潮一樣，一波接著一波。\n人們開始享受這種在肅穆場合大笑的禁忌快感。"
       },
       {
         "type": "choice",
@@ -3943,11 +3947,6 @@
         "position": "left"
       },
       {
-        "type": "hide",
-        "id": "tingru",
-        "reason": "speakerLeavesOrNoLongerPrimary"
-      },
-      {
         "type": "say",
         "speaker": "老麵",
         "text": "幫我看著他什麼時候開始不是在演，而是在消耗自己。",
@@ -3958,11 +3957,6 @@
         "position": "right"
       },
       {
-        "type": "hide",
-        "id": "oldnoodle",
-        "reason": "speakerLeavesOrNoLongerPrimary"
-      },
-      {
         "type": "say",
         "speaker": "庭如",
         "text": "也許已經開始了。",
@@ -3971,11 +3965,6 @@
         "sceneMode": "story",
         "presence": "onscreen",
         "position": "left"
-      },
-      {
-        "type": "hide",
-        "id": "tingru",
-        "reason": "speakerLeavesOrNoLongerPrimary"
       },
       {
         "type": "jump",
@@ -4005,11 +3994,6 @@
         "position": "left"
       },
       {
-        "type": "hide",
-        "id": "tingru",
-        "reason": "speakerLeavesOrNoLongerPrimary"
-      },
-      {
         "type": "say",
         "speaker": "老麵",
         "text": "很好。",
@@ -4018,11 +4002,6 @@
         "sceneMode": "story",
         "presence": "onscreen",
         "position": "right"
-      },
-      {
-        "type": "hide",
-        "id": "oldnoodle",
-        "reason": "speakerLeavesOrNoLongerPrimary"
       },
       {
         "type": "say",
@@ -4035,11 +4014,6 @@
         "position": "left"
       },
       {
-        "type": "hide",
-        "id": "tingru",
-        "reason": "speakerLeavesOrNoLongerPrimary"
-      },
-      {
         "type": "say",
         "speaker": "老麵",
         "text": "我現在必須像在看數據。",
@@ -4048,11 +4022,6 @@
         "sceneMode": "story",
         "presence": "onscreen",
         "position": "right"
-      },
-      {
-        "type": "hide",
-        "id": "oldnoodle",
-        "reason": "speakerLeavesOrNoLongerPrimary"
       },
       {
         "type": "jump",
@@ -4082,11 +4051,6 @@
         "position": "left"
       },
       {
-        "type": "hide",
-        "id": "tingru",
-        "reason": "speakerLeavesOrNoLongerPrimary"
-      },
-      {
         "type": "say",
         "speaker": "老麵",
         "text": "越大的聲音，越容易讓人忘記自己在逃避什麼。",
@@ -4095,11 +4059,6 @@
         "sceneMode": "story",
         "presence": "onscreen",
         "position": "right"
-      },
-      {
-        "type": "hide",
-        "id": "oldnoodle",
-        "reason": "speakerLeavesOrNoLongerPrimary"
       },
       {
         "type": "say",
@@ -4112,11 +4071,6 @@
         "position": "left"
       },
       {
-        "type": "hide",
-        "id": "tingru",
-        "reason": "speakerLeavesOrNoLongerPrimary"
-      },
-      {
         "type": "say",
         "speaker": "老麵",
         "text": "我知道很多事，不代表我每次都能處理得好。",
@@ -4125,11 +4079,6 @@
         "sceneMode": "story",
         "presence": "onscreen",
         "position": "right"
-      },
-      {
-        "type": "hide",
-        "id": "oldnoodle",
-        "reason": "speakerLeavesOrNoLongerPrimary"
       },
       {
         "type": "jump",
@@ -4475,7 +4424,7 @@
       {
         "type": "say",
         "speaker": "傑米",
-        "text": "好了。笑話說完了。接下來，我想說一些真話。",
+        "text": "好了。笑話說完了。\n接下來，我想說一些真話。",
         "character": "jamie",
         "speakerFocus": "primary",
         "sceneMode": "confession",
@@ -4485,7 +4434,7 @@
       {
         "type": "say",
         "speaker": "傑米",
-        "text": "我這一生，都在追求贏。我要贏過競爭對手，贏得市場，賺比別人更多的錢，登上所有雜誌封面。我做到了，對嗎？",
+        "text": "我這一生，都在追求贏。\n我要贏過競爭對手，贏得市場，賺比別人更多的錢，登上所有雜誌封面。我做到了，對嗎？",
         "character": "jamie",
         "speakerFocus": "primary",
         "sceneMode": "confession",
@@ -4500,7 +4449,7 @@
       {
         "type": "say",
         "speaker": "傑米",
-        "text": "但直到三個月前，我才發現，我輸了。輸得一敗塗地。我輸給了我身體裡幾個不聽話的細胞。它們比我更懂創業，悄悄在我體內建立了一個無法擊敗的王國。",
+        "text": "但直到三個月前，我才發現，我輸了。\n輸得一敗塗地。我輸給了我身體裡幾個不聽話的細胞。\n它們比我更懂創業，悄悄在我體內建立了一個無法擊敗的王國。",
         "character": "jamie",
         "speakerFocus": "primary",
         "sceneMode": "confession",
@@ -4520,7 +4469,7 @@
       {
         "type": "say",
         "speaker": "傑米",
-        "text": "我怕痛。我怕死。但我最怕的，是被人遺忘。",
+        "text": "我怕痛。\n我怕死。\n但我最怕的，是被人遺忘。",
         "character": "jamie",
         "speakerFocus": "primary",
         "sceneMode": "confession",
@@ -4563,7 +4512,7 @@
       {
         "type": "say",
         "speaker": "傑米",
-        "text": "我怕我死後，傑米・詹這個名字，只會變成財經新聞裡的一組歷史數據，或者科技論壇上一段被人爭論不休的文字。",
+        "text": "我怕我死後，傑米・詹這個名字。\n只會變成財經新聞裡的一組歷史數據，或者科技論壇上一段被人爭論不休的文字。",
         "character": "jamie",
         "speakerFocus": "primary",
         "sceneMode": "confession",
@@ -4573,7 +4522,7 @@
       {
         "type": "say",
         "speaker": "傑米",
-        "text": "我用盡一生去打造一個王國。但我從來沒有時間，好好看看我王國裡的風景。",
+        "text": "我用盡一生去打造一個王國。\n但我從來沒有時間，好好看看我王國裡的風景。",
         "character": "jamie",
         "speakerFocus": "primary",
         "sceneMode": "confession",
@@ -4583,7 +4532,7 @@
       {
         "type": "say",
         "speaker": "傑米",
-        "text": "我沒能好好陪我父親走完最後一程。我錯過了我最好朋友的婚禮。我甚至記不清，我上一次不為任何目的地去旅行，是什麼時候。",
+        "text": "我沒能好好陪我父親走完最後一程。\n我錯過了我最好朋友的婚禮。\n我甚至記不清，我上一次不為任何目的地去旅行，是什麼時候。",
         "character": "jamie",
         "speakerFocus": "primary",
         "sceneMode": "confession",
@@ -4593,7 +4542,7 @@
       {
         "type": "say",
         "speaker": "傑米",
-        "text": "所以我辦了這場秀。我想用我最擅長的方式，跟你們每一個人，好好道別。用那些傷人的笑話，戳破我們之間那些客套的謊言。",
+        "text": "所以我辦了這場秀。\n我想用我最擅長的方式，跟你們每一個人，好好道別。\n用那些傷人的笑話，戳破我們之間那些客套的謊言。",
         "character": "jamie",
         "speakerFocus": "primary",
         "sceneMode": "confession",
@@ -4603,7 +4552,7 @@
       {
         "type": "say",
         "speaker": "傑米",
-        "text": "我想告訴我的家人，對不起，我不是一個及格的兒子。我想告訴我的前任們，謝謝妳們，在我還不是個混蛋的時候愛過我。我想告訴我的朋友們，我很抱歉，總是把你們的邀約排在工作後面。",
+        "text": "我想告訴我的家人，對不起，我不是一個及格的兒子。\n我想告訴我的前任們，謝謝妳們，在我還不是個混蛋的時候愛過我。\n我想告訴我的朋友們，我很抱歉，總是把你們的邀約排在工作後面。",
         "character": "jamie",
         "speakerFocus": "primary",
         "sceneMode": "confession",
@@ -4623,7 +4572,7 @@
       {
         "type": "say",
         "speaker": "傑米",
-        "text": "我希望你們記得，今天晚上，這個有點緊張，說了很多爛笑話，而且非常非常害怕被忘記的——詹傑明。",
+        "text": "我希望你們記得，今天晚上，這個有點緊張，說了很多爛笑話，\n而且非常非常害怕被忘記的——詹傑明。",
         "character": "jamie",
         "speakerFocus": "primary",
         "sceneMode": "confession",
@@ -4632,7 +4581,7 @@
       },
       {
         "type": "narrate",
-        "text": "現場一片安靜。這不是死寂。這是人們終於不知道該用什麼反應，才不會弄髒剛剛那段話。"
+        "text": "現場一片安靜。\n這不是死寂。\n這是人們終於不知道該用什麼反應，才不會弄髒剛剛那段話。"
       },
       {
         "type": "say",
@@ -4694,7 +4643,7 @@
       {
         "type": "say",
         "speaker": "傑米",
-        "text": "但是。告別，不代表結束。",
+        "text": "但是。\n告別，不代表結束。",
         "character": "jamie",
         "speakerFocus": "primary",
         "sceneMode": "confession",
@@ -4730,7 +4679,7 @@
     "reincarnation_silence0": [
       {
         "type": "narrate",
-        "text": "淚水還沒真正落下，LED 已經亮起。【輪迴】兩個字像刀一樣切進現場。",
+        "text": "淚水還沒真正落下，LED 已經亮起。\n【輪迴】兩個字像刀一樣切進現場。",
         "sceneMode": "reincarnation",
         "conversation": {
           "layout": "narrative",
@@ -4762,7 +4711,7 @@
       },
       {
         "type": "narrate",
-        "text": "那三秒裡，沒有人知道該不該鼓掌。有人低頭，有人閉眼。然後，燈光大亮，世界被重新命名成產品。"
+        "text": "那三秒裡，沒有人知道該不該鼓掌。\n有人低頭，有人閉眼。然後，燈光大亮，世界被重新命名成產品。"
       },
       {
         "type": "jump",
@@ -4831,17 +4780,6 @@
         "reason": "sceneBoundaryOrMajorVisualChange"
       },
       {
-        "type": "bg",
-        "id": "cg_reincarnation_boot",
-        "transition": "flash",
-        "waitAfter": 700,
-        "displayMode": "cg",
-        "sceneMode": "reincarnation",
-        "avoidUiOverlap": true,
-        "mainImageFit": "contain-in-safe-stage",
-        "underlayFit": "cover-fullscreen"
-      },
-      {
         "type": "bgm",
         "id": "reincarnation",
         "volume": 0.56,
@@ -4885,18 +4823,6 @@
           "騙子",
           "天才",
           "怪物",
-          "震驚",
-          "被背叛",
-          "欽佩",
-          "憤怒",
-          "困惑",
-          "興奮",
-          "悲傷",
-          "股價",
-          "永生",
-          "騙子",
-          "天才",
-          "怪物"
         ],
         "direction": "down",
         "lockInput": false,
@@ -4941,7 +4867,7 @@
       {
         "type": "say",
         "speaker": "傑米",
-        "text": "死亡，是人類的終極命題。而我，用我的一生，在為這個命題尋找答案。今天，我找到了。",
+        "text": "死亡，是人類的終極命題。\n而我，用我的一生，在為這個命題尋找答案。\n今天，我找到了。",
         "character": "jamie",
         "speakerFocus": "primary",
         "sceneMode": "reincarnation",
@@ -4951,7 +4877,7 @@
       {
         "type": "say",
         "speaker": "傑米",
-        "text": "「輪迴」系統，是我和我的團隊，獻給這個世界的最終解答。它將完整地掃描、複製並上傳人類的意識、記憶與人格。",
+        "text": "「輪迴」系統，是我和我的團隊，獻給這個世界的最終解答。\n它將完整地掃描、複製並上傳人類的意識、記憶與人格。",
         "character": "jamie",
         "speakerFocus": "primary",
         "sceneMode": "reincarnation",
@@ -4961,7 +4887,7 @@
       {
         "type": "say",
         "speaker": "傑米",
-        "text": "肉體會消亡。但「你」，將以另一種形式，永遠存在。",
+        "text": "肉體會消亡。\n但「你」，將以另一種形式，永遠存在。",
         "character": "jamie",
         "speakerFocus": "primary",
         "sceneMode": "reincarnation",
@@ -4971,7 +4897,7 @@
       {
         "type": "say",
         "speaker": "庭如",
-        "text": "太多了。太多東西撞在一起了。有人覺得被騙，有人覺得看見奇蹟，有人在生氣，有人已經在想新聞標題。",
+        "text": "太多了。\n太多東西撞在一起了。\n有人覺得被騙，有人覺得看見奇蹟，有人在生氣，有人已經在想新聞標題。",
         "character": "tingru",
         "speakerFocus": "primary",
         "sceneMode": "reincarnation",
@@ -4981,7 +4907,7 @@
       {
         "type": "say",
         "speaker": "庭如",
-        "text": "有人覺得自己贏了。可是他也很悲傷。",
+        "text": "有人覺得自己贏了。\n可是他也很悲傷。",
         "character": "tingru",
         "speakerFocus": "primary",
         "sceneMode": "reincarnation",
@@ -5018,7 +4944,7 @@
       {
         "type": "say",
         "speaker": "傑米",
-        "text": "很快，我的身體將會停止運作。但是傑米・詹，將會繼續活下去。活在雲端，活在數據裡，繼續帶領奇點無限，走向下一個奇蹟。",
+        "text": "很快，我的身體將會停止運作。\n但是傑米・詹，將會繼續活下去。\n活在雲端，活在數據裡，繼續帶領奇點無限，走向下一個奇蹟。",
         "character": "jamie",
         "speakerFocus": "primary",
         "sceneMode": "reincarnation",
@@ -5028,7 +4954,7 @@
       {
         "type": "say",
         "speaker": "傑米",
-        "text": "我將成為「輪迴」計畫的第一位使用者。第一個，數位永生人。",
+        "text": "我將成為「輪迴」計畫的第一位使用者。\n第一個，數位永生人。",
         "character": "jamie",
         "speakerFocus": "primary",
         "sceneMode": "reincarnation",
@@ -5038,7 +4964,7 @@
       {
         "type": "say",
         "speaker": "傑米",
-        "text": "所以，朋友們，不要為我悲傷。這不是一場告別式，這是一場產品發表會。是我人生中，最重要、也最成功的一次。",
+        "text": "所以，朋友們，不要為我悲傷。\n這不是一場告別式，這是一場產品發表會。\n是我人生中，最重要、也最成功的一次。",
         "character": "jamie",
         "speakerFocus": "primary",
         "sceneMode": "reincarnation",
@@ -5120,17 +5046,6 @@
         "reason": "sceneBoundaryOrMajorVisualChange"
       },
       {
-        "type": "bg",
-        "id": "control_room_dark",
-        "transition": "fade",
-        "waitAfter": 700,
-        "displayMode": "background",
-        "sceneMode": "afterward",
-        "avoidUiOverlap": true,
-        "mainImageFit": "contain-in-safe-stage",
-        "underlayFit": "cover-fullscreen"
-      },
-      {
         "type": "bgm",
         "id": "afterward",
         "volume": 0.34,
@@ -5155,7 +5070,7 @@
         "id": "cg_empty_stage_after",
         "transition": "fade",
         "waitAfter": 700,
-        "displayMode": "cg",
+        "displayMode": "bg",
         "sceneMode": "afterward",
         "avoidUiOverlap": true,
         "mainImageFit": "contain-in-safe-stage",
@@ -5286,7 +5201,7 @@
       {
         "type": "say",
         "speaker": "庭如",
-        "text": "完成不是只有一種意思。有些傷害也會被完成。",
+        "text": "完成不是只有一種意思。\n有些傷害也會被完成。",
         "character": "tingru",
         "speakerFocus": "primary",
         "sceneMode": "afterward",
@@ -5343,7 +5258,7 @@
       {
         "type": "say",
         "speaker": "庭如",
-        "text": "這算事情變得比較真實。",
+        "text": "這樣...算是事情變得比較真實了。",
         "character": "tingru",
         "speakerFocus": "primary",
         "sceneMode": "afterward",
@@ -5470,7 +5385,7 @@
       },
       {
         "type": "narrate",
-        "text": "Before Fades 辦公室裡，光線很冷。電視新聞聲音正在播放。\n老麵、凱特、雷老師、庭如都在，沒有一個人坐得很舒服。"
+        "text": "Before Fades 辦公室裡，光線很冷。\n電視新聞聲音正在播放。\n老麵、凱特、雷老師、庭如都在，沒有一個人坐得很舒服。"
       },
       {
         "type": "say",
@@ -5485,7 +5400,7 @@
       {
         "type": "say",
         "speaker": "新聞主播",
-        "text": "三個月前，他曾在一場極具爭議的生前告別秀中，公開發表AI人格備份與數位永生計畫「輪迴」。",
+        "text": "三個月前。\n他曾在一場極具爭議的生前告別秀中，公開發表AI人格備份與數位永生計畫「輪迴」。",
         "character": "none",
         "speakerFocus": "voice",
         "sceneMode": "office",
@@ -5505,7 +5420,7 @@
       {
         "type": "say",
         "speaker": "新聞主播",
-        "text": "然而隨著傑米・詹今日正式離世，奇點無限宣布，將依照其生前安排，啟動第一階段人格上傳與董事會顧問模型測試。",
+        "text": "然而隨著傑米・詹今日正式離世。\n奇點無限宣布，將依照其生前安排，啟動第一階段人格上傳與董事會顧問模型測試。",
         "character": "none",
         "speakerFocus": "voice",
         "sceneMode": "office",
@@ -6684,7 +6599,7 @@
         "speakerFocus": "primary",
         "sceneMode": "afterward",
         "presence": "onscreen",
-        "position": "right"
+        "position": "left"
       },
       {
         "type": "say",
@@ -6694,6 +6609,7 @@
         "speakerFocus": "primary",
         "sceneMode": "afterward",
         "presence": "onscreen"
+		"position": "right"
       },
       {
         "type": "say",
@@ -6703,6 +6619,7 @@
         "speakerFocus": "primary",
         "sceneMode": "afterward",
         "presence": "onscreen"
+		"position": "right"
       },
       {
         "type": "say",
@@ -6712,7 +6629,7 @@
         "speakerFocus": "primary",
         "sceneMode": "afterward",
         "presence": "onscreen",
-        "position": "right"
+        "position": "left"
       },
       {
         "type": "say",
@@ -6722,6 +6639,7 @@
         "speakerFocus": "primary",
         "sceneMode": "afterward",
         "presence": "onscreen"
+		"position": "right"
       },
       {
         "type": "narrate",

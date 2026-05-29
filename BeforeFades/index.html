@@ -245,10 +245,21 @@
       inset: 0;
       background: linear-gradient(to bottom, rgba(0,0,0,0.08), rgba(0,0,0,0.46));
       pointer-events: none;
-      z-index: 3;
+      z-index: 2;
       opacity: 1;
       transition: opacity 900ms ease;
     }
+	
+	#bgLayer::before {
+	  content: "";
+	  position: absolute;
+	  inset: 0;
+	  background: #000;
+	  opacity: var(--final-bg-black-opacity, 0);
+	  transition: opacity var(--final-bg-black-ms, 700ms) ease;
+	  pointer-events: none;
+	  z-index: 3;
+	}
 
     #game.title-screen #bgLayer::after {
       background: linear-gradient(to bottom, rgba(0,0,0,0.08), rgba(0,0,0,0.34));
@@ -2567,7 +2578,7 @@
           await runEmpathyEffect({ ...cmd, direction: cmd.direction || cmd.dir || "down" });
           break;
 
-        case "fadeBlack": await fadeBlack(cmd.ms ?? 700); break;
+        case "fadeBlack": await fadeBlack(cmd.ms ?? 700, cmd); break;
         case "fadeClear": await fadeClear(cmd.ms ?? 700); break;
         default: console.warn("Unknown effect:", cmd.name);
       }
@@ -2600,11 +2611,25 @@
       await wait(ms + 40);
     }
 
-    async function fadeBlack(ms = 700) {
-      dom.effects.style.transition = `background ${ms}ms ease`;
-      dom.effects.style.background = "#000";
-      await wait(ms);
-    }
+	async function fadeBlack(ms = 700, cmd = {}) {
+	  if (cmd?.finalLogo) {
+		updateTitleLogo("logo_beforefades");
+
+		dom.bg.style.setProperty("--final-bg-black-ms", `${ms}ms`);
+		dom.bg.style.setProperty("--final-bg-black-opacity", "0");
+
+		await wait(30);
+
+		dom.bg.style.setProperty("--final-bg-black-opacity", "1");
+
+		await wait(ms);
+		return;
+	  }
+
+	  dom.effects.style.transition = `background ${ms}ms ease`;
+	  dom.effects.style.background = "#000";
+	  await wait(ms);
+	}
 
     async function fadeClear(ms = 700) {
       dom.effects.style.transition = `background ${ms}ms ease`;
