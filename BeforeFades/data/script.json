@@ -2910,7 +2910,7 @@
         "transition": "fade",
         "waitAfter": 300,
         "sceneMode": "stage",
-        "displayMode": "cg"
+        "displayMode": "bg"
       },
       {
         "type": "narrate",
@@ -3064,7 +3064,7 @@
         "transition": "fade",
         "waitAfter": 300,
         "sceneMode": "stage",
-        "displayMode": "cg"
+        "displayMode": "bg"
       },
       {
         "type": "sfx",
@@ -3453,7 +3453,7 @@
         "id": "cg_linwei_silent",
         "transition": "fade",
         "waitAfter": 700,
-        "displayMode": "cg",
+        "displayMode": "bg",
         "sceneMode": "stage",
         "avoidUiOverlap": true,
         "mainImageFit": "contain-in-safe-stage",
@@ -5446,7 +5446,7 @@
         "id": "stock_news",
         "transition": "fade",
         "waitAfter": 700,
-        "displayMode": "cg",
+        "displayMode": "bg",
         "sceneMode": "office",
         "avoidUiOverlap": true,
         "mainImageFit": "contain-in-safe-stage",
@@ -6324,7 +6324,7 @@
         "id": "cg_audience_laugh",
         "transition": "fade",
         "waitAfter": 700,
-        "displayMode": "cg",
+        "displayMode": "bg",
         "sceneMode": "stage",
         "avoidUiOverlap": true,
         "mainImageFit": "contain-in-safe-stage",
@@ -6766,7 +6766,7 @@
         "id": "cg_audience_laugh",
         "transition": "fade",
         "waitAfter": 700,
-        "displayMode": "cg",
+        "displayMode": "bg",
         "sceneMode": "afterward",
         "avoidUiOverlap": true,
         "mainImageFit": "contain-in-safe-stage",
