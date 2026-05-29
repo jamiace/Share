@@ -143,7 +143,7 @@
       width: 100%;
       height: 100%;
       object-fit: contain;
-      transform: scale(1);
+      transform: scale(1.075);
       filter: drop-shadow(0 16px 30px rgba(0,0,0,0.46));
       -webkit-mask-image: none;
       mask-image: none;
@@ -165,7 +165,7 @@
       width: 100%;
       height: 100%;
       object-fit: contain;
-      transform: scale(1);
+      transform: scale(1.065);
       filter: drop-shadow(0 18px 34px rgba(0,0,0,0.48));
       -webkit-mask-image: none;
       mask-image: none;
@@ -246,6 +246,8 @@
       background: linear-gradient(to bottom, rgba(0,0,0,0.08), rgba(0,0,0,0.46));
       pointer-events: none;
       z-index: 3;
+      opacity: 1;
+      transition: opacity 900ms ease;
     }
 
     #game.title-screen #bgLayer::after {
@@ -289,7 +291,7 @@
     .sprite.right.visible { transform: translateX(-100%) translateY(0) scale(1); }
 
     .sprite.dimmed {
-      filter: grayscale(0.5) brightness(0.42) drop-shadow(0 24px 38px rgba(0,0,0,0.58));
+      filter: grayscale(0.5) brightness(0.32) drop-shadow(0 24px 38px rgba(0,0,0,0.58));
     }
 
     #effectLayer {
@@ -727,6 +729,20 @@
     #game.final-ending-active #choices {
       opacity: 0;
       pointer-events: none;
+    }
+
+    #game.final-ending-active #bgLayer {
+      z-index: 12;
+      background: transparent !important;
+    }
+
+    #game.final-ending-active #bgMediaFrame {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    #game.final-ending-active #bgLayer::after {
+      opacity: 0;
     }
 
     #game.final-ending-active #titleLogo {
@@ -1206,6 +1222,7 @@
 
     const dom = {
       game: $("game"),
+      uiLayer: $("uiLayer"),
       bg: $("bgLayer"),
       bgImage: $("bgImage"),
       bgMediaFrame: $("bgMediaFrame"),
@@ -1587,6 +1604,31 @@
       Object.entries(values).forEach(([key, value]) => { state.flags[key] = value; });
     }
 
+    function clearDialogueUi() {
+      clearInterval(state.typeTimer);
+      state.typeTimer = null;
+      state.typing = false;
+      state.fullText = "";
+      if (dom.speaker) {
+        dom.speaker.textContent = "";
+        dom.speaker.className = "narrator";
+      }
+      if (dom.text) dom.text.textContent = "";
+      if (dom.next) dom.next.style.opacity = "0";
+    }
+
+    function shouldClearDialogueForEffect(cmd = {}) {
+      const name = String(cmd.name || "").trim().toLowerCase();
+      return [
+        "empathy",
+        "empathyup",
+        "empathydown",
+        "empathyfall",
+        "empathysink",
+        "fadeblack"
+      ].includes(name) || cmd.hideUiDuringEffect === true;
+    }
+
     async function showText(speaker, text, className, cmd = {}) {
       const shownCharacterId = await autoShowSpeakerSprite(speaker, text, cmd);
       queueAfterTextActions(cmd, shownCharacterId);
@@ -1896,6 +1938,7 @@
 
     async function setBackground(cmdOrId, transition = "fade", postDelayMs = CONFIG.bgPostSwitchDelayMs) {
       const cmd = (cmdOrId && typeof cmdOrId === "object") ? cmdOrId : { id: cmdOrId, transition, waitAfter: postDelayMs };
+      clearDialogueUi();
       let id = cmd.id || "";
       const requestedBgId = id;
       id = sanitizeBackgroundIdForScene(requestedBgId);
@@ -2346,16 +2389,18 @@
       if (id === layout.primaryId) return "left";
       if (id === layout.secondaryId) return "right";
 
-      // 第一次換人主講時：A 用 700ms 移到右邊，B 再進到 A 原本的左邊。
-      // 同一段對話只交換一次，後續 A/B 交錯不再反覆出現/消失。
+      // 第一次換人主講時：不要再把原本左側人物「擠」到右邊。
+      // 改成：原主講者先離場，新主講者進入原本左側位置；若原主講者之後再開口，才作為右側人物回來。
       if (focus === "primary" && !layout.swappedOnce) {
         const oldPrimary = layout.primaryId;
         layout.secondaryId = oldPrimary;
         layout.primaryId = id;
         layout.swappedOnce = true;
-        if (state.sprites.has(oldPrimary)) {
-          setSpritePosition(oldPrimary, "right");
-          state.pendingSpriteMoveMs = 700;
+        state.pendingSpriteMoveMs = 0;
+        const oldPrimarySprite = state.sprites.get(oldPrimary);
+        if (oldPrimarySprite) {
+          oldPrimarySprite.remove();
+          state.sprites.delete(oldPrimary);
         }
         return "left";
       }
@@ -2501,6 +2546,7 @@
     }
 
     async function runEffect(cmd) {
+      if (shouldClearDialogueForEffect(cmd)) clearDialogueUi();
       switch (cmd.name) {
         case "shake": await shake(cmd.target || "game"); break;
         case "flash": await flash(cmd.opacity ?? 0.85, cmd.ms ?? 260); break;
@@ -3076,21 +3122,17 @@
       dom.choices.style.display = "none";
       dom.choices.innerHTML = "";
       state.awaitingChoice = false;
-      dom.speaker.textContent = "END";
-      dom.speaker.className = "system";
-      dom.text.textContent = "本段落結束。";
-      dom.next.style.opacity = "0";
+      clearDialogueUi();
 
-      const logo = resolveBackgroundSrc("logo_beforefades");
-      if (logo && dom.titleLogo) {
-        if (dom.titleLogo.src !== new URL(logo, window.location.href).href) dom.titleLogo.src = logo;
-        dom.titleLogo.classList.add("visible");
+      dom.game.classList.add("final-ending-active");
+      updateTitleLogo("logo_beforefades");
+
+      if (dom.uiLayer) {
+        dom.uiLayer.style.transition = "opacity 900ms ease";
+        dom.uiLayer.style.opacity = "0";
       }
 
-      dom.uiLayer.style.transition = "opacity 900ms ease";
-      dom.uiLayer.style.opacity = "0";
-      await fadeBlack(1500);
-      dom.game.classList.add("final-ending-active");
+      await fadeBlack(900);
     }
 
     function escapeHtml(value) {

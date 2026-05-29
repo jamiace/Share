@@ -636,7 +636,7 @@
         "speakerFocus": "primary",
         "sceneMode": "control",
         "presence": "onscreen",
-        "position": "right"
+        "position": "left"
       },
       {
         "type": "sfx",
@@ -646,22 +646,22 @@
       {
         "type": "say",
         "speaker": "凱特",
-        "text": "麵老闆，你裝了鷹眼嗎？全場一百二十個座位，三百多朵花，你怎麼看見的？",
+        "text": "麵老闆，你裝了鷹眼嗎？\n全場一百二十個座位，三百多朵花，你怎麼看見的？",
         "character": "kate",
         "speakerFocus": "primary",
         "sceneMode": "control",
         "presence": "onscreen",
-        "position": "left"
+        "position": "right"
       },
       {
         "type": "say",
         "speaker": "老麵",
-        "text": "我不是鷹。我是這場夢的守門人。",
+        "text": "我不是鷹。\n我是這場夢的守門人。",
         "character": "oldnoodle",
         "speakerFocus": "primary",
         "sceneMode": "control",
         "presence": "onscreen",
-        "position": "right"
+        "position": "left"
       },
       {
         "type": "say",
@@ -671,7 +671,7 @@
         "speakerFocus": "primary",
         "sceneMode": "control",
         "presence": "onscreen",
-        "position": "right"
+        "position": "left"
       },
       {
         "type": "say",
@@ -681,7 +681,7 @@
         "speakerFocus": "primary",
         "sceneMode": "control",
         "presence": "onscreen",
-        "position": "left"
+        "position": "right"
       },
       {
         "type": "clearSprites",
@@ -701,12 +701,12 @@
       {
         "type": "say",
         "speaker": "雷老師",
-        "text": "音訊軌道已經確認。保證連他吞口水時喉結滾動的聲音，都有死亡的 BASS 感。",
+        "text": "音訊軌道已經確認。\n保證連他吞口水時喉結滾動的聲音，都有死亡的BASS感。",
         "character": "ray",
         "speakerFocus": "primary",
         "sceneMode": "control",
         "presence": "onscreen",
-        "position": "right"
+        "position": "left"
       },
       {
         "type": "say",
@@ -716,7 +716,7 @@
         "speakerFocus": "primary",
         "sceneMode": "control",
         "presence": "onscreen",
-        "position": "left"
+        "position": "right"
       },
       {
         "type": "say",
@@ -726,17 +726,21 @@
         "speakerFocus": "primary",
         "sceneMode": "control",
         "presence": "onscreen",
-        "position": "right"
+        "position": "left"
       },
       {
         "type": "say",
         "speaker": "庭如",
-        "text": "不是聲音。是人。",
+        "text": "不是聲音。\n是人。",
         "character": "tingru",
         "speakerFocus": "primary",
         "sceneMode": "control",
         "presence": "onscreen",
-        "position": "left"
+        "position": "right"
+      },
+      {
+        "type": "clearSprites",
+        "reason": "sceneBoundaryOrMajorVisualChange"
       },
       {
         "type": "choice",
@@ -806,7 +810,7 @@
       },
       {
         "type": "narrate",
-        "text": "十二格監控畫面持續跳動。每個人都以為舞台在前面，其實舞台到處都是。"
+        "text": "十二格監控畫面持續跳動。\n每個人都以為舞台在前面，其實舞台到處都是。"
       },
       {
         "type": "clearSprites",
@@ -832,12 +836,12 @@
       {
         "type": "say",
         "speaker": "老麵",
-        "text": "最難的不是讓人哭。最難的是知道，眼淚掉下來的那一秒，要不要把燈打亮。",
+        "text": "最難的不是讓人哭。\n最難的是知道，眼淚掉下來的那一秒，你該不該把燈打亮。",
         "character": "oldnoodle",
         "speakerFocus": "primary",
         "sceneMode": "control",
         "presence": "onscreen",
-        "position": "right"
+        "position": "left"
       },
       {
         "type": "clearSprites",
@@ -863,22 +867,22 @@
       {
         "type": "say",
         "speaker": "老麵",
-        "text": "一場告別式最麻煩的，不是死者。是所有還活著、卻各自帶著目的來的人。",
+        "text": "一場告別式最麻煩的，不是死者。\n是所有還活著、卻各自帶著目的來的人。",
         "character": "oldnoodle",
         "speakerFocus": "primary",
         "sceneMode": "control",
         "presence": "onscreen",
-        "position": "right"
+        "position": "left"
       },
       {
         "type": "say",
         "speaker": "凱特",
-        "text": "麵老闆，傑米還在休息室裡繞圈圈。你再不去，他可能會把地板磨成一個商業模型。",
+        "text": "麵老闆，傑米還在休息室裡繞圈圈。\n你再不去，他可能會把地板磨成馬賽克藝術。",
         "character": "kate",
         "speakerFocus": "primary",
         "sceneMode": "control",
         "presence": "onscreen",
-        "position": "left"
+        "position": "right"
       },
       {
         "type": "choice",
@@ -986,17 +990,17 @@
       {
         "type": "note",
         "title": "EMPATHY",
-        "text": "庭如無法讀心。她只能感覺強烈情緒留下的形狀、溫度與方向。",
+        "text": "庭如能感覺強烈情緒留下的形狀、溫度與方向。",
         "sceneMode": "empathy"
       },
       {
         "type": "narrate",
-        "text": "監控畫面變得模糊。人群不再是清楚的臉，而是一片片浮動的光斑。每個光斑裡，有不同顏色的詞浮上來，又慢慢沉下去。"
+        "text": "監控畫面變得模糊。\n人群不再是清楚的臉，而是一片片浮動的光斑。\n每個光斑裡，有不同顏色的詞浮上來，又慢慢沉下去。"
       },
       {
         "type": "say",
         "speaker": "庭如",
-        "text": "入口那邊很亮。不是燈光的亮，是很多人在等煙火。",
+        "text": "入口那邊很亮。\n不是燈光的亮，是很多人在等煙火。",
         "character": "tingru",
         "speakerFocus": "primary",
         "sceneMode": "empathy",
@@ -1016,7 +1020,7 @@
       {
         "type": "say",
         "speaker": "庭如",
-        "text": "前排有悲傷。可是形狀太整齊了，像排練過的雨。",
+        "text": "前排有悲傷。\n可是形狀太整齊了，像排練過的雨。",
         "character": "tingru",
         "speakerFocus": "primary",
         "sceneMode": "empathy",
@@ -1026,7 +1030,7 @@
       {
         "type": "say",
         "speaker": "庭如",
-        "text": "媒體區很餓。他們不是壞人，只是已經太習慣把人的痛，剪成一行可以被轉貼的文字。",
+        "text": "媒體區很餓。\n他們不是壞人，只是已經太習慣把人的痛，剪成一行可以被轉貼的文字。",
         "character": "tingru",
         "speakerFocus": "primary",
         "sceneMode": "empathy",
@@ -1036,7 +1040,7 @@
       {
         "type": "say",
         "speaker": "庭如",
-        "text": "高層那邊像會議室。有人擔心傑米失控，也有人擔心傑米不夠失控。最好是悲傷剛好，瘋狂剛好，熱搜也剛好。",
+        "text": "高層那邊像會議室。\n有人擔心傑米失控，也有人擔心傑米不夠失控。\n最好是悲傷剛好，瘋狂剛好，熱搜也剛好。",
         "character": "tingru",
         "speakerFocus": "primary",
         "sceneMode": "empathy",
@@ -1046,7 +1050,7 @@
       {
         "type": "say",
         "speaker": "庭如",
-        "text": "舞台中間很空。不是留白，比較像洞。",
+        "text": "舞台中間很空。\n不是留白，比較像洞。",
         "character": "tingru",
         "speakerFocus": "primary",
         "sceneMode": "empathy",
@@ -1056,7 +1060,7 @@
       {
         "type": "say",
         "speaker": "庭如",
-        "text": "休息室那邊有一種很冷的恐懼。他怕的不是上台，是怕上台之後，自己還是會被忘記。",
+        "text": "休息室那邊有一種很冷的恐懼。\n他怕的不是上台，是怕上台之後，自己還是會被忘記。",
         "character": "tingru",
         "speakerFocus": "primary",
         "sceneMode": "empathy",
@@ -1122,7 +1126,7 @@
       {
         "type": "say",
         "speaker": "老麵",
-        "text": "我知道。公關部安排的人。",
+        "text": "我知道。\n公關部安排的人。",
         "character": "oldnoodle",
         "speakerFocus": "primary",
         "sceneMode": "empathy",
@@ -1142,7 +1146,7 @@
       {
         "type": "say",
         "speaker": "老麵",
-        "text": "不全是。有時候一場儀式需要觀眾先相信，其他人才有辦法跟著相信。",
+        "text": "不全是。\n有時候一場儀式需要觀眾先相信，其他人才有辦法跟著相信。",
         "character": "oldnoodle",
         "speakerFocus": "primary",
         "sceneMode": "empathy",
@@ -1199,7 +1203,7 @@
       {
         "type": "say",
         "speaker": "老麵",
-        "text": "怕不代表不能上台。有時候，怕才是他必須上台的原因。",
+        "text": "怕不代表不能上台。\n有時候，怕才是他必須上台的原因。",
         "character": "oldnoodle",
         "speakerFocus": "primary",
         "sceneMode": "empathy",
@@ -1256,7 +1260,7 @@
       {
         "type": "say",
         "speaker": "老麵",
-        "text": "妳的沒事通常都很有事。但如果妳看到什麼會讓今晚出事的東西，要說。",
+        "text": "妳的沒事通常都很有事。\n但如果妳看到什麼會讓今晚出事的東西，記得要說。",
         "character": "oldnoodle",
         "speakerFocus": "primary",
         "sceneMode": "empathy",
@@ -1343,7 +1347,7 @@
       },
       {
         "type": "narrate",
-        "text": "傑米站在鏡子前。他的黑色西裝完美得像一個答案，但他的手指反覆摩擦袖口，像在確認自己還沒有散掉。"
+        "text": "傑米站在鏡子前。\n他的黑色西裝完美得像一個答案，但他的手指反覆摩擦袖口，像在確認自己還沒有散掉。"
       },
       {
         "type": "say",
@@ -1375,7 +1379,7 @@
             "next": "jamie_answer_human"
           },
           {
-            "text": "你確實在騙人。但你也確實在說真話。今晚麻煩的是，兩者都是真的。",
+            "text": "你確實在騙人。但你也確實在說真話。 今晚麻煩的是，兩者都是真的。",
             "set": {
               "oldnoodle_doubt": true
             },
@@ -1394,7 +1398,7 @@
       {
         "type": "say",
         "speaker": "老麵",
-        "text": "如果這是產品發表，風險很高。如果這是你人生最後一次登場，它很精準。",
+        "text": "如果這是產品發表，風險很高。 如果這是你人生最後一次登場，它很精準。",
         "sceneMode": "jamie_room",
         "conversation": {
           "layout": "duo",
@@ -1436,7 +1440,7 @@
       {
         "type": "say",
         "speaker": "傑米",
-        "text": "對。我討厭模糊。死亡就是最模糊的東西。",
+        "text": "對。我討厭模糊。\n死亡就是最模糊的東西。",
         "character": "jamie",
         "speakerFocus": "primary",
         "sceneMode": "jamie_room",
@@ -1521,7 +1525,7 @@
       {
         "type": "say",
         "speaker": "傑米",
-        "text": "你知道嗎？這就是我喜歡你的地方。你安慰人的方式，像拿手術刀剝橘子。",
+        "text": "你知道嗎？這就是我喜歡你的地方。\n你安慰人的方式，像拿手術刀剝橘子。",
         "character": "jamie",
         "speakerFocus": "primary",
         "sceneMode": "jamie_room",
@@ -1532,7 +1536,7 @@
       {
         "type": "say",
         "speaker": "老麵",
-        "text": "那你最好慶幸，我手還算穩。",
+        "text": "那你最好慶幸，我的手還算穩。",
         "character": "oldnoodle",
         "speakerFocus": "primary",
         "sceneMode": "jamie_room",
@@ -1548,7 +1552,7 @@
       {
         "type": "say",
         "speaker": "傑米",
-        "text": "我上一次這麼緊張，是大學第一次約女生看電影。那次我只是怕搞砸一場約會，這次我怕我搞砸的是我自己的人生。",
+        "text": "我上一次這麼緊張，是大學第一次約女生看電影。\n那次我只是怕搞砸一場約會，這次我怕我搞砸的是我自己的人生。",
         "sceneMode": "jamie_room",
         "conversation": {
           "layout": "group",
@@ -1571,7 +1575,7 @@
       {
         "type": "say",
         "speaker": "傑米",
-        "text": "我是第一次上台讓大家看我死。而且更爛的是，我還要說服他們，這不是死，是升級。",
+        "text": "我是第一次上台讓大家看我死。\n而且更爛的是，我還要說服他們，這不是死，是升級。",
         "character": "jamie",
         "speakerFocus": "primary",
         "sceneMode": "jamie_room",
@@ -1607,10 +1611,6 @@
         "expression": "nervous"
       },
       {
-        "type": "clearSprites",
-        "reason": "sceneBoundaryOrMajorVisualChange"
-      },
-      {
         "type": "bg",
         "id": "doc_medical_report",
         "transition": "fade",
@@ -1630,17 +1630,13 @@
       {
         "type": "say",
         "speaker": "傑米",
-        "text": "我第一次看到那張紙的時候，第一個想法不是我會死。我想，這份文件排版很爛。然後我才開始發抖。",
+        "text": "我第一次看到那張紙的時候，第一個想法不是我會死。\n我想的是，這份文件排版很爛。然後我才開始發抖。",
         "character": "jamie",
         "speakerFocus": "primary",
         "sceneMode": "jamie_room",
         "presence": "onscreen",
         "position": "left",
         "expression": "nervous"
-      },
-      {
-        "type": "clearSprites",
-        "reason": "sceneBoundaryOrMajorVisualChange"
       },
       {
         "type": "bg",
