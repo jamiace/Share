@@ -5469,7 +5469,7 @@
       },
       {
         "type": "narrate",
-        "text": "Before Fades 辦公室裡，光線很冷。電視新聞聲音正在播放。老麵、凱特、雷老師、庭如都在，沒有一個人坐得很舒服。"
+        "text": "Before Fades 辦公室裡，光線很冷。電視新聞聲音正在播放。\n老麵、凱特、雷老師、庭如都在，沒有一個人坐得很舒服。"
       },
       {
         "type": "say",
@@ -5484,7 +5484,7 @@
       {
         "type": "say",
         "speaker": "新聞主播",
-        "text": "三個月前，他曾在一場極具爭議的生前告別秀中，公開發表 AI 人格備份與數位永生計畫「輪迴」。",
+        "text": "三個月前，他曾在一場極具爭議的生前告別秀中，公開發表AI人格備份與數位永生計畫「輪迴」。",
         "character": "none",
         "speakerFocus": "voice",
         "sceneMode": "office",
@@ -5549,7 +5549,7 @@
       {
         "type": "say",
         "speaker": "凱特",
-        "text": "明明知道他會死。可是看到新聞，還是覺得……",
+        "text": "明明知道他會死。\n可是看到新聞，還是覺得……",
         "character": "kate",
         "speakerFocus": "primary",
         "sceneMode": "office",
@@ -5574,7 +5574,7 @@
       {
         "type": "say",
         "speaker": "老麵",
-        "text": "不是說封存？",
+        "text": "你不是說要封存檔案？",
         "character": "oldnoodle",
         "speakerFocus": "primary",
         "sceneMode": "office",
@@ -5584,7 +5584,7 @@
       {
         "type": "say",
         "speaker": "雷老師",
-        "text": "是啊。我打開看了一下，又封回去了。那個混蛋真的很會講。",
+        "text": "是啊。\n所以我打開看了一下，又封回去了。\n那個混蛋真的很會講。",
         "character": "ray",
         "speakerFocus": "primary",
         "sceneMode": "office",
@@ -5677,21 +5677,6 @@
         "position": "left"
       },
       {
-        "type": "show",
-        "id": "tingru",
-        "expression": "silent",
-        "position": "right",
-        "sceneMode": "office",
-        "reason": "slideToRightBeforeOldnoodle"
-      },
-      {
-        "type": "show",
-        "id": "oldnoodle",
-        "expression": "silent",
-        "position": "left",
-        "sceneMode": "office"
-      },
-      {
         "type": "say",
         "speaker": "老麵",
         "text": "所以才麻煩。",
@@ -5699,7 +5684,7 @@
         "speakerFocus": "primary",
         "sceneMode": "office",
         "presence": "onscreen",
-        "position": "left"
+        "position": "right"
       },
       {
         "type": "clearSprites",
@@ -5707,7 +5692,7 @@
       },
       {
         "type": "narrate",
-        "text": "老麵走到電視前，關掉。新聞聲音消失，但那條向上的股價線，好像還留在每個人眼睛裡。"
+        "text": "老麵走到電視前，關掉。\n新聞聲音消失，但那條向上的股價線，好像還留在每個人眼睛裡。"
       },
       {
         "type": "jump",
@@ -5775,7 +5760,7 @@
       },
       {
         "type": "narrate",
-        "text": "老麵坐回電腦前。案件管理系統打開。游標停在最後一欄，等待他替這一切命名。"
+        "text": "老麵坐回電腦前。\n案件管理系統打開。\n游標停在最後一欄，等待他替這一切命名。"
       },
       {
         "type": "choice",
@@ -5789,14 +5774,14 @@
             "next": "case_report_truth"
           },
           {
-            "text": "否。流程完成，但告別本身被商業發表破壞。",
+            "text": "否。 流程完成，但告別本身被商業發表破壞。",
             "set": {
               "report_ethics": true
             },
             "next": "case_report_truth"
           },
           {
-            "text": "無法判定。完成與傷害並存。",
+            "text": "無法判定。 完成與傷害並存。",
             "set": {
               "report_paradox": true
             },
@@ -5817,14 +5802,14 @@
         "prompt": "這場告別是否真誠？",
         "options": [
           {
-            "text": "是。真誠不因商業目的存在而完全失效。",
+            "text": "是。 真誠不因商業目的存在而完全失效。",
             "set": {
               "truth_yes": true
             },
             "next": "case_report_legacy"
           },
           {
-            "text": "否。情緒被導向產品發表節點。",
+            "text": "否。 情緒被導向產品發表節點。",
             "set": {
               "truth_no": true
             },
@@ -5970,11 +5955,11 @@
       },
       {
         "type": "narrate",
-        "text": "我們沒有替他美化，也沒有替他懺悔。我們只是把他人生最後的矛盾，完整留了下來。"
+        "text": "我們沒有替他美化，也沒有替他懺悔。\n我們只是把他人生最後的矛盾，完整留了下來。"
       },
       {
         "type": "narrate",
-        "text": "如果那就是傑米・詹想被記得的樣子。那麼，本案完成。"
+        "text": "如果那就是傑米・詹想被記得的樣子。\n那麼，本案完成。"
       },
       {
         "type": "jump",
@@ -6002,7 +5987,7 @@
       },
       {
         "type": "narrate",
-        "text": "但完成，不代表無罪。那天晚上，他留下了真心，也留下了傷口。他真的害怕，也真的利用了別人的悲傷。"
+        "text": "但完成，不代表無罪。\n那天晚上，他留下了真心，也留下了傷口。\n他真的害怕，也真的利用了別人的悲傷。"
       },
       {
         "type": "narrate",
@@ -6014,7 +5999,7 @@
       },
       {
         "type": "narrate",
-        "text": "本案封存。但不結案。"
+        "text": "本案封存。\n但不結案。"
       },
       {
         "type": "jump",
@@ -6042,7 +6027,7 @@
       },
       {
         "type": "narrate",
-        "text": "他的恐懼是真的。他的驕傲是真的。他的悲傷是真的。他的算計也是真的。"
+        "text": "他的恐懼是真的。他的驕傲是真的。\n他的悲傷是真的。他的算計也是真的。"
       },
       {
         "type": "narrate",
@@ -6050,7 +6035,7 @@
       },
       {
         "type": "narrate",
-        "text": "我們只是替它打了一束太漂亮的光。然後看著所有人，在那束光裡，看見自己想看的東西。"
+        "text": "我們只是替它打了一束太漂亮的光。\n然後看著所有人，在那束光裡，看見自己想看的東西。"
       },
       {
         "type": "jump",
@@ -6106,7 +6091,7 @@
       },
       {
         "type": "narrate",
-        "text": "有些人不是在死亡時離開。是在沒有人再提起他的時候，慢慢淡出。"
+        "text": "有些人不是在死亡時離開。\n是在沒有人再提起他的時候，慢慢淡出。"
       },
       {
         "type": "effect",
@@ -6178,7 +6163,7 @@
       },
       {
         "type": "narrate",
-        "text": "他說自己贏過競爭對手，贏過市場，贏過投資人，贏過所有說他瘋了的人。可是在那個字的底下，庭如聽見另一個更小的聲音。"
+        "text": "他說自己贏過競爭對手，贏過市場，贏過投資人，贏過所有說他瘋了的人。\n可是在那個字的底下，庭如聽見另一個更小的聲音。"
       },
       {
         "type": "say",
@@ -6267,7 +6252,7 @@
       },
       {
         "type": "narrate",
-        "text": "公司不是公司。在傑米心裡，它像一座王國。"
+        "text": "公司不是公司。\n在傑米心裡，它像一座王國。"
       },
       {
         "type": "narrate",
@@ -6366,7 +6351,7 @@
       },
       {
         "type": "narrate",
-        "text": "前任這個詞裡沒有得意。有一點羞恥，一點懷念，還有一個很小、很舊的自己。"
+        "text": "前任這個詞裡沒有得意。\n有一點羞恥，一點懷念，還有一個很小、很舊的自己。"
       },
       {
         "type": "narrate",
@@ -6374,7 +6359,7 @@
       },
       {
         "type": "narrate",
-        "text": "庭如感覺到：傑米不是懷念那些人。他懷念的是，那些人曾經愛過一個還不需要表演的他。"
+        "text": "庭如感覺到：傑米不是懷念那些人。\n他懷念的是，那些人曾經愛過一個還不需要表演的他。"
       },
       {
         "type": "say",
@@ -6510,7 +6495,7 @@
       },
       {
         "type": "narrate",
-        "text": "低沉的大提琴聲慢慢進來。不是催淚，比較像有人坐到他旁邊，沒有說話。"
+        "text": "低沉的大提琴聲慢慢進來。\n不是催淚，比較像有人坐到他旁邊，沒有說話。"
       },
       {
         "type": "jump",
@@ -6536,7 +6521,7 @@
       },
       {
         "type": "narrate",
-        "text": "幾個乾淨的吉他音落下。舞台忽然沒那麼像發表會，比較像深夜客廳裡，一個人終於願意講真話。"
+        "text": "幾個乾淨的吉他音落下。\n舞台忽然沒那麼像發表會，比較像深夜客廳裡，一個人終於願意講真話。"
       },
       {
         "type": "jump",
@@ -6549,28 +6534,28 @@
         "prompt": "鏡頭怎麼處理？",
         "options": [
           {
-            "text": "近切傑米。讓所有人看見他眼角的紅。",
+            "text": "近切傑米。 讓所有人看見他眼角的紅。",
             "set": {
               "camera_close": true
             },
             "next": "camera_close"
           },
           {
-            "text": "留全身遠景。讓他坐在舞台中央，小而孤單。",
+            "text": "留全身遠景。 讓他坐在舞台中央，小而孤單。",
             "set": {
               "camera_wide": true
             },
             "next": "camera_wide"
           },
           {
-            "text": "切觀眾反應。讓現場看見自己被打開。",
+            "text": "切觀眾反應。 讓現場看見自己被打開。",
             "set": {
               "camera_audience": true
             },
             "next": "camera_audience"
           },
           {
-            "text": "不切。讓他自己說。",
+            "text": "不切。 讓他自己說。",
             "set": {
               "camera_still": true
             },
@@ -6596,7 +6581,7 @@
     "camera_close": [
       {
         "type": "narrate",
-        "text": "側邊螢幕放大傑米的臉。他的眼角有細微的紅，那不是表演能輕易做到的東西。",
+        "text": "側邊螢幕放大傑米的臉。\n他的眼角有細微的紅，那不是表演能輕易做到的東西。",
         "sceneMode": "confession",
         "conversation": {
           "layout": "narrative",
@@ -6615,7 +6600,7 @@
     "camera_wide": [
       {
         "type": "narrate",
-        "text": "畫面留在遠景。傑米坐在舞台中央，很小，很亮，也很孤單。",
+        "text": "畫面留在遠景。\n傑米坐在舞台中央，很小，很亮，也很孤單。",
         "sceneMode": "confession",
         "conversation": {
           "layout": "narrative",
@@ -6634,7 +6619,7 @@
     "camera_audience": [
       {
         "type": "narrate",
-        "text": "鏡頭掃過台下。有人還沒從笑聲裡回來，有人已經開始不安。林薇抬手擦掉眼角。",
+        "text": "鏡頭掃過台下。\n有人還沒從笑聲裡回來，有人已經開始不安。\n林薇抬手擦掉眼角。",
         "sceneMode": "confession",
         "conversation": {
           "layout": "narrative",
@@ -6653,7 +6638,7 @@
     "camera_still": [
       {
         "type": "narrate",
-        "text": "沒有螢幕特寫，沒有剪輯，沒有人替這段真話加框。傑米必須用自己的聲音穿過整個會場。",
+        "text": "沒有螢幕特寫，沒有剪輯，沒有人替這段真話加框。\n傑米必須用自己的聲音穿過整個會場。",
         "sceneMode": "confession",
         "conversation": {
           "layout": "narrative",
@@ -6672,7 +6657,7 @@
     "after_observe_jamie": [
       {
         "type": "narrate",
-        "text": "監控切到舞台側邊。傑米靠著牆，看起來像剛打贏一場仗。",
+        "text": "監控切到舞台側邊。\n傑米靠著牆，看起來像剛打贏一場仗。",
         "sceneMode": "afterward",
         "conversation": {
           "layout": "duo",
@@ -6764,7 +6749,7 @@
     "after_observe_tingru": [
       {
         "type": "narrate",
-        "text": "庭如站在控制室角落。她沒有哭，但她的表情像剛剛聽見什麼東西裂開。",
+        "text": "庭如站在控制室角落。\n她沒有哭，但她的表情像剛剛聽見什麼東西裂開。",
         "sceneMode": "afterward",
         "conversation": {
           "layout": "duo",
@@ -6811,7 +6796,7 @@
       {
         "type": "say",
         "speaker": "庭如",
-        "text": "因為我平常比較知道自己感覺到什麼。現在太多了，像有人把一整間房子的燈同時打開，可是房子裡每一個人都在流血。",
+        "text": "因為我平常比較知道自己感覺到什麼。 現在太多了，像有人把一整間房子的燈同時打開，可是房子裡每一個人都在流血。",
         "character": "tingru",
         "speakerFocus": "primary",
         "sceneMode": "afterward",
@@ -6870,7 +6855,7 @@
       },
       {
         "type": "narrate",
-        "text": "監控掃過會場。有人鼓掌，有人咒罵，有人急著打電話，有人坐在原位，像忘了怎麼站起來。"
+        "text": "監控掃過會場。\n有人鼓掌，有人咒罵，有人急著打電話，有人坐在原位，像忘了怎麼站起來。"
       },
       {
         "type": "say",
