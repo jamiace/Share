@@ -844,10 +844,6 @@
         "position": "left"
       },
       {
-        "type": "clearSprites",
-        "reason": "sceneBoundaryOrMajorVisualChange"
-      },
-      {
         "type": "bg",
         "id": "doc_guest_list",
         "transition": "fade",
@@ -1677,10 +1673,6 @@
         "expression": "nervous"
       },
       {
-        "type": "clearSprites",
-        "reason": "sceneBoundaryOrMajorVisualChange"
-      },
-      {
         "type": "bg",
         "id": "doc_jamie_script",
         "transition": "fade",
@@ -1919,12 +1911,21 @@
       {
         "type": "narrate",
         "text": "庭如坐在控制室角落。她沒有看舞台，而是打開三個月前的資料。有些事情，不是因為即將發生才重要，而是因為在很久以前，大家就已經選擇讓它發生。"
+        "character": "tingru",
+        "speakerFocus": "primary",
+        "sceneMode": "case_file",
+        "presence": "onscreen",
+        "position": "left"
       },
       {
         "type": "note",
         "title": "接案會議紀錄",
         "text": "凱特：這層層疊疊的結構，簡直是藝術品。\n雷老師：用自己的命幫公司股價抬轎，狠得很有創意。\n庭如：我們不能接。\n老麵：什麼是真實？",
         "sceneMode": "case_file"
+      },
+      {
+        "type": "clearSprites",
+        "reason": "sceneBoundaryOrMajorVisualChange"
       },
       {
         "type": "say",
@@ -2199,7 +2200,7 @@
         "id": "cg_memory_phone",
         "transition": "fade",
         "waitAfter": 700,
-        "displayMode": "cg",
+        "displayMode": "bg",
         "sceneMode": "memory",
         "avoidUiOverlap": true,
         "mainImageFit": "contain-in-safe-stage",
@@ -2296,7 +2297,7 @@
         "id": "cg_reincarnation_boot",
         "transition": "fade",
         "waitAfter": 700,
-        "displayMode": "cg",
+        "displayMode": "bg",
         "sceneMode": "memory",
         "avoidUiOverlap": true,
         "mainImageFit": "contain-in-safe-stage",
