@@ -541,7 +541,7 @@
       {
         "type": "jump",
         "next": "final_screen"
-      }
+      },
       {
         "type": "say",
         "speaker": "老麵",
