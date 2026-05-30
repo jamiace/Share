@@ -539,6 +539,10 @@
         "position": "right"
       },
       {
+        "type": "jump",
+        "next": "final_screen"
+      }
+      {
         "type": "say",
         "speaker": "老麵",
         "text": "我不是鷹。\n我是這場夢的守門人。",
