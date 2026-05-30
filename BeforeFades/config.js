@@ -33,8 +33,8 @@ window.BF_CONFIG = (() => {
        */
       empathy: {
         defaultDirection: "up",
-        durationMs: 6860,
-        holdBeforeWordsMs: 350,
+        durationMs: 3000,
+        holdBeforeWordsMs: 0,
         lockInput: false,
         hideUiDuringEffect: true,
         wordMultiplier: 1,
