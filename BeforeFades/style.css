@@ -1,0 +1,1000 @@
+:root {
+      --ui-bg: rgba(8, 10, 14, 0.82);
+      --ui-bg-strong: rgba(8, 10, 14, 0.94);
+      --ui-border: rgba(255, 255, 255, 0.18);
+      --ui-panel: rgba(4, 6, 9, 0.72);
+      --text: #f4f1ea;
+      --muted: rgba(244, 241, 234, 0.72);
+      --accent: #aeb4bd;
+      --accent-2: #d8b36a;
+      --danger: #df6b6b;
+      --speaker-default: #d8b36a;
+      --speaker-ruri: #e7b84a;
+      --speaker-jamie: #82a8ff;
+      --speaker-system: #c8c8c8;
+      --shadow: rgba(0, 0, 0, 0.55);
+      --focus-glow: rgba(180, 188, 200, 0.16);
+      --font: "Noto Sans TC", "Microsoft JhengHei", "PingFang TC", system-ui, sans-serif;
+      --top-safe: 70px;
+      --hud-height: 286px;
+      --hud-gap: 22px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      background: #050609;
+      color: var(--text);
+      font-family: var(--font);
+      overflow: hidden;
+      user-select: none;
+    }
+
+    #game {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      background: #050609;
+      --ui-bg: rgba(8, 10, 14, 0.82);
+      --ui-bg-strong: rgba(8, 10, 14, 0.94);
+      --ui-border: rgba(255, 255, 255, 0.18);
+      --ui-panel: rgba(4, 6, 9, 0.72);
+      --accent: #aeb4bd;
+      --accent-soft: rgba(174, 180, 189, 0.18);
+      --focus-glow: rgba(180, 188, 200, 0.16);
+    }
+
+    /*
+      UI 焦點色，不等於說話者。
+      g / gray / mercer / cate / remy / system：灰色系
+      t / ruri：庭如共感、庭如操作段落，暖黃色
+      j / jamie / stage：傑米台上表演段，冷藍色
+    */
+    #game.theme-gray {
+      --ui-bg: rgba(9, 11, 15, 0.82);
+      --ui-bg-strong: rgba(8, 10, 14, 0.94);
+      --ui-border: rgba(205, 213, 224, 0.22);
+      --ui-panel: rgba(8, 10, 14, 0.76);
+      --accent: #b6bcc6;
+      --accent-soft: rgba(182, 188, 198, 0.18);
+      --focus-glow: rgba(182, 188, 198, 0.15);
+    }
+
+    #game.theme-ruri {
+      --ui-bg: rgba(24, 18, 6, 0.82);
+      --ui-bg-strong: rgba(30, 22, 7, 0.94);
+      --ui-border: rgba(244, 199, 86, 0.34);
+      --ui-panel: rgba(33, 24, 8, 0.76);
+      --accent: #f1c85f;
+      --accent-soft: rgba(241, 200, 95, 0.20);
+      --focus-glow: rgba(241, 188, 76, 0.20);
+    }
+
+    #game.theme-jamie {
+      --ui-bg: rgba(5, 12, 28, 0.84);
+      --ui-bg-strong: rgba(4, 10, 24, 0.95);
+      --ui-border: rgba(108, 160, 255, 0.34);
+      --ui-panel: rgba(6, 14, 31, 0.78);
+      --accent: #82a8ff;
+      --accent-soft: rgba(108, 160, 255, 0.20);
+      --focus-glow: rgba(82, 138, 255, 0.22);
+    }
+
+    #bgLayer, #spriteLayer, #effectLayer, #uiLayer {
+      position: absolute;
+      inset: 0;
+    }
+
+    #bgLayer {
+      background: radial-gradient(circle at 50% 30%, #202530 0%, #080a0e 65%, #020305 100%);
+      background-size: cover;
+      background-position: center;
+      transition: opacity 480ms ease, filter 420ms ease, transform 520ms ease;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    #bgMediaFrame {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1;
+      transition: inset 260ms ease, border-color 260ms ease, background 260ms ease, box-shadow 260ms ease, border-radius 260ms ease;
+      pointer-events: none;
+    }
+
+    #bgImage {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      opacity: 0;
+      transition: opacity 360ms ease, transform 520ms ease, filter 360ms ease;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    #bgLayer.display-cover #bgMediaFrame {
+      top: 10px;
+      right: clamp(36px, 5vw, 92px);
+      bottom: calc(var(--hud-height) - 6px);
+      left: clamp(36px, 5vw, 92px);
+      border: 0;
+      border-radius: 0;
+      background: transparent;
+      box-shadow: none;
+      overflow: hidden;
+    }
+
+    #bgLayer.display-cover #bgImage {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      transform: scale(1.2);
+      filter: drop-shadow(0 16px 30px rgba(0,0,0,0.46));
+      -webkit-mask-image: none;
+      mask-image: none;
+    }
+
+    #bgLayer.display-cg #bgMediaFrame {
+      top: var(--top-safe);
+      right: 0;
+      bottom: calc(var(--hud-height) + var(--hud-gap));
+      left: 0;
+      border: 0;
+      border-radius: 0;
+      background: rgba(0,0,0,0.10);
+      box-shadow: none;
+      overflow: hidden;
+    }
+
+    #bgLayer.display-cg #bgImage {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      transform: scale(1.065);
+      filter: drop-shadow(0 18px 34px rgba(0,0,0,0.48));
+      -webkit-mask-image: none;
+      mask-image: none;
+    }
+
+    #game.title-screen #bgLayer.display-cover #bgMediaFrame {
+      inset: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      top: 0;
+      background: transparent;
+      overflow: hidden;
+    }
+
+    #game.title-screen #bgLayer.display-cover #bgImage {
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      object-position: center;
+      filter: none;
+      transform: scale(1);
+    }
+
+    /*
+      doc_ 圖片不再作為主背景顯示；正常流程會轉到右下角 UI 縮圖。
+      這裡只保留 display-document 的保護樣式，避免舊資料意外把文件塞回主舞台。
+    */
+    #bgLayer.display-document #bgMediaFrame {
+      display: none;
+    }
+
+    #bgLayer.display-logo #bgMediaFrame {
+      top: var(--top-safe);
+      right: clamp(28px, 4.2vw, 76px);
+      bottom: calc(var(--hud-height) + var(--hud-gap));
+      left: clamp(28px, 4.2vw, 76px);
+      border: 1px solid rgba(255,255,255,0.16);
+      border-radius: 24px;
+      background: transparent;
+      box-shadow: none;
+      overflow: hidden;
+      backdrop-filter: blur(2px);
+    }
+
+    #bgLayer.display-logo #bgImage {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      transform: scale(0.985);
+      filter: drop-shadow(0 20px 36px rgba(0,0,0,0.56));
+    }
+
+    #titleLogo {
+      position: absolute;
+      left: 60%;
+      top: clamp(30px, 10vh, 30px);
+      width: min(750px, 75vw);
+      max-height: 45vh;
+      object-fit: contain;
+      transform: translateX(-40%) translateY(-20px);
+      opacity: 0;
+      z-index: 4;
+      filter: drop-shadow(0 18px 28px rgba(0,0,0,0.72));
+      transition: opacity 420ms ease, transform 420ms ease;
+      pointer-events: none;
+    }
+
+    #titleLogo.visible {
+      opacity: 0.94;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    #bgLayer::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.08), rgba(0,0,0,0.46));
+      pointer-events: none;
+      z-index: 2;
+      opacity: 1;
+      transition: opacity 900ms ease;
+    }
+	
+	#bgLayer::before {
+	  content: "";
+	  position: absolute;
+	  inset: 0;
+	  background: #000;
+	  opacity: var(--final-bg-black-opacity, 0);
+	  transition: opacity var(--final-bg-black-ms, 700ms) ease;
+	  pointer-events: none;
+	  z-index: 3;
+	}
+
+    #game.title-screen #bgLayer::after {
+      background: linear-gradient(to bottom, rgba(0,0,0,0.08), rgba(0,0,0,0.34));
+    }
+
+    #game.theme-ruri #bgLayer::after {
+      background: linear-gradient(to bottom, rgba(0,0,0,0.08), rgba(23,15,3,0.52));
+    }
+
+    #game.theme-jamie #bgLayer::after {
+      background: linear-gradient(to bottom, rgba(0,0,0,0.10), rgba(3,9,24,0.54));
+    }
+
+    #spriteLayer {
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .sprite {
+      position: absolute;
+      bottom: calc(var(--hud-height) - 8px);
+      max-height: calc(100vh - var(--hud-height) - 58px);
+      max-width: 38vw;
+      object-fit: contain;
+      filter: drop-shadow(0 24px 38px rgba(0,0,0,0.58));
+      opacity: 0;
+      transform: translateY(12px) scale(0.985);
+      transition: opacity 360ms ease, transform 700ms ease, filter 360ms ease, left 700ms ease;
+    }
+
+    .sprite.visible {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    .sprite.left { left: clamp(18px, 4.8vw, 82px); right: auto; }
+    .sprite.center { left: 50%; right: auto; transform: translateX(-50%) translateY(12px) scale(0.985); }
+    .sprite.center.visible { transform: translateX(-50%) translateY(0) scale(1); }
+    .sprite.right { left: calc(100vw - clamp(18px, 4.8vw, 82px)); right: auto; transform: translateX(-100%) translateY(12px) scale(0.985); }
+    .sprite.right.visible { transform: translateX(-100%) translateY(0) scale(1); }
+
+    .sprite.dimmed {
+      filter: grayscale(0.5) brightness(0.32) drop-shadow(0 24px 38px rgba(0,0,0,0.58));
+    }
+
+    #effectLayer {
+      z-index: 3;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    #effectLayer.blackout { background: #000; }
+
+    #cutinLayer {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: var(--top-safe) 0 calc(var(--hud-height) + var(--hud-gap));
+      opacity: 0;
+      transform: scale(0.985);
+      transition: opacity 420ms ease, transform 520ms ease;
+      pointer-events: none;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    #cutinLayer.visible {
+      opacity: 0.88;
+      transform: scale(1);
+    }
+
+    #cutinImage {
+      width: 100%;
+      height: 100%;
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      border-radius: 0;
+      box-shadow: 0 28px 84px rgba(0,0,0,0.66);
+    }
+
+    /*
+      共感全螢幕背景：
+      不再用 #effectLayer 直接黑場硬切，而是讓共感圖本身用「透明度 + 模糊」進退場。
+      參數由 engine.js / config.js 的 empathy.backdrop 控制。
+    */
+    #game.empathy-fullscreen-active #uiLayer,
+    #game.empathy-fullscreen-active #choices {
+      visibility: hidden;
+    }
+
+    #game.empathy-fullscreen-active #effectLayer {
+      z-index: 20;
+      pointer-events: auto;
+      background: transparent;
+    }
+
+    #game.empathy-fullscreen-active #cutinLayer {
+      inset: 0;
+      padding: 0;
+      opacity: 0;
+      transform: scale(var(--empathy-backdrop-scale-start, 1.035));
+      filter: blur(var(--empathy-backdrop-blur-start, 18px));
+      background-image: none !important;
+      transition:
+        opacity var(--empathy-backdrop-fade-ms, 900ms) ease,
+        filter var(--empathy-backdrop-fade-ms, 900ms) ease,
+        transform var(--empathy-backdrop-fade-ms, 900ms) ease;
+      will-change: opacity, filter, transform;
+    }
+
+    #game.empathy-fullscreen-active #cutinLayer.visible {
+      opacity: var(--empathy-backdrop-opacity, 1);
+      transform: scale(var(--empathy-backdrop-scale-end, 1));
+      filter: blur(var(--empathy-backdrop-blur-end, 0px));
+    }
+
+    #game.empathy-fullscreen-active #cutinImage {
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      box-shadow: none;
+      opacity: 1;
+    }
+
+    #effectLayer.input-lock {
+      z-index: 11;
+      pointer-events: auto;
+      cursor: default;
+    }
+
+    #flash {
+      position: absolute;
+      inset: 0;
+      background: rgba(255,255,255,0);
+      pointer-events: none;
+    }
+
+    .emotion-word {
+      position: absolute;
+      z-index: 8;
+      padding: 6px 10px;
+      border: 1px solid rgba(255,255,255,0.16);
+      border-radius: 999px;
+      background: rgba(6, 9, 14, 0.64);
+      color: rgba(255, 239, 196, 0.92);
+      font-size: clamp(15px, 1.65vw, 25px);
+      letter-spacing: 0.12em;
+      text-shadow: 0 0 14px rgba(241, 200, 95, 0.85);
+      opacity: 0;
+      transform: translateY(0) scale(1);
+      filter: blur(0);
+      pointer-events: none;
+      white-space: nowrap;
+      will-change: opacity, transform, filter;
+    }
+
+    /*
+      庭如共感文字特效：
+      視覺樣式留在 CSS；動畫節奏、透明度、移動距離改由 engine.js 的
+      CONFIG.emotion.motionProfiles 控制，避免把無語意動畫節點寫死在樣式表裡。
+    */
+    .emotion-word.float-up {
+      color: rgba(255, 239, 196, 0.92);
+      border-color: rgba(255, 236, 186, 0.18);
+      background: rgba(6, 9, 14, 0.56);
+      text-shadow: 0 0 14px rgba(241, 200, 95, 0.85);
+    }
+
+    .emotion-word.float-down {
+      color: rgba(198, 226, 255, 0.95);
+      border-color: rgba(116, 176, 255, 0.34);
+      background: rgba(4, 12, 28, 0.68);
+      text-shadow: 0 0 16px rgba(89, 162, 255, 0.88), 0 0 30px rgba(23, 64, 155, 0.66);
+    }
+#uiLayer {
+      z-index: 4;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      pointer-events: none;
+    }
+
+    #topBar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 18px;
+      pointer-events: none;
+    }
+
+    #modeBadge {
+      min-width: 210px;
+      padding: 10px 16px;
+      border: 1px solid var(--ui-border);
+      border-radius: 999px;
+      background: rgba(0,0,0,0.42);
+      color: var(--accent);
+      font-size: 14px;
+      letter-spacing: 0.08em;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 0 26px var(--focus-glow);
+      transition: color 240ms ease, border-color 240ms ease, box-shadow 240ms ease;
+    }
+
+    #mainHud {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) clamp(340px, 31vw, 460px);
+      gap: 18px;
+      align-items: end;
+      height: var(--hud-height);
+      padding: 0 24px 24px;
+      pointer-events: none;
+    }
+
+    #dialogueBox {
+      height: 262px;
+      min-height: 0;
+      max-height: 262px;
+      padding: 22px 28px 24px;
+      border: 1px solid var(--ui-border);
+      border-radius: 22px;
+      background: linear-gradient(180deg, var(--ui-bg), var(--ui-bg-strong));
+      box-shadow: 0 18px 45px var(--shadow), 0 0 34px var(--focus-glow);
+      backdrop-filter: blur(12px);
+      pointer-events: auto;
+      cursor: pointer;
+      position: relative;
+      transition: background 240ms ease, border-color 240ms ease, box-shadow 240ms ease;
+    }
+
+    #speakerName {
+      display: inline-flex;
+      align-items: center;
+      min-height: 34px;
+      margin-bottom: 12px;
+      padding: 5px 15px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.09);
+      border: 1px solid rgba(255,255,255,0.10);
+      color: var(--speaker-default);
+      font-size: clamp(20px, 1.9vw, 28px);
+      font-weight: 850;
+      letter-spacing: 0.075em;
+      line-height: 1.25;
+      text-shadow: 0 2px 12px rgba(0,0,0,0.55);
+    }
+
+    #speakerName.mercer,
+    #speakerName.cate,
+    #speakerName.remy { color: var(--speaker-default); }
+    #speakerName.ruri { color: var(--speaker-ruri); }
+    #speakerName.jamie { color: var(--speaker-jamie); }
+    #speakerName.system { color: var(--speaker-system); }
+    #speakerName.narrator { color: rgba(255,255,255,0.82); }
+
+    #dialogueText {
+      height: 154px;
+      min-height: 0;
+      color: var(--text);
+      font-size: clamp(18px, 1.85vw, 25px);
+      line-height: 1.86;
+      letter-spacing: 0.035em;
+      white-space: pre-wrap;
+      overflow-y: auto;
+      padding-right: 8px;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.55);
+    }
+
+    #nextIndicator {
+      position: absolute;
+      right: 22px;
+      bottom: 14px;
+      color: var(--accent);
+      font-size: 17px;
+      animation: blink 900ms ease-in-out infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 0.3; transform: translateY(0); }
+      50% { opacity: 0.95; transform: translateY(3px); }
+    }
+
+    #sidePanel {
+      height: 262px;
+      min-height: 0;
+      max-height: 262px;
+      padding: 20px 22px;
+      border: 1px solid var(--ui-border);
+      border-radius: 20px;
+      background: var(--ui-panel);
+      box-shadow: 0 18px 45px var(--shadow), 0 0 28px var(--focus-glow);
+      backdrop-filter: blur(12px);
+      pointer-events: auto;
+      overflow: hidden;
+      transition: background 240ms ease, border-color 240ms ease, box-shadow 240ms ease;
+    }
+
+    #sidePanel.has-document {
+      border-color: color-mix(in srgb, var(--accent) 48%, rgba(255,255,255,0.18));
+    }
+
+    #sideImageWrap {
+      float: right;
+      width: min(142px, 38%);
+      height: 74px;
+      margin: 0 0 10px 14px;
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 13px;
+      overflow: hidden;
+      background: rgba(0,0,0,0.24);
+      box-shadow: 0 8px 22px rgba(0,0,0,0.36);
+    }
+
+    #sideImageWrap.doc-thumb {
+      cursor: zoom-in;
+      position: relative;
+      border-color: color-mix(in srgb, var(--accent) 42%, rgba(255,255,255,0.16));
+      background: rgba(255,255,255,0.07);
+      transition: transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
+    }
+
+    #sideImageWrap.doc-thumb:hover,
+    #sideImageWrap.doc-thumb:focus-visible {
+      transform: translateY(-1px);
+      border-color: var(--accent);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.46), 0 0 18px var(--focus-glow);
+      outline: none;
+    }
+
+    #sideImageWrap.doc-thumb::after {
+      content: "點擊放大";
+      position: absolute;
+      right: 6px;
+      bottom: 5px;
+      padding: 2px 7px;
+      border-radius: 999px;
+      background: rgba(0,0,0,0.66);
+      color: rgba(255,255,255,0.86);
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      pointer-events: none;
+    }
+
+    #sideImage {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: center;
+      display: block;
+      background: rgba(0,0,0,0.18);
+    }
+
+    #sideTitle {
+      color: var(--accent);
+      font-size: clamp(15px, 1.25vw, 18px);
+      font-weight: 800;
+      letter-spacing: 0.13em;
+      margin-bottom: 12px;
+      line-height: 1.35;
+    }
+
+    #sideContent {
+      color: rgba(255,255,255,0.86);
+      font-size: clamp(16px, 1.25vw, 19px);
+      line-height: 1.78;
+      white-space: pre-wrap;
+      max-height: 168px;
+      overflow: auto;
+      padding-right: 4px;
+    }
+
+    #sideContent::-webkit-scrollbar { width: 8px; }
+    #sideContent::-webkit-scrollbar-thumb { background: var(--accent-soft); border-radius: 999px; }
+
+    #choices {
+      position: absolute;
+      left: 50%;
+      bottom: calc(var(--hud-height) + 20px);
+      width: min(740px, calc(100vw - 48px));
+      transform: translateX(-50%);
+      z-index: 5;
+      display: none;
+      flex-direction: column;
+      gap: 14px;
+      pointer-events: auto;
+    }
+
+    .choice-btn {
+      width: 100%;
+      padding: 16px 22px;
+      border: 1px solid var(--ui-border);
+      border-radius: 16px;
+      background: rgba(9, 12, 17, 0.90);
+      color: var(--text);
+      font-size: clamp(19px, 1.75vw, 25px);
+      font-weight: 740;
+      line-height: 1.55;
+      text-align: center;
+      cursor: pointer;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 10px 24px rgba(0,0,0,0.38);
+      transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
+    }
+
+    #choices.title-choice-mode {
+      width: min(630px, calc(100vw - 48px));
+    }
+
+    #choices.title-choice-mode .choice-btn {
+      padding: 18px 22px;
+      font-size: clamp(21px, 2vw, 28px);
+      font-weight: 760;
+      line-height: 1.6;
+    }
+
+    #game.title-screen #uiLayer {
+      display: none;
+    }
+
+    #game.title-screen.title-await-click #choices {
+      display: none !important;
+    }
+
+    #game.title-screen #choices.title-choice-mode {
+      bottom: clamp(72px, 12vh, 150px);
+      z-index: 8;
+    }
+
+    #game.final-ending-active #uiLayer,
+    #game.final-ending-active #choices {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    #game.final-ending-active #bgLayer {
+      z-index: 12;
+      background: transparent !important;
+    }
+
+    #game.final-ending-active #bgMediaFrame {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    #game.final-ending-active #bgLayer::after {
+      opacity: 0;
+    }
+
+    #game.final-ending-active #titleLogo {
+      left: 50%;
+      top: 50%;
+      z-index: 30;
+      opacity: 0.96;
+      transform: translateX(-50%) translateY(-50%);
+      transition: left 1600ms ease, top 1600ms ease, opacity 1200ms ease, transform 1600ms ease;
+    }
+
+    .choice-btn:hover {
+      transform: translateY(-2px);
+      border-color: var(--accent);
+      background: var(--ui-bg-strong);
+    }
+
+    #docViewerLayer {
+      position: absolute;
+      inset: 0;
+      z-index: 12;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: clamp(18px, 4vw, 54px);
+      background: rgba(0,0,0,0.78);
+      backdrop-filter: blur(10px);
+      pointer-events: auto;
+    }
+
+    #docViewerLayer.visible {
+      display: flex;
+    }
+
+    #docViewerFrame {
+      position: relative;
+      width: min(1180px, 92vw);
+      max-height: 88vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      padding: clamp(12px, 1.6vw, 20px);
+      border: 1px solid rgba(255,255,255,0.20);
+      border-radius: 24px;
+      background: rgba(8, 10, 14, 0.92);
+      box-shadow: 0 34px 110px rgba(0,0,0,0.78), 0 0 36px var(--focus-glow);
+    }
+
+    #docViewerImage {
+      max-width: 100%;
+      max-height: min(78vh, 820px);
+      object-fit: contain;
+      border-radius: 16px;
+      background: rgba(0,0,0,0.28);
+      box-shadow: 0 18px 60px rgba(0,0,0,0.62);
+    }
+
+    #docViewerCaption {
+      width: 100%;
+      color: rgba(255,255,255,0.78);
+      font-size: clamp(13px, 1.1vw, 16px);
+      line-height: 1.55;
+      text-align: center;
+      letter-spacing: 0.04em;
+    }
+
+    #docViewerClose {
+      position: absolute;
+      top: -14px;
+      right: -14px;
+      width: 42px;
+      height: 42px;
+      border: 1px solid rgba(255,255,255,0.24);
+      border-radius: 999px;
+      background: rgba(5, 6, 9, 0.94);
+      color: rgba(255,255,255,0.92);
+      font-size: 26px;
+      line-height: 1;
+      cursor: pointer;
+      box-shadow: 0 10px 28px rgba(0,0,0,0.58);
+    }
+
+    #docViewerClose:hover,
+    #docViewerClose:focus-visible {
+      color: #fff;
+      border-color: var(--accent);
+      outline: none;
+    }
+
+
+    #loadingLayer {
+      position: absolute;
+      inset: 0;
+      z-index: 40;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: clamp(20px, 4vw, 56px);
+      background:
+        radial-gradient(circle at 50% 28%, rgba(82, 92, 118, 0.24), transparent 38%),
+        linear-gradient(180deg, rgba(5,6,9,0.96), rgba(2,3,5,0.98));
+      color: var(--text);
+      pointer-events: auto;
+      opacity: 1;
+      visibility: visible;
+      transition: opacity 420ms ease, visibility 420ms ease;
+    }
+
+    #loadingLayer.is-hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    #loadingCard {
+      width: min(680px, calc(100vw - 36px));
+      padding: clamp(24px, 4vw, 42px);
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 28px;
+      background: linear-gradient(180deg, rgba(12,15,21,0.88), rgba(6,8,12,0.94));
+      box-shadow: 0 34px 110px rgba(0,0,0,0.72), inset 0 0 34px rgba(255,255,255,0.035);
+      backdrop-filter: blur(14px);
+      text-align: center;
+    }
+
+    #loadingTitle {
+      margin: 0 0 10px;
+      font-size: clamp(30px, 5vw, 54px);
+      font-weight: 850;
+      letter-spacing: 0.08em;
+      line-height: 1.08;
+      text-shadow: 0 16px 34px rgba(0,0,0,0.68);
+    }
+
+    #loadingSubtitle {
+      margin: 0 0 28px;
+      color: rgba(244,241,234,0.74);
+      font-size: clamp(15px, 1.55vw, 19px);
+      line-height: 1.75;
+      letter-spacing: 0.05em;
+    }
+
+    #loadingProgressTrack {
+      position: relative;
+      width: 100%;
+      height: 14px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 999px;
+      background: rgba(255,255,255,0.08);
+      box-shadow: inset 0 0 18px rgba(0,0,0,0.42);
+    }
+
+    #loadingProgressBar {
+      width: 0%;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, rgba(216,179,106,0.72), rgba(130,168,255,0.84));
+      box-shadow: 0 0 22px rgba(216,179,106,0.28);
+      transition: width 180ms ease;
+    }
+
+    #loadingPercent {
+      margin-top: 14px;
+      color: rgba(255,255,255,0.92);
+      font-size: clamp(20px, 2.8vw, 30px);
+      font-weight: 800;
+      letter-spacing: 0.08em;
+    }
+
+    #loadingStatus,
+    #loadingStats,
+    #loadingCurrent {
+      margin-top: 10px;
+      color: rgba(244,241,234,0.74);
+      font-size: clamp(13px, 1.25vw, 16px);
+      line-height: 1.65;
+      letter-spacing: 0.035em;
+      word-break: break-all;
+    }
+
+    #loadingCurrent {
+      min-height: 1.65em;
+      color: rgba(244,241,234,0.58);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+
+    #loadingErrors {
+      display: none;
+      max-height: 140px;
+      margin-top: 16px;
+      padding: 12px 14px;
+      overflow: auto;
+      border: 1px solid rgba(223,107,107,0.28);
+      border-radius: 14px;
+      background: rgba(54, 13, 15, 0.34);
+      color: rgba(255,214,214,0.9);
+      font-size: 13px;
+      line-height: 1.55;
+      text-align: left;
+      white-space: pre-wrap;
+    }
+
+    #loadingLayer.has-errors #loadingErrors {
+      display: block;
+    }
+
+    .hidden { display: none !important; }
+
+    .shake { animation: shake 420ms cubic-bezier(.36,.07,.19,.97) both; }
+
+    @keyframes shake {
+      10%, 90% { transform: translate3d(-1px, 0, 0); }
+      20%, 80% { transform: translate3d(2px, 0, 0); }
+      30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+      40%, 60% { transform: translate3d(4px, 0, 0); }
+    }
+
+    @media (max-width: 980px) {
+      #mainHud {
+        grid-template-columns: 1fr minmax(300px, 35vw);
+        gap: 14px;
+        padding: 0 16px 16px;
+      }
+      #sidePanel { padding: 16px 18px; }
+      #sideContent { font-size: 16px; }
+    }
+
+    @media (max-width: 820px) {
+      :root { --top-safe: 56px; --hud-height: 236px; --hud-gap: 12px; }
+      #topBar { padding: 10px 12px; }
+      #modeBadge { min-width: auto; max-width: 52vw; font-size: 12px; padding: 8px 12px; }
+      #mainHud {
+        grid-template-columns: 1fr;
+        gap: 10px;
+        padding: 0 12px 12px;
+      }
+      #sidePanel { display: none; }
+      #dialogueBox { height: 214px; min-height: 0; max-height: 214px; padding: 15px 18px 18px; }
+      #speakerName { font-size: 20px; min-height: 31px; margin-bottom: 10px; }
+      #dialogueText { height: 126px; font-size: 18px; line-height: 1.72; }
+      #choices { bottom: calc(var(--hud-height) + 12px); width: min(94vw, 680px); }
+      .choice-btn { font-size: 18px; padding: 13px 16px; }
+      #choices.title-choice-mode { width: min(92vw, 560px); }
+      #choices.title-choice-mode .choice-btn { font-size: 20px; padding: 14px 16px; }
+      .sprite { bottom: calc(var(--hud-height) - 12px); max-height: calc(100vh - var(--hud-height) - 48px); max-width: 56vw; }
+      .sprite.left { left: -3vw; right: auto; }
+      .sprite.right { right: -3vw; left: auto; }
+      #bgLayer.display-cover #bgMediaFrame,
+      #bgLayer.display-cg #bgMediaFrame,
+      #bgLayer.display-logo #bgMediaFrame {
+        right: 0;
+        left: 0;
+        border-radius: 0;
+      }
+      #bgLayer.display-cover #bgMediaFrame {
+        top: calc(var(--top-safe) - 6px);
+        bottom: calc(var(--hud-height) - 4px);
+      }
+      #game.title-screen #bgLayer.display-cover #bgMediaFrame {
+        inset: 0;
+      }
+      #cutinLayer {
+        right: 0;
+        left: 0;
+        border-radius: 0;
+      }
+      #sidePanel.has-document {
+        display: block;
+        position: absolute;
+        right: 12px;
+        bottom: calc(var(--hud-height) + 10px);
+        width: min(260px, calc(100vw - 24px));
+        height: auto;
+        max-height: 138px;
+        padding: 12px;
+        z-index: 6;
+      }
+      #sidePanel.has-document #sideTitle,
+      #sidePanel.has-document #sideContent {
+        display: none;
+      }
+      #sidePanel.has-document #sideImageWrap {
+        float: none;
+        width: 100%;
+        height: 104px;
+        margin: 0;
+      }
+      #docViewerClose {
+        top: 8px;
+        right: 8px;
+      }
+    }
