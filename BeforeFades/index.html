@@ -16,8 +16,8 @@
       --accent-2: #d8b36a;
       --danger: #df6b6b;
       --speaker-default: #d8b36a;
-      --speaker-tingru: #e7b84a;
-      --speaker-jami: #82a8ff;
+      --speaker-ruri: #e7b84a;
+      --speaker-jamie: #82a8ff;
       --speaker-system: #c8c8c8;
       --shadow: rgba(0, 0, 0, 0.55);
       --focus-glow: rgba(180, 188, 200, 0.16);
@@ -57,9 +57,9 @@
 
     /*
       UI 焦點色，不等於說話者。
-      g / gray / oldnoodle / laomian / kait / lei / system：灰色系
-      t / tingru：庭如共感、庭如操作段落，暖黃色
-      j / jami / stage：傑米台上表演段，冷藍色
+      g / gray / mercer / cate / remy / system：灰色系
+      t / ruri：庭如共感、庭如操作段落，暖黃色
+      j / jamie / stage：傑米台上表演段，冷藍色
     */
     #game.theme-gray {
       --ui-bg: rgba(9, 11, 15, 0.82);
@@ -71,7 +71,7 @@
       --focus-glow: rgba(182, 188, 198, 0.15);
     }
 
-    #game.theme-tingru {
+    #game.theme-ruri {
       --ui-bg: rgba(24, 18, 6, 0.82);
       --ui-bg-strong: rgba(30, 22, 7, 0.94);
       --ui-border: rgba(244, 199, 86, 0.34);
@@ -81,7 +81,7 @@
       --focus-glow: rgba(241, 188, 76, 0.20);
     }
 
-    #game.theme-jami {
+    #game.theme-jamie {
       --ui-bg: rgba(5, 12, 28, 0.84);
       --ui-bg-strong: rgba(4, 10, 24, 0.95);
       --ui-border: rgba(108, 160, 255, 0.34);
@@ -265,11 +265,11 @@
       background: linear-gradient(to bottom, rgba(0,0,0,0.08), rgba(0,0,0,0.34));
     }
 
-    #game.theme-tingru #bgLayer::after {
+    #game.theme-ruri #bgLayer::after {
       background: linear-gradient(to bottom, rgba(0,0,0,0.08), rgba(23,15,3,0.52));
     }
 
-    #game.theme-jami #bgLayer::after {
+    #game.theme-jamie #bgLayer::after {
       background: linear-gradient(to bottom, rgba(0,0,0,0.10), rgba(3,9,24,0.54));
     }
 
@@ -517,12 +517,11 @@
       text-shadow: 0 2px 12px rgba(0,0,0,0.55);
     }
 
-    #speakerName.oldnoodle,
-    #speakerName.laomian,
-    #speakerName.kate,
-    #speakerName.lei { color: var(--speaker-default); }
-    #speakerName.tingru { color: var(--speaker-tingru); }
-    #speakerName.jami { color: var(--speaker-jami); }
+    #speakerName.mercer,
+    #speakerName.cate,
+    #speakerName.remy { color: var(--speaker-default); }
+    #speakerName.ruri { color: var(--speaker-ruri); }
+    #speakerName.jamie { color: var(--speaker-jamie); }
     #speakerName.system { color: var(--speaker-system); }
     #speakerName.narrator { color: rgba(255,255,255,0.82); }
 
@@ -1071,6 +1070,8 @@
     </div>
   </div>
 
+  <script src="data/script.js"></script>
+
   <script>
     "use strict";
 
@@ -1079,7 +1080,7 @@
      * ---------------------------------------------------------------------
      * 使用方式：
      * 1. 將本檔命名為 index.html。
-     * 2. 建立 data/script.json。
+     * 2. 建立 data/script.js，內容格式為：window.BEFORE_FADES_SCRIPT = {...};
      * 3. 建立 assets/images、assets/bgm、assets/sfx。
      * 4. 上傳整個資料夾到 GitHub Pages、Netlify、Cloudflare Pages 等靜態網頁空間。
      * 5. 玩家打開網址即可遊玩，不需要安裝 Python、Java、Node.js 或任何執行環境。
@@ -1098,7 +1099,8 @@
      ***********************************************************************/
 
     const CONFIG = {
-      scriptPath: "./data/script.json",
+      scriptPath: "./data/script.js",
+      scriptGlobalName: "BEFORE_FADES_SCRIPT",
       textSpeed: 26,
       bgmFadeMs: 900,
       bgPostSwitchDelayMs: 680,
@@ -1208,8 +1210,8 @@
       scenes: {
         start: [
           { "type": "ui", "v": "g", "label": "SYSTEM / NO SCRIPT" },
-          { "type": "note", "title": "SCRIPT NOT FOUND", "text": "找不到 data/script.json。\n請建立劇情腳本檔案後重新整理頁面。" },
-          { "type": "narrate", "text": "找不到 data/script.json。這個 index.html 是純遊戲引擎，不包含正式劇情。" },
+          { "type": "note", "title": "SCRIPT NOT FOUND", "text": "找不到 data/script.js。\n請建立劇情腳本檔案後重新整理頁面。" },
+          { "type": "narrate", "text": "找不到 data/script.js。這個 index.html 是純遊戲引擎，不包含正式劇情。" },
           { "type": "end" }
         ]
       }
@@ -1229,14 +1231,16 @@
     }
 
     async function loadScript() {
-      try {
-        const res = await fetch(CONFIG.scriptPath, { cache: "no-cache" });
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        return await res.json();
-      } catch (err) {
-        console.warn("無法載入 data/script.json。index.html 不內建正式劇情，將顯示缺少腳本提示。", err);
-        return EMPTY_SCRIPT;
+      const scriptData = window[CONFIG.scriptGlobalName];
+
+      if (scriptData && typeof scriptData === "object") {
+        return scriptData;
       }
+
+      console.warn(
+        `無法載入 ${CONFIG.scriptPath}。請確認該檔案存在，且內容格式為 window.${CONFIG.scriptGlobalName} = {...};`
+      );
+      return EMPTY_SCRIPT;
     }
 
     function bindEvents() {
@@ -1504,11 +1508,12 @@
     function classifySpeaker(speaker) {
       if (!speaker) return "narrator";
       const s = String(speaker).trim().toLowerCase();
-      if (["庭如", "tingru"].includes(s)) return "tingru";
-      if (["傑米", "jami"].includes(s)) return "jami";
-      if (["老麵", "老面", "oldnoodle", "laomian"].includes(s)) return "oldnoodle";
-      if (["凱特", "kate"].includes(s)) return "kate";
-      if (["雷老師", "老師", "lei"].includes(s)) return "lei";
+      if (["庭如", "ruri"].includes(s)) return "ruri";
+      if (["傑米", "jamie", "詹傑明"].includes(s)) return "jamie";
+      if (["老麵", "老面", "mercer"].includes(s)) return "mercer";
+      if (["凱特", "cate"].includes(s)) return "cate";
+      if (["雷老師", "老師", "remy"].includes(s)) return "remy";
+      if (["林薇", "wei"].includes(s)) return "wei";
       if (["系統", "system"].includes(s)) return "system";
       return "";
     }
@@ -1721,23 +1726,23 @@
 
     function normalizeFocus(value) {
       const v = String(value || "g").trim().toLowerCase();
-      if (["t", "tingru", "warm", "yellow", "empathy"].includes(v)) return "t";
-      if (["j", "jami", "stage", "blue", "cool"].includes(v)) return "j";
+      if (["t", "ruri", "warm", "yellow", "empathy"].includes(v)) return "t";
+      if (["j", "jamie", "stage", "blue", "cool"].includes(v)) return "j";
       return "g";
     }
 
     function focusLabel(focus) {
-      if (focus === "t") return "TINGRU / EMPATHY";
-      if (focus === "j") return "JAMI / STAGE";
+      if (focus === "t") return "RURI / EMPATHY";
+      if (focus === "j") return "JAMIE / STAGE";
       return "SYSTEM / CASE";
     }
 
     function applyFocusUi(value, label) {
       const focus = normalizeFocus(value);
       state.currentUi = focus;
-      dom.game.classList.remove("theme-gray", "theme-tingru", "theme-jami");
-      if (focus === "t") dom.game.classList.add("theme-tingru");
-      else if (focus === "j") dom.game.classList.add("theme-jami");
+      dom.game.classList.remove("theme-gray", "theme-ruri", "theme-jamie");
+      if (focus === "t") dom.game.classList.add("theme-ruri");
+      else if (focus === "j") dom.game.classList.add("theme-jamie");
       else dom.game.classList.add("theme-gray");
       dom.modeBadge.textContent = label || focusLabel(focus);
       dom.modeBadge.dataset.focus = focus;
@@ -1852,8 +1857,8 @@
     }
 
     function sanitizeBackgroundIdForScene(id) {
-      // 傑米錄音回憶段不要誤切到林薇 CG。保留 observe_linwei 那種正式觀察段的使用權。
-      if (id === "cg_linwei_silent" && /^case_memory/i.test(String(state.sceneId || ""))) {
+      // 傑米錄音回憶段不要誤切到林薇 CG。保留 observe_wei 那種正式觀察段的使用權。
+      if (id === "cg_wei_silent" && /^case_memory/i.test(String(state.sceneId || ""))) {
         return resolveBackgroundSrc("doc_voice_wave") ? "doc_voice_wave" : "case_file";
       }
       return id;
@@ -2008,7 +2013,7 @@
       const pos = String(position || "center").toLowerCase();
       if (mode === "jamie_room") {
         if (id === "jamie") return "left";
-        if (id === "oldnoodle") return "right";
+        if (id === "mercer") return "right";
       }
       if (["stage", "confession", "reincarnation"].includes(mode)) {
         if (id === "jamie") return "center";
@@ -2078,24 +2083,21 @@
     function speakerToCharacter(speaker) {
       const s = String(speaker || "").trim().toLowerCase();
       const map = {
-        "老麵": "oldnoodle",
-        "老面": "oldnoodle",
-        "oldnoodle": "oldnoodle",
-        "laomian": "oldnoodle",
-        "庭如": "tingru",
-        "tingru": "tingru",
+        "老麵": "mercer",
+        "老面": "mercer",
+        "mercer": "mercer",
+        "庭如": "ruri",
+        "ruri": "ruri",
         "傑米": "jamie",
-        "jami": "jamie",
         "jamie": "jamie",
         "詹傑明": "jamie",
-        "凱特": "kate",
-        "kate": "kate",
-        "雷老師": "ray",
-        "老師": "ray",
-        "lei": "ray",
-        "ray": "ray",
-        "林薇": "linwei",
-        "linwei": "linwei"
+        "凱特": "cate",
+        "cate": "cate",
+        "雷老師": "remy",
+        "老師": "remy",
+        "remy": "remy",
+        "林薇": "wei",
+        "wei": "wei"
       };
       return map[s] || "";
     }
@@ -2240,12 +2242,12 @@
     function pickExpressionFor(id, text) {
       const t = String(text || "");
       const bg = String(state.currentBgId || "");
-      if (id === "oldnoodle") {
+      if (id === "mercer") {
         if (/不知道|沒有立刻回答|現在需要相信|沉默|答案|孤單|放你走/.test(t)) return "silent";
         if (/確認|流程|精準|風險|不要改|提醒|今天吃藥|最難|要說|出事|燈|手還算穩|守門人/.test(t)) return "serious";
         return "default";
       }
-      if (id === "tingru") {
+      if (id === "ruri") {
         if (/沒事|如果出事|吞掉|太多|很重|洞|很冷/.test(t)) return "silent";
         if (normalizeFocus(state.currentUi) === "t" || /感覺|情緒|不是聲音|入口|前排|媒體區|高層|休息室|怕|悲傷|餓/.test(t)) return "empathy";
         if (/不對|不自然|很吵|懷疑|害怕|失控/.test(t)) return "uneasy";
@@ -2264,7 +2266,7 @@
 
     function defaultSpritePositionFor(id) {
       if (["stage", "confession", "reincarnation"].includes(String(state.currentSceneMode || "").toLowerCase()) && id === "jamie") return "center";
-      if (id === "linwei") return "right";
+      if (id === "wei") return "right";
       return "left";
     }
 

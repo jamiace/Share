@@ -1,4 +1,59 @@
-{
+/*
+ * Before Fades 劇本資料
+ * ------------------------------------------------------------
+ * 這一檔就是唯一劇本來源：data/script.js
+ * 可直接被 index.html 以 <script src="data/script.js"></script> 載入。
+ * 不需要 fetch，不需要本機虛擬伺服器，也不需要另外維護 script.json。
+ *
+ * say 巨集：
+ *   S("mercer", "台詞", "left", "control")
+ *   S("mercer_past", "台詞", "left", "case_memory")
+ *
+ * 巨集會自動補上：type、speaker、character、speakerFocus、presence。
+ * 第三參數是 position，第四參數是 sceneMode，第五參數才放特殊覆寫。
+ */
+window.BEFORE_FADES_SCRIPT = (() => {
+  const ROLE = {
+    mercer:      { speaker: "老麵", character: "mercer", speakerFocus: "primary", presence: "onscreen" },
+    ruri:         { speaker: "庭如", character: "ruri", speakerFocus: "primary", presence: "onscreen" },
+    jamie:          { speaker: "傑米", character: "jamie", speakerFocus: "primary", presence: "onscreen" },
+    cate:           { speaker: "凱特", character: "cate", speakerFocus: "primary", presence: "onscreen" },
+    remy:            { speaker: "雷老師", character: "remy", speakerFocus: "primary", presence: "onscreen" },
+    wei:             { speaker: "林薇", character: "wei", speakerFocus: "primary", presence: "onscreen" },
+
+    mercer_past: { speaker: "老麵（三個月前）", character: "mercer", speakerFocus: "primary", presence: "onscreen" },
+    ruri_past:    { speaker: "庭如（三個月前）", character: "ruri", speakerFocus: "primary", presence: "onscreen" },
+    cate_past:      { speaker: "凱特（三個月前）", character: "cate", speakerFocus: "primary", presence: "onscreen" },
+    remy_past:       { speaker: "雷老師（三個月前）", character: "remy", speakerFocus: "primary", presence: "onscreen" },
+
+    jamie_recorded: { speaker: "錄音中的傑米", character: "none", speakerFocus: "voice", presence: "voiceOnly" },
+    young_jamie:    { speaker: "年輕傑米", character: "none", speakerFocus: "voice", presence: "voiceOnly" },
+    news_anchor:    { speaker: "新聞主播", character: "none", speakerFocus: "voice", presence: "voiceOnly" },
+    reporter_a:     { speaker: "記者A", character: "none", speakerFocus: "voice", presence: "voiceOnly" },
+    reporter_b:     { speaker: "記者B", character: "none", speakerFocus: "voice", presence: "voiceOnly" },
+    reporter_c:     { speaker: "記者C", character: "none", speakerFocus: "voice", presence: "voiceOnly" }
+  };
+
+  function S(roleId, text, position = "", sceneMode = "", extra = {}) {
+    if (position && typeof position === "object") {
+      extra = position;
+      position = "";
+      sceneMode = "";
+    } else if (sceneMode && typeof sceneMode === "object") {
+      extra = sceneMode;
+      sceneMode = "";
+    }
+
+    const role = ROLE[roleId];
+    if (!role) throw new Error(`Unknown say role: ${roleId}`);
+
+    const cmd = { type: "say", ...role, text };
+    if (position) cmd.position = position;
+    if (sceneMode) cmd.sceneMode = sceneMode;
+    return { ...cmd, ...(extra || {}) };
+  }
+
+  return ({
   "meta": {
     "title": "Before Fades：地獄脫口秀的產品發表會",
     "version": "2.1.3-directed-script-real-diff-fixed-runtime-clean",
@@ -71,8 +126,8 @@
       "cg_audience_laugh": {
         "src": "assets/images/cg_audience_laugh.jpg"
       },
-      "cg_linwei_silent": {
-        "src": "assets/images/cg_linwei_silent.jpg"
+      "cg_wei_silent": {
+        "src": "assets/images/cg_wei_silent.jpg"
       },
       "cg_memory_phone": {
         "src": "assets/images/cg_memory_phone.jpg"
@@ -112,16 +167,16 @@
       }
     },
     "characters": {
-      "oldnoodle": {
-        "default": "assets/images/ch_oldnoodle_default.png",
-        "serious": "assets/images/ch_oldnoodle_serious.png",
-        "silent": "assets/images/ch_oldnoodle_silent.png"
+      "mercer": {
+        "default": "assets/images/ch_mercer_default.png",
+        "serious": "assets/images/ch_mercer_serious.png",
+        "silent": "assets/images/ch_mercer_silent.png"
       },
-      "tingru": {
-        "default": "assets/images/ch_tingru_default.png",
-        "empathy": "assets/images/ch_tingru_empathy.png",
-        "uneasy": "assets/images/ch_tingru_uneasy.png",
-        "silent": "assets/images/ch_tingru_silent.png"
+      "ruri": {
+        "default": "assets/images/ch_ruri_default.png",
+        "empathy": "assets/images/ch_ruri_empathy.png",
+        "uneasy": "assets/images/ch_ruri_uneasy.png",
+        "silent": "assets/images/ch_ruri_silent.png"
       },
       "jamie": {
         "nervous": "assets/images/ch_jamie_nervous.png",
@@ -129,11 +184,14 @@
         "confession": "assets/images/ch_jamie_confession.png",
         "reincarnation": "assets/images/ch_jamie_reincarnation.png"
       },
-      "kate": {
-        "default": "assets/images/ch_kate_default.png"
+      "cate": {
+        "default": "assets/images/ch_cate_default.png"
       },
-      "ray": {
-        "default": "assets/images/ch_ray_default.png"
+      "remy": {
+        "default": "assets/images/ch_remy_default.png"
+      },
+      "wei": {
+        "default": "assets/images/ch_wei_default.png"
       }
     },
     "bgm": {
@@ -258,8 +316,8 @@
         "category": "cg",
         "description": "觀眾開始失控大笑的瞬間。"
       },
-      "cg_linwei_silent": {
-        "src": "assets/images/cg_linwei_silent.jpg",
+      "cg_wei_silent": {
+        "src": "assets/images/cg_wei_silent.jpg",
         "category": "cg",
         "description": "林薇坐在人群中，沒有笑。"
       },
@@ -268,38 +326,38 @@
         "category": "cg",
         "description": "「父親」共感段落。未撥出的電話、病房白牆、電梯。"
       },
-      "ch_oldnoodle_default": {
-        "src": "assets/images/ch_oldnoodle_default.png",
+      "ch_mercer_default": {
+        "src": "assets/images/ch_mercer_default.png",
         "category": "character",
         "description": "老麵 default。"
       },
-      "ch_oldnoodle_serious": {
-        "src": "assets/images/ch_oldnoodle_serious.png",
+      "ch_mercer_serious": {
+        "src": "assets/images/ch_mercer_serious.png",
         "category": "character",
         "description": "老麵 serious。"
       },
-      "ch_oldnoodle_silent": {
-        "src": "assets/images/ch_oldnoodle_silent.png",
+      "ch_mercer_silent": {
+        "src": "assets/images/ch_mercer_silent.png",
         "category": "character",
         "description": "老麵 silent。"
       },
-      "ch_tingru_default": {
-        "src": "assets/images/ch_tingru_default.png",
+      "ch_ruri_default": {
+        "src": "assets/images/ch_ruri_default.png",
         "category": "character",
         "description": "庭如 default。"
       },
-      "ch_tingru_empathy": {
-        "src": "assets/images/ch_tingru_empathy.png",
+      "ch_ruri_empathy": {
+        "src": "assets/images/ch_ruri_empathy.png",
         "category": "character",
         "description": "庭如共感狀態。"
       },
-      "ch_tingru_uneasy": {
-        "src": "assets/images/ch_tingru_uneasy.png",
+      "ch_ruri_uneasy": {
+        "src": "assets/images/ch_ruri_uneasy.png",
         "category": "character",
         "description": "庭如 uneasy。"
       },
-      "ch_tingru_silent": {
-        "src": "assets/images/ch_tingru_silent.png",
+      "ch_ruri_silent": {
+        "src": "assets/images/ch_ruri_silent.png",
         "category": "character",
         "description": "庭如 silent。"
       },
@@ -323,15 +381,20 @@
         "category": "character",
         "description": "傑米「輪迴發表」狀態。"
       },
-      "ch_kate_default": {
-        "src": "assets/images/ch_kate_default.png",
+      "ch_cate_default": {
+        "src": "assets/images/ch_cate_default.png",
         "category": "character",
         "description": "凱特。"
       },
-      "ch_ray_default": {
-        "src": "assets/images/ch_ray_default.png",
+      "ch_remy_default": {
+        "src": "assets/images/ch_remy_default.png",
         "category": "character",
         "description": "雷老師。"
+      },
+      "ch_wei_default": {
+        "src": "assets/images/ch_wei_default.png",
+        "category": "character",
+        "description": "林薇。"
       },
       "doc_medical_report": {
         "src": "assets/images/doc_medical_report.jpg",
@@ -391,7 +454,8 @@
     }
   },
   "scenes": {
-    "start": [
+    "start":
+    [
       {
         "type": "bg",
         "id": "title",
@@ -445,19 +509,20 @@
         }
       }
     ],
-    "opening_01": [
+    "opening_01":
+    [
       {
         "type": "mode",
-        "value": "oldnoodle",
+        "value": "mercer",
         "label": "老麵 / 後台控制",
         "sceneMode": "control",
         "conversation": {
           "layout": "group",
           "participants": [
-            "oldnoodle",
-            "kate",
-            "ray",
-            "tingru"
+            "mercer",
+            "cate",
+            "remy",
+            "ruri"
           ],
           "voiceOnlyParticipants": [],
           "placementPolicy": "primary-left-secondary-right-swap-once",
@@ -513,65 +578,16 @@
         "displayMode": "background",
         "sceneMode": "control"
       },
-      {
-        "type": "say",
-        "speaker": "老麵",
-        "text": "凱特，七號桌的白玫瑰，花瓣邊緣有一點點枯黃，去換掉。",
-        "character": "oldnoodle",
-        "speakerFocus": "primary",
-        "sceneMode": "control",
-        "presence": "onscreen",
-        "position": "left"
-      },
+      S("mercer", "凱特，七號桌的白玫瑰，花瓣邊緣有一點點枯黃，去換掉。", "left", "control"),
       {
         "type": "sfx",
         "id": "comm",
         "volume": 0.42
       },
-      {
-        "type": "say",
-        "speaker": "凱特",
-        "text": "麵老闆，你裝了鷹眼嗎？\n全場一百二十個座位，三百多朵花，你怎麼看見的？",
-        "character": "kate",
-        "speakerFocus": "primary",
-        "sceneMode": "control",
-        "presence": "onscreen",
-        "position": "right"
-      },
-      {
-        "type": "jump",
-        "next": "final_screen"
-      },
-      {
-        "type": "say",
-        "speaker": "老麵",
-        "text": "我不是鷹。\n我是這場夢的守門人。",
-        "character": "oldnoodle",
-        "speakerFocus": "primary",
-        "sceneMode": "control",
-        "presence": "onscreen",
-        "position": "left"
-      },
-      {
-        "type": "say",
-        "speaker": "老麵",
-        "text": "守門人不能容忍任何一點瑕疵吵醒做夢的人。",
-        "character": "oldnoodle",
-        "speakerFocus": "primary",
-        "sceneMode": "control",
-        "presence": "onscreen",
-        "position": "left"
-      },
-      {
-        "type": "say",
-        "speaker": "凱特",
-        "text": "你這句話很帥，但我還是要說，變態。",
-        "character": "kate",
-        "speakerFocus": "primary",
-        "sceneMode": "control",
-        "presence": "onscreen",
-        "position": "right"
-      },
+      S("cate", "麵老闆，你裝了鷹眼嗎？\n全場一百二十個座位，三百多朵花，你怎麼看見的？", "right", "control"),
+      S("mercer", "我不是鷹。\n我是這場夢的守門人。", "left", "control"),
+      S("mercer", "守門人不能容忍任何一點瑕疵吵醒做夢的人。", "left", "control"),
+      S("cate", "你這句話很帥，但我還是要說，變態。", "right", "control"),
       {
         "type": "clearSprites"
       },
@@ -583,46 +599,10 @@
         "displayMode": "background",
         "sceneMode": "control"
       },
-      {
-        "type": "say",
-        "speaker": "雷老師",
-        "text": "音訊軌道已經確認。\n保證連他吞口水時喉結滾動的聲音，都有死亡的BASS感。",
-        "character": "ray",
-        "speakerFocus": "primary",
-        "sceneMode": "control",
-        "presence": "onscreen",
-        "position": "left"
-      },
-      {
-        "type": "say",
-        "speaker": "庭如",
-        "text": "很吵。",
-        "character": "tingru",
-        "speakerFocus": "primary",
-        "sceneMode": "control",
-        "presence": "onscreen",
-        "position": "right"
-      },
-      {
-        "type": "say",
-        "speaker": "雷老師",
-        "text": "我音量還沒推啊。",
-        "character": "ray",
-        "speakerFocus": "primary",
-        "sceneMode": "control",
-        "presence": "onscreen",
-        "position": "left"
-      },
-      {
-        "type": "say",
-        "speaker": "庭如",
-        "text": "不是聲音。\n是人。",
-        "character": "tingru",
-        "speakerFocus": "primary",
-        "sceneMode": "control",
-        "presence": "onscreen",
-        "position": "right"
-      },
+      S("remy", "音訊軌道已經確認。\n保證連他吞口水時喉結滾動的聲音，都有死亡的BASS感。", "left", "control"),
+      S("ruri", "很吵。", "right", "control"),
+      S("remy", "我音量還沒推啊。", "left", "control"),
+      S("ruri", "不是聲音。\n是人。", "right", "control"),
       {
         "type": "clearSprites"
       },
@@ -647,17 +627,18 @@
         }
       }
     ],
-    "opening_investigate": [
+    "opening_investigate":
+    [
       {
         "type": "mode",
-        "value": "oldnoodle",
+        "value": "mercer",
         "label": "老麵 / 調查",
         "sceneMode": "control",
         "conversation": {
           "layout": "duo",
           "participants": [
-            "oldnoodle",
-            "kate"
+            "mercer",
+            "cate"
           ],
           "voiceOnlyParticipants": [],
           "placementPolicy": "primary-left-secondary-right-swap-once",
@@ -710,16 +691,7 @@
         "text": "19:00 黑白開場影片\n19:03 傑米登場\n19:05 地獄脫口秀\n19:24 真心告白\n19:30 【輪迴】系統發表\n備註：真心告白與【輪迴】發表之間，目前預設為立即切換。",
         "sceneMode": "control"
       },
-      {
-        "type": "say",
-        "speaker": "老麵",
-        "text": "最難的不是讓人哭。\n最難的是知道，眼淚掉下來的那一秒，你該不該把燈打亮。",
-        "character": "oldnoodle",
-        "speakerFocus": "primary",
-        "sceneMode": "control",
-        "presence": "onscreen",
-        "position": "left"
-      },
+      S("mercer", "最難的不是讓人哭。\n最難的是知道，眼淚掉下來的那一秒，你該不該把燈打亮。", "left", "control"),
       {
         "type": "bg",
         "id": "doc_guest_list",
@@ -736,26 +708,8 @@
         "text": "奇點無限董事會：8人\n一級主管：12人\n財經記者：10人\n科技線記者：9人\n商業夥伴：26人\n朋友與舊識：31人\n前任與私人關係者：3人\n家屬席：公關部協調名單",
         "sceneMode": "control"
       },
-      {
-        "type": "say",
-        "speaker": "老麵",
-        "text": "一場告別式最麻煩的，不是死者。\n是所有還活著、卻各自帶著目的來的人。",
-        "character": "oldnoodle",
-        "speakerFocus": "primary",
-        "sceneMode": "control",
-        "presence": "onscreen",
-        "position": "left"
-      },
-      {
-        "type": "say",
-        "speaker": "凱特",
-        "text": "麵老闆，傑米還在休息室裡繞圈圈。\n你再不去，他可能會把地板磨成馬賽克藝術。",
-        "character": "kate",
-        "speakerFocus": "primary",
-        "sceneMode": "control",
-        "presence": "onscreen",
-        "position": "right"
-      },
+      S("mercer", "一場告別式最麻煩的，不是死者。\n是所有還活著、卻各自帶著目的來的人。", "left", "control"),
+      S("cate", "麵老闆，傑米還在休息室裡繞圈圈。\n你再不去，他可能會把地板磨成馬賽克藝術。", "right", "control"),
       {
         "type": "choice",
         "prompt": "接下來？",
@@ -777,16 +731,17 @@
         }
       }
     ],
-    "empathy_01": [
+    "empathy_01":
+    [
       {
         "type": "mode",
-        "value": "tingru",
+        "value": "ruri",
         "label": "庭如 / 共感模式",
         "sceneMode": "empathy",
         "conversation": {
           "layout": "monologue",
           "participants": [
-            "tingru"
+            "ruri"
           ],
           "voiceOnlyParticipants": [],
           "placementPolicy": "primary-left-secondary-right-swap-once",
@@ -851,76 +806,13 @@
         "type": "narrate",
         "text": "監控畫面變得模糊。\n人群不再是清楚的臉，而是一片片浮動的光斑。\n每個光斑裡，有不同顏色的詞浮上來，又慢慢沉下去。"
       },
-      {
-        "type": "say",
-        "speaker": "庭如",
-        "text": "入口那邊很亮。\n不是燈光的亮，是很多人在等煙火。",
-        "character": "tingru",
-        "speakerFocus": "primary",
-        "sceneMode": "empathy",
-        "presence": "onscreen",
-        "position": "left"
-      },
-      {
-        "type": "say",
-        "speaker": "庭如",
-        "text": "可是煙火的中心，是一個快死的人。",
-        "character": "tingru",
-        "speakerFocus": "primary",
-        "sceneMode": "empathy",
-        "presence": "onscreen",
-        "position": "left"
-      },
-      {
-        "type": "say",
-        "speaker": "庭如",
-        "text": "前排有悲傷。\n可是形狀太整齊了，像排練過的雨。",
-        "character": "tingru",
-        "speakerFocus": "primary",
-        "sceneMode": "empathy",
-        "presence": "onscreen",
-        "position": "left"
-      },
-      {
-        "type": "say",
-        "speaker": "庭如",
-        "text": "媒體區很餓。\n他們不是壞人，只是已經太習慣把人的痛，剪成一行可以被轉貼的文字。",
-        "character": "tingru",
-        "speakerFocus": "primary",
-        "sceneMode": "empathy",
-        "presence": "onscreen",
-        "position": "left"
-      },
-      {
-        "type": "say",
-        "speaker": "庭如",
-        "text": "高層那邊像會議室。\n有人擔心傑米失控，也有人擔心傑米不夠失控。\n最好是悲傷剛好，瘋狂剛好，熱搜也剛好。",
-        "character": "tingru",
-        "speakerFocus": "primary",
-        "sceneMode": "empathy",
-        "presence": "onscreen",
-        "position": "left"
-      },
-      {
-        "type": "say",
-        "speaker": "庭如",
-        "text": "舞台中間很空。\n不是留白，比較像洞。",
-        "character": "tingru",
-        "speakerFocus": "primary",
-        "sceneMode": "empathy",
-        "presence": "onscreen",
-        "position": "left"
-      },
-      {
-        "type": "say",
-        "speaker": "庭如",
-        "text": "休息室那邊有一種很冷的恐懼。\n他不怕上台後的驚慌，是怕上台之後，自己還是會被忘記。",
-        "character": "tingru",
-        "speakerFocus": "primary",
-        "sceneMode": "empathy",
-        "presence": "onscreen",
-        "position": "left"
-      },
+      S("ruri", "入口那邊很亮。\n不是燈光的亮，是很多人在等煙火。", "left", "empathy"),
+      S("ruri", "可是煙火的中心，是一個快死的人。", "left", "empathy"),
+      S("ruri", "前排有悲傷。\n可是形狀太整齊了，像排練過的雨。", "left", "empathy"),
+      S("ruri", "媒體區很餓。\n他們不是壞人，只是已經太習慣把人的痛，剪成一行可以被轉貼的文字。", "left", "empathy"),
+      S("ruri", "高層那邊像會議室。\n有人擔心傑米失控，也有人擔心傑米不夠失控。\n最好是悲傷剛好，瘋狂剛好，熱搜也剛好。", "left", "empathy"),
+      S("ruri", "舞台中間很空。\n不是留白，比較像洞。", "left", "empathy"),
+      S("ruri", "休息室那邊有一種很冷的恐懼。\n他不怕上台後的驚慌，是怕上台之後，自己還是會被忘記。", "left", "empathy"),
       {
         "type": "choice",
         "prompt": "庭如要對老麵說什麼？",
@@ -928,21 +820,21 @@
           {
             "text": "前排的悲傷不太自然。",
             "set": {
-              "tingru_alert": true
+              "ruri_alert": true
             },
             "next": "empathy_alert"
           },
           {
             "text": "傑米很怕。怕被忘記。",
             "set": {
-              "tingru_sympathy": true
+              "ruri_sympathy": true
             },
             "next": "empathy_sympathy"
           },
           {
             "text": "先不要說，繼續觀察。",
             "set": {
-              "tingru_observer": true
+              "ruri_observer": true
             },
             "next": "empathy_silent"
           }
@@ -955,179 +847,35 @@
         }
       }
     ],
-    "empathy_alert": [
-      {
-        "type": "say",
-        "speaker": "庭如",
-        "text": "前排的悲傷不太自然。",
-        "sceneMode": "empathy",
-        "conversation": {
-          "layout": "duo",
-          "participants": [
-            "tingru",
-            "oldnoodle"
-          ],
-          "voiceOnlyParticipants": [],
-          "placementPolicy": "primary-left-secondary-right-swap-once",
-          "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
-        },
-        "character": "tingru",
-        "speakerFocus": "primary",
-        "presence": "onscreen",
-        "position": "left"
-      },
-      {
-        "type": "say",
-        "speaker": "老麵",
-        "text": "我知道。\n公關部安排的人。",
-        "character": "oldnoodle",
-        "speakerFocus": "primary",
-        "sceneMode": "empathy",
-        "presence": "onscreen",
-        "position": "right"
-      },
-      {
-        "type": "say",
-        "speaker": "庭如",
-        "text": "所以他們不是家人？",
-        "character": "tingru",
-        "speakerFocus": "primary",
-        "sceneMode": "empathy",
-        "presence": "onscreen",
-        "position": "left"
-      },
-      {
-        "type": "say",
-        "speaker": "老麵",
-        "text": "不全是。\n有時候一場儀式需要觀眾先相信，其他人才有辦法跟著相信。",
-        "character": "oldnoodle",
-        "speakerFocus": "primary",
-        "sceneMode": "empathy",
-        "presence": "onscreen",
-        "position": "right"
-      },
-      {
-        "type": "say",
-        "speaker": "庭如",
-        "text": "那如果他們跟著相信了假的東西呢？",
-        "character": "tingru",
-        "speakerFocus": "primary",
-        "sceneMode": "empathy",
-        "presence": "onscreen",
-        "position": "left"
-      },
-      {
-        "type": "say",
-        "speaker": "老麵",
-        "text": "那就要看後面有沒有真的東西接住它。",
-        "character": "oldnoodle",
-        "speakerFocus": "primary",
-        "sceneMode": "empathy",
-        "presence": "onscreen",
-        "position": "right"
-      },
+    "empathy_alert":
+    [
+      S("ruri", "前排的悲傷不太自然。", "left", "empathy", {"conversation": {"layout": "duo", "participants": ["ruri", "mercer"], "voiceOnlyParticipants": [], "placementPolicy": "primary-left-secondary-right-swap-once", "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"}}),
+      S("mercer", "我知道。\n公關部安排的人。", "right", "empathy"),
+      S("ruri", "所以他們不是家人？", "left", "empathy"),
+      S("mercer", "不全是。\n有時候一場儀式需要觀眾先相信，其他人才有辦法跟著相信。", "right", "empathy"),
+      S("ruri", "那如果他們跟著相信了假的東西呢？", "left", "empathy"),
+      S("mercer", "那就要看後面有沒有真的東西接住它。", "right", "empathy"),
       {
         "type": "jump",
         "next": "jamie_room_01"
       }
     ],
-    "empathy_sympathy": [
-      {
-        "type": "say",
-        "speaker": "庭如",
-        "text": "傑米很怕。\n不是怕死而已，他怕大家以後不再需要他。",
-        "sceneMode": "empathy",
-        "conversation": {
-          "layout": "duo",
-          "participants": [
-            "tingru",
-            "oldnoodle"
-          ],
-          "voiceOnlyParticipants": [],
-          "placementPolicy": "primary-left-secondary-right-swap-once",
-          "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
-        },
-        "character": "tingru",
-        "speakerFocus": "primary",
-        "presence": "onscreen",
-        "position": "left"
-      },
-      {
-        "type": "say",
-        "speaker": "老麵",
-        "text": "怕不代表不能上台。\n有時候，怕才是他必須上台的原因。",
-        "character": "oldnoodle",
-        "speakerFocus": "primary",
-        "sceneMode": "empathy",
-        "presence": "onscreen",
-        "position": "right"
-      },
-      {
-        "type": "say",
-        "speaker": "庭如",
-        "text": "你真的相信這句話嗎？",
-        "character": "tingru",
-        "speakerFocus": "primary",
-        "sceneMode": "empathy",
-        "presence": "onscreen",
-        "position": "left"
-      },
-      {
-        "type": "say",
-        "speaker": "老麵",
-        "text": "我現在需要相信。",
-        "character": "oldnoodle",
-        "speakerFocus": "primary",
-        "sceneMode": "empathy",
-        "presence": "onscreen",
-        "position": "right"
-      },
+    "empathy_sympathy":
+    [
+      S("ruri", "傑米很怕。\n不是怕死而已，他怕大家以後不再需要他。", "left", "empathy", {"conversation": {"layout": "duo", "participants": ["ruri", "mercer"], "voiceOnlyParticipants": [], "placementPolicy": "primary-left-secondary-right-swap-once", "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"}}),
+      S("mercer", "怕不代表不能上台。\n有時候，怕才是他必須上台的原因。", "right", "empathy"),
+      S("ruri", "你真的相信這句話嗎？", "left", "empathy"),
+      S("mercer", "我現在需要相信。", "right", "empathy"),
       {
         "type": "jump",
         "next": "jamie_room_01"
       }
     ],
-    "empathy_silent": [
-      {
-        "type": "say",
-        "speaker": "庭如",
-        "text": "沒事。\n我想再看一下。",
-        "sceneMode": "empathy",
-        "conversation": {
-          "layout": "duo",
-          "participants": [
-            "tingru",
-            "oldnoodle"
-          ],
-          "voiceOnlyParticipants": [],
-          "placementPolicy": "primary-left-secondary-right-swap-once",
-          "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
-        },
-        "character": "tingru",
-        "speakerFocus": "primary",
-        "presence": "onscreen",
-        "position": "left"
-      },
-      {
-        "type": "say",
-        "speaker": "老麵",
-        "text": "妳的沒事通常都很有事。\n如果妳看到什麼會讓今晚出事的東西，記得要說出來。",
-        "character": "oldnoodle",
-        "speakerFocus": "primary",
-        "sceneMode": "empathy",
-        "presence": "onscreen",
-        "position": "right"
-      },
-      {
-        "type": "say",
-        "speaker": "庭如",
-        "text": "如果出事的是今晚本身呢？",
-        "character": "tingru",
-        "speakerFocus": "primary",
-        "sceneMode": "empathy",
-        "presence": "onscreen",
-        "position": "left"
-      },
+    "empathy_silent":
+    [
+      S("ruri", "沒事。\n我想再看一下。", "left", "empathy", {"conversation": {"layout": "duo", "participants": ["ruri", "mercer"], "voiceOnlyParticipants": [], "placementPolicy": "primary-left-secondary-right-swap-once", "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"}}),
+      S("mercer", "妳的沒事通常都很有事。\n如果妳看到什麼會讓今晚出事的東西，記得要說出來。", "right", "empathy"),
+      S("ruri", "如果出事的是今晚本身呢？", "left", "empathy"),
       {
         "type": "narrate",
         "text": "老麵沒有立刻回答。"
@@ -1137,10 +885,11 @@
         "next": "jamie_room_01"
       }
     ],
-    "jamie_room_01": [
+    "jamie_room_01":
+    [
       {
         "type": "mode",
-        "value": "oldnoodle",
+        "value": "mercer",
         "label": "老麵 / 傑米休息室",
         "sceneMode": "jamie_room",
         "conversation": {
@@ -1195,17 +944,7 @@
         "type": "narrate",
         "text": "傑米站在鏡子前。\n他的黑色西裝完美得像一個答案，但他的手指反覆摩擦袖口，像在確認自己還沒有散掉。"
       },
-      {
-        "type": "say",
-        "speaker": "傑米",
-        "text": "你說，我是不是瘋了？",
-        "character": "jamie",
-        "speakerFocus": "primary",
-        "sceneMode": "jamie_room",
-        "presence": "onscreen",
-        "position": "left",
-        "expression": "nervous"
-      },
+      S("jamie", "你說，我是不是瘋了？", "left", "jamie_room", {"expression": "nervous"}),
       {
         "type": "choice",
         "prompt": "老麵要怎麼回答？",
@@ -1213,21 +952,21 @@
           {
             "text": "如果這是產品發表，風險很高；如果這是你人生最後一次登場，它很精準。",
             "set": {
-              "oldnoodle_executor": true
+              "mercer_executor": true
             },
             "next": "jamie_answer_professional"
           },
           {
             "text": "你不是瘋了，你只是還不能接受自己真的會死。",
             "set": {
-              "oldnoodle_protector": true
+              "mercer_protector": true
             },
             "next": "jamie_answer_human"
           },
           {
             "text": "你確實在騙人。但你也確實在說真話。 今晚麻煩的是，兩者都是真的。",
             "set": {
-              "oldnoodle_doubt": true
+              "mercer_doubt": true
             },
             "next": "jamie_answer_cruel"
           }
@@ -1240,100 +979,25 @@
         }
       }
     ],
-    "jamie_answer_professional": [
-      {
-        "type": "say",
-        "speaker": "老麵",
-        "text": "如果這是產品發表，風險很高。 \n如果這是你人生最後一次登場，它很精準。",
-        "sceneMode": "jamie_room",
-        "conversation": {
-          "layout": "duo",
-          "participants": [
-            "oldnoodle",
-            "jamie"
-          ],
-          "voiceOnlyParticipants": [],
-          "placementPolicy": "primary-left-secondary-right-swap-once",
-          "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
-        },
-        "character": "oldnoodle",
-        "speakerFocus": "primary",
-        "presence": "onscreen",
-        "position": "right"
-      },
-      {
-        "type": "say",
-        "speaker": "傑米",
-        "text": "精準。\n我都快死了，你還在跟我講精準。",
-        "character": "jamie",
-        "speakerFocus": "primary",
-        "sceneMode": "jamie_room",
-        "presence": "onscreen",
-        "position": "left",
-        "expression": "nervous"
-      },
-      {
-        "type": "say",
-        "speaker": "老麵",
-        "text": "你找我的原因，不就是因為你不想讓自己死得模糊嗎？",
-        "character": "oldnoodle",
-        "speakerFocus": "primary",
-        "sceneMode": "jamie_room",
-        "presence": "onscreen",
-        "position": "right"
-      },
-      {
-        "type": "say",
-        "speaker": "傑米",
-        "text": "對。\n我討厭模糊。\n死亡就是最模糊的東西。",
-        "character": "jamie",
-        "speakerFocus": "primary",
-        "sceneMode": "jamie_room",
-        "presence": "onscreen",
-        "position": "left",
-        "expression": "nervous"
-      },
+    "jamie_answer_professional":
+    [
+      S("mercer", "如果這是產品發表，風險很高。 \n如果這是你人生最後一次登場，它很精準。", "right", "jamie_room", {"conversation": {"layout": "duo", "participants": ["mercer", "jamie"], "voiceOnlyParticipants": [], "placementPolicy": "primary-left-secondary-right-swap-once", "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"}}),
+      S("jamie", "精準。\n我都快死了，你還在跟我講精準。", "left", "jamie_room", {"expression": "nervous"}),
+      S("mercer", "你找我的原因，不就是因為你不想讓自己死得模糊嗎？", "right", "jamie_room"),
+      S("jamie", "對。\n我討厭模糊。\n死亡就是最模糊的東西。", "left", "jamie_room", {"expression": "nervous"}),
       {
         "type": "jump",
         "next": "jamie_room_investigate"
       }
     ],
-    "jamie_answer_human": [
-      {
-        "type": "say",
-        "speaker": "老麵",
-        "text": "你不是瘋了。\n你只是還不能接受自己真的會死。",
-        "sceneMode": "jamie_room",
-        "conversation": {
-          "layout": "duo",
-          "participants": [
-            "oldnoodle",
-            "jamie"
-          ],
-          "voiceOnlyParticipants": [],
-          "placementPolicy": "primary-left-secondary-right-swap-once",
-          "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
-        },
-        "character": "oldnoodle",
-        "speakerFocus": "primary",
-        "presence": "onscreen",
-        "position": "right"
-      },
+    "jamie_answer_human":
+    [
+      S("mercer", "你不是瘋了。\n你只是還不能接受自己真的會死。", "right", "jamie_room", {"conversation": {"layout": "duo", "participants": ["mercer", "jamie"], "voiceOnlyParticipants": [], "placementPolicy": "primary-left-secondary-right-swap-once", "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"}}),
       {
         "type": "narrate",
         "text": "傑米沉默。\n他拿起杯子，卻沒有喝。"
       },
-      {
-        "type": "say",
-        "speaker": "傑米",
-        "text": "你這樣講很不專業。\n可是比專業有用。",
-        "character": "jamie",
-        "speakerFocus": "primary",
-        "sceneMode": "jamie_room",
-        "presence": "onscreen",
-        "position": "left",
-        "expression": "nervous"
-      },
+      S("jamie", "你這樣講很不專業。\n可是比專業有用。", "left", "jamie_room", {"expression": "nervous"}),
       {
         "type": "sfx",
         "id": "glass",
@@ -1344,114 +1008,28 @@
         "next": "jamie_room_investigate"
       }
     ],
-    "jamie_answer_cruel": [
-      {
-        "type": "say",
-        "speaker": "老麵",
-        "text": "你確實在騙人。\n但你也確實在說真話。\n今晚麻煩的是，兩者都是真的。",
-        "sceneMode": "jamie_room",
-        "conversation": {
-          "layout": "duo",
-          "participants": [
-            "oldnoodle",
-            "jamie"
-          ],
-          "voiceOnlyParticipants": [],
-          "placementPolicy": "primary-left-secondary-right-swap-once",
-          "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
-        },
-        "character": "oldnoodle",
-        "speakerFocus": "primary",
-        "presence": "onscreen",
-        "position": "right"
-      },
-      {
-        "type": "say",
-        "speaker": "傑米",
-        "text": "你知道嗎？這就是我喜歡你的地方。\n你安慰人的方式，就像在拿手術刀剝橘子。",
-        "character": "jamie",
-        "speakerFocus": "primary",
-        "sceneMode": "jamie_room",
-        "presence": "onscreen",
-        "position": "left",
-        "expression": "nervous"
-      },
-      {
-        "type": "say",
-        "speaker": "老麵",
-        "text": "那你最好慶幸，我的手還算穩。",
-        "character": "oldnoodle",
-        "speakerFocus": "primary",
-        "sceneMode": "jamie_room",
-        "presence": "onscreen",
-        "position": "right"
-      },
+    "jamie_answer_cruel":
+    [
+      S("mercer", "你確實在騙人。\n但你也確實在說真話。\n今晚麻煩的是，兩者都是真的。", "right", "jamie_room", {"conversation": {"layout": "duo", "participants": ["mercer", "jamie"], "voiceOnlyParticipants": [], "placementPolicy": "primary-left-secondary-right-swap-once", "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"}}),
+      S("jamie", "你知道嗎？這就是我喜歡你的地方。\n你安慰人的方式，就像在拿手術刀剝橘子。", "left", "jamie_room", {"expression": "nervous"}),
+      S("mercer", "那你最好慶幸，我的手還算穩。", "right", "jamie_room"),
       {
         "type": "jump",
         "next": "jamie_room_investigate"
       }
     ],
-    "jamie_room_investigate": [
-      {
-        "type": "say",
-        "speaker": "傑米",
-        "text": "我上一次這麼緊張，是大學第一次約女生看電影。\n那次我只是怕搞砸一場約會，這次我怕我搞砸的是我自己的人生。",
-        "sceneMode": "jamie_room",
-        "conversation": {
-          "layout": "group",
-          "participants": [
-            "jamie",
-            "oldnoodle",
-            "ray"
-          ],
-          "voiceOnlyParticipants": [],
-          "placementPolicy": "primary-left-secondary-right-swap-once",
-          "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
-        },
-        "character": "jamie",
-        "speakerFocus": "primary",
-        "presence": "onscreen",
-        "position": "left",
-        "expression": "nervous"
-      },
-      {
-        "type": "say",
-        "speaker": "傑米",
-        "text": "我是第一次上台讓大家看我死。\n而且更爛的是，我還要說服他們，這不是死，是升級。",
-        "character": "jamie",
-        "speakerFocus": "primary",
-        "sceneMode": "jamie_room",
-        "presence": "onscreen",
-        "position": "left",
-        "expression": "nervous"
-      },
+    "jamie_room_investigate":
+    [
+      S("jamie", "我上一次這麼緊張，是大學第一次約女生看電影。\n那次我只是怕搞砸一場約會，這次我怕我搞砸的是我自己的人生。", "left", "jamie_room", {"conversation": {"layout": "group", "participants": ["jamie", "mercer", "remy"], "voiceOnlyParticipants": [], "placementPolicy": "primary-left-secondary-right-swap-once", "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"}, "expression": "nervous"}),
+      S("jamie", "我是第一次上台讓大家看我死。\n而且更爛的是，我還要說服他們，這不是死，是升級。", "left", "jamie_room", {"expression": "nervous"}),
       {
         "type": "note",
         "title": "藥瓶",
         "text": "劑量、頻率、醫囑都真實得讓人無法把今晚單純當成表演。",
         "sceneMode": "jamie_room"
       },
-      {
-        "type": "say",
-        "speaker": "老麵",
-        "text": "今天吃藥了嗎？",
-        "character": "oldnoodle",
-        "speakerFocus": "primary",
-        "sceneMode": "jamie_room",
-        "presence": "onscreen",
-        "position": "right"
-      },
-      {
-        "type": "say",
-        "speaker": "傑米",
-        "text": "吃了。\n放心，我不會在台上倒下。\n至少不會在輪迴發表前。",
-        "character": "jamie",
-        "speakerFocus": "primary",
-        "sceneMode": "jamie_room",
-        "presence": "onscreen",
-        "position": "left",
-        "expression": "nervous"
-      },
+      S("mercer", "今天吃藥了嗎？", "right", "jamie_room"),
+      S("jamie", "吃了。\n放心，我不會在台上倒下。\n至少不會在輪迴發表前。", "left", "jamie_room", {"expression": "nervous"}),
       {
         "type": "bg",
         "id": "doc_medical_report",
@@ -1468,17 +1046,7 @@
         "text": "罕見神經退化疾病。\n不可逆。\n目前治療以延緩惡化與緩解症狀為主。\n預估剩餘時間：不足一年。",
         "sceneMode": "jamie_room"
       },
-      {
-        "type": "say",
-        "speaker": "傑米",
-        "text": "我第一次看到那張紙的時候，第一個想法不是我會死。\n我想的是，這份文件排版很爛。\n然後我才開始發抖。",
-        "character": "jamie",
-        "speakerFocus": "primary",
-        "sceneMode": "jamie_room",
-        "presence": "onscreen",
-        "position": "left",
-        "expression": "nervous"
-      },
+      S("jamie", "我第一次看到那張紙的時候，第一個想法不是我會死。\n我想的是，這份文件排版很爛。\n然後我才開始發抖。", "left", "jamie_room", {"expression": "nervous"}),
       {
         "type": "bg",
         "id": "doc_reincarnation_pitch",
@@ -1495,27 +1063,8 @@
         "text": "人格掃描、記憶建模、決策延續。\n肉體會終止，意志不必。",
         "sceneMode": "jamie_room"
       },
-      {
-        "type": "say",
-        "speaker": "老麵",
-        "text": "這句文案有一種邪教的意味了。",
-        "character": "oldnoodle",
-        "speakerFocus": "primary",
-        "sceneMode": "jamie_room",
-        "presence": "onscreen",
-        "position": "right"
-      },
-      {
-        "type": "say",
-        "speaker": "傑米",
-        "text": "所有偉大的科技，在剛開始看起來都像邪教。\n也可能只是邪教，所以我才需要先死一次，讓大家閉嘴。",
-        "character": "jamie",
-        "speakerFocus": "primary",
-        "sceneMode": "jamie_room",
-        "presence": "onscreen",
-        "position": "left",
-        "expression": "nervous"
-      },
+      S("mercer", "這句文案有一種邪教的意味了。", "right", "jamie_room"),
+      S("jamie", "所有偉大的科技，在剛開始看起來都像邪教。\n也可能只是邪教，所以我才需要先死一次，讓大家閉嘴。", "left", "jamie_room", {"expression": "nervous"}),
       {
         "type": "bg",
         "id": "doc_jamie_script",
@@ -1532,48 +1081,10 @@
         "text": "前半段幾乎都是刀。每一句都帶著笑點，也帶著一點血。\n後半段留下：我希望你們記得，今天晚上，這個有點緊張，說了很多爛笑話，而且非常非常害怕被忘記的，詹傑明。",
         "sceneMode": "jamie_room"
       },
-      {
-        "type": "say",
-        "speaker": "老麵",
-        "text": "很好，這段不要改。",
-        "character": "oldnoodle",
-        "speakerFocus": "primary",
-        "sceneMode": "jamie_room",
-        "presence": "onscreen",
-        "position": "right"
-      },
-      {
-        "type": "say",
-        "speaker": "傑米",
-        "text": "我覺得太軟了。",
-        "character": "jamie",
-        "speakerFocus": "primary",
-        "sceneMode": "jamie_room",
-        "presence": "onscreen",
-        "position": "left",
-        "expression": "nervous"
-      },
-      {
-        "type": "say",
-        "speaker": "老麵",
-        "text": "所以不要改。",
-        "character": "oldnoodle",
-        "speakerFocus": "primary",
-        "sceneMode": "jamie_room",
-        "presence": "onscreen",
-        "position": "right"
-      },
-      {
-        "type": "say",
-        "speaker": "傑米",
-        "text": "你真煩。",
-        "character": "jamie",
-        "speakerFocus": "primary",
-        "sceneMode": "jamie_room",
-        "presence": "onscreen",
-        "position": "left",
-        "expression": "nervous"
-      },
+      S("mercer", "很好，這段不要改。", "right", "jamie_room"),
+      S("jamie", "我覺得太軟了。", "left", "jamie_room", {"expression": "nervous"}),
+      S("mercer", "所以不要改。", "right", "jamie_room"),
+      S("jamie", "你真煩。", "left", "jamie_room", {"expression": "nervous"}),
       {
         "type": "sfx",
         "id": "comm",
@@ -1581,100 +1092,24 @@
       },
       {
         "type": "hide",
-        "id": "oldnoodle"
+        "id": "mercer"
       },
       {
         "type": "hide",
         "id": "jamie"
       },
-      {
-        "type": "say",
-        "speaker": "雷老師",
-        "text": "倒數十分鐘。\n主舞台已經準備好讓人類文明開始丟臉了。",
-        "character": "ray",
-        "speakerFocus": "primary",
-        "sceneMode": "jamie_room",
-        "presence": "onscreen",
-        "position": "right"
-      },
+      S("remy", "倒數十分鐘。\n主舞台已經準備好讓人類文明開始丟臉了。", "right", "jamie_room"),
       {
         "type": "hide",
-        "id": "ray"
+        "id": "remy"
       },
-      {
-        "type": "say",
-        "speaker": "傑米",
-        "text": "如果等一下我在台上後悔了呢？",
-        "character": "jamie",
-        "speakerFocus": "primary",
-        "sceneMode": "jamie_room",
-        "presence": "onscreen",
-        "position": "left",
-        "expression": "nervous"
-      },
-      {
-        "type": "say",
-        "speaker": "老麵",
-        "text": "那你就看著我。我會提醒你，你當初為什麼要做這件事。",
-        "character": "oldnoodle",
-        "speakerFocus": "primary",
-        "sceneMode": "jamie_room",
-        "presence": "onscreen",
-        "position": "right"
-      },
-      {
-        "type": "say",
-        "speaker": "傑米",
-        "text": "如果我還是想逃？",
-        "character": "jamie",
-        "speakerFocus": "primary",
-        "sceneMode": "jamie_room",
-        "presence": "onscreen",
-        "position": "left",
-        "expression": "nervous"
-      },
-      {
-        "type": "say",
-        "speaker": "老麵",
-        "text": "那我會讓燈暗下來。\n不是放你走，是讓你至少逃得有美感。",
-        "character": "oldnoodle",
-        "speakerFocus": "primary",
-        "sceneMode": "jamie_room",
-        "presence": "onscreen",
-        "position": "right"
-      },
-      {
-        "type": "say",
-        "speaker": "傑米",
-        "text": "你們 Before Fades 真的有病。",
-        "character": "jamie",
-        "speakerFocus": "primary",
-        "sceneMode": "jamie_room",
-        "presence": "onscreen",
-        "position": "left",
-        "expression": "nervous"
-      },
-      {
-        "type": "say",
-        "speaker": "老麵",
-        "text": "所以你才找我們，不是嗎？。",
-        "character": "oldnoodle",
-        "speakerFocus": "primary",
-        "sceneMode": "jamie_room",
-        "presence": "onscreen",
-        "position": "right"
-      },
-      {
-        "type": "say",
-        "speaker": "傑米",
-        "text": "好。\n讓他們看看，我要連死亡，都比他們活著更精彩。",
-        "character": "jamie",
-        "speakerFocus": "primary",
-        "sceneMode": "jamie_room",
-        "presence": "onscreen",
-        "position": "left",
-        "expression": "nervous"
-      },
+      S("jamie", "如果等一下我在台上後悔了呢？", "left", "jamie_room", {"expression": "nervous"}),
+      S("mercer", "那你就看著我。我會提醒你，你當初為什麼要做這件事。", "right", "jamie_room"),
+      S("jamie", "如果我還是想逃？", "left", "jamie_room", {"expression": "nervous"}),
+      S("mercer", "那我會讓燈暗下來。\n不是放你走，是讓你至少逃得有美感。", "right", "jamie_room"),
+      S("jamie", "你們 Before Fades 真的有病。", "left", "jamie_room", {"expression": "nervous"}),
+      S("mercer", "所以你才找我們，不是嗎？。", "right", "jamie_room"),
+      S("jamie", "好。\n讓他們看看，我要連死亡，都比他們活著更精彩。", "left", "jamie_room", {"expression": "nervous"}),
       {
         "type": "clearSprites"
       },
@@ -1683,19 +1118,20 @@
         "next": "case_file_01"
       }
     ],
-    "case_file_01": [
+    "case_file_01":
+    [
       {
         "type": "mode",
-        "value": "tingru",
+        "value": "ruri",
         "label": "庭如 / 案件資料",
         "sceneMode": "case_file",
         "conversation": {
           "layout": "group",
           "participants": [
-            "kate",
-            "ray",
-            "tingru",
-            "oldnoodle"
+            "cate",
+            "remy",
+            "ruri",
+            "mercer"
           ],
           "voiceOnlyParticipants": [],
           "placementPolicy": "primary-left-secondary-right-swap-once",
@@ -1743,7 +1179,7 @@
       {
         "type": "narrate",
         "text": "庭如坐在控制室角落。她沒有看舞台，而是打開三個月前的資料。有些事情，不是因為即將發生才重要，而是因為在很久以前，大家就已經選擇讓它發生。",
-        "character": "tingru",
+        "character": "ruri",
         "speakerFocus": "primary",
         "sceneMode": "case_file",
         "presence": "onscreen",
@@ -1758,94 +1194,22 @@
       {
         "type": "clearSprites"
       },
+      S("cate_past", "用一場真實的告別，去包裝一場商業發表會，再用這場發表會，去掩蓋死亡的真相？\n這層層疊疊的結構，簡直是藝術品。", "left", "case_file"),
+      S("remy_past", "用自己的命幫公司股價抬轎，狠得很有創意。\n我先聲明，我已經想到 BGM 了。", "right", "case_file"),
       {
-        "type": "say",
-        "speaker": "凱特(三個月前)",
-        "text": "用一場真實的告別，去包裝一場商業發表會，再用這場發表會，去掩蓋死亡的真相？\n這層層疊疊的結構，簡直是藝術品。",
-        "character": "kate",
-        "speakerFocus": "primary",
-        "sceneMode": "case_file",
-        "presence": "onscreen",
-        "position": "left"
-      },
-      {
-        "type": "say",
-        "speaker": "雷老師(三個月前)",
-        "text": "用自己的命幫公司股價抬轎，狠得很有創意。\n我先聲明，我已經想到 BGM 了。",
-        "character": "ray",
-        "speakerFocus": "primary",
-        "sceneMode": "case_file",
-        "presence": "onscreen",
-        "position": "right"
+        "type": "hide",
+        "id": "cate"
       },
       {
         "type": "hide",
-        "id": "kate"
+        "id": "remy"
       },
-      {
-        "type": "hide",
-        "id": "ray"
-      },
-      {
-        "type": "say",
-        "speaker": "庭如(三個月前)",
-        "text": "我們不能接。",
-        "character": "tingru",
-        "speakerFocus": "primary",
-        "sceneMode": "case_file",
-        "presence": "onscreen",
-        "position": "left"
-      },
-      {
-        "type": "say",
-        "speaker": "老麵(三個月前)",
-        "text": "理由是？",
-        "character": "oldnoodle",
-        "speakerFocus": "primary",
-        "sceneMode": "case_file",
-        "presence": "onscreen",
-        "position": "right"
-      },
-      {
-        "type": "say",
-        "speaker": "庭如(三個月前)",
-        "text": "我們的工作，是陪伴和轉譯真實的情感。\n但這個案子裡，真實的情感被當成商業佈局的誘餌。\n我感覺不到溫度，只有一種很冷的東西。像是把悲傷磨尖，再交給媒體。",
-        "character": "tingru",
-        "speakerFocus": "primary",
-        "sceneMode": "case_file",
-        "presence": "onscreen",
-        "position": "left"
-      },
-      {
-        "type": "say",
-        "speaker": "老麵(三個月前)",
-        "text": "什麼是真實？傑米正在真實地走向死亡，這是核心。\n他想被世界記住的樣子，就是一個至死都在顛覆傳統、化不可能為可能的狂人。",
-        "character": "oldnoodle",
-        "speakerFocus": "primary",
-        "sceneMode": "case_file",
-        "presence": "onscreen",
-        "position": "right"
-      },
-      {
-        "type": "say",
-        "speaker": "庭如(三個月前)",
-        "text": "可是如果他的真實，會傷害其他人的真實呢？",
-        "character": "tingru",
-        "speakerFocus": "primary",
-        "sceneMode": "case_file",
-        "presence": "onscreen",
-        "position": "left"
-      },
-      {
-        "type": "say",
-        "speaker": "老麵(三個月前)",
-        "text": "那就是我們要承擔的風險。",
-        "character": "oldnoodle",
-        "speakerFocus": "primary",
-        "sceneMode": "case_file",
-        "presence": "onscreen",
-        "position": "right"
-      },
+      S("ruri_past", "我們不能接。", "left", "case_file"),
+      S("mercer_past", "理由是？", "right", "case_file"),
+      S("ruri_past", "我們的工作，是陪伴和轉譯真實的情感。\n但這個案子裡，真實的情感被當成商業佈局的誘餌。\n我感覺不到溫度，只有一種很冷的東西。像是把悲傷磨尖，再交給媒體。", "left", "case_file"),
+      S("mercer_past", "什麼是真實？傑米正在真實地走向死亡，這是核心。\n他想被世界記住的樣子，就是一個至死都在顛覆傳統、化不可能為可能的狂人。", "right", "case_file"),
+      S("ruri_past", "可是如果他的真實，會傷害其他人的真實呢？", "left", "case_file"),
+      S("mercer_past", "那就是我們要承擔的風險。", "right", "case_file"),
       {
         "type": "narrate",
         "text": "庭如看著那行會議紀錄。\n那時候她以為自己已經夠堅持了。\n現在回頭看，她只覺得還不夠。"
@@ -1864,7 +1228,8 @@
         "next": "case_memory_win"
       }
     ],
-    "case_memory_forgotten": [
+    "case_memory_forgotten":
+    [
       {
         "type": "clearSprites",
         "sceneMode": "memory",
@@ -1924,32 +1289,15 @@
         "type": "narrate",
         "text": "十年後，有人搜尋你，只是為了寫一篇「曾經改變 AI 產業的十個人」。"
       },
-      {
-        "type": "say",
-        "speaker": "錄音中的傑米",
-        "text": "人不是死掉才消失。",
-        "character": "none",
-        "speakerFocus": "voice",
-        "sceneMode": "memory",
-        "presence": "voiceOnly",
-        "leaveAfter": true
-      },
-      {
-        "type": "say",
-        "speaker": "錄音中的傑米",
-        "text": "人是在不再被需要的時候，開始消失。",
-        "character": "none",
-        "speakerFocus": "voice",
-        "sceneMode": "memory",
-        "presence": "voiceOnly",
-        "leaveAfter": true
-      },
+      S("jamie_recorded", "人不是死掉才消失。", "", "memory", {"leaveAfter": true}),
+      S("jamie_recorded", "人是在不再被需要的時候，開始消失。", "", "memory", {"leaveAfter": true}),
       {
         "type": "jump",
         "next": "case_note_choice"
       }
     ],
-    "case_memory_father": [
+    "case_memory_father":
+    [
       {
         "type": "clearSprites",
         "sceneMode": "memory",
@@ -2006,32 +1354,15 @@
         "type": "narrate",
         "text": "很多人的人生都是這樣壞掉的。\n不是因為不愛，是因為以為還有時間。"
       },
-      {
-        "type": "say",
-        "speaker": "錄音中的傑米",
-        "text": "我爸最後一次清醒的時候，我還在開會。",
-        "character": "none",
-        "speakerFocus": "voice",
-        "sceneMode": "memory",
-        "presence": "voiceOnly",
-        "leaveAfter": true
-      },
-      {
-        "type": "say",
-        "speaker": "錄音中的傑米",
-        "text": "那場會議，到後來其實沒有那麼重要了。",
-        "character": "none",
-        "speakerFocus": "voice",
-        "sceneMode": "memory",
-        "presence": "voiceOnly",
-        "leaveAfter": true
-      },
+      S("jamie_recorded", "我爸最後一次清醒的時候，我還在開會。", "", "memory", {"leaveAfter": true}),
+      S("jamie_recorded", "那場會議，到後來其實沒有那麼重要了。", "", "memory", {"leaveAfter": true}),
       {
         "type": "jump",
         "next": "case_memory_company"
       }
     ],
-    "case_memory_soul": [
+    "case_memory_soul":
+    [
       {
         "type": "clearSprites",
         "sceneMode": "memory",
@@ -2088,32 +1419,15 @@
         "type": "narrate",
         "text": "傑米說想留下靈魂。\n但他真正想留下的，好像不是資料，是有人還能像以前那樣，叫他的名字。\n不是傑米・詹，是詹傑明。"
       },
-      {
-        "type": "say",
-        "speaker": "錄音中的傑米",
-        "text": "我想留下的不是身體。",
-        "character": "none",
-        "speakerFocus": "voice",
-        "sceneMode": "memory",
-        "presence": "voiceOnly",
-        "leaveAfter": true
-      },
-      {
-        "type": "say",
-        "speaker": "錄音中的傑米",
-        "text": "我想留下的是，他們還能知道我是誰。",
-        "character": "none",
-        "speakerFocus": "voice",
-        "sceneMode": "memory",
-        "presence": "voiceOnly",
-        "leaveAfter": true
-      },
+      S("jamie_recorded", "我想留下的不是身體。", "", "memory", {"leaveAfter": true}),
+      S("jamie_recorded", "我想留下的是，他們還能知道我是誰。", "", "memory", {"leaveAfter": true}),
       {
         "type": "jump",
         "next": "case_memory_forgotten"
       }
     ],
-    "case_note_choice": [
+    "case_note_choice":
+    [
       {
         "type": "choice",
         "prompt": "庭如在筆記中寫下了一句話。",
@@ -2121,29 +1435,29 @@
           {
             "text": "他想利用死亡。",
             "set": {
-              "tingru_ethics": true
+              "ruri_ethics": true
             },
             "next": "rundown_choice"
           },
           {
             "text": "他害怕死亡。",
             "set": {
-              "tingru_sympathy": true
+              "ruri_sympathy": true
             },
             "next": "rundown_choice"
           },
           {
             "text": "這兩件事都是真的。",
             "set": {
-              "tingru_paradox": true
+              "ruri_paradox": true
             },
             "next": "rundown_choice"
           },
           {
             "text": "他只是不想要消失。",
             "set": {
-              "tingru_sympathy": true,
-              "tingru_paradox": true
+              "ruri_sympathy": true,
+              "ruri_paradox": true
             },
             "next": "rundown_choice"
           }
@@ -2163,10 +1477,11 @@
         }
       }
     ],
-    "rundown_choice": [
+    "rundown_choice":
+    [
       {
         "type": "mode",
-        "value": "oldnoodle",
+        "value": "mercer",
         "label": "老麵 / 演出流程確認",
         "sceneMode": "control",
         "conversation": {
@@ -2227,7 +1542,7 @@
             "text": "立即切換。 情緒最高點，就是產品發表的最佳切入點。",
             "set": {
               "silence": 0,
-              "oldnoodle_executor": true
+              "mercer_executor": true
             },
             "next": "opening_video"
           },
@@ -2235,7 +1550,7 @@
             "text": "留三秒。 讓現場吸收一下，但不要讓氣氛散掉。",
             "set": {
               "silence": 3,
-              "oldnoodle_balance": true
+              "mercer_balance": true
             },
             "next": "opening_video"
           },
@@ -2243,7 +1558,7 @@
             "text": "留七秒。 至少讓那段真話，先像真話一樣存在。",
             "set": {
               "silence": 7,
-              "oldnoodle_protector": true
+              "mercer_protector": true
             },
             "next": "opening_video"
           },
@@ -2264,7 +1579,8 @@
         }
       }
     ],
-    "ask_jamie_silence": [
+    "ask_jamie_silence":
+    [
       {
         "type": "sfx",
         "id": "comm",
@@ -2273,62 +1589,26 @@
         "conversation": {
           "layout": "group",
           "participants": [
-            "oldnoodle",
+            "mercer",
             "jamie",
-            "tingru"
+            "ruri"
           ],
           "voiceOnlyParticipants": [],
           "placementPolicy": "primary-left-secondary-right-swap-once",
           "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
         }
       },
-      {
-        "type": "say",
-        "speaker": "老麵",
-        "text": "傑米。\n真心告白後，要不要留一段沉默？",
-        "character": "oldnoodle",
-        "speakerFocus": "primary",
-        "sceneMode": "control",
-        "presence": "onscreen",
-        "position": "left"
-      },
-      {
-        "type": "say",
-        "speaker": "傑米",
-        "text": "不要浪費眼淚！\n眼淚要在最有用的時候發光。\n直接切！",
-        "character": "jamie",
-        "speakerFocus": "primary",
-        "sceneMode": "control",
-        "presence": "onscreen",
-        "expression": "nervous",
-        "position": "center"
-      },
-      {
-        "type": "say",
-        "speaker": "老麵",
-        "text": "收到。",
-        "character": "oldnoodle",
-        "speakerFocus": "primary",
-        "sceneMode": "control",
-        "presence": "onscreen",
-        "position": "left"
-      },
-      {
-        "type": "say",
-        "speaker": "庭如",
-        "text": "……",
-        "character": "tingru",
-        "speakerFocus": "primary",
-        "sceneMode": "control",
-        "presence": "onscreen",
-        "position": "right"
-      },
+      S("mercer", "傑米。\n真心告白後，要不要留一段沉默？", "left", "control"),
+      S("jamie", "不要浪費眼淚！\n眼淚要在最有用的時候發光。\n直接切！", "center", "control", {"expression": "nervous"}),
+      S("mercer", "收到。", "left", "control"),
+      S("ruri", "……", "right", "control"),
       {
         "type": "jump",
         "next": "opening_video"
       }
     ],
-    "opening_video": [
+    "opening_video":
+    [
       {
         "type": "mode",
         "value": "system",
@@ -2373,46 +1653,10 @@
         "type": "narrate",
         "text": "LED 螢幕亮起。\n黑白影像帶著老式錄影機雜訊。\n年輕的傑米坐在鏡頭前，二十出頭，笑起來有點不知所措。"
       },
-      {
-        "type": "say",
-        "speaker": "年輕傑米",
-        "text": "嗨……如果有人看到這段影片，那大概代表我……\n呃，創業成功了？或是失敗得很徹底。",
-        "character": "none",
-        "speakerFocus": "voice",
-        "sceneMode": "control",
-        "presence": "voiceOnly",
-        "leaveAfter": true
-      },
-      {
-        "type": "say",
-        "speaker": "年輕傑米",
-        "text": "我叫詹傑明，大家可以叫我傑米。\n我有一個夢想。我希望有一天，科技可以幫助我們留住我們所愛的人。",
-        "character": "none",
-        "speakerFocus": "voice",
-        "sceneMode": "control",
-        "presence": "voiceOnly",
-        "leaveAfter": true
-      },
-      {
-        "type": "say",
-        "speaker": "年輕傑米",
-        "text": "不是留住他們的身體，是留住他們的靈魂。\n他們的思想，他們講笑話的爛品味，他們明明很煩可是你還是會想念的那些小習慣。",
-        "character": "none",
-        "speakerFocus": "voice",
-        "sceneMode": "control",
-        "presence": "voiceOnly",
-        "leaveAfter": true
-      },
-      {
-        "type": "say",
-        "speaker": "年輕傑米",
-        "text": "如果未來的我真的做到這件事，我希望你不要忘記一開始為什麼想做。\n不是為了要贏，也不是為了變有錢，是因為失去一個人，那真的很痛。",
-        "character": "none",
-        "speakerFocus": "voice",
-        "sceneMode": "control",
-        "presence": "voiceOnly",
-        "leaveAfter": true
-      },
+      S("young_jamie", "嗨……如果有人看到這段影片，那大概代表我……\n呃，創業成功了？或是失敗得很徹底。", "", "control", {"leaveAfter": true}),
+      S("young_jamie", "我叫詹傑明，大家可以叫我傑米。\n我有一個夢想。我希望有一天，科技可以幫助我們留住我們所愛的人。", "", "control", {"leaveAfter": true}),
+      S("young_jamie", "不是留住他們的身體，是留住他們的靈魂。\n他們的思想，他們講笑話的爛品味，他們明明很煩可是你還是會想念的那些小習慣。", "", "control", {"leaveAfter": true}),
+      S("young_jamie", "如果未來的我真的做到這件事，我希望你不要忘記一開始為什麼想做。\n不是為了要贏，也不是為了變有錢，是因為失去一個人，那真的很痛。", "", "control", {"leaveAfter": true}),
       {
         "type": "narrate",
         "text": "影像停格。\n雜訊。\n螢幕暗下。"
@@ -2422,17 +1666,18 @@
         "next": "showtime_01"
       }
     ],
-    "showtime_01": [
+    "showtime_01":
+    [
       {
         "type": "mode",
-        "value": "oldnoodle",
+        "value": "mercer",
         "label": "老麵 / 舞台監控",
         "sceneMode": "stage",
         "conversation": {
           "layout": "stage-with-backstage-monitor",
           "participants": [
             "jamie",
-            "tingru"
+            "ruri"
           ],
           "voiceOnlyParticipants": [],
           "placementPolicy": "primary-left-secondary-right-swap-once",
@@ -2476,26 +1721,8 @@
         "id": "mic",
         "volume": 0.55
       },
-      {
-        "type": "say",
-        "speaker": "傑米",
-        "text": "嗨，大家好。\n我是傑米。\n感謝你們今天來參加這場……不是追思會、不是告別式，而是我人生最後一場售票演出。",
-        "character": "jamie",
-        "speakerFocus": "primary",
-        "sceneMode": "stage",
-        "presence": "onscreen",
-        "position": "center"
-      },
-      {
-        "type": "say",
-        "speaker": "傑米",
-        "text": "雖然你們沒付錢。\n真不意外。",
-        "character": "jamie",
-        "speakerFocus": "primary",
-        "sceneMode": "stage",
-        "presence": "onscreen",
-        "position": "center"
-      },
+      S("jamie", "嗨，大家好。\n我是傑米。\n感謝你們今天來參加這場……不是追思會、不是告別式，而是我人生最後一場售票演出。", "center", "stage"),
+      S("jamie", "雖然你們沒付錢。\n真不意外。", "center", "stage"),
       {
         "type": "effect",
         "name": "shake",
@@ -2505,16 +1732,7 @@
         "type": "narrate",
         "text": "全場死寂。\n那一秒，像是笑聲還沒拿到入場證。"
       },
-      {
-        "type": "say",
-        "speaker": "庭如",
-        "text": "困惑上升。\n前排有一點憤怒。\n媒體區……更興奮了。",
-        "character": "tingru",
-        "speakerFocus": "primary",
-        "sceneMode": "stage",
-        "presence": "onscreen",
-        "position": "left"
-      },
+      S("ruri", "困惑上升。\n前排有一點憤怒。\n媒體區……更興奮了。", "left", "stage"),
       {
         "type": "clearSprites"
       },
@@ -2559,7 +1777,8 @@
         }
       }
     ],
-    "showtime_silence": [
+    "showtime_silence":
+    [
       {
         "type": "narrate",
         "text": "老麵沒有讓任何音軌進來。\n三秒。那三秒長得像一場小型墜樓。\n然後後排有人笑了，第二個人跟上，第三個人跟上。笑聲像火星，落在乾草上。",
@@ -2582,7 +1801,8 @@
         "next": "showtime_jokes"
       }
     ],
-    "showtime_lowfreq": [
+    "showtime_lowfreq":
+    [
       {
         "type": "mode",
         "value": "stage",
@@ -2592,8 +1812,8 @@
           "layout": "stage-with-backstage-monitor",
           "participants": [
             "jamie",
-            "tingru",
-            "oldnoodle"
+            "ruri",
+            "mercer"
           ],
           "voiceOnlyParticipants": [],
           "placementPolicy": "primary-left-secondary-right-swap-once",
@@ -2608,58 +1828,32 @@
         "conversation": {
           "layout": "stage-with-backstage-monitor",
           "participants": [
-            "tingru",
-            "oldnoodle"
+            "ruri",
+            "mercer"
           ],
           "voiceOnlyParticipants": [],
           "placementPolicy": "primary-left-secondary-right-swap-once",
           "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
         }
       },
+      S("ruri", "操控感變強了。", "left", "stage"),
+      S("mercer", "是舞台感。", "right", "stage"),
+      S("ruri", "我知道，所以我說操控感。", "left", "stage"),
       {
-        "type": "say",
-        "speaker": "庭如",
-        "text": "操控感變強了。",
-        "character": "tingru",
-        "speakerFocus": "primary",
-        "sceneMode": "stage",
-        "presence": "onscreen",
-        "position": "left"
-      },
-      {
-        "type": "say",
-        "speaker": "老麵",
-        "text": "是舞台感。",
-        "character": "oldnoodle",
-        "speakerFocus": "primary",
-        "sceneMode": "stage",
-        "presence": "onscreen",
-        "position": "right"
-      },
-      {
-        "type": "say",
-        "speaker": "庭如",
-        "text": "我知道，所以我說操控感。",
-        "character": "tingru",
-        "speakerFocus": "primary",
-        "sceneMode": "stage",
-        "presence": "onscreen",
-        "position": "left"
+        "type": "hide",
+        "id": "ruri"
       },
       {
         "type": "hide",
-        "id": "tingru"
-      },
-      {
-        "type": "hide",
-        "id": "oldnoodle"
+        "id": "mercer"
       },
       {
         "type": "jump",
         "next": "showtime_jokes"
       }
     ],
-    "showtime_camera": [
+    "showtime_camera":
+    [
       {
         "type": "bg",
         "id": "cg_audience_laugh",
@@ -2690,7 +1884,8 @@
         "next": "showtime_jokes"
       }
     ],
-    "showtime_raw": [
+    "showtime_raw":
+    [
       {
         "type": "mode",
         "value": "stage",
@@ -2700,7 +1895,7 @@
           "layout": "stage-with-backstage-monitor",
           "participants": [
             "jamie",
-            "tingru"
+            "ruri"
           ],
           "voiceOnlyParticipants": [],
           "placementPolicy": "primary-left-secondary-right-swap-once",
@@ -2715,33 +1910,25 @@
         "conversation": {
           "layout": "monologue",
           "participants": [
-            "tingru"
+            "ruri"
           ],
           "voiceOnlyParticipants": [],
           "placementPolicy": "primary-left-secondary-right-swap-once",
           "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
         }
       },
-      {
-        "type": "say",
-        "speaker": "庭如",
-        "text": "他聽起來有一點孤單。",
-        "character": "tingru",
-        "speakerFocus": "primary",
-        "sceneMode": "stage",
-        "presence": "onscreen",
-        "position": "left"
-      },
+      S("ruri", "他聽起來有一點孤單。", "left", "stage"),
       {
         "type": "hide",
-        "id": "tingru"
+        "id": "ruri"
       },
       {
         "type": "jump",
         "next": "showtime_jokes"
       }
     ],
-    "showtime_jokes": [
+    "showtime_jokes":
+    [
       {
         "type": "mode",
         "value": "stage",
@@ -2751,10 +1938,10 @@
           "layout": "stage-with-backstage-monitor",
           "participants": [
             "jamie",
-            "kate",
-            "ray",
-            "tingru",
-            "oldnoodle"
+            "cate",
+            "remy",
+            "ruri",
+            "mercer"
           ],
           "voiceOnlyParticipants": [],
           "placementPolicy": "primary-left-secondary-right-swap-once",
@@ -2762,29 +1949,7 @@
         },
         "ui": "j"
       },
-      {
-        "type": "say",
-        "speaker": "傑米",
-        "text": "這是我人生最後一次，合法講幹話不用上法院。",
-        "sceneMode": "stage",
-        "conversation": {
-          "layout": "stage-with-backstage-monitor",
-          "participants": [
-            "jamie",
-            "kate",
-            "ray",
-            "tingru",
-            "oldnoodle"
-          ],
-          "voiceOnlyParticipants": [],
-          "placementPolicy": "primary-left-secondary-right-swap-once",
-          "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
-        },
-        "character": "jamie",
-        "speakerFocus": "primary",
-        "presence": "onscreen",
-        "position": "center"
-      },
+      S("jamie", "這是我人生最後一次，合法講幹話不用上法院。", "center", "stage", {"conversation": {"layout": "stage-with-backstage-monitor", "participants": ["jamie", "cate", "remy", "ruri", "mercer"], "voiceOnlyParticipants": [], "placementPolicy": "primary-left-secondary-right-swap-once", "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"}}),
       {
         "type": "sfx",
         "id": "awkward_laugh",
@@ -2805,16 +1970,7 @@
         "position": "center",
         "sceneMode": "stage"
       },
-      {
-        "type": "say",
-        "speaker": "傑米",
-        "text": "醫生說我還有一年。\n我說，不用那麼久，這世界爛到我自己都不想撐滿這學期了。",
-        "character": "jamie",
-        "speakerFocus": "primary",
-        "sceneMode": "stage",
-        "presence": "onscreen",
-        "position": "center"
-      },
+      S("jamie", "醫生說我還有一年。\n我說，不用那麼久，這世界爛到我自己都不想撐滿這學期了。", "center", "stage"),
       {
         "type": "hide",
         "id": "jamie"
@@ -2832,16 +1988,7 @@
         "id": "big_laugh",
         "volume": 0.55
       },
-      {
-        "type": "say",
-        "speaker": "傑米",
-        "text": "我現在，就是一台即將報廢的特斯拉。\n還沒撞人，自己就先起火。",
-        "character": "jamie",
-        "speakerFocus": "primary",
-        "sceneMode": "stage",
-        "presence": "onscreen",
-        "position": "center"
-      },
+      S("jamie", "我現在，就是一台即將報廢的特斯拉。\n還沒撞人，自己就先起火。", "center", "stage"),
       {
         "type": "show",
         "id": "jamie",
@@ -2864,140 +2011,51 @@
         "position": "center",
         "sceneMode": "stage"
       },
-      {
-        "type": "say",
-        "speaker": "傑米",
-        "text": "你知道你真的要死了，是什麼感覺嗎？\n就像你手機掉進馬桶後撿起來發現……\n幹，其實沒差，它本來就沒電了。",
-        "character": "jamie",
-        "speakerFocus": "primary",
-        "sceneMode": "stage",
-        "presence": "onscreen",
-        "position": "center"
-      },
+      S("jamie", "你知道你真的要死了，是什麼感覺嗎？\n就像你手機掉進馬桶後撿起來發現……\n幹，其實沒差，它本來就沒電了。", "center", "stage"),
       {
         "type": "sfx",
         "id": "big_laugh",
         "volume": 0.58
       },
-      {
-        "type": "say",
-        "speaker": "傑米",
-        "text": "你們今天每個人都有一本紀念冊，對吧？\n如果你們不想看也沒關係，反正我也沒在讀你們的留言。",
-        "character": "jamie",
-        "speakerFocus": "primary",
-        "sceneMode": "stage",
-        "presence": "onscreen",
-        "position": "center"
-      },
-      {
-        "type": "say",
-        "speaker": "傑米",
-        "text": "我只是在陰間等你們犯錯，好下去相見。",
-        "character": "jamie",
-        "speakerFocus": "primary",
-        "sceneMode": "stage",
-        "presence": "onscreen",
-        "position": "center"
-      },
+      S("jamie", "你們今天每個人都有一本紀念冊，對吧？\n如果你們不想看也沒關係，反正我也沒在讀你們的留言。", "center", "stage"),
+      S("jamie", "我只是在陰間等你們犯錯，好下去相見。", "center", "stage"),
       {
         "type": "hide",
         "id": "jamie"
       },
+      S("cate", "他把我辛苦做的紀念冊講得像是死亡筆記本。", "left", "stage"),
+      S("remy", "效果拔群！", "right", "stage"),
+      S("cate", "我知道，所以我更生氣。", "left", "stage"),
       {
-        "type": "say",
-        "speaker": "凱特",
-        "text": "他把我辛苦做的紀念冊講得像是死亡筆記本。",
-        "character": "kate",
-        "speakerFocus": "primary",
-        "sceneMode": "stage",
-        "presence": "onscreen",
-        "position": "left"
-      },
-      {
-        "type": "say",
-        "speaker": "雷老師",
-        "text": "效果拔群！",
-        "character": "ray",
-        "speakerFocus": "primary",
-        "sceneMode": "stage",
-        "presence": "onscreen",
-        "position": "right"
-      },
-      {
-        "type": "say",
-        "speaker": "凱特",
-        "text": "我知道，所以我更生氣。",
-        "character": "kate",
-        "speakerFocus": "primary",
-        "sceneMode": "stage",
-        "presence": "onscreen",
-        "position": "left"
+        "type": "hide",
+        "id": "cate"
       },
       {
         "type": "hide",
-        "id": "kate"
+        "id": "remy"
+      },
+      S("ruri", "大家開始放鬆了。\n悲傷被好奇跟娛樂蓋住。", "left", "stage"),
+      {
+        "type": "hide",
+        "id": "remy"
       },
       {
         "type": "hide",
-        "id": "ray"
+        "id": "cate"
       },
-      {
-        "type": "say",
-        "speaker": "庭如",
-        "text": "大家開始放鬆了。\n悲傷被好奇跟娛樂蓋住。",
-        "character": "tingru",
-        "speakerFocus": "primary",
-        "sceneMode": "stage",
-        "presence": "onscreen",
-        "position": "left"
-      },
-      {
-        "type": "hide",
-        "id": "ray"
-      },
-      {
-        "type": "hide",
-        "id": "kate"
-      },
-      {
-        "type": "say",
-        "speaker": "老麵",
-        "text": "不是蓋住。\n是開路。",
-        "character": "oldnoodle",
-        "speakerFocus": "primary",
-        "sceneMode": "stage",
-        "presence": "onscreen",
-        "position": "right"
-      },
-      {
-        "type": "say",
-        "speaker": "庭如",
-        "text": "你最好是對的。",
-        "character": "tingru",
-        "speakerFocus": "primary",
-        "sceneMode": "stage",
-        "presence": "onscreen",
-        "position": "left"
-      },
-      {
-        "type": "say",
-        "speaker": "老麵",
-        "text": "我也希望。",
-        "character": "oldnoodle",
-        "speakerFocus": "primary",
-        "sceneMode": "stage",
-        "presence": "onscreen",
-        "position": "right"
-      },
+      S("mercer", "不是蓋住。\n是開路。", "right", "stage"),
+      S("ruri", "你最好是對的。", "left", "stage"),
+      S("mercer", "我也希望。", "right", "stage"),
       {
         "type": "jump",
         "next": "showtime_empathy"
       }
     ],
-    "showtime_empathy": [
+    "showtime_empathy":
+    [
       {
         "type": "mode",
-        "value": "tingru",
+        "value": "ruri",
         "label": "庭如 / 笑聲底下",
         "sceneMode": "stage",
         "conversation": {
@@ -3047,36 +2105,9 @@
         "displayMode": "background",
         "sceneMode": "stage"
       },
-      {
-        "type": "say",
-        "speaker": "傑米",
-        "text": "首先，我要感謝我的家人，真的。",
-        "character": "jamie",
-        "speakerFocus": "primary",
-        "sceneMode": "stage",
-        "presence": "onscreen",
-        "position": "center"
-      },
-      {
-        "type": "say",
-        "speaker": "傑米",
-        "text": "給我爸。\n我爸年輕的時候常說，男人就要硬起來。",
-        "character": "jamie",
-        "speakerFocus": "primary",
-        "sceneMode": "stage",
-        "presence": "onscreen",
-        "position": "center"
-      },
-      {
-        "type": "say",
-        "speaker": "傑米",
-        "text": "現在我躺在病床上，看著一堆醫療管線插進我身體裡……\n我終於明白了，原來硬起來的真正意思，是指這些屍斑。",
-        "character": "jamie",
-        "speakerFocus": "primary",
-        "sceneMode": "stage",
-        "presence": "onscreen",
-        "position": "center"
-      },
+      S("jamie", "首先，我要感謝我的家人，真的。", "center", "stage"),
+      S("jamie", "給我爸。\n我爸年輕的時候常說，男人就要硬起來。", "center", "stage"),
+      S("jamie", "現在我躺在病床上，看著一堆醫療管線插進我身體裡……\n我終於明白了，原來硬起來的真正意思，是指這些屍斑。", "center", "stage"),
       {
         "type": "hide",
         "id": "jamie"
@@ -3106,36 +2137,9 @@
         "displayMode": "background",
         "sceneMode": "stage"
       },
-      {
-        "type": "say",
-        "speaker": "傑米",
-        "text": "然後這一段是給我媽的。\n我媽這輩子最大的遺憾，是沒看到我結婚。",
-        "character": "jamie",
-        "speakerFocus": "primary",
-        "sceneMode": "stage",
-        "presence": "onscreen",
-        "position": "center"
-      },
-      {
-        "type": "say",
-        "speaker": "傑米",
-        "text": "媽，妳看清楚。\n我現在穿著西裝，現場有花，有座位，有哭聲。",
-        "character": "jamie",
-        "speakerFocus": "primary",
-        "sceneMode": "stage",
-        "presence": "onscreen",
-        "position": "center"
-      },
-      {
-        "type": "say",
-        "speaker": "傑米",
-        "text": "這場派對唯一缺的，就是新娘而已。",
-        "character": "jamie",
-        "speakerFocus": "primary",
-        "sceneMode": "stage",
-        "presence": "onscreen",
-        "position": "center"
-      },
+      S("jamie", "然後這一段是給我媽的。\n我媽這輩子最大的遺憾，是沒看到我結婚。", "center", "stage"),
+      S("jamie", "媽，妳看清楚。\n我現在穿著西裝，現場有花，有座位，有哭聲。", "center", "stage"),
+      S("jamie", "這場派對唯一缺的，就是新娘而已。", "center", "stage"),
       {
         "type": "hide",
         "id": "jamie"
@@ -3165,16 +2169,7 @@
         "displayMode": "background",
         "sceneMode": "stage"
       },
-      {
-        "type": "say",
-        "speaker": "傑米",
-        "text": "而且拜託，不結婚就怎樣？你們那些結婚的，不是也整天在臉書說婚姻像墳墓嗎？\n現在好了，我直接住進去，贏你們一整輪。",
-        "character": "jamie",
-        "speakerFocus": "primary",
-        "sceneMode": "stage",
-        "presence": "onscreen",
-        "position": "center"
-      },
+      S("jamie", "而且拜託，不結婚就怎樣？你們那些結婚的，不是也整天在臉書說婚姻像墳墓嗎？\n現在好了，我直接住進去，贏你們一整輪。", "center", "stage"),
       {
         "type": "choice",
         "prompt": "庭如要觀察誰？",
@@ -3182,9 +2177,9 @@
           {
             "text": "林薇。",
             "set": {
-              "linwei_seen": true
+              "wei_seen": true
             },
-            "next": "observe_linwei"
+            "next": "observe_wei"
           },
           {
             "text": "奇點無限高層。",
@@ -3216,15 +2211,16 @@
         }
       }
     ],
-    "observe_linwei": [
+    "observe_wei":
+    [
       {
         "type": "clearSprites",
         "sceneMode": "stage",
         "conversation": {
           "layout": "stage-with-backstage-monitor",
           "participants": [
-            "tingru",
-            "oldnoodle"
+            "ruri",
+            "mercer"
           ],
           "voiceOnlyParticipants": [],
           "placementPolicy": "primary-left-secondary-right-swap-once",
@@ -3233,7 +2229,7 @@
       },
       {
         "type": "bg",
-        "id": "cg_linwei_silent",
+        "id": "cg_wei_silent",
         "transition": "fade",
         "waitAfter": 700,
         "displayMode": "bg",
@@ -3243,36 +2239,9 @@
         "type": "narrate",
         "text": "林薇沒有笑。\n她看著台上的傑米，像看著一間曾經住過的房子，被拆掉隔間、打上燈，改裝成供人拍照的展覽館。"
       },
-      {
-        "type": "say",
-        "speaker": "庭如",
-        "text": "她很痛。",
-        "character": "tingru",
-        "speakerFocus": "primary",
-        "sceneMode": "stage",
-        "presence": "onscreen",
-        "position": "left"
-      },
-      {
-        "type": "say",
-        "speaker": "老麵",
-        "text": "誰？",
-        "character": "oldnoodle",
-        "speakerFocus": "primary",
-        "sceneMode": "stage",
-        "presence": "onscreen",
-        "position": "right"
-      },
-      {
-        "type": "say",
-        "speaker": "庭如",
-        "text": "林薇，傑米的前女友。\n她不是恨他，只是忽然明白，\n自己曾經愛過的那個人，已經學會把所有東西都變成舞台效果。",
-        "character": "tingru",
-        "speakerFocus": "primary",
-        "sceneMode": "stage",
-        "presence": "onscreen",
-        "position": "left"
-      },
+      S("ruri", "她很痛。", "left", "stage"),
+      S("mercer", "誰？", "right", "stage"),
+      S("ruri", "林薇，傑米的前女友。\n她不是恨他，只是忽然明白，\n自己曾經愛過的那個人，已經學會把所有東西都變成舞台效果。", "left", "stage"),
       {
         "type": "clearSprites"
       },
@@ -3289,7 +2258,8 @@
         "next": "showtime_more_jokes"
       }
     ],
-    "observe_exec": [
+    "observe_exec":
+    [
       {
         "type": "narrate",
         "text": "高層笑得很小心。笑太少，怕被拍到冷血；\n笑太多，怕被寫成不尊重創辦人。\n有人真心佩服傑米，也有人已經在想明天開盤。",
@@ -3297,44 +2267,17 @@
         "conversation": {
           "layout": "stage-with-backstage-monitor",
           "participants": [
-            "tingru",
-            "oldnoodle"
+            "ruri",
+            "mercer"
           ],
           "voiceOnlyParticipants": [],
           "placementPolicy": "primary-left-secondary-right-swap-once",
           "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
         }
       },
-      {
-        "type": "say",
-        "speaker": "庭如",
-        "text": "他們在笑，也在計算。",
-        "character": "tingru",
-        "speakerFocus": "primary",
-        "sceneMode": "stage",
-        "presence": "onscreen",
-        "position": "left"
-      },
-      {
-        "type": "say",
-        "speaker": "老麵",
-        "text": "這不衝突。",
-        "character": "oldnoodle",
-        "speakerFocus": "primary",
-        "sceneMode": "stage",
-        "presence": "onscreen",
-        "position": "right"
-      },
-      {
-        "type": "say",
-        "speaker": "庭如",
-        "text": "我知道，所以才可怕。",
-        "character": "tingru",
-        "speakerFocus": "primary",
-        "sceneMode": "stage",
-        "presence": "onscreen",
-        "position": "left"
-      },
+      S("ruri", "他們在笑，也在計算。", "left", "stage"),
+      S("mercer", "這不衝突。", "right", "stage"),
+      S("ruri", "我知道，所以才可怕。", "left", "stage"),
       {
         "type": "clearSprites"
       },
@@ -3351,7 +2294,8 @@
         "next": "showtime_more_jokes"
       }
     ],
-    "observe_jamie": [
+    "observe_jamie":
+    [
       {
         "type": "mode",
         "value": "stage",
@@ -3361,8 +2305,8 @@
           "layout": "stage-with-backstage-monitor",
           "participants": [
             "jamie",
-            "tingru",
-            "oldnoodle"
+            "ruri",
+            "mercer"
           ],
           "voiceOnlyParticipants": [],
           "placementPolicy": "primary-left-secondary-right-swap-once",
@@ -3377,54 +2321,18 @@
         "conversation": {
           "layout": "stage-with-backstage-monitor",
           "participants": [
-            "tingru",
-            "oldnoodle"
+            "ruri",
+            "mercer"
           ],
           "voiceOnlyParticipants": [],
           "placementPolicy": "primary-left-secondary-right-swap-once",
           "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
         }
       },
-      {
-        "type": "say",
-        "speaker": "庭如",
-        "text": "他在燃燒自己。",
-        "character": "tingru",
-        "speakerFocus": "primary",
-        "sceneMode": "stage",
-        "presence": "onscreen",
-        "position": "left"
-      },
-      {
-        "type": "say",
-        "speaker": "老麵",
-        "text": "我知道。",
-        "character": "oldnoodle",
-        "speakerFocus": "primary",
-        "sceneMode": "stage",
-        "presence": "onscreen",
-        "position": "right"
-      },
-      {
-        "type": "say",
-        "speaker": "庭如",
-        "text": "你知道還讓他繼續？",
-        "character": "tingru",
-        "speakerFocus": "primary",
-        "sceneMode": "stage",
-        "presence": "onscreen",
-        "position": "left"
-      },
-      {
-        "type": "say",
-        "speaker": "老麵",
-        "text": "這是他選擇的燃燒方式。",
-        "character": "oldnoodle",
-        "speakerFocus": "primary",
-        "sceneMode": "stage",
-        "presence": "onscreen",
-        "position": "right"
-      },
+      S("ruri", "他在燃燒自己。", "left", "stage"),
+      S("mercer", "我知道。", "right", "stage"),
+      S("ruri", "你知道還讓他繼續？", "left", "stage"),
+      S("mercer", "這是他選擇的燃燒方式。", "right", "stage"),
       {
         "type": "clearSprites"
       },
@@ -3441,33 +2349,16 @@
         "next": "showtime_more_jokes"
       }
     ],
-    "showtime_more_jokes": [
-      {
-        "type": "say",
-        "speaker": "傑米",
-        "text": "接下來，我要感謝我的前任們。",
-        "sceneMode": "stage",
-        "conversation": {
-          "layout": "monologue",
-          "participants": [
-            "jamie"
-          ],
-          "voiceOnlyParticipants": [],
-          "placementPolicy": "primary-left-secondary-right-swap-once",
-          "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
-        },
-        "character": "jamie",
-        "speakerFocus": "primary",
-        "presence": "onscreen",
-        "position": "center"
-      },
+    "showtime_more_jokes":
+    [
+      S("jamie", "接下來，我要感謝我的前任們。", "center", "stage", {"conversation": {"layout": "monologue", "participants": ["jamie"], "voiceOnlyParticipants": [], "placementPolicy": "primary-left-secondary-right-swap-once", "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"}}),
       {
         "type": "hide",
         "id": "jamie"
       },
       {
         "type": "bg",
-        "id": "cg_linwei_silent",
+        "id": "cg_wei_silent",
         "transition": "fade",
         "waitAfter": 300,
         "displayMode": "bg",
@@ -3485,56 +2376,11 @@
         "displayMode": "background",
         "sceneMode": "stage"
       },
-      {
-        "type": "say",
-        "speaker": "傑米",
-        "text": "我有幾任前女友今天沒來，沒關係，我原諒妳們。\n畢竟妳們平常連我的生日都忘記，我死了妳們記得才奇怪。",
-        "character": "jamie",
-        "speakerFocus": "primary",
-        "sceneMode": "stage",
-        "presence": "onscreen",
-        "position": "center"
-      },
-      {
-        "type": "say",
-        "speaker": "傑米",
-        "text": "但妳們要知道一件事。\n我雖然人快走了，但我最後的願望之一，就是希望妳們過得比我活著時更痛苦。",
-        "character": "jamie",
-        "speakerFocus": "primary",
-        "sceneMode": "stage",
-        "presence": "onscreen",
-        "position": "center"
-      },
-      {
-        "type": "say",
-        "speaker": "傑米",
-        "text": "所以我安排了AI語音留言。\n每年七夕，會寄一段我對妳說的情話到妳們公司的 LINE 群組裡。",
-        "character": "jamie",
-        "speakerFocus": "primary",
-        "sceneMode": "stage",
-        "presence": "onscreen",
-        "position": "center"
-      },
-      {
-        "type": "say",
-        "speaker": "傑米",
-        "text": "我愛過妳，但妳不值得被我記得。",
-        "character": "jamie",
-        "speakerFocus": "primary",
-        "sceneMode": "stage",
-        "presence": "onscreen",
-        "position": "center"
-      },
-      {
-        "type": "say",
-        "speaker": "傑米",
-        "text": "還會配上一張我的骨灰罐自拍照。",
-        "character": "jamie",
-        "speakerFocus": "primary",
-        "sceneMode": "stage",
-        "presence": "onscreen",
-        "position": "center"
-      },
+      S("jamie", "我有幾任前女友今天沒來，沒關係，我原諒妳們。\n畢竟妳們平常連我的生日都忘記，我死了妳們記得才奇怪。", "center", "stage"),
+      S("jamie", "但妳們要知道一件事。\n我雖然人快走了，但我最後的願望之一，就是希望妳們過得比我活著時更痛苦。", "center", "stage"),
+      S("jamie", "所以我安排了AI語音留言。\n每年七夕，會寄一段我對妳說的情話到妳們公司的 LINE 群組裡。", "center", "stage"),
+      S("jamie", "我愛過妳，但妳不值得被我記得。", "center", "stage"),
+      S("jamie", "還會配上一張我的骨灰罐自拍照。", "center", "stage"),
       {
         "type": "hide",
         "id": "jamie"
@@ -3593,41 +2439,14 @@
         "type": "narrate",
         "text": "有些笑話不是讓人笑，是讓講的人可以不用道歉。"
       },
-      {
-        "type": "say",
-        "speaker": "傑米",
-        "text": "給來參加的朋友們。\n我活著的時候你們都說「改天聚一下」。\n我都快死了你們才出現，這個改天，是不是太準時了點？",
-        "character": "jamie",
-        "speakerFocus": "primary",
-        "sceneMode": "stage",
-        "presence": "onscreen",
-        "position": "center"
-      },
+      S("jamie", "給來參加的朋友們。\n我活著的時候你們都說「改天聚一下」。\n我都快死了你們才出現，這個改天，是不是太準時了點？", "center", "stage"),
       {
         "type": "sfx",
         "id": "awkward_laugh",
         "volume": 0.48
       },
-      {
-        "type": "say",
-        "speaker": "傑米",
-        "text": "不過也好啦，今天你們終於都來了。\n我也終於知道誰只會在我IG底下打emoji，誰是真的肯為我出門的人。",
-        "character": "jamie",
-        "speakerFocus": "primary",
-        "sceneMode": "stage",
-        "presence": "onscreen",
-        "position": "center"
-      },
-      {
-        "type": "say",
-        "speaker": "傑米",
-        "text": "你們那幾個沒穿黑色的衣服，難道是以為今天我結婚嗎？",
-        "character": "jamie",
-        "speakerFocus": "primary",
-        "sceneMode": "stage",
-        "presence": "onscreen",
-        "position": "center"
-      },
+      S("jamie", "不過也好啦，今天你們終於都來了。\n我也終於知道誰只會在我IG底下打emoji，誰是真的肯為我出門的人。", "center", "stage"),
+      S("jamie", "你們那幾個沒穿黑色的衣服，難道是以為今天我結婚嗎？", "center", "stage"),
       {
         "type": "hide",
         "id": "jamie"
@@ -3645,30 +2464,12 @@
         "id": "big_laugh",
         "volume": 0.56
       },
-      {
-        "type": "say",
-        "speaker": "傑米",
-        "text": "給奇點無限的同事們。\n你們一直說我很會講幹話，我現在要告訴你們一個事實。\n我都要死了，你們還是最廢的那群人。",
-        "character": "jamie",
-        "speakerFocus": "primary",
-        "sceneMode": "stage",
-        "presence": "onscreen",
-        "position": "center"
-      },
+      S("jamie", "給奇點無限的同事們。\n你們一直說我很會講幹話，我現在要告訴你們一個事實。\n我都要死了，你們還是最廢的那群人。", "center", "stage"),
       {
         "type": "narrate",
         "text": "奇點無限的員工區瞬間安靜。"
       },
-      {
-        "type": "say",
-        "speaker": "傑米",
-        "text": "我已經立好遺囑，如果你們在我的追思會上講什麼「他是一個善良的人」這種話，我就從冥界投訴你們造謠。",
-        "character": "jamie",
-        "speakerFocus": "primary",
-        "sceneMode": "stage",
-        "presence": "onscreen",
-        "position": "center"
-      },
+      S("jamie", "我已經立好遺囑，如果你們在我的追思會上講什麼「他是一個善良的人」這種話，我就從冥界投訴你們造謠。", "center", "stage"),
       {
         "type": "hide",
         "id": "jamie"
@@ -3697,7 +2498,7 @@
           {
             "text": "他在燃燒自己。",
             "set": {
-              "tingru_warn_burning": true
+              "ruri_warn_burning": true
             },
             "next": "warn_burning"
           },
@@ -3731,168 +2532,43 @@
         }
       }
     ],
-    "warn_burning": [
-      {
-        "type": "say",
-        "speaker": "庭如",
-        "text": "他在燃燒自己。\n不是舞台效果的那種。",
-        "sceneMode": "story",
-        "conversation": {
-          "layout": "duo",
-          "participants": [
-            "tingru",
-            "oldnoodle"
-          ],
-          "voiceOnlyParticipants": [],
-          "placementPolicy": "primary-left-secondary-right-swap-once",
-          "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
-        },
-        "character": "tingru",
-        "speakerFocus": "primary",
-        "presence": "onscreen",
-        "position": "left"
-      },
-      {
-        "type": "say",
-        "speaker": "老麵",
-        "text": "幫我看著他什麼時候開始不是在演，而是在消耗自己。",
-        "character": "oldnoodle",
-        "speakerFocus": "primary",
-        "sceneMode": "story",
-        "presence": "onscreen",
-        "position": "right"
-      },
-      {
-        "type": "say",
-        "speaker": "庭如",
-        "text": "也許已經開始了。",
-        "character": "tingru",
-        "speakerFocus": "primary",
-        "sceneMode": "story",
-        "presence": "onscreen",
-        "position": "left"
-      },
+    "warn_burning":
+    [
+      S("ruri", "他在燃燒自己。\n不是舞台效果的那種。", "left", "story", {"conversation": {"layout": "duo", "participants": ["ruri", "mercer"], "voiceOnlyParticipants": [], "placementPolicy": "primary-left-secondary-right-swap-once", "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"}}),
+      S("mercer", "幫我看著他什麼時候開始不是在演，而是在消耗自己。", "right", "story"),
+      S("ruri", "也許已經開始了。", "left", "story"),
       {
         "type": "jump",
         "next": "mic_down"
       }
     ],
-    "warn_success": [
-      {
-        "type": "say",
-        "speaker": "庭如",
-        "text": "觀眾已經被他帶走了。",
-        "sceneMode": "story",
-        "conversation": {
-          "layout": "duo",
-          "participants": [
-            "tingru",
-            "oldnoodle"
-          ],
-          "voiceOnlyParticipants": [],
-          "placementPolicy": "primary-left-secondary-right-swap-once",
-          "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
-        },
-        "character": "tingru",
-        "speakerFocus": "primary",
-        "presence": "onscreen",
-        "position": "left"
-      },
-      {
-        "type": "say",
-        "speaker": "老麵",
-        "text": "很好。",
-        "character": "oldnoodle",
-        "speakerFocus": "primary",
-        "sceneMode": "story",
-        "presence": "onscreen",
-        "position": "right"
-      },
-      {
-        "type": "say",
-        "speaker": "庭如",
-        "text": "你聽起來像在看數據。",
-        "character": "tingru",
-        "speakerFocus": "primary",
-        "sceneMode": "story",
-        "presence": "onscreen",
-        "position": "left"
-      },
-      {
-        "type": "say",
-        "speaker": "老麵",
-        "text": "我現在必須像在看數據。",
-        "character": "oldnoodle",
-        "speakerFocus": "primary",
-        "sceneMode": "story",
-        "presence": "onscreen",
-        "position": "right"
-      },
+    "warn_success":
+    [
+      S("ruri", "觀眾已經被他帶走了。", "left", "story", {"conversation": {"layout": "duo", "participants": ["ruri", "mercer"], "voiceOnlyParticipants": [], "placementPolicy": "primary-left-secondary-right-swap-once", "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"}}),
+      S("mercer", "很好。", "right", "story"),
+      S("ruri", "你聽起來像在看數據。", "left", "story"),
+      S("mercer", "我現在必須像在看數據。", "right", "story"),
       {
         "type": "jump",
         "next": "mic_down"
       }
     ],
-    "warn_unreal": [
-      {
-        "type": "say",
-        "speaker": "庭如",
-        "text": "這些笑聲有點不真實。",
-        "sceneMode": "story",
-        "conversation": {
-          "layout": "duo",
-          "participants": [
-            "tingru",
-            "oldnoodle"
-          ],
-          "voiceOnlyParticipants": [],
-          "placementPolicy": "primary-left-secondary-right-swap-once",
-          "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
-        },
-        "character": "tingru",
-        "speakerFocus": "primary",
-        "presence": "onscreen",
-        "position": "left"
-      },
-      {
-        "type": "say",
-        "speaker": "老麵",
-        "text": "越大的聲音，越容易讓人忘記自己在逃避什麼。",
-        "character": "oldnoodle",
-        "speakerFocus": "primary",
-        "sceneMode": "story",
-        "presence": "onscreen",
-        "position": "right"
-      },
-      {
-        "type": "say",
-        "speaker": "庭如",
-        "text": "所以你知道。",
-        "character": "tingru",
-        "speakerFocus": "primary",
-        "sceneMode": "story",
-        "presence": "onscreen",
-        "position": "left"
-      },
-      {
-        "type": "say",
-        "speaker": "老麵",
-        "text": "我知道很多事，不代表我每次都能處理得好。",
-        "character": "oldnoodle",
-        "speakerFocus": "primary",
-        "sceneMode": "story",
-        "presence": "onscreen",
-        "position": "right"
-      },
+    "warn_unreal":
+    [
+      S("ruri", "這些笑聲有點不真實。", "left", "story", {"conversation": {"layout": "duo", "participants": ["ruri", "mercer"], "voiceOnlyParticipants": [], "placementPolicy": "primary-left-secondary-right-swap-once", "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"}}),
+      S("mercer", "越大的聲音，越容易讓人忘記自己在逃避什麼。", "right", "story"),
+      S("ruri", "所以你知道。", "left", "story"),
+      S("mercer", "我知道很多事，不代表我每次都能處理得好。", "right", "story"),
       {
         "type": "jump",
         "next": "mic_down"
       }
     ],
-    "mic_down": [
+    "mic_down":
+    [
       {
         "type": "mode",
-        "value": "oldnoodle",
+        "value": "mercer",
         "label": "老麵 / 真心告白 CUE",
         "sceneMode": "stage",
         "conversation": {
@@ -3976,7 +2652,8 @@
         }
       }
     ],
-    "cue_light_warm": [
+    "cue_light_warm":
+    [
       {
         "type": "sfx",
         "id": "spotlight",
@@ -3999,7 +2676,8 @@
         "next": "cue_music"
       }
     ],
-    "cue_light_small": [
+    "cue_light_small":
+    [
       {
         "type": "sfx",
         "id": "spotlight",
@@ -4022,7 +2700,8 @@
         "next": "cue_music"
       }
     ],
-    "cue_light_dramatic": [
+    "cue_light_dramatic":
+    [
       {
         "type": "sfx",
         "id": "spotlight",
@@ -4045,7 +2724,8 @@
         "next": "cue_music"
       }
     ],
-    "cue_light_cold": [
+    "cue_light_cold":
+    [
       {
         "type": "narrate",
         "text": "冷白色燈光沒有變。\n傑米的臉顯得更疲憊，也更真實。",
@@ -4063,7 +2743,8 @@
         "next": "cue_music"
       }
     ],
-    "cue_music": [
+    "cue_music":
+    [
       {
         "type": "choice",
         "prompt": "音樂怎麼進？",
@@ -4112,7 +2793,8 @@
         }
       }
     ],
-    "confession_no_music": [
+    "confession_no_music":
+    [
       {
         "type": "narrate",
         "text": "沒有大提琴，沒有吉他，沒有鋼琴。只剩下傑米的呼吸聲。\n那一瞬間，他不像CEO，也不像產品。他只像一個快死的人。",
@@ -4130,7 +2812,8 @@
         "next": "cue_camera"
       }
     ],
-    "confession_piano": [
+    "confession_piano":
+    [
       {
         "type": "bgm",
         "id": "title",
@@ -4155,7 +2838,8 @@
         "next": "cue_camera"
       }
     ],
-    "confession_text": [
+    "confession_text":
+    [
       {
         "type": "mode",
         "value": "stage",
@@ -4165,8 +2849,8 @@
           "layout": "stage-with-backstage-monitor",
           "participants": [
             "jamie",
-            "tingru",
-            "oldnoodle"
+            "ruri",
+            "mercer"
           ],
           "voiceOnlyParticipants": [],
           "placementPolicy": "primary-left-secondary-right-swap-once",
@@ -4193,8 +2877,8 @@
           "layout": "stage-with-backstage-monitor",
           "participants": [
             "jamie",
-            "tingru",
-            "oldnoodle"
+            "ruri",
+            "mercer"
           ],
           "voiceOnlyParticipants": [],
           "placementPolicy": "primary-left-secondary-right-swap-once",
@@ -4209,61 +2893,16 @@
         "sceneMode": "confession",
         "speakerFocus": "primary"
       },
-      {
-        "type": "say",
-        "speaker": "傑米",
-        "text": "好了。\n笑話說完了。\n接下來，我想說一些真話。",
-        "character": "jamie",
-        "speakerFocus": "primary",
-        "sceneMode": "confession",
-        "presence": "onscreen",
-        "position": "center"
-      },
-      {
-        "type": "say",
-        "speaker": "傑米",
-        "text": "我這一生，都在追求贏。\n我要贏過競爭對手，贏得市場，賺比別人更多的錢，登上所有雜誌封面。\n我做到了，對嗎？",
-        "character": "jamie",
-        "speakerFocus": "primary",
-        "sceneMode": "confession",
-        "presence": "onscreen",
-        "position": "center"
-      },
+      S("jamie", "好了。\n笑話說完了。\n接下來，我想說一些真話。", "center", "confession"),
+      S("jamie", "我這一生，都在追求贏。\n我要贏過競爭對手，贏得市場，賺比別人更多的錢，登上所有雜誌封面。\n我做到了，對嗎？", "center", "confession"),
       {
         "type": "sfx",
         "id": "applause_sparse",
         "volume": 0.36
       },
-      {
-        "type": "say",
-        "speaker": "傑米",
-        "text": "但直到三個月前，我才發現，我輸了。\n輸得一敗塗地。我輸給了我身體裡幾個不聽話的細胞。\n它們比我更懂創業，悄悄在我體內建立了一個無法擊敗的王國。",
-        "character": "jamie",
-        "speakerFocus": "primary",
-        "sceneMode": "confession",
-        "presence": "onscreen",
-        "position": "center"
-      },
-      {
-        "type": "say",
-        "speaker": "傑米",
-        "text": "我害怕。",
-        "character": "jamie",
-        "speakerFocus": "primary",
-        "sceneMode": "confession",
-        "presence": "onscreen",
-        "position": "center"
-      },
-      {
-        "type": "say",
-        "speaker": "傑米",
-        "text": "我怕痛。\n我怕死。\n但我最怕的，是被人遺忘。",
-        "character": "jamie",
-        "speakerFocus": "primary",
-        "sceneMode": "confession",
-        "presence": "onscreen",
-        "position": "center"
-      },
+      S("jamie", "但直到三個月前，我才發現，我輸了。\n輸得一敗塗地。我輸給了我身體裡幾個不聽話的細胞。\n它們比我更懂創業，悄悄在我體內建立了一個無法擊敗的王國。", "center", "confession"),
+      S("jamie", "我害怕。", "center", "confession"),
+      S("jamie", "我怕痛。\n我怕死。\n但我最怕的，是被人遺忘。", "center", "confession"),
       {
         "type": "effect",
         "name": "empathyUp",
@@ -4287,100 +2926,19 @@
         "hideUiDuringEffect": true,
         "wordMultiplier": 1
       },
-      {
-        "type": "say",
-        "speaker": "傑米",
-        "text": "我怕我死後，傑米・詹這個名字。\n只會變成財經新聞裡的一組歷史數據，或者科技論壇上一段被人爭論不休的文字。",
-        "character": "jamie",
-        "speakerFocus": "primary",
-        "sceneMode": "confession",
-        "presence": "onscreen",
-        "position": "center"
-      },
-      {
-        "type": "say",
-        "speaker": "傑米",
-        "text": "我用盡一生去打造一個王國。\n但我從來沒有時間，好好看看我王國裡的風景。",
-        "character": "jamie",
-        "speakerFocus": "primary",
-        "sceneMode": "confession",
-        "presence": "onscreen",
-        "position": "center"
-      },
-      {
-        "type": "say",
-        "speaker": "傑米",
-        "text": "我沒能好好陪我父親走完最後一程。\n我錯過了我最好朋友的婚禮。\n我甚至記不清，我上一次不為任何目的地去旅行，是什麼時候。",
-        "character": "jamie",
-        "speakerFocus": "primary",
-        "sceneMode": "confession",
-        "presence": "onscreen",
-        "position": "center"
-      },
-      {
-        "type": "say",
-        "speaker": "傑米",
-        "text": "所以我辦了這場秀。\n我想用我最擅長的方式，跟你們每一個人，好好道別。\n用那些傷人的笑話，戳破我們之間那些客套的謊言。",
-        "character": "jamie",
-        "speakerFocus": "primary",
-        "sceneMode": "confession",
-        "presence": "onscreen",
-        "position": "center"
-      },
-      {
-        "type": "say",
-        "speaker": "傑米",
-        "text": "我想告訴我的家人，對不起，我不是一個及格的兒子。\n我想告訴我的前任們，謝謝妳們，在我還不是個混蛋的時候愛過我。\n我想告訴我的朋友們，我很抱歉，總是把你們的邀約排在工作後面。",
-        "character": "jamie",
-        "speakerFocus": "primary",
-        "sceneMode": "confession",
-        "presence": "onscreen",
-        "position": "center"
-      },
-      {
-        "type": "say",
-        "speaker": "傑米",
-        "text": "我希望你們記得的，不是那個成功的、刻薄的、永遠正確的CEO。",
-        "character": "jamie",
-        "speakerFocus": "primary",
-        "sceneMode": "confession",
-        "presence": "onscreen",
-        "position": "center"
-      },
-      {
-        "type": "say",
-        "speaker": "傑米",
-        "text": "我希望你們記得，今天晚上，這個有點緊張，說了很多爛笑話，\n而且非常非常害怕被忘記的——詹傑明。",
-        "character": "jamie",
-        "speakerFocus": "primary",
-        "sceneMode": "confession",
-        "presence": "onscreen",
-        "position": "center"
-      },
+      S("jamie", "我怕我死後，傑米・詹這個名字。\n只會變成財經新聞裡的一組歷史數據，或者科技論壇上一段被人爭論不休的文字。", "center", "confession"),
+      S("jamie", "我用盡一生去打造一個王國。\n但我從來沒有時間，好好看看我王國裡的風景。", "center", "confession"),
+      S("jamie", "我沒能好好陪我父親走完最後一程。\n我錯過了我最好朋友的婚禮。\n我甚至記不清，我上一次不為任何目的地去旅行，是什麼時候。", "center", "confession"),
+      S("jamie", "所以我辦了這場秀。\n我想用我最擅長的方式，跟你們每一個人，好好道別。\n用那些傷人的笑話，戳破我們之間那些客套的謊言。", "center", "confession"),
+      S("jamie", "我想告訴我的家人，對不起，我不是一個及格的兒子。\n我想告訴我的前任們，謝謝妳們，在我還不是個混蛋的時候愛過我。\n我想告訴我的朋友們，我很抱歉，總是把你們的邀約排在工作後面。", "center", "confession"),
+      S("jamie", "我希望你們記得的，不是那個成功的、刻薄的、永遠正確的CEO。", "center", "confession"),
+      S("jamie", "我希望你們記得，今天晚上，這個有點緊張，說了很多爛笑話，\n而且非常非常害怕被忘記的——詹傑明。", "center", "confession"),
       {
         "type": "narrate",
         "text": "現場一片安靜。\n這不是死寂。\n這是人們終於不知道該用什麼反應，才不會弄髒剛剛那段話。"
       },
-      {
-        "type": "say",
-        "speaker": "庭如",
-        "text": "這就是你說的餘韻，對嗎？",
-        "character": "tingru",
-        "speakerFocus": "primary",
-        "sceneMode": "confession",
-        "presence": "onscreen",
-        "position": "left"
-      },
-      {
-        "type": "say",
-        "speaker": "老麵",
-        "text": "……對。",
-        "character": "oldnoodle",
-        "speakerFocus": "primary",
-        "sceneMode": "confession",
-        "presence": "onscreen",
-        "position": "right"
-      },
+      S("ruri", "這就是你說的餘韻，對嗎？", "left", "confession"),
+      S("mercer", "……對。", "right", "confession"),
       {
         "type": "clearSprites"
       },
@@ -4391,16 +2949,7 @@
         "position": "center",
         "sceneMode": "confession"
       },
-      {
-        "type": "say",
-        "speaker": "傑米",
-        "text": "但是。\n告別，不代表結束。",
-        "character": "jamie",
-        "speakerFocus": "primary",
-        "sceneMode": "confession",
-        "presence": "onscreen",
-        "position": "center"
-      },
+      S("jamie", "但是。\n告別，不代表結束。", "center", "confession"),
       {
         "type": "if",
         "flag": "silence",
@@ -4409,7 +2958,8 @@
         "else": "reincarnation_check3"
       }
     ],
-    "reincarnation_check3": [
+    "reincarnation_check3":
+    [
       {
         "type": "if",
         "flag": "silence",
@@ -4426,7 +2976,8 @@
         }
       }
     ],
-    "reincarnation_silence0": [
+    "reincarnation_silence0":
+    [
       {
         "type": "narrate",
         "text": "淚水還沒真正落下，LED 已經亮起。\n【輪迴】兩個字像刀一樣切進現場。",
@@ -4444,7 +2995,8 @@
         "next": "reincarnation_01"
       }
     ],
-    "reincarnation_silence3": [
+    "reincarnation_silence3":
+    [
       {
         "type": "wait",
         "ms": 3000,
@@ -4466,7 +3018,8 @@
         "next": "reincarnation_01"
       }
     ],
-    "reincarnation_silence7": [
+    "reincarnation_silence7":
+    [
       {
         "type": "wait",
         "ms": 7000,
@@ -4488,17 +3041,18 @@
         "next": "reincarnation_01"
       }
     ],
-    "reincarnation_01": [
+    "reincarnation_01":
+    [
       {
         "type": "mode",
-        "value": "tingru",
+        "value": "ruri",
         "label": "庭如 / 情緒崩裂",
         "sceneMode": "reincarnation",
         "conversation": {
           "layout": "stage-with-backstage-monitor",
           "participants": [
             "jamie",
-            "tingru"
+            "ruri"
           ],
           "voiceOnlyParticipants": [],
           "placementPolicy": "primary-left-secondary-right-swap-once",
@@ -4595,71 +3149,26 @@
           "reincarnation"
         ]
       },
+      S("jamie", "死亡，是人類的終極命題。\n而我，用我的一生，在為這個命題尋找答案。\n今天，我找到了。", "center", "reincarnation"),
+      S("jamie", "「輪迴」系統，是我和我的團隊，獻給這個世界的最終解答。\n它將完整地掃描、複製並上傳人類的意識、記憶與人格。", "center", "reincarnation"),
+      S("jamie", "肉體會消亡。\n但「你」，將以另一種形式，永遠存在。", "center", "reincarnation"),
+      S("ruri", "太多了。\n太多東西撞在一起了。\n有人覺得被騙，有人覺得看見奇蹟，有人在生氣，有人已經在想新聞標題。", "left", "reincarnation"),
+      S("ruri", "有人覺得自己贏了。\n可是他也很悲傷。", "left", "reincarnation"),
       {
-        "type": "say",
-        "speaker": "傑米",
-        "text": "死亡，是人類的終極命題。\n而我，用我的一生，在為這個命題尋找答案。\n今天，我找到了。",
-        "character": "jamie",
-        "speakerFocus": "primary",
-        "sceneMode": "reincarnation",
-        "presence": "onscreen",
-        "position": "center"
-      },
-      {
-        "type": "say",
-        "speaker": "傑米",
-        "text": "「輪迴」系統，是我和我的團隊，獻給這個世界的最終解答。\n它將完整地掃描、複製並上傳人類的意識、記憶與人格。",
-        "character": "jamie",
-        "speakerFocus": "primary",
-        "sceneMode": "reincarnation",
-        "presence": "onscreen",
-        "position": "center"
-      },
-      {
-        "type": "say",
-        "speaker": "傑米",
-        "text": "肉體會消亡。\n但「你」，將以另一種形式，永遠存在。",
-        "character": "jamie",
-        "speakerFocus": "primary",
-        "sceneMode": "reincarnation",
-        "presence": "onscreen",
-        "position": "center"
-      },
-      {
-        "type": "say",
-        "speaker": "庭如",
-        "text": "太多了。\n太多東西撞在一起了。\n有人覺得被騙，有人覺得看見奇蹟，有人在生氣，有人已經在想新聞標題。",
-        "character": "tingru",
-        "speakerFocus": "primary",
-        "sceneMode": "reincarnation",
-        "presence": "onscreen",
-        "position": "left"
-      },
-      {
-        "type": "say",
-        "speaker": "庭如",
-        "text": "有人覺得自己贏了。\n可是他也很悲傷。",
-        "character": "tingru",
-        "speakerFocus": "primary",
-        "sceneMode": "reincarnation",
-        "presence": "onscreen",
-        "position": "left"
+        "type": "hide",
+        "id": "ruri"
       },
       {
         "type": "hide",
-        "id": "tingru"
+        "id": "mercer"
       },
       {
         "type": "hide",
-        "id": "oldnoodle"
+        "id": "cate"
       },
       {
         "type": "hide",
-        "id": "kate"
-      },
-      {
-        "type": "hide",
-        "id": "ray"
+        "id": "remy"
       },
       {
         "type": "show",
@@ -4668,46 +3177,10 @@
         "position": "center",
         "sceneMode": "reincarnation"
       },
-      {
-        "type": "say",
-        "speaker": "傑米",
-        "text": "很快，我的身體將會停止運作。\n但是傑米・詹，將會繼續活下去。\n活在雲端，活在數據裡，繼續帶領奇點無限，走向下一個奇蹟。",
-        "character": "jamie",
-        "speakerFocus": "primary",
-        "sceneMode": "reincarnation",
-        "presence": "onscreen",
-        "position": "center"
-      },
-      {
-        "type": "say",
-        "speaker": "傑米",
-        "text": "我將成為「輪迴」計畫的第一位使用者。\n第一個，數位永生人。",
-        "character": "jamie",
-        "speakerFocus": "primary",
-        "sceneMode": "reincarnation",
-        "presence": "onscreen",
-        "position": "center"
-      },
-      {
-        "type": "say",
-        "speaker": "傑米",
-        "text": "所以，朋友們，不要為我悲傷。\n這不是一場告別式，這是一場產品發表會。\n是我人生中，最重要、也最成功的一次。",
-        "character": "jamie",
-        "speakerFocus": "primary",
-        "sceneMode": "reincarnation",
-        "presence": "onscreen",
-        "position": "center"
-      },
-      {
-        "type": "say",
-        "speaker": "傑米",
-        "text": "歡迎來到，永生的紀元。",
-        "character": "jamie",
-        "speakerFocus": "primary",
-        "sceneMode": "reincarnation",
-        "presence": "onscreen",
-        "position": "center"
-      },
+      S("jamie", "很快，我的身體將會停止運作。\n但是傑米・詹，將會繼續活下去。\n活在雲端，活在數據裡，繼續帶領奇點無限，走向下一個奇蹟。", "center", "reincarnation"),
+      S("jamie", "我將成為「輪迴」計畫的第一位使用者。\n第一個，數位永生人。", "center", "reincarnation"),
+      S("jamie", "所以，朋友們，不要為我悲傷。\n這不是一場告別式，這是一場產品發表會。\n是我人生中，最重要、也最成功的一次。", "center", "reincarnation"),
+      S("jamie", "歡迎來到，永生的紀元。", "center", "reincarnation"),
       {
         "type": "choice",
         "prompt": "庭如在心裡記下了一句話。",
@@ -4749,17 +3222,18 @@
         }
       }
     ],
-    "after_show_01": [
+    "after_show_01":
+    [
       {
         "type": "mode",
-        "value": "oldnoodle",
+        "value": "mercer",
         "label": "老麵 / 演出結束",
         "sceneMode": "afterward",
         "conversation": {
           "layout": "duo",
           "participants": [
-            "ray",
-            "kate"
+            "remy",
+            "cate"
           ],
           "voiceOnlyParticipants": [],
           "placementPolicy": "primary-left-secondary-right-swap-once",
@@ -4811,26 +3285,8 @@
         "displayMode": "background",
         "sceneMode": "afterward"
       },
-      {
-        "type": "say",
-        "speaker": "雷老師",
-        "text": "演出結束。",
-        "character": "ray",
-        "speakerFocus": "primary",
-        "sceneMode": "afterward",
-        "presence": "onscreen",
-        "position": "left"
-      },
-      {
-        "type": "say",
-        "speaker": "凱特",
-        "text": "……這算成功嗎？",
-        "character": "kate",
-        "speakerFocus": "primary",
-        "sceneMode": "afterward",
-        "presence": "onscreen",
-        "position": "right"
-      },
+      S("remy", "演出結束。", "left", "afterward"),
+      S("cate", "……這算成功嗎？", "right", "afterward"),
       {
         "type": "choice",
         "prompt": "演出結束後，老麵先看向誰？",
@@ -4838,16 +3294,16 @@
           {
             "text": "看傑米。",
             "set": {
-              "after_see_jamie": true
+              "after_see_Jamie": true
             },
             "next": "after_observe_jamie"
           },
           {
             "text": "看庭如。",
             "set": {
-              "after_see_tingru": true
+              "after_see_Ruri": true
             },
-            "next": "after_observe_tingru"
+            "next": "after_observe_ruri"
           },
           {
             "text": "看現場來賓。",
@@ -4872,169 +3328,34 @@
         }
       }
     ],
-    "after_say_completed": [
-      {
-        "type": "say",
-        "speaker": "老麵",
-        "text": "我們完成了。",
-        "sceneMode": "afterward",
-        "conversation": {
-          "layout": "duo",
-          "participants": [
-            "oldnoodle",
-            "tingru"
-          ],
-          "voiceOnlyParticipants": [],
-          "placementPolicy": "primary-left-secondary-right-swap-once",
-          "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
-        },
-        "character": "oldnoodle",
-        "speakerFocus": "primary",
-        "presence": "onscreen",
-        "position": "left"
-      },
-      {
-        "type": "say",
-        "speaker": "庭如",
-        "text": "我知道。",
-        "character": "tingru",
-        "speakerFocus": "primary",
-        "sceneMode": "afterward",
-        "presence": "onscreen",
-        "position": "right"
-      },
-      {
-        "type": "say",
-        "speaker": "老麵",
-        "text": "妳聽起來不像高興。",
-        "character": "oldnoodle",
-        "speakerFocus": "primary",
-        "sceneMode": "afterward",
-        "presence": "onscreen",
-        "position": "left"
-      },
-      {
-        "type": "say",
-        "speaker": "庭如",
-        "text": "完成不是只有一種意思。\n有些傷害也會被完成。",
-        "character": "tingru",
-        "speakerFocus": "primary",
-        "sceneMode": "afterward",
-        "presence": "onscreen",
-        "position": "right"
-      },
+    "after_say_completed":
+    [
+      S("mercer", "我們完成了。", "left", "afterward", {"conversation": {"layout": "duo", "participants": ["mercer", "ruri"], "voiceOnlyParticipants": [], "placementPolicy": "primary-left-secondary-right-swap-once", "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"}}),
+      S("ruri", "我知道。", "right", "afterward"),
+      S("mercer", "妳聽起來不像高興。", "left", "afterward"),
+      S("ruri", "完成不是只有一種意思。\n有些傷害也會被完成。", "right", "afterward"),
       {
         "type": "jump",
         "next": "three_months_later"
       }
     ],
-    "after_say_ethics": [
-      {
-        "type": "say",
-        "speaker": "老麵",
-        "text": "妳還覺得我們不該接嗎？",
-        "sceneMode": "afterward",
-        "conversation": {
-          "layout": "duo",
-          "participants": [
-            "oldnoodle",
-            "tingru"
-          ],
-          "voiceOnlyParticipants": [],
-          "placementPolicy": "primary-left-secondary-right-swap-once",
-          "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
-        },
-        "character": "oldnoodle",
-        "speakerFocus": "primary",
-        "presence": "onscreen",
-        "position": "left"
-      },
-      {
-        "type": "say",
-        "speaker": "庭如",
-        "text": "我現在更不知道了。",
-        "character": "tingru",
-        "speakerFocus": "primary",
-        "sceneMode": "afterward",
-        "presence": "onscreen",
-        "position": "right"
-      },
-      {
-        "type": "say",
-        "speaker": "老麵",
-        "text": "這算進步還是退步？",
-        "character": "oldnoodle",
-        "speakerFocus": "primary",
-        "sceneMode": "afterward",
-        "presence": "onscreen",
-        "position": "left"
-      },
-      {
-        "type": "say",
-        "speaker": "庭如",
-        "text": "這樣...算是事情變得比較真實了。",
-        "character": "tingru",
-        "speakerFocus": "primary",
-        "sceneMode": "afterward",
-        "presence": "onscreen",
-        "position": "right"
-      },
+    "after_say_ethics":
+    [
+      S("mercer", "妳還覺得我們不該接嗎？", "left", "afterward", {"conversation": {"layout": "duo", "participants": ["mercer", "ruri"], "voiceOnlyParticipants": [], "placementPolicy": "primary-left-secondary-right-swap-once", "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"}}),
+      S("ruri", "我現在更不知道了。", "right", "afterward"),
+      S("mercer", "這算進步還是退步？", "left", "afterward"),
+      S("ruri", "這樣...算是事情變得比較真實了。", "right", "afterward"),
       {
         "type": "jump",
         "next": "three_months_later"
       }
     ],
-    "after_say_unknown": [
-      {
-        "type": "say",
-        "speaker": "老麵",
-        "text": "我不知道這算什麼。",
-        "sceneMode": "afterward",
-        "conversation": {
-          "layout": "duo",
-          "participants": [
-            "oldnoodle",
-            "tingru"
-          ],
-          "voiceOnlyParticipants": [],
-          "placementPolicy": "primary-left-secondary-right-swap-once",
-          "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
-        },
-        "character": "oldnoodle",
-        "speakerFocus": "primary",
-        "presence": "onscreen",
-        "position": "left"
-      },
-      {
-        "type": "say",
-        "speaker": "庭如",
-        "text": "你終於說了。",
-        "character": "tingru",
-        "speakerFocus": "primary",
-        "sceneMode": "afterward",
-        "presence": "onscreen",
-        "position": "right"
-      },
-      {
-        "type": "say",
-        "speaker": "老麵",
-        "text": "說什麼？",
-        "character": "oldnoodle",
-        "speakerFocus": "primary",
-        "sceneMode": "afterward",
-        "presence": "onscreen",
-        "position": "left"
-      },
-      {
-        "type": "say",
-        "speaker": "庭如",
-        "text": "說你不知道。\n你一直都很會把不知道包裝成流程。",
-        "character": "tingru",
-        "speakerFocus": "primary",
-        "sceneMode": "afterward",
-        "presence": "onscreen",
-        "position": "right"
-      },
+    "after_say_unknown":
+    [
+      S("mercer", "我不知道這算什麼。", "left", "afterward", {"conversation": {"layout": "duo", "participants": ["mercer", "ruri"], "voiceOnlyParticipants": [], "placementPolicy": "primary-left-secondary-right-swap-once", "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"}}),
+      S("ruri", "你終於說了。", "right", "afterward"),
+      S("mercer", "說什麼？", "left", "afterward"),
+      S("ruri", "說你不知道。\n你一直都很會把不知道包裝成流程。", "right", "afterward"),
       {
         "type": "clearSprites"
       },
@@ -5043,19 +3364,20 @@
         "next": "three_months_later"
       }
     ],
-    "three_months_later": [
+    "three_months_later":
+    [
       {
         "type": "mode",
-        "value": "oldnoodle",
+        "value": "mercer",
         "label": "三個月後 / Before Fades 辦公室",
         "sceneMode": "office",
         "conversation": {
           "layout": "group",
           "participants": [
-            "kate",
-            "ray",
-            "oldnoodle",
-            "tingru"
+            "cate",
+            "remy",
+            "mercer",
+            "ruri"
           ],
           "voiceOnlyParticipants": [
             "none"
@@ -5095,56 +3417,11 @@
         "type": "narrate",
         "text": "Before Fades 辦公室裡，光線很冷。\n電視新聞聲音正在播放。\n老麵、凱特、雷老師、庭如都在，沒有一個人坐得很舒服。"
       },
-      {
-        "type": "say",
-        "speaker": "新聞主播",
-        "text": "奇點無限創辦人傑米・詹，於今日凌晨在家中病逝，享年三十六歲。",
-        "character": "none",
-        "speakerFocus": "voice",
-        "sceneMode": "office",
-        "presence": "voiceOnly",
-        "leaveAfter": true
-      },
-      {
-        "type": "say",
-        "speaker": "新聞主播",
-        "text": "三個月前。\n他曾在一場極具爭議的生前告別秀中，公開發表AI人格備份與數位永生計畫「輪迴」。",
-        "character": "none",
-        "speakerFocus": "voice",
-        "sceneMode": "office",
-        "presence": "voiceOnly",
-        "leaveAfter": true
-      },
-      {
-        "type": "say",
-        "speaker": "新聞主播",
-        "text": "當時許多評論認為，這只是一次高明卻殘酷的死亡行銷。",
-        "character": "none",
-        "speakerFocus": "voice",
-        "sceneMode": "office",
-        "presence": "voiceOnly",
-        "leaveAfter": true
-      },
-      {
-        "type": "say",
-        "speaker": "新聞主播",
-        "text": "然而隨著傑米・詹今日正式離世。\n奇點無限宣布，將依照其生前安排，啟動第一階段人格上傳與董事會顧問模型測試。",
-        "character": "none",
-        "speakerFocus": "voice",
-        "sceneMode": "office",
-        "presence": "voiceOnly",
-        "leaveAfter": true
-      },
-      {
-        "type": "say",
-        "speaker": "新聞主播",
-        "text": "奇點無限股價開盤後應聲漲停。",
-        "character": "none",
-        "speakerFocus": "voice",
-        "sceneMode": "office",
-        "presence": "voiceOnly",
-        "leaveAfter": true
-      },
+      S("news_anchor", "奇點無限創辦人傑米・詹，於今日凌晨在家中病逝，享年三十六歲。", "", "office", {"leaveAfter": true}),
+      S("news_anchor", "三個月前。\n他曾在一場極具爭議的生前告別秀中，公開發表AI人格備份與數位永生計畫「輪迴」。", "", "office", {"leaveAfter": true}),
+      S("news_anchor", "當時許多評論認為，這只是一次高明卻殘酷的死亡行銷。", "", "office", {"leaveAfter": true}),
+      S("news_anchor", "然而隨著傑米・詹今日正式離世。\n奇點無限宣布，將依照其生前安排，啟動第一階段人格上傳與董事會顧問模型測試。", "", "office", {"leaveAfter": true}),
+      S("news_anchor", "奇點無限股價開盤後應聲漲停。", "", "office", {"leaveAfter": true}),
       {
         "type": "clearSprites"
       },
@@ -5156,152 +3433,35 @@
         "displayMode": "bg",
         "sceneMode": "office"
       },
+      S("cate", "他真的死了。", "left", "office"),
+      S("cate", "明明知道他會死。\n可是看到新聞，還是覺得……", "left", "office"),
+      S("remy", "我昨天還在剪那天的片。", "right", "office"),
       {
-        "type": "say",
-        "speaker": "凱特",
-        "text": "他真的死了。",
-        "character": "kate",
-        "speakerFocus": "primary",
-        "sceneMode": "office",
-        "presence": "onscreen",
-        "position": "left"
+        "type": "hide",
+        "id": "cate"
       },
+      S("mercer", "你不是說要封存檔案？", "left", "office"),
+      S("remy", "是啊。\n所以我打開看了一下，又封回去了。\n那個混蛋真的很會講。", "right", "office"),
       {
-        "type": "say",
-        "speaker": "凱特",
-        "text": "明明知道他會死。\n可是看到新聞，還是覺得……",
-        "character": "kate",
-        "speakerFocus": "primary",
-        "sceneMode": "office",
-        "presence": "onscreen",
-        "position": "left"
-      },
-      {
-        "type": "say",
-        "speaker": "雷老師",
-        "text": "我昨天還在剪那天的片。",
-        "character": "ray",
-        "speakerFocus": "primary",
-        "sceneMode": "office",
-        "presence": "onscreen",
-        "position": "right"
+        "type": "hide",
+        "id": "mercer"
       },
       {
         "type": "hide",
-        "id": "kate"
+        "id": "remy"
       },
-      {
-        "type": "say",
-        "speaker": "老麵",
-        "text": "你不是說要封存檔案？",
-        "character": "oldnoodle",
-        "speakerFocus": "primary",
-        "sceneMode": "office",
-        "presence": "onscreen",
-        "position": "left"
-      },
-      {
-        "type": "say",
-        "speaker": "雷老師",
-        "text": "是啊。\n所以我打開看了一下，又封回去了。\n那個混蛋真的很會講。",
-        "character": "ray",
-        "speakerFocus": "primary",
-        "sceneMode": "office",
-        "presence": "onscreen",
-        "position": "right"
-      },
+      S("cate", "也真的很會傷人。", "left", "office"),
       {
         "type": "hide",
-        "id": "oldnoodle"
+        "id": "cate"
       },
-      {
-        "type": "hide",
-        "id": "ray"
-      },
-      {
-        "type": "say",
-        "speaker": "凱特",
-        "text": "也真的很會傷人。",
-        "character": "kate",
-        "speakerFocus": "primary",
-        "sceneMode": "office",
-        "presence": "onscreen",
-        "position": "left"
-      },
-      {
-        "type": "hide",
-        "id": "kate"
-      },
-      {
-        "type": "say",
-        "speaker": "庭如",
-        "text": "那天晚上，我感覺到的所有情緒，都是真的。",
-        "character": "tingru",
-        "speakerFocus": "primary",
-        "sceneMode": "office",
-        "presence": "onscreen",
-        "position": "left"
-      },
-      {
-        "type": "say",
-        "speaker": "庭如",
-        "text": "他的恐懼是真的。",
-        "character": "tingru",
-        "speakerFocus": "primary",
-        "sceneMode": "office",
-        "presence": "onscreen",
-        "position": "left"
-      },
-      {
-        "type": "say",
-        "speaker": "庭如",
-        "text": "他的驕傲是真的。",
-        "character": "tingru",
-        "speakerFocus": "primary",
-        "sceneMode": "office",
-        "presence": "onscreen",
-        "position": "left"
-      },
-      {
-        "type": "say",
-        "speaker": "庭如",
-        "text": "他的悲傷是真的。",
-        "character": "tingru",
-        "speakerFocus": "primary",
-        "sceneMode": "office",
-        "presence": "onscreen",
-        "position": "left"
-      },
-      {
-        "type": "say",
-        "speaker": "庭如",
-        "text": "他的算計也是真的。",
-        "character": "tingru",
-        "speakerFocus": "primary",
-        "sceneMode": "office",
-        "presence": "onscreen",
-        "position": "left"
-      },
-      {
-        "type": "say",
-        "speaker": "庭如",
-        "text": "全部都是真的。",
-        "character": "tingru",
-        "speakerFocus": "primary",
-        "sceneMode": "office",
-        "presence": "onscreen",
-        "position": "left"
-      },
-      {
-        "type": "say",
-        "speaker": "老麵",
-        "text": "所以才麻煩。",
-        "character": "oldnoodle",
-        "speakerFocus": "primary",
-        "sceneMode": "office",
-        "presence": "onscreen",
-        "position": "right"
-      },
+      S("ruri", "那天晚上，我感覺到的所有情緒，都是真的。", "left", "office"),
+      S("ruri", "他的恐懼是真的。", "left", "office"),
+      S("ruri", "他的驕傲是真的。", "left", "office"),
+      S("ruri", "他的悲傷是真的。", "left", "office"),
+      S("ruri", "他的算計也是真的。", "left", "office"),
+      S("ruri", "全部都是真的。", "left", "office"),
+      S("mercer", "所以才麻煩。", "right", "office"),
       {
         "type": "clearSprites"
       },
@@ -5314,10 +3474,11 @@
         "next": "case_report_01"
       }
     ],
-    "case_report_01": [
+    "case_report_01":
+    [
       {
         "type": "mode",
-        "value": "oldnoodle",
+        "value": "mercer",
         "label": "案件封存報告",
         "sceneMode": "report",
         "conversation": {
@@ -5404,7 +3565,8 @@
         }
       }
     ],
-    "case_report_truth": [
+    "case_report_truth":
+    [
       {
         "type": "choice",
         "prompt": "這場告別是否真誠？",
@@ -5453,7 +3615,8 @@
         }
       }
     ],
-    "case_report_legacy": [
+    "case_report_legacy":
+    [
       {
         "type": "choice",
         "prompt": "Before Fades 留下了什麼？",
@@ -5502,7 +3665,8 @@
         }
       }
     ],
-    "ending_route_check_ethics": [
+    "ending_route_check_ethics":
+    [
       {
         "type": "if",
         "flag": "ending_ethics",
@@ -5518,7 +3682,8 @@
         }
       }
     ],
-    "ending_route_check_paradox": [
+    "ending_route_check_paradox":
+    [
       {
         "type": "if",
         "flag": "ending_paradox",
@@ -5534,7 +3699,8 @@
         }
       }
     ],
-    "ending_a": [
+    "ending_a":
+    [
       {
         "type": "sfx",
         "id": "keyboard",
@@ -5569,7 +3735,8 @@
         "next": "final_screen"
       }
     ],
-    "ending_b": [
+    "ending_b":
+    [
       {
         "type": "sfx",
         "id": "keyboard",
@@ -5608,7 +3775,8 @@
         "next": "final_screen"
       }
     ],
-    "ending_c": [
+    "ending_c":
+    [
       {
         "type": "sfx",
         "id": "keyboard",
@@ -5643,7 +3811,8 @@
         "next": "final_screen"
       }
     ],
-    "final_screen": [
+    "final_screen":
+    [
       {
         "type": "clearSprites",
         "sceneMode": "title",
@@ -5657,7 +3826,7 @@
       },
       {
         "type": "bg",
-        "id": "bg_title_mic_rose",
+        "id": "white_rose",
         "transition": "fade",
         "waitAfter": 700,
         "displayMode": "background",
@@ -5683,7 +3852,7 @@
       },
       {
         "type": "narrate",
-        "text": "黑暗中，麥克風慢慢浮現。\n麥克風架旁，那朵白玫瑰仍在玻璃瓶裡。花瓣邊緣出現一點點枯黃。\n這一次，沒有人叫凱特去換掉。"
+        "text": "黑暗中，那朵白玫瑰慢慢浮現。\n它仍在玻璃瓶裡。花瓣邊緣出現一點點枯黃。\n這一次，沒有人叫凱特去換掉。"
       },
       {
         "type": "narrate",
@@ -5693,14 +3862,17 @@
         "type": "effect",
         "name": "fadeBlack",
         "ms": 2600,
-        "finalLogo": true
+        "finalLogo": true,
+        "logoFadeMs": 1800
       },
       {
         "type": "end",
-        "finalLogo": true
+        "finalLogo": true,
+        "logoFadeMs": 1800
       }
     ],
-    "case_memory_win": [
+    "case_memory_win":
+    [
       {
         "type": "clearSprites",
         "sceneMode": "memory",
@@ -5753,32 +3925,15 @@
         "type": "narrate",
         "text": "他說自己贏過競爭對手，贏過市場，贏過投資人，贏過所有說他瘋了的人。\n可是在那個字的底下，庭如聽見另一個更小的聲音。"
       },
-      {
-        "type": "say",
-        "speaker": "錄音中的傑米",
-        "text": "我不是想證明他們錯。",
-        "character": "none",
-        "speakerFocus": "voice",
-        "sceneMode": "memory",
-        "presence": "voiceOnly",
-        "leaveAfter": true
-      },
-      {
-        "type": "say",
-        "speaker": "錄音中的傑米",
-        "text": "我是想證明我存在。",
-        "character": "none",
-        "speakerFocus": "voice",
-        "sceneMode": "memory",
-        "presence": "voiceOnly",
-        "leaveAfter": true
-      },
+      S("jamie_recorded", "我不是想證明他們錯。", "", "memory", {"leaveAfter": true}),
+      S("jamie_recorded", "我是想證明我存在。", "", "memory", {"leaveAfter": true}),
       {
         "type": "jump",
         "next": "case_memory_father"
       }
     ],
-    "case_memory_company": [
+    "case_memory_company":
+    [
       {
         "type": "clearSprites",
         "sceneMode": "memory",
@@ -5841,32 +3996,15 @@
         "type": "narrate",
         "text": "他把公司蓋得越大，就越像在替自己蓋一座不會倒的墳。"
       },
-      {
-        "type": "say",
-        "speaker": "錄音中的傑米",
-        "text": "我用盡一生打造一個王國。",
-        "character": "none",
-        "speakerFocus": "voice",
-        "sceneMode": "memory",
-        "presence": "voiceOnly",
-        "leaveAfter": true
-      },
-      {
-        "type": "say",
-        "speaker": "錄音中的傑米",
-        "text": "但我好像從來沒有時間，看看王國裡的風景。",
-        "character": "none",
-        "speakerFocus": "voice",
-        "sceneMode": "memory",
-        "presence": "voiceOnly",
-        "leaveAfter": true
-      },
+      S("jamie_recorded", "我用盡一生打造一個王國。", "", "memory", {"leaveAfter": true}),
+      S("jamie_recorded", "但我好像從來沒有時間，看看王國裡的風景。", "", "memory", {"leaveAfter": true}),
       {
         "type": "jump",
         "next": "case_memory_ex"
       }
     ],
-    "case_memory_ex": [
+    "case_memory_ex":
+    [
       {
         "type": "clearSprites",
         "sceneMode": "memory",
@@ -5929,40 +4067,23 @@
         "type": "narrate",
         "text": "庭如感覺到：傑米不是懷念那些人。\n他懷念的是，那些人曾經愛過一個還不需要表演的他。"
       },
-      {
-        "type": "say",
-        "speaker": "錄音中的傑米",
-        "text": "她們在我還不是混蛋的時候愛過我。",
-        "character": "none",
-        "speakerFocus": "voice",
-        "sceneMode": "memory",
-        "presence": "voiceOnly",
-        "leaveAfter": true
-      },
-      {
-        "type": "say",
-        "speaker": "錄音中的傑米",
-        "text": "這很珍貴。\n也很不幸，因為後來我確實變成了混蛋。",
-        "character": "none",
-        "speakerFocus": "voice",
-        "sceneMode": "memory",
-        "presence": "voiceOnly",
-        "leaveAfter": true
-      },
+      S("jamie_recorded", "她們在我還不是混蛋的時候愛過我。", "", "memory", {"leaveAfter": true}),
+      S("jamie_recorded", "這很珍貴。\n也很不幸，因為後來我確實變成了混蛋。", "", "memory", {"leaveAfter": true}),
       {
         "type": "jump",
         "next": "case_memory_soul"
       }
     ],
-    "observe_fake_family": [
+    "observe_fake_family":
+    [
       {
         "type": "clearSprites",
         "sceneMode": "stage",
         "conversation": {
           "layout": "stage-with-backstage-monitor",
           "participants": [
-            "tingru",
-            "oldnoodle"
+            "ruri",
+            "mercer"
           ],
           "voiceOnlyParticipants": [],
           "placementPolicy": "primary-left-secondary-right-swap-once",
@@ -5993,36 +4114,9 @@
         "type": "narrate",
         "text": "也許不是為傑米。\n也許是為自己的父親、母親、孩子、某個來不及道別的人。\n悲傷被租來，但它不是假貨。它只是被錯放在這裡。"
       },
-      {
-        "type": "say",
-        "speaker": "庭如",
-        "text": "他們原本在表演悲傷。\n現在真的有一點悲傷。",
-        "character": "tingru",
-        "speakerFocus": "primary",
-        "sceneMode": "stage",
-        "presence": "onscreen",
-        "position": "left"
-      },
-      {
-        "type": "say",
-        "speaker": "老麵",
-        "text": "所以悲傷是真的？",
-        "character": "oldnoodle",
-        "speakerFocus": "primary",
-        "sceneMode": "stage",
-        "presence": "onscreen",
-        "position": "right"
-      },
-      {
-        "type": "say",
-        "speaker": "庭如",
-        "text": "是真的。\n但位置不對。",
-        "character": "tingru",
-        "speakerFocus": "primary",
-        "sceneMode": "stage",
-        "presence": "onscreen",
-        "position": "left"
-      },
+      S("ruri", "他們原本在表演悲傷。\n現在真的有一點悲傷。", "left", "stage"),
+      S("mercer", "所以悲傷是真的？", "right", "stage"),
+      S("ruri", "是真的。\n但位置不對。", "left", "stage"),
       {
         "type": "clearSprites"
       },
@@ -6039,7 +4133,8 @@
         "next": "showtime_more_jokes"
       }
     ],
-    "confession_cello": [
+    "confession_cello":
+    [
       {
         "type": "bgm",
         "id": "confession",
@@ -6064,7 +4159,8 @@
         "next": "cue_camera"
       }
     ],
-    "confession_guitar": [
+    "confession_guitar":
+    [
       {
         "type": "bgm",
         "id": "confession",
@@ -6089,7 +4185,8 @@
         "next": "cue_camera"
       }
     ],
-    "cue_camera": [
+    "cue_camera":
+    [
       {
         "type": "choice",
         "prompt": "鏡頭怎麼處理？",
@@ -6138,7 +4235,8 @@
         }
       }
     ],
-    "camera_close": [
+    "camera_close":
+    [
       {
         "type": "narrate",
         "text": "側邊螢幕放大傑米的臉。\n他的眼角有細微的紅，那不是表演能輕易做到的東西。",
@@ -6156,7 +4254,8 @@
         "next": "confession_text"
       }
     ],
-    "camera_wide": [
+    "camera_wide":
+    [
       {
         "type": "narrate",
         "text": "畫面留在遠景。\n傑米坐在舞台中央，很小，很亮，也很孤單。",
@@ -6174,7 +4273,8 @@
         "next": "confession_text"
       }
     ],
-    "camera_audience": [
+    "camera_audience":
+    [
       {
         "type": "narrate",
         "text": "鏡頭掃過台下。\n有人還沒從笑聲裡回來，有人已經開始不安。\n林薇抬手擦掉眼角。",
@@ -6192,7 +4292,8 @@
         "next": "confession_text"
       }
     ],
-    "camera_still": [
+    "camera_still":
+    [
       {
         "type": "narrate",
         "text": "沒有螢幕特寫，沒有剪輯，沒有人替這段真話加框。\n傑米必須用自己的聲音穿過整個會場。",
@@ -6210,7 +4311,8 @@
         "next": "confession_text"
       }
     ],
-    "after_observe_jamie": [
+    "after_observe_jamie":
+    [
       {
         "type": "narrate",
         "text": "監控切到舞台側邊。\n傑米靠著牆，看起來像剛打贏一場仗。",
@@ -6218,7 +4320,7 @@
         "conversation": {
           "layout": "duo",
           "participants": [
-            "oldnoodle",
+            "mercer",
             "jamie"
           ],
           "voiceOnlyParticipants": [],
@@ -6230,56 +4332,11 @@
         "type": "narrate",
         "text": "但沒有一個勝利者，會這樣用力抓著自己的袖口。"
       },
-      {
-        "type": "say",
-        "speaker": "老麵",
-        "text": "傑米。你做到了。",
-        "character": "oldnoodle",
-        "speakerFocus": "primary",
-        "sceneMode": "afterward",
-        "presence": "onscreen",
-        "position": "left"
-      },
-      {
-        "type": "say",
-        "speaker": "傑米",
-        "text": "我知道。",
-        "character": "jamie",
-        "speakerFocus": "primary",
-        "sceneMode": "afterward",
-        "presence": "onscreen",
-        "position": "right"
-      },
-      {
-        "type": "say",
-        "speaker": "傑米",
-        "text": "他們會記得嗎？",
-        "character": "jamie",
-        "speakerFocus": "primary",
-        "sceneMode": "afterward",
-        "presence": "onscreen",
-        "position": "right"
-      },
-      {
-        "type": "say",
-        "speaker": "老麵",
-        "text": "會。",
-        "character": "oldnoodle",
-        "speakerFocus": "primary",
-        "sceneMode": "afterward",
-        "presence": "onscreen",
-        "position": "left"
-      },
-      {
-        "type": "say",
-        "speaker": "傑米",
-        "text": "多久？",
-        "character": "jamie",
-        "speakerFocus": "primary",
-        "sceneMode": "afterward",
-        "presence": "onscreen",
-        "position": "right"
-      },
+      S("mercer", "傑米。你做到了。", "left", "afterward"),
+      S("jamie", "我知道。", "right", "afterward"),
+      S("jamie", "他們會記得嗎？", "right", "afterward"),
+      S("mercer", "會。", "left", "afterward"),
+      S("jamie", "多久？", "right", "afterward"),
       {
         "type": "narrate",
         "text": "老麵沒有回答。\n傑米也沒有追問。"
@@ -6297,10 +4354,11 @@
       },
       {
         "type": "jump",
-        "next": "after_tingru_choice"
+        "next": "after_ruri_choice"
       }
     ],
-    "after_observe_tingru": [
+    "after_observe_ruri":
+    [
       {
         "type": "narrate",
         "text": "庭如坐在控制室角落。\n她沒有哭，但她的表情像剛剛聽見什麼東西裂開。",
@@ -6308,54 +4366,18 @@
         "conversation": {
           "layout": "duo",
           "participants": [
-            "oldnoodle",
-            "tingru"
+            "mercer",
+            "ruri"
           ],
           "voiceOnlyParticipants": [],
           "placementPolicy": "primary-left-secondary-right-swap-once",
           "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
         }
       },
-      {
-        "type": "say",
-        "speaker": "老麵",
-        "text": "妳還好嗎？",
-        "character": "oldnoodle",
-        "speakerFocus": "primary",
-        "sceneMode": "afterward",
-        "presence": "onscreen",
-        "position": "left"
-      },
-      {
-        "type": "say",
-        "speaker": "庭如",
-        "text": "不知道。",
-        "character": "tingru",
-        "speakerFocus": "primary",
-        "sceneMode": "afterward",
-        "presence": "onscreen",
-        "position": "right"
-      },
-      {
-        "type": "say",
-        "speaker": "老麵",
-        "text": "這不是妳平常會給的答案。",
-        "character": "oldnoodle",
-        "speakerFocus": "primary",
-        "sceneMode": "afterward",
-        "presence": "onscreen",
-        "position": "left"
-      },
-      {
-        "type": "say",
-        "speaker": "庭如",
-        "text": "因為我平常比較知道自己感覺到什麼。 \n現在太多了，像有人把一整間房子的燈同時打開，可是房子裡每一個人都在流血。",
-        "character": "tingru",
-        "speakerFocus": "primary",
-        "sceneMode": "afterward",
-        "presence": "onscreen",
-        "position": "right"
-      },
+      S("mercer", "妳還好嗎？", "left", "afterward"),
+      S("ruri", "不知道。", "right", "afterward"),
+      S("mercer", "這不是妳平常會給的答案。", "left", "afterward"),
+      S("ruri", "因為我平常比較知道自己感覺到什麼。 \n現在太多了，像有人把一整間房子的燈同時打開，可是房子裡每一個人都在流血。", "right", "afterward"),
       {
         "type": "clearSprites"
       },
@@ -6369,18 +4391,19 @@
       },
       {
         "type": "jump",
-        "next": "after_tingru_choice"
+        "next": "after_ruri_choice"
       }
     ],
-    "after_observe_guests": [
+    "after_observe_guests":
+    [
       {
         "type": "clearSprites",
         "sceneMode": "afterward",
         "conversation": {
           "layout": "duo",
           "participants": [
-            "oldnoodle",
-            "tingru"
+            "mercer",
+            "ruri"
           ],
           "voiceOnlyParticipants": [
             "none"
@@ -6405,56 +4428,11 @@
         "type": "narrate",
         "text": "監控掃過會場。\n有人鼓掌，有人咒罵，有人急著打電話，有人坐在原位，像忘了怎麼站起來。"
       },
-      {
-        "type": "say",
-        "speaker": "記者A",
-        "text": "死亡行銷。",
-        "character": "none",
-        "speakerFocus": "voice",
-        "sceneMode": "afterward",
-        "presence": "voiceOnly",
-        "leaveAfter": true
-      },
-      {
-        "type": "say",
-        "speaker": "記者B",
-        "text": "不，這叫數位永生第一案。",
-        "character": "none",
-        "speakerFocus": "voice",
-        "sceneMode": "afterward",
-        "presence": "voiceOnly",
-        "leaveAfter": true
-      },
-      {
-        "type": "say",
-        "speaker": "記者C",
-        "text": "標題可以下：\n他用自己的死亡，發表了人類的未來。",
-        "character": "none",
-        "speakerFocus": "voice",
-        "sceneMode": "afterward",
-        "presence": "voiceOnly",
-        "leaveAfter": true
-      },
-      {
-        "type": "say",
-        "speaker": "老麵",
-        "text": "他們已經開始了。",
-        "character": "oldnoodle",
-        "speakerFocus": "primary",
-        "sceneMode": "afterward",
-        "presence": "onscreen",
-        "position": "right"
-      },
-      {
-        "type": "say",
-        "speaker": "庭如",
-        "text": "大家都開始了。",
-        "character": "tingru",
-        "speakerFocus": "primary",
-        "sceneMode": "afterward",
-        "presence": "onscreen",
-        "position": "left"
-      },
+      S("reporter_a", "死亡行銷。", "", "afterward", {"leaveAfter": true}),
+      S("reporter_b", "不，這叫數位永生第一案。", "", "afterward", {"leaveAfter": true}),
+      S("reporter_c", "標題可以下：\n他用自己的死亡，發表了人類的未來。", "", "afterward", {"leaveAfter": true}),
+      S("mercer", "他們已經開始了。", "right", "afterward"),
+      S("ruri", "大家都開始了。", "left", "afterward"),
       {
         "type": "clearSprites"
       },
@@ -6468,19 +4446,20 @@
       },
       {
         "type": "jump",
-        "next": "after_tingru_choice"
+        "next": "after_ruri_choice"
       }
     ],
-    "after_observe_phone": [
+    "after_observe_phone":
+    [
       {
         "type": "clearSprites",
         "sceneMode": "afterward",
         "conversation": {
           "layout": "group",
           "participants": [
-            "oldnoodle",
-            "ray",
-            "tingru"
+            "mercer",
+            "remy",
+            "ruri"
           ],
           "voiceOnlyParticipants": [],
           "placementPolicy": "primary-left-secondary-right-swap-once",
@@ -6508,47 +4487,20 @@
         "text": "傑米・詹生前告別秀驚爆 AI 永生計畫。\n死亡行銷？科技狂人以自身生命包裝產品發表，引發倫理爭議。\n輪迴系統是突破，還是騙局？",
         "sceneMode": "afterward"
       },
+      S("mercer", "太快了。", "left", "afterward"),
+      S("remy", "網路最擅長的就是把人的一生壓縮成三十秒懶人包。", "right", "afterward"),
       {
-        "type": "say",
-        "speaker": "老麵",
-        "text": "太快了。",
-        "character": "oldnoodle",
-        "speakerFocus": "primary",
-        "sceneMode": "afterward",
-        "presence": "onscreen",
-        "position": "left"
-      },
-      {
-        "type": "say",
-        "speaker": "雷老師",
-        "text": "網路最擅長的就是把人的一生壓縮成三十秒懶人包。",
-        "character": "ray",
-        "speakerFocus": "primary",
-        "sceneMode": "afterward",
-        "presence": "onscreen",
-        "position": "right"
+        "type": "hide",
+        "id": "mercer"
       },
       {
         "type": "hide",
-        "id": "oldnoodle"
+        "id": "remy"
       },
+      S("ruri", "可是我們今天做的事，不也是嗎？", "left", "afterward"),
       {
         "type": "hide",
-        "id": "ray"
-      },
-      {
-        "type": "say",
-        "speaker": "庭如",
-        "text": "可是我們今天做的事，不也是嗎？",
-        "character": "tingru",
-        "speakerFocus": "primary",
-        "sceneMode": "afterward",
-        "presence": "onscreen",
-        "position": "left"
-      },
-      {
-        "type": "hide",
-        "id": "tingru"
+        "id": "ruri"
       },
       {
         "type": "narrate",
@@ -6567,10 +4519,11 @@
       },
       {
         "type": "jump",
-        "next": "after_tingru_choice"
+        "next": "after_ruri_choice"
       }
     ],
-    "after_tingru_choice": [
+    "after_ruri_choice":
+    [
       {
         "type": "choice",
         "prompt": "老麵要對庭如說什麼？",
@@ -6620,4 +4573,5 @@
       }
     ]
   }
-}
+  });
+})();
