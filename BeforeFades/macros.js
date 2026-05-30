@@ -180,6 +180,14 @@ window.BF_MACROS = (() => {
     return cmd;
   }
 
+  function empathyUp(words = []) {
+    return effect({ name: "empathyUp", words });
+  }
+
+  function empathyDown(words = []) {
+    return effect({ name: "empathyDown", words });
+  }
+
   function pause(input = {}) {
     return withScene("wait", input);
   }
@@ -230,6 +238,8 @@ window.BF_MACROS = (() => {
     show,
     hide,
     effect,
+    empathyUp,
+    empathyDown,
     pause,
     jump,
     endGame,

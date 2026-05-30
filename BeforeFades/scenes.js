@@ -19,6 +19,8 @@ window.BEFORE_FADES_SCRIPT = (() => {
     show,
     hide,
     effect,
+    empathyUp,
+    empathyDown,
     pause,
     jump,
     endGame,
@@ -309,18 +311,7 @@ window.BEFORE_FADES_SCRIPT = (() => {
         loop: true,
         fade: 900
       }),
-      effect({
-        name: "empathyUp",
-        words: ["期待", "好奇", "社交恐懼", "悲傷", "懷疑", "飢餓", "怕被忘記", "期待", "好奇", "社交恐懼", "悲傷", "懷疑", "飢餓", "怕被忘記"],
-        direction: "up",
-        lockInput: false,
-        duration: 6860,
-        visualBg: "cg_empathy_warm",
-        fadeInMs: 300,
-        holdBeforeWordsMs: 750,
-        hideUiDuringEffect: true,
-        wordMultiplier: 1
-      }),
+      empathyUp(["期待", "好奇", "社交恐懼", "悲傷", "懷疑", "飢餓", "怕被忘記", "期待", "好奇", "社交恐懼", "悲傷", "懷疑", "飢餓", "怕被忘記"]),
       note({
         title: "EMPATHY",
         text: "庭如能感覺強烈情緒留下的形狀、溫度與方向。"
@@ -1001,19 +992,7 @@ window.BEFORE_FADES_SCRIPT = (() => {
           clearPolicy: "clear-at-scene-boundary-and-major-visual-change"
         }
       }),
-      effect({
-        name: "empathyUp",
-        words: ["贏", "火災", "停不下來", "存在", "贏", "火災", "停不下來", "存在", "贏", "火災", "停不下來", "存在"],
-        direction: "up",
-        lockInput: false,
-        duration: 6410,
-        visualBg: "cg_empathy_warm",
-        fadeInMs: 300,
-        holdBeforeWordsMs: 750,
-        hideUiDuringEffect: true,
-        wordMultiplier: 1,
-        scene: "empathy"
-      }),
+      empathyUp(["贏", "火災", "停不下來", "存在", "贏", "火災", "停不下來", "存在", "贏", "火災", "停不下來", "存在"]),
       line({
         text: "他說「贏」的時候，聲音很亮。"
       }),
@@ -1056,19 +1035,7 @@ window.BEFORE_FADES_SCRIPT = (() => {
         waitAfter: 1000,
         displayMode: "bg"
       }),
-      effect({
-        name: "empathyDown",
-        words: ["父親", "未撥出的電話", "病房", "以為還有時間", "父親", "未撥出的電話", "病房", "以為還有時間"],
-        direction: "down",
-        lockInput: false,
-        duration: 6410,
-        visualBg: "cg_empathy_fall",
-        fadeInMs: 300,
-        holdBeforeWordsMs: 750,
-        hideUiDuringEffect: true,
-        wordMultiplier: 1,
-        scene: "empathy"
-      }),
+      empathyDown(["父親", "未撥出的電話", "病房", "以為還有時間", "父親", "未撥出的電話", "病房", "以為還有時間"]),
       line({
         text: "父親這個詞很重。\n不是濃烈的悲傷，而是一支手機被拿起來，又放下。"
       }),
@@ -1105,19 +1072,7 @@ window.BEFORE_FADES_SCRIPT = (() => {
           clearPolicy: "clear-at-scene-boundary-and-major-visual-change"
         }
       }),
-      effect({
-        name: "empathyUp",
-        words: ["公司", "王國", "墳墓", "財報", "公司", "王國", "墳墓", "財報", "公司", "王國", "墳墓", "財報"],
-        direction: "up",
-        lockInput: false,
-        duration: 6410,
-        visualBg: "cg_empathy_warm",
-        fadeInMs: 300,
-        holdBeforeWordsMs: 750,
-        hideUiDuringEffect: true,
-        wordMultiplier: 1,
-        scene: "empathy"
-      }),
+      empathyUp(["公司", "王國", "墳墓", "財報", "公司", "王國", "墳墓", "財報", "公司", "王國", "墳墓", "財報"]),
       bg({
         id: "doc_internal_mail",
         transition: "fade",
@@ -1162,19 +1117,7 @@ window.BEFORE_FADES_SCRIPT = (() => {
           clearPolicy: "clear-at-scene-boundary-and-major-visual-change"
         }
       }),
-      effect({
-        name: "empathyUp",
-        words: ["前任", "被愛過的版本", "不是混蛋", "電影票", "前任", "被愛過的版本", "不是混蛋", "電影票", "前任", "被愛過的版本", "不是混蛋", "電影票"],
-        direction: "up",
-        lockInput: false,
-        duration: 6410,
-        visualBg: "cg_empathy_warm",
-        fadeInMs: 300,
-        holdBeforeWordsMs: 750,
-        hideUiDuringEffect: true,
-        wordMultiplier: 1,
-        scene: "empathy"
-      }),
+      empathyUp(["前任", "被愛過的版本", "不是混蛋", "電影票", "前任", "被愛過的版本", "不是混蛋", "電影票", "前任", "被愛過的版本", "不是混蛋", "電影票"]),
       bg({
         id: "doc_voice_wave",
         transition: "fade",
@@ -1225,19 +1168,7 @@ window.BEFORE_FADES_SCRIPT = (() => {
         waitAfter: 1000,
         displayMode: "bg"
       }),
-      effect({
-        name: "empathyUp",
-        words: ["靈魂", "資料", "名字", "詹傑明", "靈魂", "資料", "名字", "詹傑明"],
-        direction: "up",
-        lockInput: false,
-        duration: 6410,
-        visualBg: "cg_empathy_warm",
-        fadeInMs: 300,
-        holdBeforeWordsMs: 750,
-        hideUiDuringEffect: true,
-        wordMultiplier: 1,
-        scene: "empathy"
-      }),
+      empathyUp(["靈魂", "資料", "名字", "詹傑明", "靈魂", "資料", "名字", "詹傑明"]),
       line({
         text: "他說的是科技：\n掃描、建模、人格延續、決策模擬。"
       }),
@@ -1282,19 +1213,7 @@ window.BEFORE_FADES_SCRIPT = (() => {
         documentTarget: "sidePanelExpandable",
         documentTitle: "媒體新聞網站畫面"
       }),
-      effect({
-        name: "empathyDown",
-        words: ["被遺忘", "冷", "消失", "不再被需要", "被遺忘", "冷", "消失", "不再被需要", "被遺忘"],
-        direction: "down",
-        lockInput: false,
-        duration: 6410,
-        visualBg: "cg_empathy_fall",
-        fadeInMs: 300,
-        holdBeforeWordsMs: 750,
-        hideUiDuringEffect: true,
-        wordMultiplier: 1,
-        scene: "empathy"
-      }),
+      empathyDown(["被遺忘", "冷", "消失", "不再被需要", "被遺忘", "冷", "消失", "不再被需要", "被遺忘"]),
       line({
         text: "這裡很冷。不是死亡的冷。是世界繼續往前走，沒有人再提起你的冷。"
       }),
@@ -1934,19 +1853,7 @@ window.BEFORE_FADES_SCRIPT = (() => {
         participants: ["jamie"]
       }),
       clearSprites(),
-      effect({
-        name: "empathyUp",
-        words: ["禁忌快感", "表面的熱", "被冒犯", "好奇", "不知道該不該笑", "禁忌快感", "表面的熱", "被冒犯", "好奇", "不知道該不該笑"],
-        direction: "up",
-        lockInput: false,
-        duration: 6560,
-        visualBg: "cg_empathy_warm",
-        fadeInMs: 300,
-        holdBeforeWordsMs: 750,
-        hideUiDuringEffect: true,
-        wordMultiplier: 1,
-        scene: "empathy"
-      }),
+      empathyUp(["禁忌快感", "表面的熱", "被冒犯", "好奇", "不知道該不該笑", "禁忌快感", "表面的熱", "被冒犯", "好奇", "不知道該不該笑"]),
       bg({
         id: "stage_show",
         transition: "fade",
@@ -2357,19 +2264,7 @@ window.BEFORE_FADES_SCRIPT = (() => {
         id: "big_laugh",
         volume: 0.62
       }),
-      effect({
-        name: "empathyDown",
-        words: ["笑話", "傷口", "不用道歉", "林薇", "碎裂", "笑話", "傷口", "不用道歉", "林薇", "碎裂"],
-        direction: "down",
-        lockInput: false,
-        duration: 6560,
-        visualBg: "cg_empathy_fall",
-        fadeInMs: 300,
-        holdBeforeWordsMs: 750,
-        hideUiDuringEffect: true,
-        wordMultiplier: 1,
-        scene: "empathy"
-      }),
+      empathyDown(["笑話", "傷口", "不用道歉", "林薇", "碎裂", "笑話", "傷口", "不用道歉", "林薇", "碎裂"]),
       bg({
         id: "stage_show",
         transition: "fade",
@@ -3076,19 +2971,7 @@ window.BEFORE_FADES_SCRIPT = (() => {
         expression: "confession",
         position: "center"
       }),
-      effect({
-        name: "empathyUp",
-        words: ["害怕", "空", "被遺忘", "詹傑明", "害怕", "空", "被遺忘", "詹傑明"],
-        direction: "up",
-        lockInput: false,
-        duration: 6410,
-        visualBg: "cg_empathy_warm",
-        fadeInMs: 300,
-        holdBeforeWordsMs: 750,
-        hideUiDuringEffect: true,
-        wordMultiplier: 1,
-        scene: "empathy"
-      }),
+      empathyUp(["害怕", "空", "被遺忘", "詹傑明", "害怕", "空", "被遺忘", "詹傑明"]),
       line({
         role: "jamie",
         text: "我怕我死後，傑米・詹這個名字。\n只會變成財經新聞裡的一組歷史數據，或者科技論壇上一段被人爭論不休的文字。",
@@ -3269,9 +3152,7 @@ window.BEFORE_FADES_SCRIPT = (() => {
         volume: 0.72
       }),
       clearSprites(),
-      effect({
-        name: "empathyDown",
-        words: [
+      empathyDown([
           "震驚",
           "背叛",
           "欽佩",
@@ -3296,17 +3177,7 @@ window.BEFORE_FADES_SCRIPT = (() => {
           "騙子",
           "天才",
           "怪物"
-        ],
-        direction: "down",
-        lockInput: false,
-        duration: 7610,
-        visualBg: "cg_empathy_fall",
-        fadeInMs: 300,
-        holdBeforeWordsMs: 750,
-        hideUiDuringEffect: true,
-        wordMultiplier: 1,
-        scene: "empathy"
-      }),
+        ]),
       bg({
         id: "stage_reincarnation",
         transition: "fade",

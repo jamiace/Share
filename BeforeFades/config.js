@@ -25,15 +25,44 @@ window.BF_CONFIG = (() => {
 
   const ENGINE = {
     emotion: {
+      /*
+       * 情緒感知的正式演出設定。
+       * scenes.js 只需要說「empathyUp / empathyDown」與提供 words。
+       * 方向、背景圖、文字動態、是否鎖操作、顯示多久、文字出現延遲，都集中在這裡。
+       */
+      empathy: {
+        defaultDirection: "up",
+        durationMs: 6860,
+        holdBeforeWordsMs: 350,
+        lockInput: false,
+        hideUiDuringEffect: true,
+        wordMultiplier: 1,
+        profiles: {
+          up: {
+            visualBg: "cg_empathy_warm",
+            wordDirection: "up"
+          },
+          down: {
+            visualBg: "cg_empathy_fall",
+            wordDirection: "down"
+          }
+        }
+      },
+
+      /*
+       * 情緒感知全螢幕背景圖設定。
+       * fadeInMs / fadeOutMs：進退場時間。
+       * startOpacity / targetOpacity：起始透明度與最終透明度。
+       * startBlurPx / endBlurPx / exitBlurPx：進場起始、穩定狀態、退場結束的模糊度。
+       */
       backdrop: {
-        fadeInMs: 900,
-        fadeOutMs: 900,
-        holdBeforeWordsMs: 420,
+        fadeInMs: 1200,
+        fadeOutMs: 1200,
         startOpacity: 0,
         targetOpacity: 1,
-        startBlurPx: 18,
+        startBlurPx: 30,
         endBlurPx: 0,
-        exitBlurPx: 18,
+        exitBlurPx: 30,
         startScale: 1.035,
         endScale: 1,
         exitScale: 1.025

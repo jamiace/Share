@@ -341,10 +341,10 @@
     /*
       共感全螢幕背景：
       不再用 #effectLayer 直接黑場硬切，而是讓共感圖本身用「透明度 + 模糊」進退場。
-      參數由 engine.js / config.js 的 empathy.backdrop 控制。
+      參數由 config.js 的 ENGINE.emotion.empathy / ENGINE.emotion.backdrop 控制；engine.js 只負責套用流程。
     */
-    #game.empathy-fullscreen-active #uiLayer,
-    #game.empathy-fullscreen-active #choices {
+    #game.empathy-fullscreen-active.empathy-hide-ui #uiLayer,
+    #game.empathy-fullscreen-active.empathy-hide-ui #choices {
       visibility: hidden;
     }
 
@@ -357,14 +357,15 @@
     #game.empathy-fullscreen-active #cutinLayer {
       inset: 0;
       padding: 0;
-      opacity: 0;
+      opacity: var(--empathy-backdrop-opacity-start, 0);
       transform: scale(var(--empathy-backdrop-scale-start, 1.035));
       filter: blur(var(--empathy-backdrop-blur-start, 18px));
       background-image: none !important;
-      transition:
-        opacity var(--empathy-backdrop-fade-ms, 900ms) ease,
-        filter var(--empathy-backdrop-fade-ms, 900ms) ease,
-        transform var(--empathy-backdrop-fade-ms, 900ms) ease;
+      /*
+        共感背景的進退場時間現在由 engine.js 使用 Web Animations API 控制。
+        這裡故意不放 transition，避免 class 切換與圖片快取造成 fadeIn 被壓回瀏覽器預設的短動畫。
+      */
+      transition: none;
       will-change: opacity, filter, transform;
     }
 

@@ -44,15 +44,28 @@
       emotion: {
         defaultLifeMs: 5800,
         staggerMs: 150,
+        // 共感演出的正式可調參數放在 config.js 的 window.BF_CONFIG.ENGINE.emotion。
+        // engine.js 只保留流程與最低保底值。
+        empathy: {
+          defaultDirection: "up",
+          durationMs: 6860,
+          holdBeforeWordsMs: 350,
+          lockInput: false,
+          hideUiDuringEffect: true,
+          wordMultiplier: 1,
+          profiles: {
+            up: { visualBg: "cg_empathy_warm", wordDirection: "up" },
+            down: { visualBg: "cg_empathy_fall", wordDirection: "down" }
+          }
+        },
         backdrop: {
-          fadeInMs: 900,
-          fadeOutMs: 900,
-          holdBeforeWordsMs: 420,
+          fadeInMs: 1200,
+          fadeOutMs: 1200,
           startOpacity: 0,
           targetOpacity: 1,
-          startBlurPx: 18,
+          startBlurPx: 30,
           endBlurPx: 0,
-          exitBlurPx: 18,
+          exitBlurPx: 30,
           startScale: 1.035,
           endScale: 1,
           exitScale: 1.025
@@ -1386,17 +1399,17 @@
         // JSON: { "type": "effect", "name": "empathy", "words": ["期待", "好奇"] }
         // 也可明確指定：{ "type": "effect", "name": "empathyUp", "words": [...] }
         case "empathy":
-        case "empathyUp":
           await runEmpathyEffect(cmd);
           break;
+        case "empathyUp":
+          await runEmpathyEffect(cmd, "up");
+          break;
 
-        // 新增：負面情緒下墜。
-        // JSON: { "type": "effect", "name": "empathyDown", "words": ["恐懼", "墜落"] }
-        // 或：{ "type": "effect", "name": "empathy", "direction": "down", "words": [...] }
+        // 負面情緒下墜。
         case "empathyDown":
         case "empathyFall":
         case "empathySink":
-          await runEmpathyEffect({ ...cmd, direction: cmd.direction || cmd.dir || "down" });
+          await runEmpathyEffect(cmd, "down");
           break;
 
         case "fadeBlack": await fadeBlack(cmd.ms ?? 700, cmd); break;
@@ -1442,44 +1455,93 @@
 	  await wait(ms);
 	}
 
-    async function runEmpathyEffect(cmdOrWords = [], direction = "up") {
+    async function runEmpathyEffect(cmdOrWords = [], fallbackDirection = "up") {
       const cmd = Array.isArray(cmdOrWords) || typeof cmdOrWords === "string"
-        ? { words: cmdOrWords, direction }
+        ? { words: cmdOrWords }
         : (cmdOrWords || {});
+      const runtime = resolveEmpathyRuntimeOptions(cmd, fallbackDirection);
       const sourceWords = cmd.words || [];
-      const words = expandEmotionWords(sourceWords, Number.isFinite(Number(cmd.wordMultiplier)) ? Number(cmd.wordMultiplier) : 3);
-      const dir = normalizeEmotionDirection(cmd.direction || cmd.dir || direction || "up");
-      const assetId = cmd.visualBg || (dir === "down" ? "cg_empathy_fall" : "cg_empathy_warm");
-      const duration = Number.isFinite(Number(cmd.duration)) ? Number(cmd.duration) : estimateEmotionDuration(words);
-      const shouldLock = cmd.lockInput !== false;
-      const backdrop = normalizeEmpathyBackdropOptions(cmd);
+      const words = expandEmotionWords(sourceWords, runtime.wordMultiplier);
 
-      if (shouldLock) lockInput(true);
-      enterEmpathyFullscreen();
+      if (runtime.lockInput) lockInput(true);
+      enterEmpathyFullscreen(runtime);
       try {
-        await showEmpathyBackdrop(assetId, backdrop);
-        await wait(backdrop.holdBeforeWordsMs);
-        await empathyWords(words, dir, duration);
-        await hideCutinImage(backdrop);
+        await showEmpathyBackdrop(runtime.visualBg, runtime.backdrop);
+        await wait(runtime.holdBeforeWordsMs);
+        await empathyWords(words, runtime.wordDirection, runtime.durationMs);
+        await hideCutinImage(runtime.backdrop);
       } finally {
         exitEmpathyFullscreen();
-        if (shouldLock) lockInput(false);
+        if (runtime.lockInput) lockInput(false);
       }
     }
 
-    function enterEmpathyFullscreen() {
+    function resolveEmpathyRuntimeOptions(cmd = {}, fallbackDirection = "up") {
+      const empathyConfig = CONFIG.emotion?.empathy || {};
+      const direction = normalizeEmotionDirection(
+        cmd.direction ||
+        cmd.dir ||
+        directionFromEmpathyName(cmd.name) ||
+        fallbackDirection ||
+        empathyConfig.defaultDirection ||
+        "up"
+      );
+      const profiles = empathyConfig.profiles || {};
+      const profile = profiles[direction] || profiles.up || {};
+      const wordDirection = normalizeEmotionDirection(cmd.wordDirection || profile.wordDirection || direction);
+      const visualBg = cmd.visualBg || cmd.background || profile.visualBg || (direction === "down" ? "cg_empathy_fall" : "cg_empathy_warm");
+      const durationMs = numberOr(cmd.durationMs, empathyConfig.durationMs ?? estimateEmotionDuration(cmd.words || []));
+      const holdBeforeWordsMs = numberOr(cmd.holdBeforeWordsMs, empathyConfig.holdBeforeWordsMs ?? 420);
+      const wordMultiplier = Number.isFinite(Number(cmd.wordMultiplier))
+        ? Number(cmd.wordMultiplier)
+        : numberOr(empathyConfig.wordMultiplier, 1);
+      const lockInput = typeof cmd.lockInput === "boolean"
+        ? cmd.lockInput
+        : Boolean(empathyConfig.lockInput);
+      const hideUiDuringEffect = typeof cmd.hideUiDuringEffect === "boolean"
+        ? cmd.hideUiDuringEffect
+        : empathyConfig.hideUiDuringEffect !== false;
+
+      return {
+        direction,
+        wordDirection,
+        visualBg,
+        durationMs,
+        holdBeforeWordsMs,
+        wordMultiplier,
+        lockInput,
+        hideUiDuringEffect,
+        backdrop: normalizeEmpathyBackdropOptions(cmd)
+      };
+    }
+
+    function directionFromEmpathyName(name = "") {
+      const n = String(name || "").trim().toLowerCase();
+      if (["empathydown", "empathyfall", "empathysink"].includes(n)) return "down";
+      if (["empathyup", "empathy"].includes(n)) return "up";
+      return "";
+    }
+
+    function enterEmpathyFullscreen(options = {}) {
       dom.game.classList.add("empathy-fullscreen-active");
+      dom.game.classList.toggle("empathy-hide-ui", options.hideUiDuringEffect !== false);
       dom.effects.querySelectorAll(".emotion-word").forEach(el => el.remove());
       dom.cutinLayer?.classList.remove("visible");
+
+      // 避免其他效果留下來的 inline 黑場蓋在共感背景上。
+      // CSS selector 不能覆蓋 inline style，所以這裡必須由引擎清掉。
+      dom.effects.style.transition = "";
+      dom.effects.style.background = "transparent";
     }
 
     function exitEmpathyFullscreen() {
-      dom.game.classList.remove("empathy-fullscreen-active");
+      dom.game.classList.remove("empathy-fullscreen-active", "empathy-hide-ui");
       dom.cutinLayer?.classList.remove("visible");
       if (dom.cutinImage) dom.cutinImage.removeAttribute("src");
       if (dom.cutinLayer) {
         dom.cutinLayer.style.backgroundImage = "";
         resetEmpathyBackdropCssVars();
+        resetEmpathyBackdropInlineState();
       }
       dom.effects.querySelectorAll(".emotion-word").forEach(el => el.remove());
     }
@@ -1493,7 +1555,6 @@
       return {
         fadeInMs: numberOr(cmd.fadeInMs, defaults.fadeInMs ?? 900),
         fadeOutMs: numberOr(cmd.fadeOutMs, defaults.fadeOutMs ?? 900),
-        holdBeforeWordsMs: numberOr(cmd.holdBeforeWordsMs, defaults.holdBeforeWordsMs ?? 420),
         startOpacity: numberOr(cmd.startOpacity, defaults.startOpacity ?? 0),
         targetOpacity: numberOr(cmd.targetOpacity, defaults.targetOpacity ?? 1),
         startBlurPx: numberOr(cmd.startBlurPx, defaults.startBlurPx ?? 18),
@@ -1511,6 +1572,7 @@
       const blurStart = phase === "exit" ? options.exitBlurPx : options.startBlurPx;
       const scaleStart = phase === "exit" ? options.exitScale : options.startScale;
       dom.cutinLayer.style.setProperty("--empathy-backdrop-fade-ms", `${fadeMs}ms`);
+      dom.cutinLayer.style.setProperty("--empathy-backdrop-opacity-start", String(options.startOpacity));
       dom.cutinLayer.style.setProperty("--empathy-backdrop-opacity", String(options.targetOpacity));
       dom.cutinLayer.style.setProperty("--empathy-backdrop-blur-start", `${blurStart}px`);
       dom.cutinLayer.style.setProperty("--empathy-backdrop-blur-end", `${options.endBlurPx}px`);
@@ -1522,6 +1584,7 @@
       if (!dom.cutinLayer) return;
       [
         "--empathy-backdrop-fade-ms",
+        "--empathy-backdrop-opacity-start",
         "--empathy-backdrop-opacity",
         "--empathy-backdrop-blur-start",
         "--empathy-backdrop-blur-end",
@@ -1530,33 +1593,190 @@
       ].forEach(name => dom.cutinLayer.style.removeProperty(name));
     }
 
+    function setEmpathyBackdropTransition(ms) {
+      if (!dom.cutinLayer) return;
+      const duration = Math.max(0, numberOr(ms, 0));
+      dom.cutinLayer.style.transition = [
+        `opacity ${duration}ms ease`,
+        `filter ${duration}ms ease`,
+        `transform ${duration}ms ease`
+      ].join(", ");
+    }
+
+    function setEmpathyBackdropInlineState({ opacity, blurPx, scale }) {
+      if (!dom.cutinLayer) return;
+      dom.cutinLayer.style.opacity = String(opacity);
+      dom.cutinLayer.style.filter = `blur(${blurPx}px)`;
+      dom.cutinLayer.style.transform = `scale(${scale})`;
+    }
+
+    function resetEmpathyBackdropInlineState() {
+      if (!dom.cutinLayer) return;
+      dom.cutinLayer.style.transition = "";
+      dom.cutinLayer.style.opacity = "";
+      dom.cutinLayer.style.filter = "";
+      dom.cutinLayer.style.transform = "";
+    }
+
+    async function prepareEmpathyBackdropFirstFrame(options) {
+      if (!dom.cutinLayer || !dom.cutinImage) return;
+
+      cancelEmpathyBackdropAnimations();
+      applyEmpathyBackdropCssVars(options, "enter");
+
+      dom.cutinLayer.classList.remove("visible");
+      dom.cutinLayer.style.backgroundImage = "";
+      dom.cutinLayer.style.transition = "none";
+
+      setEmpathyBackdropInlineState({
+        opacity: options.startOpacity,
+        blurPx: options.startBlurPx,
+        scale: options.startScale
+      });
+
+      // 這裡不能只靠 class + CSS transition。
+      // 圖片如果已經在快取裡，瀏覽器可能會把 src 設定與 visible 狀態合併成同一幀，
+      // 造成「瞬間亮起」；所以先強制提交透明模糊的第一幀。
+      void dom.cutinLayer.offsetWidth;
+      await nextFrame();
+      await nextFrame();
+    }
+
+    function cancelEmpathyBackdropAnimations() {
+      if (!dom.cutinLayer?.getAnimations) return;
+      dom.cutinLayer.getAnimations().forEach(animation => {
+        try { animation.cancel(); } catch (_) {}
+      });
+    }
+
+    async function renderCommittedFrame() {
+      await nextFrame();
+      await nextFrame();
+    }
+
+    async function animateEmpathyBackdrop(from, to, ms) {
+      if (!dom.cutinLayer) return;
+
+      const duration = Math.max(0, numberOr(ms, 0));
+      cancelEmpathyBackdropAnimations();
+      dom.cutinLayer.style.transition = "none";
+      setEmpathyBackdropInlineState(from);
+
+      void dom.cutinLayer.offsetWidth;
+      await renderCommittedFrame();
+
+      if (duration <= 0) {
+        setEmpathyBackdropInlineState(to);
+        return;
+      }
+
+      // 優先使用 Web Animations API，避免 CSS transition 被 class 順序、快取圖片、
+      // 或瀏覽器合併重排影響，導致 fadeInMs 設很長仍然瞬間完成。
+      if (typeof dom.cutinLayer.animate === "function") {
+        const animation = dom.cutinLayer.animate(
+          [
+            {
+              opacity: String(from.opacity),
+              filter: `blur(${from.blurPx}px)`,
+              transform: `scale(${from.scale})`
+            },
+            {
+              opacity: String(to.opacity),
+              filter: `blur(${to.blurPx}px)`,
+              transform: `scale(${to.scale})`
+            }
+          ],
+          {
+            duration,
+            easing: "ease",
+            fill: "forwards"
+          }
+        );
+
+        try {
+          await animation.finished;
+        } catch (_) {
+          // 被下一個演出中斷時不視為錯誤。
+        }
+
+        setEmpathyBackdropInlineState(to);
+        try { animation.cancel(); } catch (_) {}
+        return;
+      }
+
+      // 舊瀏覽器 fallback。
+      setEmpathyBackdropTransition(duration);
+      await nextFrame();
+      setEmpathyBackdropInlineState(to);
+      await wait(duration);
+      dom.cutinLayer.style.transition = "none";
+    }
+
     async function showEmpathyBackdrop(assetId, options = normalizeEmpathyBackdropOptions()) {
       const src = resolveBackgroundSrc(assetId);
       if (!src || !dom.cutinLayer || !dom.cutinImage) return;
+
       window.clearTimeout(dom.cutinLayer._timer);
-      dom.cutinLayer.classList.remove("visible");
-      dom.cutinLayer.style.backgroundImage = "";
-      applyEmpathyBackdropCssVars(options, "enter");
-      dom.cutinImage.src = src;
+      await prepareEmpathyBackdropFirstFrame(options);
+
+      dom.cutinImage.removeAttribute("src");
       dom.cutinImage.alt = assetDescriptionFor(assetId, src) || assetId;
+      dom.cutinImage.src = src;
       await waitForImage(dom.cutinImage);
-      await wait(30);
+
+      // 圖片載入完成後，再提交一次「透明 + 模糊」狀態。
+      // 這一步是修正瞬間顯示的關鍵，尤其是圖片已快取時。
+      setEmpathyBackdropInlineState({
+        opacity: options.startOpacity,
+        blurPx: options.startBlurPx,
+        scale: options.startScale
+      });
+      void dom.cutinLayer.offsetWidth;
+      await renderCommittedFrame();
+
       dom.cutinLayer.classList.add("visible");
-      await wait(options.fadeInMs);
+      await animateEmpathyBackdrop(
+        {
+          opacity: options.startOpacity,
+          blurPx: options.startBlurPx,
+          scale: options.startScale
+        },
+        {
+          opacity: options.targetOpacity,
+          blurPx: options.endBlurPx,
+          scale: options.endScale
+        },
+        options.fadeInMs
+      );
     }
 
     async function hideCutinImage(options = normalizeEmpathyBackdropOptions()) {
       if (!dom.cutinLayer) return;
+
       applyEmpathyBackdropCssVars(options, "exit");
-      await wait(30);
+
+      await animateEmpathyBackdrop(
+        {
+          opacity: options.targetOpacity,
+          blurPx: options.endBlurPx,
+          scale: options.endScale
+        },
+        {
+          opacity: options.startOpacity,
+          blurPx: options.exitBlurPx,
+          scale: options.exitScale
+        },
+        options.fadeOutMs
+      );
+
       dom.cutinLayer.classList.remove("visible");
-      await wait(options.fadeOutMs);
       if (dom.cutinImage) dom.cutinImage.removeAttribute("src");
       dom.cutinLayer.style.backgroundImage = "";
       resetEmpathyBackdropCssVars();
+      resetEmpathyBackdropInlineState();
     }
 
-    function expandEmotionWords(words, multiplier = 3) {
+    function expandEmotionWords(words, multiplier = 1) {
       const base = Array.isArray(words) ? words.filter(Boolean) : String(words || "").split(/[，,\s]+/).filter(Boolean);
       if (!base.length) return [];
       const count = Math.max(1, Math.round(multiplier || 1));
@@ -1969,6 +2189,10 @@
     }
 
     function wait(ms) { return new Promise(resolve => setTimeout(resolve, ms)); }
+
+    function nextFrame() {
+      return new Promise(resolve => requestAnimationFrame(() => resolve()));
+    }
 
     init().catch((err) => {
       console.error(err);
