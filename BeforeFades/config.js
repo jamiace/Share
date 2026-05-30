@@ -7,7 +7,8 @@
 window.BF_CONFIG = (() => {
   const META = {
     title: "Before Fades：地獄脫口秀的產品發表會",
-    version: "2.1.3-directed-script-real-diff-fixed-runtime-clean",
+    version: "",
+    displayVersion: "v 0.7",
     language: "zh-Hant",
     engine: "Before Fades Static Web Visual Novel Engine",
     startScene: "start",

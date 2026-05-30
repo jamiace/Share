@@ -119,6 +119,7 @@
       dialogueBox: $("dialogueBox"),
       next: $("nextIndicator"),
       choices: $("choices"),
+      gameVersion: $("gameVersion"),
       sidePanel: $("sidePanel"),
       sideTitle: $("sideTitle"),
       sideContent: $("sideContent"),
@@ -227,11 +228,23 @@
       return Number.isFinite(n) ? n : fallback;
     }
 
+
+
+    function setGameVersion() {
+      if (!dom.gameVersion) return;
+      const meta = window.BF_CONFIG?.META || state.script?.meta || {};
+      const rawVersion = meta.displayVersion || meta.gameVersion || meta.version || "";
+      const text = String(rawVersion || "").trim();
+      dom.gameVersion.textContent = text;
+      dom.gameVersion.classList.toggle("hidden", !text);
+    }
+
     async function init() {
       applyExternalEngineConfig();
       bindEvents();
       showLoadingScreen("讀取劇本中……", 0, 0);
       state.script = await loadScript();
+      setGameVersion();
       state.preloadReport = await preloadAllImagesWithProgress();
       validateScene(state.sceneId);
       applyFocusUi("g", "SYSTEM / READY");

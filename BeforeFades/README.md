@@ -81,3 +81,16 @@ effect({
   exitBlurPx: 20
 })
 ```
+
+
+## Title Screen 版號
+
+Title Screen 右下角會顯示小型遊戲版號。
+
+正式調整位置在 `config.js`：
+
+```js
+META.displayVersion = "v 0.7"
+```
+
+`index.html` 只放版號節點，`style.css` 控制顯示位置與樣式，`engine.js` 啟動時把 `META.displayVersion` 寫進畫面。
