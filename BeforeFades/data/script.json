@@ -2812,6 +2812,10 @@
         "position": "center"
       },
       {
+        "type": "hide",
+        "id": "jamie"
+      },
+      {
         "type": "bg",
         "id": "cg_audience_laugh",
         "transition": "fade",
@@ -2890,6 +2894,10 @@
         "sceneMode": "stage",
         "presence": "onscreen",
         "position": "center"
+      },
+      {
+        "type": "hide",
+        "id": "jamie"
       },
       {
         "type": "say",
@@ -3066,6 +3074,10 @@
         "position": "center"
       },
       {
+        "type": "hide",
+        "id": "jamie"
+      },
+      {
         "type": "bg",
         "id": "cg_audience_laugh",
         "transition": "fade",
@@ -3119,6 +3131,10 @@
         "sceneMode": "stage",
         "presence": "onscreen",
         "position": "center"
+      },
+      {
+        "type": "hide",
+        "id": "jamie"
       },
       {
         "type": "sfx",
@@ -3442,6 +3458,10 @@
         "position": "center"
       },
       {
+        "type": "hide",
+        "id": "jamie"
+      },
+      {
         "type": "bg",
         "id": "cg_linwei_silent",
         "transition": "fade",
@@ -3510,6 +3530,10 @@
         "sceneMode": "stage",
         "presence": "onscreen",
         "position": "center"
+      },
+      {
+        "type": "hide",
+        "id": "jamie"
       },
       {
         "type": "bg",
@@ -3601,6 +3625,10 @@
         "position": "center"
       },
       {
+        "type": "hide",
+        "id": "jamie"
+      },
+      {
         "type": "bg",
         "id": "cg_audience_laugh",
         "transition": "fade",
@@ -3636,6 +3664,10 @@
         "sceneMode": "stage",
         "presence": "onscreen",
         "position": "center"
+      },
+      {
+        "type": "hide",
+        "id": "jamie"
       },
       {
         "type": "bg",
@@ -5934,6 +5966,10 @@
         }
       },
       {
+        "type": "hide",
+        "id": "jamie"
+      },
+      {
         "type": "bg",
         "id": "cg_audience_laugh",
         "transition": "fade",
@@ -6348,6 +6384,10 @@
           "placementPolicy": "primary-left-secondary-right-swap-once",
           "clearPolicy": "clear-at-scene-boundary-and-major-visual-change"
         }
+      },
+      {
+        "type": "hide",
+        "id": "jamie"
       },
       {
         "type": "bg",
