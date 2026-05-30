@@ -5660,7 +5660,7 @@
         "id": "bg_title_mic_rose",
         "transition": "fade",
         "waitAfter": 700,
-        "displayMode": "bg",
+        "displayMode": "background",
         "sceneMode": "title"
       },
       {
