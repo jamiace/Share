@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI 泡沫後的殺手級應用企劃</title>
+  <style>
+    :root {
+      --bg: #f6f3ee;
+      --paper: #ffffff;
+      --ink: #222222;
+      --muted: #6f6a63;
+      --line: #ded7cc;
+      --accent: #c96b3c;
+      --accent-dark: #8f3f22;
+      --soft: #fff4ea;
+      --deep: #20242a;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+      line-height: 1.75;
+    }
+
+    .page {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 48px 24px 80px;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #20242a 0%, #3a312c 58%, #8f3f22 100%);
+      color: #fff;
+      border-radius: 28px;
+      padding: 56px 48px;
+      box-shadow: 0 24px 70px rgba(0,0,0,0.18);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      right: -80px;
+      bottom: -100px;
+      width: 280px;
+      height: 280px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.08);
+    }
+
+    .eyebrow {
+      display: inline-block;
+      padding: 6px 12px;
+      border: 1px solid rgba(255,255,255,0.36);
+      border-radius: 999px;
+      color: rgba(255,255,255,0.82);
+      font-size: 14px;
+      letter-spacing: 0.08em;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      font-size: clamp(36px, 6vw, 64px);
+      line-height: 1.08;
+      margin: 0 0 20px;
+      letter-spacing: -0.04em;
+    }
+
+    .hero p {
+      max-width: 760px;
+      font-size: 20px;
+      margin: 0;
+      color: rgba(255,255,255,0.86);
+    }
+
+    .section {
+      margin-top: 36px;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: 36px;
+      box-shadow: 0 12px 36px rgba(74, 59, 45, 0.07);
+    }
+
+    h2 {
+      font-size: 30px;
+      line-height: 1.25;
+      margin: 0 0 20px;
+      letter-spacing: -0.02em;
+    }
+
+    h3 {
+      font-size: 22px;
+      margin: 0 0 10px;
+      letter-spacing: -0.015em;
+    }
+
+    p {
+      margin: 0 0 16px;
+    }
+
+    .lead {
+      font-size: 19px;
+      color: var(--muted);
+    }
+
+    .big-statement {
+      margin: 26px 0 8px;
+      padding: 28px;
+      border-radius: 20px;
+      background: var(--soft);
+      border-left: 6px solid var(--accent);
+      font-size: 24px;
+      line-height: 1.45;
+      font-weight: 700;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin-top: 22px;
+    }
+
+    .card {
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 24px;
+      background: #fffdfb;
+    }
+
+    .card .tag {
+      display: inline-block;
+      margin-bottom: 14px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: #efe6dc;
+      color: var(--accent-dark);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .card p {
+      color: var(--muted);
+      margin-bottom: 0;
+    }
+
+    .rank-list {
+      display: grid;
+      gap: 16px;
+      margin-top: 24px;
+    }
+
+    .rank-item {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 18px;
+      align-items: start;
+      padding: 24px;
+      border-radius: 22px;
+      background: #fffdfb;
+      border: 1px solid var(--line);
+    }
+
+    .rank {
+      width: 60px;
+      height: 60px;
+      display: grid;
+      place-items: center;
+      border-radius: 18px;
+      background: var(--deep);
+      color: #fff;
+      font-size: 22px;
+      font-weight: 800;
+    }
+
+    .one-line {
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--accent-dark);
+      margin: 6px 0 10px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      overflow: hidden;
+      border-radius: 18px;
+      border: 1px solid var(--line);
+    }
+
+    th, td {
+      padding: 16px 18px;
+      text-align: left;
+      border-bottom: 1px solid var(--line);
+      vertical-align: top;
+    }
+
+    th {
+      background: #f1ebe3;
+      color: #3a312c;
+      font-size: 15px;
+    }
+
+    tr:last-child td {
+      border-bottom: 0;
+    }
+
+    .score {
+      font-weight: 800;
+      color: var(--accent-dark);
+      white-space: nowrap;
+    }
+
+    .callout-dark {
+      background: var(--deep);
+      color: #fff;
+      border-radius: 24px;
+      padding: 34px;
+      margin-top: 24px;
+    }
+
+    .callout-dark h2,
+    .callout-dark h3 {
+      color: #fff;
+    }
+
+    .callout-dark p {
+      color: rgba(255,255,255,0.82);
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin-top: 20px;
+    }
+
+    .step {
+      padding: 20px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.16);
+    }
+
+    .step strong {
+      display: block;
+      margin-bottom: 8px;
+      color: #fff;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 42px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    @media (max-width: 880px) {
+      .hero, .section, .callout-dark {
+        padding: 28px;
+      }
+
+      .grid, .steps {
+        grid-template-columns: 1fr;
+      }
+
+      .rank-item {
+        grid-template-columns: 1fr;
+      }
+
+      table, thead, tbody, th, td, tr {
+        display: block;
+      }
+
+      thead {
+        display: none;
+      }
+
+      tr {
+        border-bottom: 1px solid var(--line);
+      }
+
+      td {
+        border-bottom: 0;
+        padding: 10px 16px;
+      }
+
+      td::before {
+        content: attr(data-label);
+        display: block;
+        font-size: 13px;
+        font-weight: 800;
+        color: var(--muted);
+        margin-bottom: 3px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="hero">
+      <span class="eyebrow">AI Bubble Aftermath / Killer App Proposal</span>
+      <h1>AI 泡沫後，真正會留下來的殺手級應用</h1>
+      <p>本企劃不討論「AI有多強」，而是回到產品現實：什麼東西能一句話講完、每天被使用、能簡單落地，並且在泡沫退去後仍然有明確價值。</p>
+    </section>
+
+    <section class="section">
+      <h2>一、核心判斷</h2>
+      <p class="lead">.com 泡沫後留下來的，不是「網路概念」，而是搜尋、電商、雲端、支付、企業系統。智慧手機留下來的，也不是手機本身，而是 LBS、隨身支付、行動驗證、數位門禁與車鑰匙。</p>
+      <div class="big-statement">AI 最可能留下來的殺手級應用，不是「更會聊天」，而是「把人不想做、但每天都必須處理的事，直接做完」。</div>
+    </section>
+
+    <section class="section">
+      <h2>二、殺手級應用的判斷標準</h2>
+      <div class="grid">
+        <div class="card">
+          <span class="tag">Criteria 01</span>
+          <h3>一句話能講完</h3>
+          <p>價值不需要教育市場。例如「幫我做完」、「幫我記得」、「幫我比較」。</p>
+        </div>
+        <div class="card">
+          <span class="tag">Criteria 02</span>
+          <h3>每天都有需求</h3>
+          <p>不是偶爾炫技，而是工作、生活、交易、行政流程中反覆發生。</p>
+        </div>
+        <div class="card">
+          <span class="tag">Criteria 03</span>
+          <h3>能降低成本</h3>
+          <p>省時間、省人力、省判斷成本，最好能被企業或個人直接感受到。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>三、優先候選：最可能留下來的 AI 應用</h2>
+      <div class="rank-list">
+        <article class="rank-item">
+          <div class="rank">01</div>
+          <div>
+            <h3>AI 代辦代理人</h3>
+            <div class="one-line">「不要告訴我，幫我做。」</div>
+            <p>AI 從回答問題，進化成代替使用者完成任務。例如預約、訂位、比價、填表、寄信、建立行事曆、追蹤進度。這是最接近智慧手機 LBS / 支付等級的通用型殺手級應用。</p>
+          </div>
+        </article>
+
+        <article class="rank-item">
+          <div class="rank">02</div>
+          <div>
+            <h3>個人記憶與人生 CRM</h3>
+            <div class="one-line">「幫我記得。」</div>
+            <p>AI 記住使用者的專案、對話、文件、關係、承諾與生活細節，在需要時主動提醒或直接整理。它不是筆記軟體，而是「會在正確時間拿出正確資訊」的個人記憶層。</p>
+          </div>
+        </article>
+
+        <article class="rank-item">
+          <div class="rank">03</div>
+          <div>
+            <h3>文件轉行動</h3>
+            <div class="one-line">「看完後直接幫我做。」</div>
+            <p>Email、合約、會議紀錄、公文、報價單、需求文件，不只是摘要，而是自動轉成待辦、風險提醒、回覆草稿、測試案例、排程與後續追蹤。</p>
+          </div>
+        </article>
+
+        <article class="rank-item">
+          <div class="rank">04</div>
+          <div>
+            <h3>會議消滅器</h3>
+            <div class="one-line">「幫我開會，然後只告訴我結論。」</div>
+            <p>AI 讀取 Email、Slack、Jira、文件與會議紀錄，整理資訊差異、決策點、負責人與下一步。真正價值不是會議摘要，而是減少不必要的同步會議。</p>
+          </div>
+        </article>
+
+        <article class="rank-item">
+          <div class="rank">05</div>
+          <div>
+            <h3>決策比較器</h3>
+            <div class="one-line">「幫我比較，幫我選。」</div>
+            <p>買車、買保險、選供應商、選課程、選方案、選旅宿，AI 將大量資訊整理成可決策的選項。Google 解決找資料，AI 解決做選擇。</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>四、應用候選評估表</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>候選應用</th>
+            <th>一句話價值</th>
+            <th>落地難度</th>
+            <th>商業價值</th>
+            <th>綜合判斷</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td data-label="候選應用">AI 代辦代理人</td>
+            <td data-label="一句話價值">幫我把事情做完</td>
+            <td data-label="落地難度">高，需要權限、驗證、付款與流程串接</td>
+            <td data-label="商業價值"><span class="score">極高</span></td>
+            <td data-label="綜合判斷">最像真正的 AI killer app，但需要從小任務切入。</td>
+          </tr>
+          <tr>
+            <td data-label="候選應用">個人記憶 / 人生 CRM</td>
+            <td data-label="一句話價值">幫我記得所有重要事情</td>
+            <td data-label="落地難度">中高，需要資料整合與隱私信任</td>
+            <td data-label="商業價值"><span class="score">高</span></td>
+            <td data-label="綜合判斷">一旦養成習慣，黏著度會非常高。</td>
+          </tr>
+          <tr>
+            <td data-label="候選應用">文件轉行動</td>
+            <td data-label="一句話價值">看完文件後直接產生下一步</td>
+            <td data-label="落地難度">中，適合企業與 PM 工作場景</td>
+            <td data-label="商業價值"><span class="score">高</span></td>
+            <td data-label="綜合判斷">最容易從企業內部工具開始落地。</td>
+          </tr>
+          <tr>
+            <td data-label="候選應用">會議消滅器</td>
+            <td data-label="一句話價值">少開會也能同步資訊</td>
+            <td data-label="落地難度">中，需要串接工作流</td>
+            <td data-label="商業價值"><span class="score">高</span></td>
+            <td data-label="綜合判斷">企業願意付費，因為能直接省時間。</td>
+          </tr>
+          <tr>
+            <td data-label="候選應用">決策比較器</td>
+            <td data-label="一句話價值">幫我整理選項並做選擇</td>
+            <td data-label="落地難度">低到中，可從垂直領域切入</td>
+            <td data-label="商業價值"><span class="score">中高</span></td>
+            <td data-label="綜合判斷">適合做成消費型或導購型產品。</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="section">
+      <h2>五、最建議切入的 MVP</h2>
+      <p class="lead">不要一開始就做萬能 AI Agent。真正務實的做法，是先從一個高頻、低風險、可驗證的任務開始。</p>
+      <div class="big-statement">建議 MVP：AI 文件轉行動助理</div>
+      <p>先讓 AI 讀取 Email、會議紀錄、需求文件或客戶訊息，產出「待辦事項、負責人、風險點、回覆草稿、下一步」。這比完整代辦更容易落地，也更容易讓企業感受到價值。</p>
+
+      <div class="grid">
+        <div class="card">
+          <span class="tag">MVP 01</span>
+          <h3>輸入</h3>
+          <p>Email、會議紀錄、需求文件、報價單、客戶訊息、產品規格。</p>
+        </div>
+        <div class="card">
+          <span class="tag">MVP 02</span>
+          <h3>處理</h3>
+          <p>摘要、分類、風險標記、任務拆解、缺漏檢查、優先級排序。</p>
+        </div>
+        <div class="card">
+          <span class="tag">MVP 03</span>
+          <h3>輸出</h3>
+          <p>待辦清單、回覆草稿、會議結論、測試案例、時程建議。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="callout-dark">
+      <h2>六、落地路線</h2>
+      <div class="steps">
+        <div class="step">
+          <strong>Phase 1</strong>
+          <p>文件摘要與待辦拆解，不碰外部權限。</p>
+        </div>
+        <div class="step">
+          <strong>Phase 2</strong>
+          <p>串接行事曆、任務系統、Email 草稿。</p>
+        </div>
+        <div class="step">
+          <strong>Phase 3</strong>
+          <p>加入個人記憶，知道過去脈絡。</p>
+        </div>
+        <div class="step">
+          <strong>Phase 4</strong>
+          <p>開放小範圍代辦，例如預約、追蹤、提醒。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>七、企劃結論</h2>
+      <p>AI 泡沫破掉後，留下來的不會是「AI 很聰明」這件事，而是 AI 被內建到日常流程裡，變成一種新的行動層。</p>
+      <div class="big-statement">最終產品命題：AI 不只是回答問題，而是把資訊變成行動。</div>
+      <p>若要找一句真正有機會打中市場的價值主張，可以濃縮成：</p>
+      <div class="big-statement">「不要只告訴我答案，幫我把事情處理掉。」</div>
+    </section>
+
+    <div class="footer">AI Killer App Proposal｜企劃草案</div>
+  </main>
+</body>
+</html>
