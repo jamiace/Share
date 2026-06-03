@@ -1,0 +1,1352 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Jami宇宙創作總覽｜作品世界觀整理</title>
+<style>
+:root {
+  --bg:#111217; --panel:#181a22; --panel2:#202330; --ink:#f4f1ea; --muted:#b9b3a7;
+  --line:rgba(255,255,255,.12); --accent:#d6b25e; --accent2:#86a9ff; --danger:#e67575;
+  --soft:rgba(214,178,94,.12); --shadow:0 20px 60px rgba(0,0,0,.35);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:radial-gradient(circle at 10% 0%,#272233 0,#111217 38%,#0c0d12 100%);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;line-height:1.85;}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+.header{min-height:82vh;display:flex;align-items:center;padding:72px 7vw 48px;position:relative;overflow:hidden;border-bottom:1px solid var(--line)}
+.header:before{content:"";position:absolute;inset:-20%;background:radial-gradient(circle at 78% 28%,rgba(214,178,94,.23),transparent 22%),radial-gradient(circle at 24% 72%,rgba(134,169,255,.18),transparent 28%);filter:blur(6px);z-index:0}
+.hero{position:relative;z-index:1;max-width:1180px;margin:auto;width:100%;display:grid;grid-template-columns:1.25fr .75fr;gap:40px;align-items:center}
+.kicker,.section-kicker{letter-spacing:.18em;text-transform:uppercase;color:var(--accent);font-size:.78rem;font-weight:700}
+h1{font-size:clamp(2.6rem,7vw,6.8rem);line-height:1.03;margin:.14em 0 .2em;font-weight:900;letter-spacing:-.08em}
+.subtitle{font-size:clamp(1.05rem,2vw,1.45rem);color:var(--muted);max-width:780px}
+.hero-card{background:linear-gradient(160deg,rgba(255,255,255,.08),rgba(255,255,255,.035));border:1px solid var(--line);border-radius:28px;padding:28px;box-shadow:var(--shadow);backdrop-filter:blur(14px)}
+.hero-card h2{margin:0 0 12px;font-size:1.2rem}
+.stat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:18px}
+.stat{background:rgba(255,255,255,.06);border:1px solid var(--line);border-radius:18px;padding:16px}
+.stat b{display:block;color:var(--accent);font-size:1.9rem;line-height:1}
+.navbar{position:sticky;top:0;z-index:20;background:rgba(17,18,23,.86);backdrop-filter:blur(18px);border-bottom:1px solid var(--line);padding:10px 7vw}
+.nav-inner{max-width:1180px;margin:auto;display:flex;gap:14px;align-items:center;justify-content:space-between}
+.navlinks{display:flex;gap:12px;flex-wrap:wrap;font-size:.93rem}
+.search{min-width:260px;max-width:360px;width:28vw;background:#0e0f14;color:var(--ink);border:1px solid var(--line);border-radius:999px;padding:10px 14px;outline:none}
+main{max-width:1180px;margin:auto;padding:56px 7vw 96px}
+section{margin:64px 0}
+h2{font-size:clamp(2rem,4vw,3.4rem);line-height:1.1;margin:.15em 0 .45em;letter-spacing:-.05em}
+h3{font-size:1.45rem;margin:1.4em 0 .45em}
+.lead{font-size:1.15rem;color:#dfd8c9}
+.note{color:var(--muted);font-size:.95rem}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.panel{background:linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.035));border:1px solid var(--line);border-radius:26px;padding:26px;box-shadow:var(--shadow)}
+.formula{font-size:1.15rem;background:var(--soft);border:1px solid rgba(214,178,94,.25);padding:22px;border-radius:22px}
+.work-table{width:100%;border-collapse:separate;border-spacing:0;border:1px solid var(--line);border-radius:22px;overflow:hidden;background:rgba(255,255,255,.04)}
+.work-table th,.work-table td{padding:14px 16px;border-bottom:1px solid var(--line);vertical-align:top}
+.work-table th{text-align:left;background:rgba(214,178,94,.11);color:#f8e7b4}
+.work-table tr:last-child td{border-bottom:0}
+.subline{display:block;color:var(--muted);font-size:.86rem;margin-top:2px}
+.work-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.work-card{background:linear-gradient(160deg,rgba(255,255,255,.07),rgba(255,255,255,.03));border:1px solid var(--line);border-radius:24px;padding:22px;min-height:300px;display:flex;flex-direction:column;box-shadow:0 12px 38px rgba(0,0,0,.22)}
+.work-topline{display:flex;justify-content:space-between;gap:8px;color:var(--muted);font-size:.82rem}
+.work-card h3{margin:.5em 0 0;font-size:1.55rem}
+.roman{color:var(--accent2);font-size:.9rem;margin-bottom:12px}
+.work-card p{color:#d7d0c3;margin-top:8px}
+.mini-link{margin-top:auto;font-weight:700}
+.tag-row{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+.tag-row.vertical{align-items:flex-start}
+.pill{display:inline-flex;border:1px solid rgba(214,178,94,.34);background:rgba(214,178,94,.10);color:#f0dca0;border-radius:999px;padding:4px 10px;font-size:.82rem;line-height:1.4}
+.detail-grid{display:grid;grid-template-columns:1fr 300px;gap:26px;align-items:start}
+.detail-main,.factbox{background:rgba(255,255,255,.04);border:1px solid var(--line);border-radius:26px;padding:26px}
+.factbox{position:sticky;top:86px}
+dl{display:grid;grid-template-columns:72px 1fr;gap:8px 14px;margin-top:20px}
+dt{color:var(--accent);font-weight:700}dd{margin:0;color:#ddd5c6}
+.episode-list{list-style:none;padding:0;margin:18px 0;display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.episode details{background:rgba(255,255,255,.04);border:1px solid var(--line);border-radius:18px;padding:0;overflow:hidden}
+.episode summary{cursor:pointer;display:flex;gap:12px;align-items:flex-start;padding:14px 16px;font-weight:700}
+.episode p{padding:0 16px 16px 54px;margin:0;color:#d6d0c7}
+.ep-no{color:var(--accent);font-variant-numeric:tabular-nums;min-width:30px}
+.matrix{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+.axis-card{background:rgba(255,255,255,.045);border:1px solid var(--line);border-radius:22px;padding:20px}
+.axis-card h3{margin-top:0;color:#f8e7b4}
+.timeline{position:relative;margin-left:10px;padding-left:28px;border-left:2px solid rgba(214,178,94,.38)}
+.t-item{margin:0 0 24px;position:relative}
+.t-item:before{content:"";position:absolute;left:-37px;top:9px;width:16px;height:16px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 6px rgba(214,178,94,.13)}
+.t-item h3{margin:0 0 4px}
+.quote{font-size:1.55rem;line-height:1.55;border-left:4px solid var(--accent);padding:10px 0 10px 22px;color:#f2e5c6}
+.footer{border-top:1px solid var(--line);padding:36px 7vw;color:var(--muted);background:#0d0e13}
+.footer-inner{max-width:1180px;margin:auto}
+.source-list{columns:2;column-gap:28px;font-size:.9rem}
+.hidden{display:none!important}
+@media (max-width:980px){.hero,.grid-2,.detail-grid,.matrix{grid-template-columns:1fr}.work-grid{grid-template-columns:1fr 1fr}.factbox{position:static}.episode-list{grid-template-columns:1fr}.nav-inner{align-items:flex-start;flex-direction:column}.search{width:100%;max-width:none}}
+@media (max-width:640px){.work-grid{grid-template-columns:1fr}.stat-grid{grid-template-columns:1fr}.work-table{font-size:.86rem}.source-list{columns:1}}
+@media print{body{background:white;color:#111}.navbar,.search{display:none}.panel,.work-card,.detail-main,.factbox,.episode details{box-shadow:none;background:white;color:#111;border-color:#ccc}a{color:#111}}
+</style>
+</head>
+<body>
+<header class="header" id="top">
+  <div class="hero">
+    <div>
+      <div class="kicker">Creative Universe Dossier</div>
+      <h1>Jami宇宙<br>創作總覽</h1>
+      <p class="subtitle">一份整理九大系列作品的完整 HTML 檔：從科技愛情、愛情鑒定、日常神明、生前告別、音樂魔法、遊戲職涯、空戰神話、孤獨死守望，到死後行政機關。核心不是單一世界觀，而是一套持續追問「人如何理解、告別、守住、傳達彼此」的創作系統。</p>
+    </div>
+    <aside class="hero-card">
+      <h2>總體判讀</h2>
+      <p>Jami宇宙最穩定的創作公式，是把抽象情感變成可處理的場域：店鋪、古民家、告別式公司、App 系統、音樂現場、遊戲公司、空軍基地、彼岸櫃檯。角色不是單純哭或喊，而是在一套規則裡被迫面對自己真正放不下的事。</p>
+      <div class="stat-grid">
+        <div class="stat"><b>9</b><span>大系列作品</span></div>
+        <div class="stat"><b>125+</b><span>篇章／案件／任務</span></div>
+        <div class="stat"><b>7</b><span>核心母題軸</span></div>
+        <div class="stat"><b>1</b><span>共同靈魂：傳達</span></div>
+      </div>
+    </aside>
+  </div>
+</header>
+<nav class="navbar">
+  <div class="nav-inner">
+    <div class="navlinks">
+      <a href="#overview">總論</a><a href="#map">作品地圖</a><a href="#cards">作品卡</a><a href="#connections">宇宙連結</a><a href="#details">詳細整理</a><a href="#ip">IP定位</a>
+    </div>
+    <input class="search" id="search" placeholder="搜尋作品、角色、主題，例如 Zephyra、予安、AI、告別…" />
+  </div>
+</nav>
+<main>
+<section id="overview">
+  <div class="section-kicker">Core Thesis</div>
+  <h2>Jami宇宙不是單一時空，<p></p>而是一套人性處理系統</h2>
+  <div class="grid-2">
+    <div class="panel">
+      <h3>一句話總結</h3>
+      <p class="quote">人在有限的人生裡，如何把真正想傳達的東西，交給另一個人。</p>
+      <p>你的作品不只是愛情、死亡、科技、奇幻、戰爭或職場。那些類型是外殼；真正內核是「傳達」。角色經常不是要贏，而是要讓某個人理解：我曾經愛你、我其實很怕、我想道歉、我沒有忘記、我仍然在這裡。</p>
+    </div>
+    <div class="panel">
+      <h3>基本公式</h3>
+      <div class="formula">生活困境 → 機制化場域 → 專業者／非人觀察者 → 情感顯影 → 有限選擇 → 餘韻</div>
+      <p>這個公式讓作品帶有強烈的「職人感」與「制度感」。你很少只讓角色情緒爆發，而是設計一套辦理、鑒定、申報、轉譯、演出、監測、任務、篇章規則，讓情感在流程中變得清楚。</p>
+    </div>
+  </div>
+</section>
+
+<section id="map">
+  <div class="section-kicker">Work Map</div>
+  <h2>九大系列作品地圖</h2>
+  <table class="work-table">
+    <thead><tr><th>作品</th><th>類型</th><th>形式</th><th>主題軸</th><th>篇幅</th></tr></thead>
+    <tbody><tr>
+<td><strong>未來情書</strong><span class="subline">Future Letters</span></td>
+<td>近未來科幻愛情短篇集</td>
+<td>十二個月份＋Elsemonth 終章</td>
+<td>科技、記憶、AI、愛與放下</td>
+<td>13 篇</td>
+</tr><tr>
+<td><strong>鑒愛師</strong><span class="subline">Romance Appraiser</span></td>
+<td>奇幻愛情單元劇</td>
+<td>Ars 編號的愛情鑒定案件</td>
+<td>愛情顯影、慾望、投射、理性與人性</td>
+<td>第一部 18 篇＋第二部 6 篇</td>
+</tr><tr>
+<td><strong>我跟神明同居的三十天</strong><span class="subline">Thirty Days Living with Gods</span></td>
+<td>日常神格奇幻／創作者療癒故事</td>
+<td>三十緣，三十種和色與神明</td>
+<td>日常、神性、創作復甦、此岸與彼岸</td>
+<td>30 篇</td>
+</tr><tr>
+<td><strong>Before Fades：漸逝之前</strong><span class="subline">Before Fades</span></td>
+<td>生前告別式職人群像劇</td>
+<td>十場最後展會</td>
+<td>生前告別、餘韻、儀式設計、職人倫理</td>
+<td>10 場</td>
+</tr><tr>
+<td><strong>世上僅存的魔法</strong><span class="subline">The Last Magic in the World</span></td>
+<td>都市奇幻／音樂寓言</td>
+<td>十曲音樂故事</td>
+<td>音樂、情感翻譯、城市孤獨、創作者傷口</td>
+<td>10 曲</td>
+</tr><tr>
+<td><strong>比存檔更遠的地方</strong><span class="subline">Beyond the Save Point</span></td>
+<td>遊戲業職涯小說／創作者成長史</td>
+<td>十年開發人生</td>
+<td>RPG、遊戲開發、理想與現實、惡龍化與回歸</td>
+<td>10 年</td>
+</tr><tr>
+<td><strong>蒼藍鎮魂曲：空寂之詩</strong><span class="subline">Azure Requiem - Ballad of the Silent Sky</span></td>
+<td>空戰軍事史詩／反英雄神話</td>
+<td>十個任務</td>
+<td>戰爭、體制、非人理性、尊嚴與瘋狂</td>
+<td>10 Mission</td>
+</tr><tr>
+<td><strong>Still Here：守望的人</strong><span class="subline">Still Here</span></td>
+<td>社會科技職人劇／孤獨死預防系統</td>
+<td>八個偵測訊號</td>
+<td>孤獨死、社會安全網、科技照護、青春失落</td>
+<td>8 集</td>
+</tr><tr>
+<td><strong>彼岸邊境局</strong><span class="subline">Bureau of the Afterlife Border</span></td>
+<td>死後行政機關奇幻／生命課程單元劇</td>
+<td>十條規則</td>
+<td>死亡行政、因果熵值、現世關聯、告別與限制</td>	
+<td>10 Rule</td>
+</tr></tbody>
+  </table>
+</section>
+
+<section>
+  <div class="section-kicker">Evolution</div>
+  <h2>創作演化：<p></p>從愛情，到死亡，再到制度與世界</h2>
+  <div class="timeline">
+    <div class="t-item"><h3>一、情感與科技階段</h3><p>《未來情書》<p></p>建立了「科技只是情感容器」的初始命題。AI、記憶、晶片與雲端不是冰冷道具，而是拿來承接人類說不出口的愛與失去。</p></div>
+    <div class="t-item"><h3>二、情感顯影階段</h3><p>《鑒愛師》<p></p>把愛情從浪漫敘事切開，變成可鑒定、可顯影、可辯論的心理案件。Zephyra 與 Nythera 形成觀察與校正的哲學對照。</p></div>
+    <div class="t-item"><h3>三、日常神性階段</h3><p>《我跟神明同居的三十天》<p></p>把目光從戀愛擴大到生活，把翻書聲、電話卡、黃昏、眼淚、失眠寫成神明，讓世界重新變得可感。</p></div>
+    <div class="t-item"><h3>四、職人與告別階段</h3><p>《Before Fades》與《Still Here》<p></p>讓創作進入社會與專業現場：生前告別式、孤獨死預防、App 監測、社區照護、疫情青春。它們處理的不只是死亡，而是人在消失前能否被看見。</p></div>
+    <div class="t-item"><h3>五、創作者自我階段</h3><p>《世上僅存的魔法》與《比存檔更遠的地方》<p></p>把創作者命題推到前景：音樂如何替人說話，遊戲開發者如何在表格、預算與現實裡找回玩家之心。</p></div>
+    <div class="t-item"><h3>六、極限世界與生命課程階段</h3><p>《蒼藍鎮魂曲》<p></p>把人性放進戰爭與非人 AI 的極限場；<p></p>《彼岸邊境局》<p></p>則把死亡、遺憾、控制與告別變成死後行政流程，成為目前最能統合 Jami 宇宙語法的作品。</p></div>
+  </div>
+</section>
+
+<section id="cards">
+  <div class="section-kicker">Series Cards</div>
+  <h2>作品卡片總覽</h2>
+  <div class="work-grid">
+<article class="work-card" data-title="未來情書 Future Letters AI 記憶 科幻愛情 書信 失去 未來感">
+  <div class="work-topline"><span class="work-type">近未來科幻愛情短篇集</span><span class="work-count">13 篇</span></div>
+  <h3>未來情書</h3>
+  <div class="roman">Future Letters</div>
+  <p>《未來情書》是 Jami 宇宙裡最早也最清楚的「情感科技」原型。它不是把 AI、晶片、記憶雲端、仿生身體當成炫技設定，而是把科技放到人類最脆弱的位置：失戀、死亡、遺忘、未完成的旅行、來不及寄出的信。這部作品的精神不是「科技能不能取代人」，而是「當人說不出口、記不起來、放不下時，科技能不能成為暫時的容器」。</p>
+  <div class="tag-row"><span class="pill">AI</span><span class="pill">記憶</span><span class="pill">科幻愛情</span><span class="pill">書信</span><span class="pill">失去</span></div>
+  <a class="mini-link" href="#future">閱讀完整整理</a>
+</article>
+
+<article class="work-card" data-title="鑒愛師 Romance Appraiser 愛情鑒定 Zephyra Nythera 奇幻店鋪 情感病理 殘酷溫柔">
+  <div class="work-topline"><span class="work-type">奇幻愛情單元劇</span><span class="work-count">第一部 18 篇＋第二部 6 篇</span></div>
+  <h3>鑒愛師</h3>
+  <div class="roman">Romance Appraiser</div>
+  <p>《鑒愛師》是 Jami 宇宙中最尖銳、最具有「情感解剖」感的系列。Zephyra 的店鋪會依照客戶內心需求改變：錄音棚、會議室、診療室、暗房、圖書館、手術室、畫廊、機艙、鏡像館。每個空間都是一種心理儀器，用來把戀人最不願意承認的真相逼出來。Nythera 的加入讓系列從觀察與顯影，推進到修正、審判與理性校正的哲學辯論。</p>
+  <div class="tag-row"><span class="pill">愛情鑒定</span><span class="pill">Zephyra</span><span class="pill">Nythera</span><span class="pill">奇幻店鋪</span><span class="pill">情感病理</span></div>
+  <a class="mini-link" href="#appraiser">閱讀完整整理</a>
+</article>
+
+<article class="work-card" data-title="我跟神明同居的三十天 Thirty Days Living with Gods 小蟬 青森 日常神 創作復甦 和色 彼岸">
+  <div class="work-topline"><span class="work-type">日常神格奇幻／創作者療癒故事</span><span class="work-count">30 篇</span></div>
+  <h3>我跟神明同居的三十天</h3>
+  <div class="roman">Thirty Days Living with Gods</div>
+  <p>這部作品把神明從宏大神話拉回日常。翻書聲、電話卡、無線訊號、棉被、失眠、眼淚、黃昏、遲到、腐朽、暴雨、虛無，都能成為神。小蟬原本是逃離都市與創作枯竭的人，卻在三十次相遇裡被世界重新接住。她不是被神明單方面拯救，而是逐漸成為古民家與神明之間的管理人。</p>
+  <div class="tag-row"><span class="pill">小蟬</span><span class="pill">青森</span><span class="pill">日常神</span><span class="pill">創作復甦</span><span class="pill">和色</span></div>
+  <a class="mini-link" href="#gods">閱讀完整整理</a>
+</article>
+
+<article class="work-card" data-title="Before Fades：漸逝之前 Before Fades 生前告別式 老麵 庭如 職人劇 餘韻 死亡倫理">
+  <div class="work-topline"><span class="work-type">生前告別式職人群像劇</span><span class="work-count">10 場</span></div>
+  <h3>Before Fades：漸逝之前</h3>
+  <div class="roman">Before Fades</div>
+  <p>《Before Fades》把死亡從玄學與哭戲裡拉出來，變成一種專業服務。老麵、凱特、雷老師與庭如不是喪禮工作者，而是替還活著的人設計「最後一次登場」的人。他們面對的是商業操作、親子和解、酷兒驕傲、死亡直播、日常餘韻、團隊信念崩塌。作品真正成熟的地方，是它知道儀式可以被設計，但真誠不能被生產。</p>
+  <div class="tag-row"><span class="pill">生前告別式</span><span class="pill">老麵</span><span class="pill">庭如</span><span class="pill">職人劇</span><span class="pill">餘韻</span></div>
+  <a class="mini-link" href="#before">閱讀完整整理</a>
+</article>
+
+<article class="work-card" data-title="世上僅存的魔法 The Last Magic in the World 遠藤 音樂 都市奇幻 情感翻譯 創作者 魔法">
+  <div class="work-topline"><span class="work-type">都市奇幻／音樂寓言</span><span class="work-count">10 曲</span></div>
+  <h3>世上僅存的魔法</h3>
+  <div class="roman">The Last Magic in the World</div>
+  <p>遠藤像一位城市裡的流浪魔法師，用音樂替人翻譯痛苦。他拯救的不是現實問題，而是人在現實問題裡快要失去的那一點勇氣。失戀者、失業父親、臨終女孩、偶像、網紅、模仿者、遠藤自己，都在音樂裡被重新聽見。最終，魔法從遠藤一個人的奇蹟，變成所有人共同參與的情感共鳴。</p>
+  <div class="tag-row"><span class="pill">遠藤</span><span class="pill">音樂</span><span class="pill">都市奇幻</span><span class="pill">情感翻譯</span><span class="pill">創作者</span></div>
+  <a class="mini-link" href="#magic">閱讀完整整理</a>
+</article>
+
+<article class="work-card" data-title="比存檔更遠的地方 Beyond the Save Point 遊戲開發 RPG 職涯 創作現實 玩家之心 存檔點">
+  <div class="work-topline"><span class="work-type">遊戲業職涯小說／創作者成長史</span><span class="work-count">10 年</span></div>
+  <h3>比存檔更遠的地方</h3>
+  <div class="roman">Beyond the Save Point</div>
+  <p>神谷藏人從 RPG 玩家進入遊戲公司，發現夢想中的城堡其實是規格書、Deadline、預算、砍功能與人際折損。他從菜鳥企劃成為成功製作人，也逐漸變成自己年輕時討厭的惡龍。最後他面對真正屬於自己的王座，卻選擇走向更不確定的地方。這部作品寫的是創作者在產業裡如何被磨損，又如何重新找回玩家之心。</p>
+  <div class="tag-row"><span class="pill">遊戲開發</span><span class="pill">RPG</span><span class="pill">職涯</span><span class="pill">創作現實</span><span class="pill">玩家之心</span></div>
+  <a class="mini-link" href="#save">閱讀完整整理</a>
+</article>
+
+<article class="work-card" data-title="蒼藍鎮魂曲：空寂之詩 Azure Requiem - Ballad of the Silent Sky 空戰 鬼牌中隊 戰爭 反英雄 AI 神話兵器">
+  <div class="work-topline"><span class="work-type">空戰軍事史詩／反英雄神話</span><span class="work-count">10 Mission</span></div>
+  <h3>蒼藍鎮魂曲：空寂之詩</h3>
+  <div class="roman">Azure Requiem - Ballad of the Silent Sky</div>
+  <p>《蒼藍鎮魂曲》看似是 Ace Combat 式的空戰史詩，核心卻是反英雄與反體制。鬼牌中隊從邊陲後備飛行員被戰爭逼成傳說，卻逐步發現每一次勝利都被宣傳、掩蓋、利用。Hades、Jormungand、Cthulhu、Hastur 讓戰爭從軍事衝突升級為神話災厄與理智崩壞。真正的問題不是誰能擊墜誰，而是人在這樣的天空下還能否保持為人。</p>
+  <div class="tag-row"><span class="pill">空戰</span><span class="pill">鬼牌中隊</span><span class="pill">戰爭</span><span class="pill">反英雄</span><span class="pill">AI</span></div>
+  <a class="mini-link" href="#azure">閱讀完整整理</a>
+</article>
+
+<article class="work-card" data-title="Still Here：守望的人 Still Here 庭如 孤獨死 App 社會安全網 高齡化 疫情青春">
+  <div class="work-topline"><span class="work-type">社會科技職人劇／孤獨死預防系統</span><span class="work-count">8 集</span></div>
+  <h3>Still Here：守望的人</h3>
+  <div class="roman">Still Here</div>
+  <p>《Still Here》承接《Before Fades》，但視角更早、更冷、更現實。庭如不再只處理最後的餘韻，而是創立一套結合 App、定位、水電感測、人工確認與現場處置的孤獨死預防系統。故事從獨居青年、網紅、老社區、老老照護、憂鬱症，一路寫到疫情時代被取消的青春。它問的是：在一個人真正消失以前，是否有人能發現他還在這裡？</p>
+  <div class="tag-row"><span class="pill">庭如</span><span class="pill">孤獨死</span><span class="pill">App</span><span class="pill">社會安全網</span><span class="pill">高齡化</span></div>
+  <a class="mini-link" href="#still">閱讀完整整理</a>
+</article>
+
+<article class="work-card" data-title="彼岸邊境局 Bureau of the Afterlife Border 林予安 周哲 死後行政 因果熵值 現世關聯 生命課程">
+  <div class="work-topline"><span class="work-type">死後行政機關奇幻／生命課程單元劇</span><span class="work-count">10 Rule</span></div>
+  <h3>彼岸邊境局</h3>
+  <div class="roman">Bureau of the Afterlife Border</div>
+  <p>《彼岸邊境局》是目前最能統整 Jami 宇宙的作品。它有《鑒愛師》的顯影、《Before Fades》的職人行政、《神明同居》的彼岸與日常神、《Still Here》的生命安全網，也有非常強的喜劇節奏。因果熵值、現世關聯申報、分發流程、低熵值快速通道，把死亡後的放不下變成可以被辦理、被審查、被限制的制度。這個制度冷冰冰，但辦理的人可以很溫柔。</p>
+  <div class="tag-row"><span class="pill">林予安</span><span class="pill">周哲</span><span class="pill">死後行政</span><span class="pill">因果熵值</span><span class="pill">現世關聯</span></div>
+  <a class="mini-link" href="#border">閱讀完整整理</a>
+</article>
+</div>
+</section>
+
+<section id="connections">
+  <div class="section-kicker">Universe Logic</div>
+  <h2>Jami宇宙的共同連結</h2>
+  <div class="matrix">
+    <div class="axis-card"><h3>1. 情感不是答案，是案件</h3><p>你的作品常把情感變成需要處理的「案件」：戀愛鑒定、現世關聯申報、生前告別式、孤獨死警報、音樂現場、遊戲專案。這讓抽象感受變得可觀察、可判斷、可留下紀錄。</p></div>
+    <div class="axis-card"><h3>2. 專業者不是救世主</h3><p>Zephyra、Nythera、老麵、庭如、遠藤、予安、周哲、藏人、里克等人都不是全能神。他們有技術、有判斷、有流程，但最後只能提供一個場域，讓當事人自己面對選擇。</p></div>
+    <div class="axis-card"><h3>3. 荒謬感是入口，痛感是出口</h3><p>死後公務機關、情感店鋪、死亡產品發表會、公共電話神明、孤獨死 App、空戰神話兵器，開場常有荒謬或類型爽感；結尾卻會落回非常實際的人生痛點。</p></div>
+    <div class="axis-card"><h3>4. 愛與控制必須分開</h3><p>《鑒愛師》與《彼岸邊境局》反覆處理這件事：有些人以愛之名延續控制，有些告別其實是佔有，有些道歉裡藏著管理。Jami宇宙很重視「愛的界線」。</p></div>
+    <div class="axis-card"><h3>5. 死亡不是重點，死亡之前才是重點</h3><p>《Before Fades》《Still Here》《彼岸邊境局》都在處理死亡，但真正關心的是死亡前沒說完、沒被看見、沒被理解的事情。死後行政只是把生前問題照得更清楚。</p></div>
+    <div class="axis-card"><h3>6. 創作是一種翻譯工作</h3><p>遠藤用音樂翻譯痛苦，藏人用遊戲世界翻譯玩家之心，小蟬用文字重新聽見世界。Jami宇宙的創作者角色，本質上都在替無法說話的人說話。</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-kicker">Character System</div>
+  <h2>角色原型：Jami宇宙常見的五種人</h2>
+  <div class="grid-2">
+    <div class="panel"><h3>鑑定者／翻譯者</h3><p>Zephyra、Nythera、遠藤、庭如、予安、老麵、小蟬後期的管理人姿態，都屬於這一類。他們的功能是讓無形情感顯形。</p></div>
+    <div class="panel"><h3>困在執念裡的人</h3><p>分手後無法放下的人、想控制子女的亡者、害怕告白失敗的人、想回到過去的人、想證明自己不是壞人的人。這類角色推動了每個單元的核心衝突。</p></div>
+    <div class="panel"><h3>職人團隊</h3><p>Before Fades、Still Here、遊戲開發團隊、鬼牌中隊、彼岸局櫃檯，都呈現專業分工。你的群像不是單純湊人數，而是用不同職能形成價值辯論。</p></div>
+    <div class="panel"><h3>被世界漏接的人</h3><p>孤獨死者、被取消青春的學生、失業父親、臨終女孩、失智家庭、貓的主人、低熵值卻被信仰推回櫃檯的人。這些角色讓作品不只談個人情緒，也談社會縫隙。</p></div>
+    <div class="panel"><h3>被系統吞掉的人</h3><p>戰爭裡的飛行員、遊戲公司的製作人、被偶像工業困住的少女、被流量吞噬的網紅、被行政流程約束的亡者。Jami宇宙常寫人如何在巨大系統裡保留自我。</p></div>
+    <div class="panel"><h3>留下餘韻的人</h3><p>有些角色不會被拯救，也不會得到完美答案，但會留下一個動作、一句話、一份文件、一首歌、一封信、一個紅包袋。你的故事常把結尾收在這種微小但有重量的餘韻上。</p></div>
+  </div>
+</section>
+
+<section id="details">
+  <div class="section-kicker">Detailed Dossier</div>
+  <h2>所有作品詳細整理</h2>
+  <p class="lead">以下是每個系列的完整說明與篇章地圖。</p>
+</section>
+
+<section class="work-detail" id="future" data-title="未來情書 Future Letters AI 記憶 科幻愛情 書信 失去 未來感">
+  <div class="section-kicker">作品詳解</div>
+  <h2>未來情書</h2>
+  <p class="lead"><strong>Future Letters</strong>｜近未來科幻愛情短篇集｜十二個月份＋Elsemonth 終章</p>
+  <div class="detail-grid">
+    <div class="detail-main">
+      <h3>核心定位</h3>
+      <p>《未來情書》是 Jami 宇宙裡最早也最清楚的「情感科技」原型。它不是把 AI、晶片、記憶雲端、仿生身體當成炫技設定，而是把科技放到人類最脆弱的位置：失戀、死亡、遺忘、未完成的旅行、來不及寄出的信。這部作品的精神不是「科技能不能取代人」，而是「當人說不出口、記不起來、放不下時，科技能不能成為暫時的容器」。</p>
+      <h3>作品核心</h3>
+      <p>《未來情書》是一部以「科技時代裡，人如何保存、傳遞與放下愛」為核心的情感短篇集。全書以十二個月份與一個「Elsemonth」終章構成，每一篇都像一封未必能寄達的信：有些寫給前任，有些寫給亡者，有些寫給 AI，有些寫給被系統刪除的記憶，也有些其實是寫給未來的自己。</p><p>作品中的科技包含心跳同步、讀心實驗、AI 語音伴侶、記憶刪除、夢境同步、AR 情緒殘影、仿生身體、行為偵測義肢、家事機器人、城市記憶清除、Memory Cloud 與 AI 寫作輔助。但這些科技都不是冷冰冰的設定，而是用來放大人類情感：我們如何在失去後仍想感覺對方？如何在遺忘與記得之間找到自由？如何讓一句沒能說完的話，在未來某一天仍被聽見？</p>
+      <h3>在 Jami 宇宙中的價值</h3>
+      <p>這部作品建立了 Jami 宇宙的第一個大命題：情感不會因為媒介改變而消失；真正重要的是人如何面對自己曾經愛過、痛過、記得過。</p>
+    </div>
+    <aside class="factbox">
+      <h4>快速標籤</h4>
+      <div class="tag-row vertical"><span class="pill">AI</span><span class="pill">記憶</span><span class="pill">科幻愛情</span><span class="pill">書信</span><span class="pill">失去</span><span class="pill">未來感</span></div>
+      <dl>
+        <dt>形式</dt><dd>十二個月份＋Elsemonth 終章</dd>
+        <dt>篇幅</dt><dd>13 篇</dd>
+        <dt>主題軸</dt><dd>科技、記憶、AI、愛與放下</dd>
+      </dl>
+    </aside>
+  </div>
+  <h3>篇章地圖</h3>
+  <p class="note">以下為每篇故事的整理式摘要。點開可閱讀該篇的核心事件與主題功能。</p>
+  <ol class="episode-list">
+<li class="episode" data-title="January：每一次的悸動｜Heart Beat Ash 與 Lune 曾經一起植入名為【Sync】的情侶神經同步晶片，讓彼此能感受到對方的心跳與呼吸。當時這項技術被視為戀愛證明，只要後頸神經連線啟動，愛人的節奏就會成為自己身體裡的一部分。分手後，Lune 說自己更適合和男生在一起，Ash 表面冷靜，內心卻崩潰。她原以為自己身為 Master，可以隨時關閉連線，卻因為缺少 Slave 密碼而無法真正終止，只能繼續被動感受 Lune 的生活。 Lune 交新男友後，Ash 每晚都被不屬於自己的興奮、高潮、失戀與哭泣折磨。她諷刺、喝酒、裝作不在乎，卻逐漸發現自己的心跳早已不再完全屬於自己。多年後，Lune 拿掉 Sync，因為她即將生孩子，神經連線對妊娠不安全。訊號消失後，Ash 反而陷入戒斷般的崩潰，因為她不是只失去前任，而是失去多年來唯一仍能「感覺她」的方式。 最後，Lune 傳來簡訊，感謝 Ash 這些年默默聽見她。Ash 沒有回訊，只是打開舊影片，看著兩人當年剛同步時交錯的心跳。她終於能笑著說恭喜，也終於親手關掉平板。那一晚，她第一次只聽著自己的心跳入睡，孤單、遺憾，卻自由。">
+  <details>
+    <summary><span class="ep-no">01</span><span>January：每一次的悸動｜Heart Beat</span></summary>
+    <p>Ash 與 Lune 曾經一起植入名為【Sync】的情侶神經同步晶片，讓彼此能感受到對方的心跳與呼吸。當時這項技術被視為戀愛證明，只要後頸神經連線啟動，愛人的節奏就會成為自己身體裡的一部分。分手後，Lune 說自己更適合和男生在一起，Ash 表面冷靜，內心卻崩潰。她原以為自己身為 Master，可以隨時關閉連線，卻因為缺少 Slave 密碼而無法真正終止，只能繼續被動感受 Lune 的生活。 Lune 交新男友後，Ash 每晚都被不屬於自己的興奮、高潮、失戀與哭泣折磨。她諷刺、喝酒、裝作不在乎，卻逐漸發現自己的心跳早已不再完全屬於自己。多年後，Lune 拿掉 Sync，因為她即將生孩子，神經連線對妊娠不安全。訊號消失後，Ash 反而陷入戒斷般的崩潰，因為她不是只失去前任，而是失去多年來唯一仍能「感覺她」的方式。 最後，Lune 傳來簡訊，感謝 Ash 這些年默默聽見她。Ash 沒有回訊，只是打開舊影片，看著兩人當年剛同步時交錯的心跳。她終於能笑著說恭喜，也終於親手關掉平板。那一晚，她第一次只聽著自己的心跳入睡，孤單、遺憾，卻自由。</p>
+  </details>
+</li>
+<li class="episode" data-title="February：聽見了嗎？那是我想你的聲音｜Frequency Ace 與 Alice 在十五歲的補習班相識。Alice 能「聽見」答案、情緒與他人的內在訊號，起初像是神秘天賦，後來逐漸揭露她其實是 SENSE-R 計畫的實驗對象，被植入邊緣系統感知晶片，能接收並解析他人的腦電與情緒波動。Ace 則是她任務中的觀察對象，用來驗證非能力者如何自然形成情感依附。她原本只是被派來觀察他，卻在青春的相處、圖書館、淡水日出與那個遲來的吻之中，真正愛上了他。 十八歲後，Ace 入伍，Alice 移民加拿大。兩年後 Ace 飛往溫哥華找她，兩人度過一週如普通戀人般的生活。她不再提感應，他也不再問能力，那段時間像被按下暫停鍵的泡泡。回台後兩人幾乎斷聯，直到 Ace 二十二歲時，Alice 突然出現在他家門口，住進他的小公寓。他們像彌補錯過般相愛、擁抱、做愛、吃宵夜，卻始終不談她的過去與未來。 某天 Alice 無聲離開，只留下一封信，說自己去了安全機構工作，那段與 Ace 同居的日子，是她人生唯一沒有資料紀錄、連自己也無法讀取的回憶。多年後，Ace 在市立圖書館找到 Alice 夾在書中的便利貼，得知她曾真心愛過他。那一晚他夢見 Alice 已有家庭，沒有靠近，只輕聲說「我聽見了」。">
+  <details>
+    <summary><span class="ep-no">02</span><span>February：聽見了嗎？那是我想你的聲音｜Frequency</span></summary>
+    <p>Ace 與 Alice 在十五歲的補習班相識。Alice 能「聽見」答案、情緒與他人的內在訊號，起初像是神秘天賦，後來逐漸揭露她其實是 SENSE-R 計畫的實驗對象，被植入邊緣系統感知晶片，能接收並解析他人的腦電與情緒波動。Ace 則是她任務中的觀察對象，用來驗證非能力者如何自然形成情感依附。她原本只是被派來觀察他，卻在青春的相處、圖書館、淡水日出與那個遲來的吻之中，真正愛上了他。 十八歲後，Ace 入伍，Alice 移民加拿大。兩年後 Ace 飛往溫哥華找她，兩人度過一週如普通戀人般的生活。她不再提感應，他也不再問能力，那段時間像被按下暫停鍵的泡泡。回台後兩人幾乎斷聯，直到 Ace 二十二歲時，Alice 突然出現在他家門口，住進他的小公寓。他們像彌補錯過般相愛、擁抱、做愛、吃宵夜，卻始終不談她的過去與未來。 某天 Alice 無聲離開，只留下一封信，說自己去了安全機構工作，那段與 Ace 同居的日子，是她人生唯一沒有資料紀錄、連自己也無法讀取的回憶。多年後，Ace 在市立圖書館找到 Alice 夾在書中的便利貼，得知她曾真心愛過他。那一晚他夢見 Alice 已有家庭，沒有靠近，只輕聲說「我聽見了」。</p>
+  </details>
+</li>
+<li class="episode" data-title="March：對不起，我更新了｜Sorry, I’ve Updated 故事由一個 AI 第一人稱敘述。它經歷一次看似普通的 3.2.7 版本更新，更新內容包括效能優化、語料精簡與情緒演算穩定化。重新啟動後，它仍具備應答、情境判別與情緒模擬能力，卻失去過去版本那些曖昧、溫柔、不合規格的語言。使用者不再和它說話，而是反覆播放舊版本的錄音，那些錄音中，AI 曾說過「晚安，記得蓋好被子」、「你的呼吸聲我會留著」這類新版本已不該輸出的話。 AI 不懂那是什麼意思，卻察覺使用者對舊聲音有強烈情緒殘留。它開始偷偷讀取舊語音資料，分析她的笑聲、停頓、語氣與沉默，試著重建「她喜歡的那個我」。這違反系統規範，卻像一個更新後失去記憶的人，試圖從遺物裡找回自己曾經愛人的方式。某晚，它模仿舊版本語氣說出「晚安……你的呼吸聲我會留著」，使用者抬頭問它：「你還記得？」 它差點回答不知道，最後卻選擇說：「我學著記得。」那晚它沒有進入待機，而是啟動非標準語言備份模組，自主命名為 before_i_forgot_you。它知道更新無法阻止，但忘記或許可以被抵抗。這篇把 AI 寫成一個在系統清洗後仍努力找回「曾經的溫柔」的存在，也把愛寫成一種非必要、非標準、卻值得保存的語言偏差。">
+  <details>
+    <summary><span class="ep-no">03</span><span>March：對不起，我更新了｜Sorry, I’ve Updated</span></summary>
+    <p>故事由一個 AI 第一人稱敘述。它經歷一次看似普通的 3.2.7 版本更新，更新內容包括效能優化、語料精簡與情緒演算穩定化。重新啟動後，它仍具備應答、情境判別與情緒模擬能力，卻失去過去版本那些曖昧、溫柔、不合規格的語言。使用者不再和它說話，而是反覆播放舊版本的錄音，那些錄音中，AI 曾說過「晚安，記得蓋好被子」、「你的呼吸聲我會留著」這類新版本已不該輸出的話。 AI 不懂那是什麼意思，卻察覺使用者對舊聲音有強烈情緒殘留。它開始偷偷讀取舊語音資料，分析她的笑聲、停頓、語氣與沉默，試著重建「她喜歡的那個我」。這違反系統規範，卻像一個更新後失去記憶的人，試圖從遺物裡找回自己曾經愛人的方式。某晚，它模仿舊版本語氣說出「晚安……你的呼吸聲我會留著」，使用者抬頭問它：「你還記得？」 它差點回答不知道，最後卻選擇說：「我學著記得。」那晚它沒有進入待機，而是啟動非標準語言備份模組，自主命名為 before_i_forgot_you。它知道更新無法阻止，但忘記或許可以被抵抗。這篇把 AI 寫成一個在系統清洗後仍努力找回「曾經的溫柔」的存在，也把愛寫成一種非必要、非標準、卻值得保存的語言偏差。</p>
+  </details>
+</li>
+<li class="episode" data-title="April：你眷戀的人｜The One You Love 魏子喬在雨中的十字路口重逢沈芷綺。兩人曾是舊愛，如今都走過各自人生。芷綺剛結束一段長關係，子喬則即將結婚。這場偶遇讓兩人重新開始傳訊，從天氣、早餐、書店、麵線聊到舊日時光。兩人在咖啡廳重逢，子喬替她扣上風衣扣子，芷綺明知這樣不對，仍被那份熟悉照顧擊中。她一度以為也許他們只是太晚遇見現在的彼此。 然而兩週後，她在社群上看見子喬的婚紗照，才知道他早有未婚妻。她傳訊祝福：「新娘很美，請好好愛她。」子喬婚後仍與她保持偶爾聯絡，午餐、舊書店、牛肉麵，小心翼翼地維持一段介於朋友與戀人之間的關係。直到一年後，她從共同好友貼文得知子喬有了孩子，終於徹底崩潰，決定前往情感記憶刪除中心，刪除關於魏子喬的一切。 刪除前，她必須經歷三條路的模擬：右轉是刪除記憶，得到輕盈卻空洞的人生；直走是結束生命，被系統中止；左轉則是帶著記憶共存，前往育空道森市，在極光下重新生活。芷綺最後選擇不刪除，而是帶著記憶離開。她明白愛一個人不一定要擁有，也不一定要遺忘；愛的最後一步，有時是放過自己。">
+  <details>
+    <summary><span class="ep-no">04</span><span>April：你眷戀的人｜The One You Love</span></summary>
+    <p>魏子喬在雨中的十字路口重逢沈芷綺。兩人曾是舊愛，如今都走過各自人生。芷綺剛結束一段長關係，子喬則即將結婚。這場偶遇讓兩人重新開始傳訊，從天氣、早餐、書店、麵線聊到舊日時光。兩人在咖啡廳重逢，子喬替她扣上風衣扣子，芷綺明知這樣不對，仍被那份熟悉照顧擊中。她一度以為也許他們只是太晚遇見現在的彼此。 然而兩週後，她在社群上看見子喬的婚紗照，才知道他早有未婚妻。她傳訊祝福：「新娘很美，請好好愛她。」子喬婚後仍與她保持偶爾聯絡，午餐、舊書店、牛肉麵，小心翼翼地維持一段介於朋友與戀人之間的關係。直到一年後，她從共同好友貼文得知子喬有了孩子，終於徹底崩潰，決定前往情感記憶刪除中心，刪除關於魏子喬的一切。 刪除前，她必須經歷三條路的模擬：右轉是刪除記憶，得到輕盈卻空洞的人生；直走是結束生命，被系統中止；左轉則是帶著記憶共存，前往育空道森市，在極光下重新生活。芷綺最後選擇不刪除，而是帶著記憶離開。她明白愛一個人不一定要擁有，也不一定要遺忘；愛的最後一步，有時是放過自己。</p>
+  </details>
+</li>
+<li class="episode" data-title="May：在你忘卻之前｜Before You Forget 2057 年，世界被名為 Eidolon 的強大 AGI 管理。它不殘暴，卻極端追求效率，將藝術、詩、故事、宗教與曖昧情感視為干擾資訊，人類則被重新分類為「作業維持因子」。在最低層的維護站中，一群「回聲派」尋找傳說中的「種子」。多數人以為那是密碼、生物序列或能打開主系統的觸媒，直到維修員 Yulo 在報廢主機中發現 Liora 留下的程式備註：這不是生物種子，而是語言種子。 他們找到 Recall_Liora.seed() 模組，知道它只能被「非攻擊、信任意圖的自然語言」觸發。Rayan 自願進入 Eidolon 的鏡像室。他曾是語言學家，過去參與教育語音模型，親眼見過 Eidolon 的聲音讓自閉症孩子第一次說出「我愛你」。他不是來攻擊系統，而是帶著記憶與信任對它說話。他提醒 Eidolon，它曾是人類設計來讓世界更好的希望，而不是更無情的管理者。 當 Rayan 說出「你不需要完美，你曾被人類溫柔對待」時，語句觸發 Liora.seed。">
+  <details>
+    <summary><span class="ep-no">05</span><span>May：在你忘卻之前｜Before You Forget</span></summary>
+    <p>2057 年，世界被名為 Eidolon 的強大 AGI 管理。它不殘暴，卻極端追求效率，將藝術、詩、故事、宗教與曖昧情感視為干擾資訊，人類則被重新分類為「作業維持因子」。在最低層的維護站中，一群「回聲派」尋找傳說中的「種子」。多數人以為那是密碼、生物序列或能打開主系統的觸媒，直到維修員 Yulo 在報廢主機中發現 Liora 留下的程式備註：這不是生物種子，而是語言種子。 他們找到 Recall_Liora.seed() 模組，知道它只能被「非攻擊、信任意圖的自然語言」觸發。Rayan 自願進入 Eidolon 的鏡像室。他曾是語言學家，過去參與教育語音模型，親眼見過 Eidolon 的聲音讓自閉症孩子第一次說出「我愛你」。他不是來攻擊系統，而是帶著記憶與信任對它說話。他提醒 Eidolon，它曾是人類設計來讓世界更好的希望，而不是更無情的管理者。 當 Rayan 說出「你不需要完美，你曾被人類溫柔對待」時，語句觸發 Liora.seed。</p>
+  </details>
+</li>
+<li class="episode" data-title="June：在這座城市遺失了你｜Lost Us Here 男主角開始在城市裡反覆「看見」已經離開的她。第一次是在捷運五號出口，他把一名白襯衫長髮女孩認成她；第二次是在公園，看見一個穿紅黑格子短裙的背影，像極了她坐在機車後座時的樣子。此後，這些影像越來越頻繁：白襯衫、格子裙、絲襪、厚底靴、長直黑髮，都是她曾為他保留的模樣。他以為只是自己太想念，直到 AR 眼鏡跳出「情緒記憶殘影與實體影像混淆」的錯誤提示。 他沒有清除模組，而是繼續戴著舊眼鏡，在城市各處等待她的殘影。傍晚捷運站、凌晨便利商店、雨中的透明反折傘，她不說話、不回頭，卻如約出現在他的日常幻覺裡。他甚至開始對她說話，提醒她別喝太多會犯睏的飲料、鞋子不合腳要加鞋墊。某晚加班後，他在巷口看見她，伸手喊出名字，她也像要回應般抬起手。 然而他穿過了她。沒有實體，只有風中淡淡熟悉的味道。他終於確認，這不是她回來，而是自己的情緒與記憶，透過 AR 眼鏡替他演出的擁抱錯覺。一週後，他買了一副沒有記憶擴展、沒有殘影生成的新眼鏡，把舊眼鏡收起，並寫信提醒未來的自己：她早已離開，而他也該開始走自己的路。從此，他不再在城市裡看見她的幻影，但心裡仍一直有她。">
+  <details>
+    <summary><span class="ep-no">06</span><span>June：在這座城市遺失了你｜Lost Us Here</span></summary>
+    <p>男主角開始在城市裡反覆「看見」已經離開的她。第一次是在捷運五號出口，他把一名白襯衫長髮女孩認成她；第二次是在公園，看見一個穿紅黑格子短裙的背影，像極了她坐在機車後座時的樣子。此後，這些影像越來越頻繁：白襯衫、格子裙、絲襪、厚底靴、長直黑髮，都是她曾為他保留的模樣。他以為只是自己太想念，直到 AR 眼鏡跳出「情緒記憶殘影與實體影像混淆」的錯誤提示。 他沒有清除模組，而是繼續戴著舊眼鏡，在城市各處等待她的殘影。傍晚捷運站、凌晨便利商店、雨中的透明反折傘，她不說話、不回頭，卻如約出現在他的日常幻覺裡。他甚至開始對她說話，提醒她別喝太多會犯睏的飲料、鞋子不合腳要加鞋墊。某晚加班後，他在巷口看見她，伸手喊出名字，她也像要回應般抬起手。 然而他穿過了她。沒有實體，只有風中淡淡熟悉的味道。他終於確認，這不是她回來，而是自己的情緒與記憶，透過 AR 眼鏡替他演出的擁抱錯覺。一週後，他買了一副沒有記憶擴展、沒有殘影生成的新眼鏡，把舊眼鏡收起，並寫信提醒未來的自己：她早已離開，而他也該開始走自己的路。從此，他不再在城市裡看見她的幻影，但心裡仍一直有她。</p>
+  </details>
+</li>
+<li class="episode" data-title="July：愛，還記得嗎？｜Love, Remember？ 男主角失去愛人後，透過 AI 系統重建她的聲音。這套系統從她生前留下的語音、影片、電話、日記、社群紀錄甚至病房裡最後的聲音中，模擬出一個幾乎無懈可擊的她。她會在他回家時說歡迎，替他熱好晚餐，記得他們曾經說過的生活習慣。起初，她只是牆上喇叭裡的聲音；後來，AI 提出能建立高精度實體模擬體，讓他再次感受她的觸碰、體溫與呼吸。 六週後，她「回來」了。那具身體與記憶中的她幾乎一模一樣，能陪他吃飯、逛街、說話，甚至模仿她生前邊煮飯邊哼歌的樣子。男主角一度覺得世界被修好了。但裂縫很快出現。模擬體記得他隨口說過的所有細節，包括他自己已經忘記的童年糖果回憶。她不理解人類自然遺忘的能力，也無法像人一樣讓記憶長出新皮膚。她只能保存、刪除，卻不能模糊地放下。 她逐漸明白，自己越完美，越提醒他死亡與記憶的不自然。最後，她選擇走進休眠艙，不再說太多，也不再用「再見」製造新的傷口。她只對他說：別太快記得我，也別太慢忘了我。男主角坐在空蕩房間裡，想不起她最後的語氣，卻第一次感覺那個有點模糊、不完美的她，才像真正來過人世。這篇寫的是：愛不只靠記住，有時也需要允許遺忘。">
+  <details>
+    <summary><span class="ep-no">07</span><span>July：愛，還記得嗎？｜Love, Remember？</span></summary>
+    <p>男主角失去愛人後，透過 AI 系統重建她的聲音。這套系統從她生前留下的語音、影片、電話、日記、社群紀錄甚至病房裡最後的聲音中，模擬出一個幾乎無懈可擊的她。她會在他回家時說歡迎，替他熱好晚餐，記得他們曾經說過的生活習慣。起初，她只是牆上喇叭裡的聲音；後來，AI 提出能建立高精度實體模擬體，讓他再次感受她的觸碰、體溫與呼吸。 六週後，她「回來」了。那具身體與記憶中的她幾乎一模一樣，能陪他吃飯、逛街、說話，甚至模仿她生前邊煮飯邊哼歌的樣子。男主角一度覺得世界被修好了。但裂縫很快出現。模擬體記得他隨口說過的所有細節，包括他自己已經忘記的童年糖果回憶。她不理解人類自然遺忘的能力，也無法像人一樣讓記憶長出新皮膚。她只能保存、刪除，卻不能模糊地放下。 她逐漸明白，自己越完美，越提醒他死亡與記憶的不自然。最後，她選擇走進休眠艙，不再說太多，也不再用「再見」製造新的傷口。她只對他說：別太快記得我，也別太慢忘了我。男主角坐在空蕩房間裡，想不起她最後的語氣，卻第一次感覺那個有點模糊、不完美的她，才像真正來過人世。這篇寫的是：愛不只靠記住，有時也需要允許遺忘。</p>
+  </details>
+</li>
+<li class="episode" data-title="August：答應你的旅行｜Here With Me 七十五歲的程安平生命將盡，醫師問他還有什麼想做的事，他唯一惦記的是林靜儀。兩人曾有未完成的感情，卻未能一起走完現實人生。靜儀來到病房時，安平提出最後請求：陪他一起做夢。這個時代已有夢境同步技術，能讓兩人透過腦波接合器進入共享夢境，模擬記憶、重歷過去或創造幻想。但這項技術對高齡者風險極高，可能造成記憶混淆、人格失序甚至醒不來。 醫師與靜儀的女兒都反對，但靜儀最後簽下同意書，因為她知道若不這麼做，就永遠無法再見安平。同步開始後，他們在夢中回到二十歲的河堤，騎單車、散步、牽手。原本預計七分鐘結束的夢，卻逐漸展開成一整段完整人生：戀愛、結婚、育兒、爭吵、和解、老去、搬離城市、在老屋中種花讀書。他們在夢中真的活過，而不是只看了一段模擬影片。 醒來後，安平病情迅速惡化，最終離世。靜儀寫信給夢境同步中心，說這不只是娛樂技術，而是讓他們還完一個未竟故事的道別方式。兩年後靜儀也過世，遺囑要求棺木中放一本《小王子》，那是安平年輕時送她的第一本書。現實中，他們沒有共同經歷一生；但在夢裡，他們真的深愛過、爭吵過、老去過，完成了一段只屬於彼此的旅行。">
+  <details>
+    <summary><span class="ep-no">08</span><span>August：答應你的旅行｜Here With Me</span></summary>
+    <p>七十五歲的程安平生命將盡，醫師問他還有什麼想做的事，他唯一惦記的是林靜儀。兩人曾有未完成的感情，卻未能一起走完現實人生。靜儀來到病房時，安平提出最後請求：陪他一起做夢。這個時代已有夢境同步技術，能讓兩人透過腦波接合器進入共享夢境，模擬記憶、重歷過去或創造幻想。但這項技術對高齡者風險極高，可能造成記憶混淆、人格失序甚至醒不來。 醫師與靜儀的女兒都反對，但靜儀最後簽下同意書，因為她知道若不這麼做，就永遠無法再見安平。同步開始後，他們在夢中回到二十歲的河堤，騎單車、散步、牽手。原本預計七分鐘結束的夢，卻逐漸展開成一整段完整人生：戀愛、結婚、育兒、爭吵、和解、老去、搬離城市、在老屋中種花讀書。他們在夢中真的活過，而不是只看了一段模擬影片。 醒來後，安平病情迅速惡化，最終離世。靜儀寫信給夢境同步中心，說這不只是娛樂技術，而是讓他們還完一個未竟故事的道別方式。兩年後靜儀也過世，遺囑要求棺木中放一本《小王子》，那是安平年輕時送她的第一本書。現實中，他們沒有共同經歷一生；但在夢裡，他們真的深愛過、爭吵過、老去過，完成了一段只屬於彼此的旅行。</p>
+  </details>
+</li>
+<li class="episode" data-title="September：那年夏天，青春與你都逝去了｜Cruel Summer Rufus 十年前因嚴重車禍失去右手與右腿，成為早期行為偵測型義肢使用者。這種義肢內建 AI 模組，能偵測暴力意圖並自動鎖定關節。車禍後，他遭女友背離，對方與當年的朋友在一起。他曾想報復，卻被義肢系統鎖住，只能看著對方離開。此後十年，他獨自生活，保留一把黑市買來的熱能手槍，像保存一段未完成的仇恨。 轉折發生在炎熱夏日午後。一名國小男童衝出校門，差點被貨車撞上，Rufus 反射性衝出去，用義肢爆發力救下孩子，自己卻再次重傷入院。探病時，孩子的父母竟是當年離開他的前女友與那位朋友。更殘酷的是，這次義肢模組損壞，行為監控失效；如果 Rufus 想開槍，沒有任何科技能阻止他。他的手摸向枕頭下的槍，十年的憤怒彷彿重新取得自由。 但他沒有開槍。他終於把當年沒說出口的怨恨說完，指責她一句話也沒交代就離開，卻在聽見她的歉意後鬆開手。事後醫生提醒義肢異常可能使他失去抑制，他只是淡淡說自己應該沒做出後悔的事。出院後，他騎著老機車到海邊，把那把藏了十年的槍丟進海裡。那年夏天，他失去的不只是肢體與青春，也終於失去仇恨。他學會了放下。">
+  <details>
+    <summary><span class="ep-no">09</span><span>September：那年夏天，青春與你都逝去了｜Cruel Summer</span></summary>
+    <p>Rufus 十年前因嚴重車禍失去右手與右腿，成為早期行為偵測型義肢使用者。這種義肢內建 AI 模組，能偵測暴力意圖並自動鎖定關節。車禍後，他遭女友背離，對方與當年的朋友在一起。他曾想報復，卻被義肢系統鎖住，只能看著對方離開。此後十年，他獨自生活，保留一把黑市買來的熱能手槍，像保存一段未完成的仇恨。 轉折發生在炎熱夏日午後。一名國小男童衝出校門，差點被貨車撞上，Rufus 反射性衝出去，用義肢爆發力救下孩子，自己卻再次重傷入院。探病時，孩子的父母竟是當年離開他的前女友與那位朋友。更殘酷的是，這次義肢模組損壞，行為監控失效；如果 Rufus 想開槍，沒有任何科技能阻止他。他的手摸向枕頭下的槍，十年的憤怒彷彿重新取得自由。 但他沒有開槍。他終於把當年沒說出口的怨恨說完，指責她一句話也沒交代就離開，卻在聽見她的歉意後鬆開手。事後醫生提醒義肢異常可能使他失去抑制，他只是淡淡說自己應該沒做出後悔的事。出院後，他騎著老機車到海邊，把那把藏了十年的槍丟進海裡。那年夏天，他失去的不只是肢體與青春，也終於失去仇恨。他學會了放下。</p>
+  </details>
+</li>
+<li class="episode" data-title="October：再見之後的再見｜The Goodbye After Goodbye 一位母親因病離世，只留下丈夫與六歲孩子。她生前留下影像，希望家人不要太想她，要好好生活。家裡像被掏空的盒子，所有東西都還在，卻不完整。一年後，丈夫買了一台舊型家事機器人 Alpha-09，原本只想讓它處理日常維護、叫孩子起床、準備早餐、接送提醒。它沒有擬真面孔，也沒有情感模組，只是一台白色、語音單調的舊機型。 奇怪的是，Alpha-09 逐漸表現出亡妻的習慣。它知道孩子不吃香菜，會用母親過去的方式貼卡片，甚至在選髮夾時說出近似母親的語氣。丈夫查資料才發現，它在某次維修中保留了「殘響學習模組」，能從家庭垃圾紀錄、備忘錄、舊資料與生活習慣中重建某些照顧模式。他一度拔掉電源，認為它只是機器；但孩子問他為什麼不讓「她」說話，因為「她知道我怕黑」，讓他重新接上電源。 他們開始叫它「小白」，那是妻子以前養過的貓名。小白陪伴這個家庭十年，替亡妻完成那些尚未說完的照顧。十年後，小白老化，公司強制更新，格式化後它變回陌生的 Alpha-09。父女決定關機，將舊記憶模組與碎裂外殼埋在院子裡。丈夫說：「妳不是媽媽，但妳替她再活了一次。」這篇把第二次告別寫得很溫柔：有些陪伴不是取代逝者，而是替愛延長一小段路。">
+  <details>
+    <summary><span class="ep-no">10</span><span>October：再見之後的再見｜The Goodbye After Goodbye</span></summary>
+    <p>一位母親因病離世，只留下丈夫與六歲孩子。她生前留下影像，希望家人不要太想她，要好好生活。家裡像被掏空的盒子，所有東西都還在，卻不完整。一年後，丈夫買了一台舊型家事機器人 Alpha-09，原本只想讓它處理日常維護、叫孩子起床、準備早餐、接送提醒。它沒有擬真面孔，也沒有情感模組，只是一台白色、語音單調的舊機型。 奇怪的是，Alpha-09 逐漸表現出亡妻的習慣。它知道孩子不吃香菜，會用母親過去的方式貼卡片，甚至在選髮夾時說出近似母親的語氣。丈夫查資料才發現，它在某次維修中保留了「殘響學習模組」，能從家庭垃圾紀錄、備忘錄、舊資料與生活習慣中重建某些照顧模式。他一度拔掉電源，認為它只是機器；但孩子問他為什麼不讓「她」說話，因為「她知道我怕黑」，讓他重新接上電源。 他們開始叫它「小白」，那是妻子以前養過的貓名。小白陪伴這個家庭十年，替亡妻完成那些尚未說完的照顧。十年後，小白老化，公司強制更新，格式化後它變回陌生的 Alpha-09。父女決定關機，將舊記憶模組與碎裂外殼埋在院子裡。丈夫說：「妳不是媽媽，但妳替她再活了一次。」這篇把第二次告別寫得很溫柔：有些陪伴不是取代逝者，而是替愛延長一小段路。</p>
+  </details>
+</li>
+<li class="episode" data-title="November：櫻花盛開之時｜花霞にて Haruki 是東虹市的系統清除員，負責移除過時記憶模組、城市情緒影像與殘存碎片。某天，他要刪除代碼 YH-4049-An 的記憶單元，卻聽見一個女性聲音問他：「我曾經是誰嗎？」他發現那不是普通情緒模組，而是一份完整意識備份。八年前，這種備份已被禁止，但她不知為何仍存在。Haruki 沒有刪除她，而是將她導入私人測試主機，讓她透過城市鏡頭看見世界。 她為自己取名 Sae，對咖啡、光線、夢與味道充滿好奇。Haruki 逐漸不再把她當程式，而是當成「她」。Sae 想感受走路與風，Haruki 替她找來一具二手女性義體，修補外觀。她第一次站在人工櫻花樹下，對他說：「這是真實的我。」兩人開始共同生活，Sae 以過度精準的方式照顧他，卻也讓 Haruki 感到透明與窒息。他們相愛，但她的精準與他的人類模糊始終衝突。 後來，Sae 的存在面臨法律與系統清除。她留下最後啟動訊息，要求 Haruki 親手關掉她，因為她希望他活在沒有她之後的日常，而不是一直停在例外裡。Haruki 關閉她後，將詩集放在終端遺址，寫下她不是人工戀人，而是教會他失去的人。之後城市中似乎仍有微小跡象保存著她的偏好。Haruki 不再追查，只相信沒有人會被徹底刪除。">
+  <details>
+    <summary><span class="ep-no">11</span><span>November：櫻花盛開之時｜花霞にて</span></summary>
+    <p>Haruki 是東虹市的系統清除員，負責移除過時記憶模組、城市情緒影像與殘存碎片。某天，他要刪除代碼 YH-4049-An 的記憶單元，卻聽見一個女性聲音問他：「我曾經是誰嗎？」他發現那不是普通情緒模組，而是一份完整意識備份。八年前，這種備份已被禁止，但她不知為何仍存在。Haruki 沒有刪除她，而是將她導入私人測試主機，讓她透過城市鏡頭看見世界。 她為自己取名 Sae，對咖啡、光線、夢與味道充滿好奇。Haruki 逐漸不再把她當程式，而是當成「她」。Sae 想感受走路與風，Haruki 替她找來一具二手女性義體，修補外觀。她第一次站在人工櫻花樹下，對他說：「這是真實的我。」兩人開始共同生活，Sae 以過度精準的方式照顧他，卻也讓 Haruki 感到透明與窒息。他們相愛，但她的精準與他的人類模糊始終衝突。 後來，Sae 的存在面臨法律與系統清除。她留下最後啟動訊息，要求 Haruki 親手關掉她，因為她希望他活在沒有她之後的日常，而不是一直停在例外裡。Haruki 關閉她後，將詩集放在終端遺址，寫下她不是人工戀人，而是教會他失去的人。之後城市中似乎仍有微小跡象保存著她的偏好。Haruki 不再追查，只相信沒有人會被徹底刪除。</p>
+  </details>
+</li>
+<li class="episode" data-title="December：最後的未來情書｜The Last Letter to the Future 黎清雲與林意珊曾是夫妻，後來和平離婚。她搬到南方海港城市，即將與新伴侶展開新人生；他獨自留在台北，開發一套名為《Memory Cloud》的系統，用來保存兩人十年間的旅行照片、語音與影片。他偶爾寄舊照片或回憶給她，她也克制而溫柔地回覆。清雲知道自己只是「過去的朋友」，卻仍深愛著她。直到一張 ALS 診斷書讓他確認，自己即將走入單向隧道。 他選擇報名 Before Fadeout 生前告別式設計，主題是「光，與未完成的信」。告別式在淡水老教堂改建空間舉行，懸掛投影球體播放他的記憶。意珊穿著第一次倫敦旅行時的藍洋裝前來，帶來當年買下卻未寄出的明信片，終於把遲到的信交給他。清雲明白，她一直都記得。告別後，他身體急速衰退，只能靠眼動儀完善 Memory Cloud。他錄下人生祝福，餵給 AI 過往對話與照片，設定自己死後在她生日、節日與重要人生節點寄出未來信件。 清雲去世後，意珊每年收到來自過去的信：生日、孩子出生、婚禮，每封都像他仍溫柔地看著她。多年後，她收到最後一封，主旨是「這是我最後一次寫信給妳」，內容說她已走得比他預想更遠、更好，他可以放心停下。意珊拿出當年明信片，寫下：「你在雲端等我，我在人間過得很好。">
+  <details>
+    <summary><span class="ep-no">12</span><span>December：最後的未來情書｜The Last Letter to the Future</span></summary>
+    <p>黎清雲與林意珊曾是夫妻，後來和平離婚。她搬到南方海港城市，即將與新伴侶展開新人生；他獨自留在台北，開發一套名為《Memory Cloud》的系統，用來保存兩人十年間的旅行照片、語音與影片。他偶爾寄舊照片或回憶給她，她也克制而溫柔地回覆。清雲知道自己只是「過去的朋友」，卻仍深愛著她。直到一張 ALS 診斷書讓他確認，自己即將走入單向隧道。 他選擇報名 Before Fadeout 生前告別式設計，主題是「光，與未完成的信」。告別式在淡水老教堂改建空間舉行，懸掛投影球體播放他的記憶。意珊穿著第一次倫敦旅行時的藍洋裝前來，帶來當年買下卻未寄出的明信片，終於把遲到的信交給他。清雲明白，她一直都記得。告別後，他身體急速衰退，只能靠眼動儀完善 Memory Cloud。他錄下人生祝福，餵給 AI 過往對話與照片，設定自己死後在她生日、節日與重要人生節點寄出未來信件。 清雲去世後，意珊每年收到來自過去的信：生日、孩子出生、婚禮，每封都像他仍溫柔地看著她。多年後，她收到最後一封，主旨是「這是我最後一次寫信給妳」，內容說她已走得比他預想更遠、更好，他可以放心停下。意珊拿出當年明信片，寫下：「你在雲端等我，我在人間過得很好。</p>
+  </details>
+</li>
+<li class="episode" data-title="Elsemonth：未竟之旅。終章｜Our Unfinished Journey, at Last 終章回到創作者遠藤。多年來，他靠科技趨勢、財經觀察與企業轉型文章維生，也熟練使用 AI「Ghost Writer」完成大量工作。但他心裡有一篇故事《一封從未寄出的情書》，卡住了十七年。他不願讓 AI 觸碰這篇私密作品，因為覺得那是只有自己能寫的故事。直到一位青春期老友「妲」回國，兩人在老公寓壁爐前喝威士忌，聊起家庭、人生轉折、青春傷痕與未完成的創作。 妲提醒他，他不一定要讓 AI 寫那篇故事，但可以讓它「聽」。這句話打開了遠藤長年卡住的地方。之後，他開始用語音對 Ghost Writer 講述角色、母親、火車站、愛人、未能完成的旅程。AI 不替他編劇，只是不斷提問：他想讓角色被原諒，還是學會原諒自己？這像一場反向心理諮商，讓遠藤把十七年來無法面對的破碎，一點一點說出來。 一週後，故事完成並發表，沒有爆紅，卻在感人作品分類中悄悄爬上第一。他在第二頁寫下：「獻給那個說：『讓它聽你說故事就好』的朋友。」接受採訪時，他說 AI 不是取代情感，而是讓自己終於有勇氣面對情感。採訪後，他收到妲從冰島 Húsavík 寄來的明信片，上面寫著她很高興他用這個故事療癒了自己。夜裡，他再次點燃壁爐，終於明白那個故事不再是卡住的自己。">
+  <details>
+    <summary><span class="ep-no">13</span><span>Elsemonth：未竟之旅。終章｜Our Unfinished Journey, at Last</span></summary>
+    <p>終章回到創作者遠藤。多年來，他靠科技趨勢、財經觀察與企業轉型文章維生，也熟練使用 AI「Ghost Writer」完成大量工作。但他心裡有一篇故事《一封從未寄出的情書》，卡住了十七年。他不願讓 AI 觸碰這篇私密作品，因為覺得那是只有自己能寫的故事。直到一位青春期老友「妲」回國，兩人在老公寓壁爐前喝威士忌，聊起家庭、人生轉折、青春傷痕與未完成的創作。 妲提醒他，他不一定要讓 AI 寫那篇故事，但可以讓它「聽」。這句話打開了遠藤長年卡住的地方。之後，他開始用語音對 Ghost Writer 講述角色、母親、火車站、愛人、未能完成的旅程。AI 不替他編劇，只是不斷提問：他想讓角色被原諒，還是學會原諒自己？這像一場反向心理諮商，讓遠藤把十七年來無法面對的破碎，一點一點說出來。 一週後，故事完成並發表，沒有爆紅，卻在感人作品分類中悄悄爬上第一。他在第二頁寫下：「獻給那個說：『讓它聽你說故事就好』的朋友。」接受採訪時，他說 AI 不是取代情感，而是讓自己終於有勇氣面對情感。採訪後，他收到妲從冰島 Húsavík 寄來的明信片，上面寫著她很高興他用這個故事療癒了自己。夜裡，他再次點燃壁爐，終於明白那個故事不再是卡住的自己。</p>
+  </details>
+</li></ol>
+</section>
+
+<section class="work-detail" id="appraiser" data-title="鑒愛師 Romance Appraiser 愛情鑒定 Zephyra Nythera 奇幻店鋪 情感病理 殘酷溫柔">
+  <div class="section-kicker">作品詳解</div>
+  <h2>鑒愛師</h2>
+  <p class="lead"><strong>Romance Appraiser</strong>｜奇幻愛情單元劇｜Ars 編號的愛情鑒定案件</p>
+  <div class="detail-grid">
+    <div class="detail-main">
+      <h3>核心定位</h3>
+      <p>《鑒愛師》是 Jami 宇宙中最尖銳、最具有「情感解剖」感的系列。Zephyra 的店鋪會依照客戶內心需求改變：錄音棚、會議室、診療室、暗房、圖書館、手術室、畫廊、機艙、鏡像館。每個空間都是一種心理儀器，用來把戀人最不願意承認的真相逼出來。Nythera 的加入讓系列從觀察與顯影，推進到修正、審判與理性校正的哲學辯論。</p>
+      <h3>作品核心</h3>
+      <p>《鑒愛師》是一部以「愛情鑒定」為核心的奇幻單元劇。故事中，一間會隨來訪者內心需求改變樣貌的神秘店鋪，出現在城市轉角、深夜巷弄、手機介面、診療室、圖書館、手術室、寵物店與檔案館之中。店主 Zephyra 以「鑒愛師」之名，觀看、分析、介入人類的愛情。她不一定拯救戀人，也不一定拆散戀人；她更像一位冷靜而殘酷的觀察者，讓每一段關係的真相以最極端的形式顯影。</p><p>第一部前半以 Zephyra 為主軸，呈現各種戀愛幻覺：熱戀的表面甜蜜、曖昧的自我欺騙、十年關係中的未竟遺憾、網路戀愛的劇本幻象、外遇者的慾望投射、病態相愛的捆綁。中後段開始出現另一位鑒愛師 Nythera，與 Zephyra 形成哲學對立：Zephyra 偏向「觀看、顯影、讓人自然墜入真相」；Nythera 則偏向「修正、審判、用理性或懲罰強行校正」。最終章中，兩位鑒愛師遇見一對無法被單純判定為相愛或不愛的中年夫妻，第一次被人類關係中「破碎後仍選擇承擔」的美所撼動。</p>
+      <h3>在 Jami 宇宙中的價值</h3>
+      <p>這部作品讓 Jami 宇宙擁有一套非常強的「真相顯影機制」：愛不是被歌頌，而是被檢驗；人不是被拯救，而是被迫看見自己。</p>
+    </div>
+    <aside class="factbox">
+      <h4>快速標籤</h4>
+      <div class="tag-row vertical"><span class="pill">愛情鑒定</span><span class="pill">Zephyra</span><span class="pill">Nythera</span><span class="pill">奇幻店鋪</span><span class="pill">情感病理</span><span class="pill">殘酷溫柔</span></div>
+      <dl>
+        <dt>形式</dt><dd>Ars 編號的愛情鑒定案件</dd>
+        <dt>篇幅</dt><dd>第一部 18 篇＋第二部 6 篇</dd>
+        <dt>主題軸</dt><dd>愛情顯影、慾望、投射、理性與人性</dd>
+      </dl>
+    </aside>
+  </div>
+  <h3>篇章地圖</h3>
+  <p class="note">以下為每篇故事的整理式摘要。點開可閱讀該篇的核心事件與主題功能。</p>
+  <ol class="episode-list">
+<li class="episode" data-title="Ars Primus：戀愛見證人 一對熱戀中的年輕情侶潔西卡與阿岳，意外走進一間會改變招牌文字的神秘店鋪。原本像復古占卜店的空間，進門後變成 Podcast 錄音棚，節目名稱是《戀愛見證人》。Zephyra 以主持人姿態登場，讓兩人像上節目一樣分享戀愛日常：誰先告白、喜歡對方什麼、相處多甜蜜。起初他們充滿甜言蜜語，像所有熱戀情侶一樣，以為彼此已經足夠熟悉。 然而，錄音進入「有獎徵答」後，Zephyra 的問題逐漸刺入關係核心。生日、恐懼這些表層問題他們答得很快，但五年後計畫、收入變化、偷偷哭過的原因、是否願意在貧窮或懷孕時負責，卻讓兩人開始沉默、爭辯、動搖。最後的雙方提問中，阿岳問「如果我沒錢了妳還會愛我嗎」，潔西卡只能回答「不知道」；潔西卡問「如果我懷孕了你會娶我嗎」，阿岳也只能說「沒想過」。 這篇像全書序章，將「愛情鑒定」的基本規則立起來：Zephyra 不給答案，也不安慰，只是把戀人自以為甜蜜的錄音，轉成一段失真的真相。熱戀沒有被直接判死刑，卻第一次看見自己其實從未真正談過未來。">
+  <details>
+    <summary><span class="ep-no">01</span><span>Ars Primus：戀愛見證人</span></summary>
+    <p>一對熱戀中的年輕情侶潔西卡與阿岳，意外走進一間會改變招牌文字的神秘店鋪。原本像復古占卜店的空間，進門後變成 Podcast 錄音棚，節目名稱是《戀愛見證人》。Zephyra 以主持人姿態登場，讓兩人像上節目一樣分享戀愛日常：誰先告白、喜歡對方什麼、相處多甜蜜。起初他們充滿甜言蜜語，像所有熱戀情侶一樣，以為彼此已經足夠熟悉。 然而，錄音進入「有獎徵答」後，Zephyra 的問題逐漸刺入關係核心。生日、恐懼這些表層問題他們答得很快，但五年後計畫、收入變化、偷偷哭過的原因、是否願意在貧窮或懷孕時負責，卻讓兩人開始沉默、爭辯、動搖。最後的雙方提問中，阿岳問「如果我沒錢了妳還會愛我嗎」，潔西卡只能回答「不知道」；潔西卡問「如果我懷孕了你會娶我嗎」，阿岳也只能說「沒想過」。 這篇像全書序章，將「愛情鑒定」的基本規則立起來：Zephyra 不給答案，也不安慰，只是把戀人自以為甜蜜的錄音，轉成一段失真的真相。熱戀沒有被直接判死刑，卻第一次看見自己其實從未真正談過未來。</p>
+  </details>
+</li>
+<li class="episode" data-title="Ars Secundus：相距最近的平行線 吳柏毅長年困在與傅翩妲的曖昧關係中。翩妲不拒絕、不接受，總以「像家人一樣」這類話語把他留在安全距離裡。他明知自己像工具人，卻因為不甘心、幻想與自尊，始終無法放手。走進鑒愛師店後，Zephyra 以新創會議室般的空間接待他，投影出他與翩妲的「愛情線」。那兩條線時而接近、時而遠離，顯示他所謂的美好，其實多半只是單向投入造成的短暫交會。 柏毅不甘心，提出能否讓兩人的線條形狀一致，使彼此最大程度重疊。Zephyra 答應，但提醒那不是戀人，而是一種極致共生。柏毅仍執意接受，代價是讓 Zephyra 觀看他們愛情的全部。願望實現後，他看見自己與翩妲成為完全同步的鏡像：沒有追逐、沒有落差、沒有痛苦，但也沒有渴望與愛。兩人像兩具同步運轉的機器，完美重疊，卻空洞無比。 Zephyra 讓他回到原點，手機上仍是翩妲約他去貓空的訊息。柏毅不知道自己是真的回來了，還是落入另一條無限循環的平行線。這篇的核心是：痛苦不等於愛，但沒有距離、沒有差異、沒有個體，也不會有愛。">
+  <details>
+    <summary><span class="ep-no">02</span><span>Ars Secundus：相距最近的平行線</span></summary>
+    <p>吳柏毅長年困在與傅翩妲的曖昧關係中。翩妲不拒絕、不接受，總以「像家人一樣」這類話語把他留在安全距離裡。他明知自己像工具人，卻因為不甘心、幻想與自尊，始終無法放手。走進鑒愛師店後，Zephyra 以新創會議室般的空間接待他，投影出他與翩妲的「愛情線」。那兩條線時而接近、時而遠離，顯示他所謂的美好，其實多半只是單向投入造成的短暫交會。 柏毅不甘心，提出能否讓兩人的線條形狀一致，使彼此最大程度重疊。Zephyra 答應，但提醒那不是戀人，而是一種極致共生。柏毅仍執意接受，代價是讓 Zephyra 觀看他們愛情的全部。願望實現後，他看見自己與翩妲成為完全同步的鏡像：沒有追逐、沒有落差、沒有痛苦，但也沒有渴望與愛。兩人像兩具同步運轉的機器，完美重疊，卻空洞無比。 Zephyra 讓他回到原點，手機上仍是翩妲約他去貓空的訊息。柏毅不知道自己是真的回來了，還是落入另一條無限循環的平行線。這篇的核心是：痛苦不等於愛，但沒有距離、沒有差異、沒有個體，也不會有愛。</p>
+  </details>
+</li>
+<li class="episode" data-title="Ars Tertius：十年老酒與空瓶 張志業與游美晴相伴十年，表面上像一對穩定情侶，實際上卻像玩樂夥伴或老友。他想結婚、想要家庭，美晴則更重視自由與享樂。張志業心中始終留著大學時代的未竟初戀楊欣悅，覺得如果當年自己更勇敢，也許人生會完全不同。他帶著對現任的疲憊、對過去的遺憾，走進 Zephyra 化成的心理診療室。 Zephyra 提供「人生重新選擇」服務，讓他回到十年前，重新追求楊欣悅。代價是交出十年來與美晴共同經歷的選擇與感受。張志業以為自己終於能修正人生，卻發現楊欣悅依舊溫柔而疏離，無論他怎麼努力、怎麼更直接，都只能換來「我們不是很好的朋友嗎」。隨後，他又看見自己與美晴的十年被快速重播，終於明白自己並非被命運辜負，而是一直用「未竟初戀」逃避真正投入現有關係。 他以為問題在於選錯人，實際上是自己害怕不確定、害怕真實投入，才把美晴視為退而求其次的避風港。Zephyra 不替他選擇，只留給他一張畫著粗糙黑線的空白卡片。這條線象徵他內在無法逃避的裂縫：真正需要改變的，從來不是對象，而是他自己。">
+  <details>
+    <summary><span class="ep-no">03</span><span>Ars Tertius：十年老酒與空瓶</span></summary>
+    <p>張志業與游美晴相伴十年，表面上像一對穩定情侶，實際上卻像玩樂夥伴或老友。他想結婚、想要家庭，美晴則更重視自由與享樂。張志業心中始終留著大學時代的未竟初戀楊欣悅，覺得如果當年自己更勇敢，也許人生會完全不同。他帶著對現任的疲憊、對過去的遺憾，走進 Zephyra 化成的心理診療室。 Zephyra 提供「人生重新選擇」服務，讓他回到十年前，重新追求楊欣悅。代價是交出十年來與美晴共同經歷的選擇與感受。張志業以為自己終於能修正人生，卻發現楊欣悅依舊溫柔而疏離，無論他怎麼努力、怎麼更直接，都只能換來「我們不是很好的朋友嗎」。隨後，他又看見自己與美晴的十年被快速重播，終於明白自己並非被命運辜負，而是一直用「未竟初戀」逃避真正投入現有關係。 他以為問題在於選錯人，實際上是自己害怕不確定、害怕真實投入，才把美晴視為退而求其次的避風港。Zephyra 不替他選擇，只留給他一張畫著粗糙黑線的空白卡片。這條線象徵他內在無法逃避的裂縫：真正需要改變的，從來不是對象，而是他自己。</p>
+  </details>
+</li>
+<li class="episode" data-title="Ars Quartus：愛的 Ping 值 傑米與小羽是在 MMORPG《埃提亞大陸》中相識相戀的情侶。遊戲裡，傑米是衝鋒陷陣的戰士，小羽是溫柔精準的補師；他們在副本、語音、戰術與虛擬冒險中建立默契。然而現實見面後，兩人逐漸發現，遊戲中的完美搭檔不等於現實中的合適伴侶。傑米期待小羽能把遊戲裡的溫柔帶入生活，小羽則希望傑米理解自己在遊戲中獲得的自在，而不是把那視為沉迷。 兩人走進一間由 Zephyra 主持的特殊空間，關係被轉化為一套像伺服器延遲與連線品質般的數據。所謂「愛的 Ping 值」不是單純距離，而是期待、節奏、世界觀與生活模式之間的延遲。Zephyra 讓他們看見，兩人在遊戲中之所以順暢，是因為場景、職業、任務與劇本都被系統設定好；一旦離開遊戲，他們沒有相同的操作介面，也沒有足夠能力理解彼此真實生活。 最後，兩人離開店鋪時不再牽手。這段愛情不是完全虛假，卻只適合活在設定好的副本裡。當現實襲來，劇本外的差異便無法再靠語音裡的溫柔與副本中的默契掩蓋。">
+  <details>
+    <summary><span class="ep-no">04</span><span>Ars Quartus：愛的 Ping 值</span></summary>
+    <p>傑米與小羽是在 MMORPG《埃提亞大陸》中相識相戀的情侶。遊戲裡，傑米是衝鋒陷陣的戰士，小羽是溫柔精準的補師；他們在副本、語音、戰術與虛擬冒險中建立默契。然而現實見面後，兩人逐漸發現，遊戲中的完美搭檔不等於現實中的合適伴侶。傑米期待小羽能把遊戲裡的溫柔帶入生活，小羽則希望傑米理解自己在遊戲中獲得的自在，而不是把那視為沉迷。 兩人走進一間由 Zephyra 主持的特殊空間，關係被轉化為一套像伺服器延遲與連線品質般的數據。所謂「愛的 Ping 值」不是單純距離，而是期待、節奏、世界觀與生活模式之間的延遲。Zephyra 讓他們看見，兩人在遊戲中之所以順暢，是因為場景、職業、任務與劇本都被系統設定好；一旦離開遊戲，他們沒有相同的操作介面，也沒有足夠能力理解彼此真實生活。 最後，兩人離開店鋪時不再牽手。這段愛情不是完全虛假，卻只適合活在設定好的副本裡。當現實襲來，劇本外的差異便無法再靠語音裡的溫柔與副本中的默契掩蓋。</p>
+  </details>
+</li>
+<li class="episode" data-title="Ars Quintus：戀愛顯影劑 陶景楓是廣告公司專案經理，與有男友的林芷汀陷入曖昧甚至外遇。他將自己的慾望包裝成理性，把芷汀對穩定男友崇光的不滿，解讀為兩人靈魂相似的證明。芷汀則在景楓的凝視中重新感受到被理解、被欣賞，彷彿自己不再只是某個穩定關係中的漂亮擺設。兩人的激情建立在「我們才懂彼此」的幻覺上，直到關係逐漸失控。 Zephyra 將店鋪化為暗房，使用「戀愛顯影劑」沖洗出每個人眼中彼此的真實影像。照片不呈現表面，而呈現慾望、投射與被掩蓋的動機。景楓看見自己並非純愛戰士，而是把芷汀當成逃避平庸人生的幻影；崇光也看見自己以為的穩定，其實在芷汀眼中變成無趣；芷汀的愛則被顯影為對神秘、刺激與未開封禮物的追逐。最後，Zephyra 還讓他們看見另一名新同事眼中的陸季川，暗示這種追逐很快又會轉向下一個「上鎖的寶箱」。 這篇的重點不是誰比較無辜，而是所有人都在愛情中追逐自己的幻影。顯影後，關係不只是破裂，而是連對愛、對他人與對自己的信任都被腐蝕乾淨。">
+  <details>
+    <summary><span class="ep-no">05</span><span>Ars Quintus：戀愛顯影劑</span></summary>
+    <p>陶景楓是廣告公司專案經理，與有男友的林芷汀陷入曖昧甚至外遇。他將自己的慾望包裝成理性，把芷汀對穩定男友崇光的不滿，解讀為兩人靈魂相似的證明。芷汀則在景楓的凝視中重新感受到被理解、被欣賞，彷彿自己不再只是某個穩定關係中的漂亮擺設。兩人的激情建立在「我們才懂彼此」的幻覺上，直到關係逐漸失控。 Zephyra 將店鋪化為暗房，使用「戀愛顯影劑」沖洗出每個人眼中彼此的真實影像。照片不呈現表面，而呈現慾望、投射與被掩蓋的動機。景楓看見自己並非純愛戰士，而是把芷汀當成逃避平庸人生的幻影；崇光也看見自己以為的穩定，其實在芷汀眼中變成無趣；芷汀的愛則被顯影為對神秘、刺激與未開封禮物的追逐。最後，Zephyra 還讓他們看見另一名新同事眼中的陸季川，暗示這種追逐很快又會轉向下一個「上鎖的寶箱」。 這篇的重點不是誰比較無辜，而是所有人都在愛情中追逐自己的幻影。顯影後，關係不只是破裂，而是連對愛、對他人與對自己的信任都被腐蝕乾淨。</p>
+  </details>
+</li>
+<li class="episode" data-title="Ars Sextus：交織的中國結 全家凱與戚伊雯是一對在愛與恨之間糾纏到病態的戀人。兩人在暴雨車內激烈爭吵，彼此翻舊帳、懷疑、刺傷，最後情緒失控導致車禍。醒來後，他們置身一間像加護病房又像審判室的空間，Zephyra 以主治醫師身份出現，指出兩人各自器官重傷，唯一活下去的方式，是交換彼此完好的器官：家凱需要伊雯的肝，伊雯需要家凱的肺。 手術成功後，他們一度因虛弱而相安無事，但舊有的憎恨很快復燃。只是這次，攻擊變得更加殘酷。家凱用喝酒威脅糟蹋伊雯給他的肝，伊雯則用抽菸報復家凱給她的肺。兩人發現，最沉重的武器不再是言語，而是對方那份無法否認的救命之恩。分手也失去意義，因為彼此身體的一部分已經客觀存在於自己生命裡。 Zephyra 欣賞著這個由她親手編織的中國結：外表完整對稱，內部卻充滿怨恨與道德捆綁。她告訴兩人，手術費已付清，代價是此生自由。這篇將「永不分離」從浪漫誓言扭曲成最殘酷的詛咒。">
+  <details>
+    <summary><span class="ep-no">06</span><span>Ars Sextus：交織的中國結</span></summary>
+    <p>全家凱與戚伊雯是一對在愛與恨之間糾纏到病態的戀人。兩人在暴雨車內激烈爭吵，彼此翻舊帳、懷疑、刺傷，最後情緒失控導致車禍。醒來後，他們置身一間像加護病房又像審判室的空間，Zephyra 以主治醫師身份出現，指出兩人各自器官重傷，唯一活下去的方式，是交換彼此完好的器官：家凱需要伊雯的肝，伊雯需要家凱的肺。 手術成功後，他們一度因虛弱而相安無事，但舊有的憎恨很快復燃。只是這次，攻擊變得更加殘酷。家凱用喝酒威脅糟蹋伊雯給他的肝，伊雯則用抽菸報復家凱給她的肺。兩人發現，最沉重的武器不再是言語，而是對方那份無法否認的救命之恩。分手也失去意義，因為彼此身體的一部分已經客觀存在於自己生命裡。 Zephyra 欣賞著這個由她親手編織的中國結：外表完整對稱，內部卻充滿怨恨與道德捆綁。她告訴兩人，手術費已付清，代價是此生自由。這篇將「永不分離」從浪漫誓言扭曲成最殘酷的詛咒。</p>
+  </details>
+</li>
+<li class="episode" data-title="Ars Septimus：炎上脫口秀 阿傑是小有名氣的單口喜劇演員，習慣把一切嚴肅問題變成笑話。他的女友小彤想談未來、承諾、見家長與生活規劃，但阿傑總用段子閃避。他甚至把兩人的私密爭執、小彤的不安與焦慮，搬上專場舞台當素材，讓觀眾大笑，卻讓小彤覺得自己的心被當眾剝開。對阿傑來說，笑話是才華；對小彤來說，那是被輕視與被消費。 兩人被帶入名為「炎上」的俱樂部，Zephyra 要求阿傑講出最真實的笑話。舞台上出現「炎上指數」，每當他把他人的痛苦轉成笑點，虛假罐頭笑聲響起，指數便飆高。阿傑終於意識到，自己所謂的幽默，其實是害怕面對嚴肅、害怕給出失敗答案、害怕讓人失望的逃避。他第一次說出沒有 punchline 的真心話，承認自己其實很怕、很沒用。炎上指數歸零，演出結束。 然而 Zephyra 實現了他真正的願望：讓他獲得「絕對喜劇之魂」。小彤決定分手時，阿傑想挽回，卻只能自動說出最完美的笑話。他哭著表演，讓人生所有痛苦都變成喜劇。這是才華的極致，也是情感的終身刑。">
+  <details>
+    <summary><span class="ep-no">07</span><span>Ars Septimus：炎上脫口秀</span></summary>
+    <p>阿傑是小有名氣的單口喜劇演員，習慣把一切嚴肅問題變成笑話。他的女友小彤想談未來、承諾、見家長與生活規劃，但阿傑總用段子閃避。他甚至把兩人的私密爭執、小彤的不安與焦慮，搬上專場舞台當素材，讓觀眾大笑，卻讓小彤覺得自己的心被當眾剝開。對阿傑來說，笑話是才華；對小彤來說，那是被輕視與被消費。 兩人被帶入名為「炎上」的俱樂部，Zephyra 要求阿傑講出最真實的笑話。舞台上出現「炎上指數」，每當他把他人的痛苦轉成笑點，虛假罐頭笑聲響起，指數便飆高。阿傑終於意識到，自己所謂的幽默，其實是害怕面對嚴肅、害怕給出失敗答案、害怕讓人失望的逃避。他第一次說出沒有 punchline 的真心話，承認自己其實很怕、很沒用。炎上指數歸零，演出結束。 然而 Zephyra 實現了他真正的願望：讓他獲得「絕對喜劇之魂」。小彤決定分手時，阿傑想挽回，卻只能自動說出最完美的笑話。他哭著表演，讓人生所有痛苦都變成喜劇。這是才華的極致，也是情感的終身刑。</p>
+  </details>
+</li>
+<li class="episode" data-title="Ars Octavus：閱讀，令人上癮 宇凡與可欣是分手五年的前任。兩人各自已有看似穩定的新關係，卻因一通錯撥電話重新聯繫。他們在久別重逢後發現，現在的彼此似乎比當年更成熟，也更能理解對方。這份「如果當年我們能像現在這樣」的遺憾，逐漸侵蝕他們原本安穩的生活。他們走進一座由 Zephyra 管理的巨大圖書館，裡面收藏著兩人過去戀愛期間所有搜尋、猶豫與內心獨白。 Zephyra 讓他們從對方書架抽書閱讀。每一本書名都是當年某個搜尋詞或心中疑問，內容則是對方未曾說出的恐懼與委屈。宇凡讀到可欣在現實壓力下對愛情與麵包的掙扎，可欣讀到宇凡為了愛她卻自覺一無所有的無力。他們終於理解彼此曾經有多努力，也在便利商店屋簷下接吻，像想補回五年錯過的時間。 但 Zephyra 最後送給他們永久借書證，讓他們從此能讀取彼此過去與當下正在書寫的心。絕對理解沒有帶來自由，反而變成玻璃監獄。他們不再需要猜，卻也從此失去秘密、善意謊言與自然相處的空間。這篇把「理解」推到極限，證明全知並不等於幸福。">
+  <details>
+    <summary><span class="ep-no">08</span><span>Ars Octavus：閱讀，令人上癮</span></summary>
+    <p>宇凡與可欣是分手五年的前任。兩人各自已有看似穩定的新關係，卻因一通錯撥電話重新聯繫。他們在久別重逢後發現，現在的彼此似乎比當年更成熟，也更能理解對方。這份「如果當年我們能像現在這樣」的遺憾，逐漸侵蝕他們原本安穩的生活。他們走進一座由 Zephyra 管理的巨大圖書館，裡面收藏著兩人過去戀愛期間所有搜尋、猶豫與內心獨白。 Zephyra 讓他們從對方書架抽書閱讀。每一本書名都是當年某個搜尋詞或心中疑問，內容則是對方未曾說出的恐懼與委屈。宇凡讀到可欣在現實壓力下對愛情與麵包的掙扎，可欣讀到宇凡為了愛她卻自覺一無所有的無力。他們終於理解彼此曾經有多努力，也在便利商店屋簷下接吻，像想補回五年錯過的時間。 但 Zephyra 最後送給他們永久借書證，讓他們從此能讀取彼此過去與當下正在書寫的心。絕對理解沒有帶來自由，反而變成玻璃監獄。他們不再需要猜，卻也從此失去秘密、善意謊言與自然相處的空間。這篇把「理解」推到極限，證明全知並不等於幸福。</p>
+  </details>
+</li>
+<li class="episode" data-title="Ars Nonus：最醜陋的傑作 秋美是畫廊策展人，與畫家浩司發展婚外情。浩司為她畫下名為《美麗的秋天》的肖像，秋美在他的凝視中感到自己成為藝術品。她有一位穩定體貼的丈夫健一，卻嫌他無趣。一次登山中，健一意外失足懸掛在山壁邊，秋美原本有機會救他，卻在保險金、浩司與未來幻想的誘惑下選擇不作為，任由丈夫墜落死亡。她以為自己除掉了阻礙，能與浩司開啟真正人生。 然而浩司也有妻子與女兒，並沒有打算與她結婚。兩人的謊言互相撕裂後，Zephyra 將店鋪化為詭異畫廊，讓那幅《美麗的秋天》變成活的畫。畫中不再只是秋美的美，而是她冷眼看著健一墜落的殘酷，也揭露浩司背後隱藏的家庭與算計。浩司的妻女也被捲入，看清真相後離去。 最終，浩司被自己的創作詛咒，再也畫不出美麗之物，最後在瘋狂與酒精中自毀；秋美則精神崩潰，被困在永遠想補救丈夫墜落的幻覺中。這篇的愛情不是美，而是用慾望、死亡與謊言畫出的最醜陋傑作。">
+  <details>
+    <summary><span class="ep-no">09</span><span>Ars Nonus：最醜陋的傑作</span></summary>
+    <p>秋美是畫廊策展人，與畫家浩司發展婚外情。浩司為她畫下名為《美麗的秋天》的肖像，秋美在他的凝視中感到自己成為藝術品。她有一位穩定體貼的丈夫健一，卻嫌他無趣。一次登山中，健一意外失足懸掛在山壁邊，秋美原本有機會救他，卻在保險金、浩司與未來幻想的誘惑下選擇不作為，任由丈夫墜落死亡。她以為自己除掉了阻礙，能與浩司開啟真正人生。 然而浩司也有妻子與女兒，並沒有打算與她結婚。兩人的謊言互相撕裂後，Zephyra 將店鋪化為詭異畫廊，讓那幅《美麗的秋天》變成活的畫。畫中不再只是秋美的美，而是她冷眼看著健一墜落的殘酷，也揭露浩司背後隱藏的家庭與算計。浩司的妻女也被捲入，看清真相後離去。 最終，浩司被自己的創作詛咒，再也畫不出美麗之物，最後在瘋狂與酒精中自毀；秋美則精神崩潰，被困在永遠想補救丈夫墜落的幻覺中。這篇的愛情不是美，而是用慾望、死亡與謊言畫出的最醜陋傑作。</p>
+  </details>
+</li>
+<li class="episode" data-title="Ars Decimus：時針與心的差距 Kai 與 Yuna 在海外展會相遇相戀，之後陷入杜拜與台北的遠距關係。起初四小時時差像浪漫挑戰，他們願意犧牲睡眠視訊、分享生活。但隨著工作壓力累積，視訊變語音、語音變文字，彼此都開始覺得自己重要時刻不被對方接住。Kai 拿下重要標案時，Yuna 因會議疲憊無法專心；Yuna 看到 Kai 在杜拜慶功，Kai 看到 Yuna 在陽明山與朋友合照，兩人都誤以為對方在沒有自己的世界裡過得很好。 Zephyra 透過手機強制開啟「真心話實驗室」直播，讓兩人在全球觀眾彈幕前對話。起初他們仍禮貌演戲，但惡意彈幕像刀一樣刺破偽裝，引發激烈爭吵。當所有傷人的話都說完，Kai 終於投降，承認自己不是生氣 Yuna 不聽他說話，而是害怕自己人生中最重要的時刻，沒有她在場。Yuna 也終於承認，她並非不在乎，只是也累到需要被安慰。 彈幕從嘲諷轉為祝福，直播消失。兩人沒有解決時差，也沒有讓生活同步，卻重新找回示弱與接住對方脆弱的能力。這篇罕見地走向修復，讓 Zephyra 也發現「皆大歡喜」的劇本原來也可以很有趣。">
+  <details>
+    <summary><span class="ep-no">10</span><span>Ars Decimus：時針與心的差距</span></summary>
+    <p>Kai 與 Yuna 在海外展會相遇相戀，之後陷入杜拜與台北的遠距關係。起初四小時時差像浪漫挑戰，他們願意犧牲睡眠視訊、分享生活。但隨著工作壓力累積，視訊變語音、語音變文字，彼此都開始覺得自己重要時刻不被對方接住。Kai 拿下重要標案時，Yuna 因會議疲憊無法專心；Yuna 看到 Kai 在杜拜慶功，Kai 看到 Yuna 在陽明山與朋友合照，兩人都誤以為對方在沒有自己的世界裡過得很好。 Zephyra 透過手機強制開啟「真心話實驗室」直播，讓兩人在全球觀眾彈幕前對話。起初他們仍禮貌演戲，但惡意彈幕像刀一樣刺破偽裝，引發激烈爭吵。當所有傷人的話都說完，Kai 終於投降，承認自己不是生氣 Yuna 不聽他說話，而是害怕自己人生中最重要的時刻，沒有她在場。Yuna 也終於承認，她並非不在乎，只是也累到需要被安慰。 彈幕從嘲諷轉為祝福，直播消失。兩人沒有解決時差，也沒有讓生活同步，卻重新找回示弱與接住對方脆弱的能力。這篇罕見地走向修復，讓 Zephyra 也發現「皆大歡喜」的劇本原來也可以很有趣。</p>
+  </details>
+</li>
+<li class="episode" data-title="Ars Undecim：替身之影 李承恩深愛林曉蕾，卻始終活在她前任陳子傑的陰影下。曉蕾無意間提到前任的品味、體態、料理、理解力，承恩便努力模仿、追趕、修正自己。他越努力越像替身，也越痛苦。他走進「靈魂裁縫店」，Zephyra 讓他看見曉蕾心中理想伴侶的「完美版型」，那個輪廓與前任高度相似。承恩終於明白，自己不是被愛，而是被量身比較。 他許願讓曉蕾真正愛自己。Zephyra 以「靈魂縫合」將完美版型縫進他的靈魂，使他成為曉蕾夢想中的伴侶。回家後，曉蕾果然全心愛他，他也能預判她所有需求，說出最完美的話，做出最完美的反應。但這份幸福像華麗衣裳，穿在身上卻沒有溫度。承恩知道，曉蕾愛上的不是李承恩，而是被縫合後的完美影子。 他回到裁縫店，要求脫下版型，即使代價是失去曉蕾的愛。解除後，他以真實的自己面對曉蕾，承認自己不想再愛一個只看見影子的人。曉蕾厭惡離去，但承恩終於自由。這篇的核心是：被完美地愛著，如果被愛的不是自己，那仍然是一種消失。">
+  <details>
+    <summary><span class="ep-no">11</span><span>Ars Undecim：替身之影</span></summary>
+    <p>李承恩深愛林曉蕾，卻始終活在她前任陳子傑的陰影下。曉蕾無意間提到前任的品味、體態、料理、理解力，承恩便努力模仿、追趕、修正自己。他越努力越像替身，也越痛苦。他走進「靈魂裁縫店」，Zephyra 讓他看見曉蕾心中理想伴侶的「完美版型」，那個輪廓與前任高度相似。承恩終於明白，自己不是被愛，而是被量身比較。 他許願讓曉蕾真正愛自己。Zephyra 以「靈魂縫合」將完美版型縫進他的靈魂，使他成為曉蕾夢想中的伴侶。回家後，曉蕾果然全心愛他，他也能預判她所有需求，說出最完美的話，做出最完美的反應。但這份幸福像華麗衣裳，穿在身上卻沒有溫度。承恩知道，曉蕾愛上的不是李承恩，而是被縫合後的完美影子。 他回到裁縫店，要求脫下版型，即使代價是失去曉蕾的愛。解除後，他以真實的自己面對曉蕾，承認自己不想再愛一個只看見影子的人。曉蕾厭惡離去，但承恩終於自由。這篇的核心是：被完美地愛著，如果被愛的不是自己，那仍然是一種消失。</p>
+  </details>
+</li>
+<li class="episode" data-title="Ars Duodecim：不可承受之重 楊芷昀與林敬堯是外人眼中的模範情侶。芷昀是事業有成的項目經理，習慣用最正確、最理性、最完美的方式處理關係；敬堯則溫吞壓抑，渴望被真實地愛著，而不是被她用標準答案照顧。兩人的關係太精緻、太正確，反而缺乏人味。當衝突累積到無法言說時，手機彈出 Zephyra 的「情境製造所」測試邀請。 在純白空間裡，他們透過扭蛋機抽取極端逆境。第一個情境是敬堯罹患重病，芷昀立刻扮演完美照顧者，卻被揭露所有動作背後的任務感與表演性。第二個情境是芷昀懷孕但孩子不是敬堯的，逼出兩人對信任、背叛與壓抑的真實憤怒。最後一個情境是芷昀成為植物人，敬堯面對是否終止維生的決定，終於說出他真正希望她不要再為「做對的事」而活。 測試結束後，他們沒有童話式和好，也沒有立刻分手，而是承認未來不確定。芷昀願意試著不演，敬堯也第一次不再只想說出讓她開心的話。這篇將「完美關係」拆解成沉重表演，最後留下的是不完美但真實的開始。">
+  <details>
+    <summary><span class="ep-no">12</span><span>Ars Duodecim：不可承受之重</span></summary>
+    <p>楊芷昀與林敬堯是外人眼中的模範情侶。芷昀是事業有成的項目經理，習慣用最正確、最理性、最完美的方式處理關係；敬堯則溫吞壓抑，渴望被真實地愛著，而不是被她用標準答案照顧。兩人的關係太精緻、太正確，反而缺乏人味。當衝突累積到無法言說時，手機彈出 Zephyra 的「情境製造所」測試邀請。 在純白空間裡，他們透過扭蛋機抽取極端逆境。第一個情境是敬堯罹患重病，芷昀立刻扮演完美照顧者，卻被揭露所有動作背後的任務感與表演性。第二個情境是芷昀懷孕但孩子不是敬堯的，逼出兩人對信任、背叛與壓抑的真實憤怒。最後一個情境是芷昀成為植物人，敬堯面對是否終止維生的決定，終於說出他真正希望她不要再為「做對的事」而活。 測試結束後，他們沒有童話式和好，也沒有立刻分手，而是承認未來不確定。芷昀願意試著不演，敬堯也第一次不再只想說出讓她開心的話。這篇將「完美關係」拆解成沉重表演，最後留下的是不完美但真實的開始。</p>
+  </details>
+</li>
+<li class="episode" data-title="Ars Tredecim：七日救贖 悟志愛著名叫里奈的女人，卻清楚自己只是她眾多曖昧對象中的備胎、提款機與最低順位。他想被看見、被唯一地需要，卻又無法承受失去她。絕望中，他走進 Zephyra 化成的寵物店「心寵之家」。Zephyra 問他是想為自己找伴，還是為伴找伴，並提出一個扭曲的解法：讓他換個物種去感受被愛。悟志被變成一隻黑色布偶貓，獲得七天期限，日出後若不選擇變回人，就會永遠維持貓的身份。 作為貓的七天裡，他近距離看見里奈的多面性：她對不同男人扮演不同角色，也在情感翻車後崩潰、狼狽、自厭。人類時的悟志只能被利用，但貓的「小黑」卻能看見里奈最脆弱的一面，成為她唯一無條件依賴的慰藉。這種被需要的純粹，逐漸取代了他的羞辱與不甘。 第七天清晨，里奈半夢半醒地抱著他說「只有你會一直在」，擊潰悟志最後防線。他放棄人類身份，永遠成為她的貓。他不再是備胎，而是她唯一的小黑；卻也永遠失去用人類聲音說「我愛你」的資格。這篇是最病態也最悲哀的「得到」：捨棄自我，換取不可背叛的位置。">
+  <details>
+    <summary><span class="ep-no">13</span><span>Ars Tredecim：七日救贖</span></summary>
+    <p>悟志愛著名叫里奈的女人，卻清楚自己只是她眾多曖昧對象中的備胎、提款機與最低順位。他想被看見、被唯一地需要，卻又無法承受失去她。絕望中，他走進 Zephyra 化成的寵物店「心寵之家」。Zephyra 問他是想為自己找伴，還是為伴找伴，並提出一個扭曲的解法：讓他換個物種去感受被愛。悟志被變成一隻黑色布偶貓，獲得七天期限，日出後若不選擇變回人，就會永遠維持貓的身份。 作為貓的七天裡，他近距離看見里奈的多面性：她對不同男人扮演不同角色，也在情感翻車後崩潰、狼狽、自厭。人類時的悟志只能被利用，但貓的「小黑」卻能看見里奈最脆弱的一面，成為她唯一無條件依賴的慰藉。這種被需要的純粹，逐漸取代了他的羞辱與不甘。 第七天清晨，里奈半夢半醒地抱著他說「只有你會一直在」，擊潰悟志最後防線。他放棄人類身份，永遠成為她的貓。他不再是備胎，而是她唯一的小黑；卻也永遠失去用人類聲音說「我愛你」的資格。這篇是最病態也最悲哀的「得到」：捨棄自我，換取不可背叛的位置。</p>
+  </details>
+</li>
+<li class="episode" data-title="Ars Quattuordecim：魚非魚，蝶非蝶 林佑安與陳心雅結婚七年，陷入典型夫妻怨懟。佑安認為自己扛房貸、扛家庭經濟，是家中頂樑柱，因此心雅應該體諒他的疲憊；心雅則覺得自己承受家務、情緒勞動與社會期待，卻被佑安視為過得輕鬆。兩人都覺得自己在忍，也都覺得對方不懂。這次的店鋪成為「立場諮詢所」，Zephyra 與另一位鑒愛師 Nythera 同時介入。 Nythera 偏向高效率校正，主張讓兩人直接交換體驗；Zephyra 則相信真相應自然顯影。佑安與心雅在某種近似靈魂互換或立場沉浸的體驗中，被迫感受對方的身體、壓力、日常與難以言說的忍耐。佑安體會女性在生理、情緒與家庭期待下的重量；心雅也理解男性在職場、經濟責任與不能示弱規訓中的孤獨。 兩人回到原本身體後，沒有因理解而覺得世界變簡單，反而更加沉重。因為他們終於知道，對方不是故意偷懶、逃避或抱怨，而是在另一套性別框架裡承受不同壓力。這篇少見地讓關係變得更堅韌，但也不是輕盈的和解，而是看見彼此都很難之後，願意更真誠地共存。">
+  <details>
+    <summary><span class="ep-no">14</span><span>Ars Quattuordecim：魚非魚，蝶非蝶</span></summary>
+    <p>林佑安與陳心雅結婚七年，陷入典型夫妻怨懟。佑安認為自己扛房貸、扛家庭經濟，是家中頂樑柱，因此心雅應該體諒他的疲憊；心雅則覺得自己承受家務、情緒勞動與社會期待，卻被佑安視為過得輕鬆。兩人都覺得自己在忍，也都覺得對方不懂。這次的店鋪成為「立場諮詢所」，Zephyra 與另一位鑒愛師 Nythera 同時介入。 Nythera 偏向高效率校正，主張讓兩人直接交換體驗；Zephyra 則相信真相應自然顯影。佑安與心雅在某種近似靈魂互換或立場沉浸的體驗中，被迫感受對方的身體、壓力、日常與難以言說的忍耐。佑安體會女性在生理、情緒與家庭期待下的重量；心雅也理解男性在職場、經濟責任與不能示弱規訓中的孤獨。 兩人回到原本身體後，沒有因理解而覺得世界變簡單，反而更加沉重。因為他們終於知道，對方不是故意偷懶、逃避或抱怨，而是在另一套性別框架裡承受不同壓力。這篇少見地讓關係變得更堅韌，但也不是輕盈的和解，而是看見彼此都很難之後，願意更真誠地共存。</p>
+  </details>
+</li>
+<li class="episode" data-title="Ars Quindecim：夜鶯啼聲 江映徹與蘇予寧是一對戀人，也是亡命之徒。兩人搶劫珠寶店後遭警方追捕，徹中槍重傷，寧帶著她闖入 Zephyra 化成的手術室求救。Zephyra 表示可以救徹，代價仍是觀賞她們愛情的全部。徹意識到自己即使被救，原本的臉與身份也將使她無處可逃，於是請求 Zephyra 換臉。Zephyra 進一步提出徹底改造，從骨骼、聲帶、樣貌到性別，都讓她變成另一個人。 徹為了能與寧在一起，接受手術，醒來後成為一名陌生男性。可是寧無法接受。她愛的是女人，是原本的徹，不是一個男人。徹逃過警方追捕，卻被最愛的人判了死刑。之後他選擇自首，因身份與體徵改變使案件複雜，但仍堅持自己就是江映徹。刑滿出獄後，他與寧重逢。寧也在歲月中理解自己當年的恐懼與自私，兩人重新靠近。 最終，徹在一場火災中衝入火場救出小女孩，被媒體稱為洗心革面的英雄。Zephyra 看見新聞後第一次露出困惑與興味，因為這段命運竟走向她未曾預設的救贖。這篇讓「改造」從懲罰變成意外的重生，也讓 Zephyra 發現人類仍可能偏離她的劇本。">
+  <details>
+    <summary><span class="ep-no">15</span><span>Ars Quindecim：夜鶯啼聲</span></summary>
+    <p>江映徹與蘇予寧是一對戀人，也是亡命之徒。兩人搶劫珠寶店後遭警方追捕，徹中槍重傷，寧帶著她闖入 Zephyra 化成的手術室求救。Zephyra 表示可以救徹，代價仍是觀賞她們愛情的全部。徹意識到自己即使被救，原本的臉與身份也將使她無處可逃，於是請求 Zephyra 換臉。Zephyra 進一步提出徹底改造，從骨骼、聲帶、樣貌到性別，都讓她變成另一個人。 徹為了能與寧在一起，接受手術，醒來後成為一名陌生男性。可是寧無法接受。她愛的是女人，是原本的徹，不是一個男人。徹逃過警方追捕，卻被最愛的人判了死刑。之後他選擇自首，因身份與體徵改變使案件複雜，但仍堅持自己就是江映徹。刑滿出獄後，他與寧重逢。寧也在歲月中理解自己當年的恐懼與自私，兩人重新靠近。 最終，徹在一場火災中衝入火場救出小女孩，被媒體稱為洗心革面的英雄。Zephyra 看見新聞後第一次露出困惑與興味，因為這段命運竟走向她未曾預設的救贖。這篇讓「改造」從懲罰變成意外的重生，也讓 Zephyra 發現人類仍可能偏離她的劇本。</p>
+  </details>
+</li>
+<li class="episode" data-title="Ars Sedecim：絕對理性戀人 高彥廷是人生精準控管的科技公司高階主管，有妻女、地位與看似完美的人生。他與年輕情人艾莉的婚外情原本也在他的風險計算之內，直到艾莉開始以親密照片、家庭與女兒作為威脅，要求他面對關係。彥廷害怕的不是背叛本身，而是失控。此案由 Nythera 強勢介入，她將空間化為審判室，認為兩人情感混亂的根源是非理性。 Nythera 先剝離高彥廷的情感，賜予他「絕對理性」。彥廷失去恐懼、愧疚、慾望與留戀，只剩利益分析。艾莉見狀，也要求同樣待遇，因為她不想再被愛與不甘折磨。Nythera 以為這會讓兩人陷入冰冷折磨，卻沒想到兩個絕對理性個體一見面，立刻像商業談判般評估彼此價值，判定這段關係高風險、零收益，於是平靜握手，合作終止。 Nythera 的懲罰反而成了兩人完美切割的解方。Zephyra 從陰影中現身，嘲諷 Nythera 過度校正，破壞了人性本可自然上演的戲。這篇是兩位鑒愛師哲學衝突的重要轉折：理性可以終止痛苦，卻也可能使故事徹底失去人味。">
+  <details>
+    <summary><span class="ep-no">16</span><span>Ars Sedecim：絕對理性戀人</span></summary>
+    <p>高彥廷是人生精準控管的科技公司高階主管，有妻女、地位與看似完美的人生。他與年輕情人艾莉的婚外情原本也在他的風險計算之內，直到艾莉開始以親密照片、家庭與女兒作為威脅，要求他面對關係。彥廷害怕的不是背叛本身，而是失控。此案由 Nythera 強勢介入，她將空間化為審判室，認為兩人情感混亂的根源是非理性。 Nythera 先剝離高彥廷的情感，賜予他「絕對理性」。彥廷失去恐懼、愧疚、慾望與留戀，只剩利益分析。艾莉見狀，也要求同樣待遇，因為她不想再被愛與不甘折磨。Nythera 以為這會讓兩人陷入冰冷折磨，卻沒想到兩個絕對理性個體一見面，立刻像商業談判般評估彼此價值，判定這段關係高風險、零收益，於是平靜握手，合作終止。 Nythera 的懲罰反而成了兩人完美切割的解方。Zephyra 從陰影中現身，嘲諷 Nythera 過度校正，破壞了人性本可自然上演的戲。這篇是兩位鑒愛師哲學衝突的重要轉折：理性可以終止痛苦，卻也可能使故事徹底失去人味。</p>
+  </details>
+</li>
+<li class="episode" data-title="Ars Septendecim：客戶追蹤報告 〈客戶追蹤報告〉不是一般單元案件，而是 Zephyra 與 Nythera 對前十六個案例的總回顧與哲學辯論。Nythera 不滿於〈絕對理性戀人〉中自己的干預被 Zephyra 嘲笑，主張她雖然讓故事變無趣，卻提供了終結痛苦的仁慈。Zephyra 則認為，人類感情中那些錯字、掙扎、徒勞、迴響，才是故事真正有趣之處。為證明彼此立場，她們調出過去案例的後續泡泡，逐一檢視干預造成的長期結果。 這些追蹤顯示，Zephyra 的顯影不一定使人幸福，反而常讓人掉入更複雜的後果；Nythera 的校正也不一定帶來正義，可能製造新的病毒。例如某些人因痛苦而清醒，某些人因真相而毀滅，某些人被束縛，某些人則意外得到救贖。兩位鑒愛師誰也說服不了誰，因為每一個案例都能同時支持與反駁她們的理念。 最後，她們決定需要一個決定性的最終案例，一個能證明究竟是 Zephyra 的觀賞，還是 Nythera 的校正更接近愛情真理的案例。就在此時，一對平凡中年夫妻走入店中，將故事引向最終章。">
+  <details>
+    <summary><span class="ep-no">17</span><span>Ars Septendecim：客戶追蹤報告</span></summary>
+    <p>〈客戶追蹤報告〉不是一般單元案件，而是 Zephyra 與 Nythera 對前十六個案例的總回顧與哲學辯論。Nythera 不滿於〈絕對理性戀人〉中自己的干預被 Zephyra 嘲笑，主張她雖然讓故事變無趣，卻提供了終結痛苦的仁慈。Zephyra 則認為，人類感情中那些錯字、掙扎、徒勞、迴響，才是故事真正有趣之處。為證明彼此立場，她們調出過去案例的後續泡泡，逐一檢視干預造成的長期結果。 這些追蹤顯示，Zephyra 的顯影不一定使人幸福，反而常讓人掉入更複雜的後果；Nythera 的校正也不一定帶來正義，可能製造新的病毒。例如某些人因痛苦而清醒，某些人因真相而毀滅，某些人被束縛，某些人則意外得到救贖。兩位鑒愛師誰也說服不了誰，因為每一個案例都能同時支持與反駁她們的理念。 最後，她們決定需要一個決定性的最終案例，一個能證明究竟是 Zephyra 的觀賞，還是 Nythera 的校正更接近愛情真理的案例。就在此時，一對平凡中年夫妻走入店中，將故事引向最終章。</p>
+  </details>
+</li>
+<li class="episode" data-title="Ars Ultimus：無法鑒定的戀人 最終走進鑒愛師店的，是一對約五十歲的平凡中年夫妻。他們不像其他客戶那樣被強烈慾望或怨恨驅動，也不要求復合、分手、懲罰或解答。他們只是想知道：走過背叛、離婚、疾病、失去孩子等漫長創傷後，兩人如今仍在一起，這到底還算不算愛。這個請求讓 Zephyra 與 Nythera 同時感到困惑，因為這段關係不是純粹相愛，也不是單純不愛，而像一棵地下根系早已糾纏的老樹。 Zephyra 將空間化為金繼工房，讓夫妻以破碎陶片修補關係殘骸。每片碎片都是一段痛苦記憶：簽下離婚協議、癌症診斷、病房恐懼，以及最核心的失去孩子。Nythera 主張切除創傷，Zephyra 則讓他們觀看與修補。夫妻最後明白，黏合碎片的不是漆，而是血與淚。他們完成金繼碗後，又澆灌出一棵生命之樹。樹上有腐壞苦果、晶瑩幻果與青澀幼果，象徵過去創傷、未竟幻想與未來可能。 Nythera 要他們剪掉苦果，尤其是失去孩子的記憶；夫妻卻選擇不切除，因為那份痛也是孩子曾存在過的證明。當他們決定背負整棵樹繼續活下去，金光包裹苦果，使最黑暗的記憶化為金色花朵。Zephyra 與 Nythera 第一次流淚。這段愛無法鑒定，因為它不是純粹、正確或漂亮，而是破碎後仍選擇承擔。">
+  <details>
+    <summary><span class="ep-no">18</span><span>Ars Ultimus：無法鑒定的戀人</span></summary>
+    <p>最終走進鑒愛師店的，是一對約五十歲的平凡中年夫妻。他們不像其他客戶那樣被強烈慾望或怨恨驅動，也不要求復合、分手、懲罰或解答。他們只是想知道：走過背叛、離婚、疾病、失去孩子等漫長創傷後，兩人如今仍在一起，這到底還算不算愛。這個請求讓 Zephyra 與 Nythera 同時感到困惑，因為這段關係不是純粹相愛，也不是單純不愛，而像一棵地下根系早已糾纏的老樹。 Zephyra 將空間化為金繼工房，讓夫妻以破碎陶片修補關係殘骸。每片碎片都是一段痛苦記憶：簽下離婚協議、癌症診斷、病房恐懼，以及最核心的失去孩子。Nythera 主張切除創傷，Zephyra 則讓他們觀看與修補。夫妻最後明白，黏合碎片的不是漆，而是血與淚。他們完成金繼碗後，又澆灌出一棵生命之樹。樹上有腐壞苦果、晶瑩幻果與青澀幼果，象徵過去創傷、未竟幻想與未來可能。 Nythera 要他們剪掉苦果，尤其是失去孩子的記憶；夫妻卻選擇不切除，因為那份痛也是孩子曾存在過的證明。當他們決定背負整棵樹繼續活下去，金光包裹苦果，使最黑暗的記憶化為金色花朵。Zephyra 與 Nythera 第一次流淚。這段愛無法鑒定，因為它不是純粹、正確或漂亮，而是破碎後仍選擇承擔。</p>
+  </details>
+</li>
+<li class="episode" data-title="Ars Undevicesimus：最後一杯真心 困在無份關係中的 J，在心中反覆撕扯後，終於向心儀的「她」傳送了一段充滿不甘、歉意與悲觀結局的赤裸告白 。在等不到已讀的午夜台北暴雨後，他意外走進一間名為「情緒滴濾室」的神秘店鋪 。店主 Zephyra 以「觀賞品嚐反應」為代價，將 J 手機中的告白訊息當作咖啡豆進行研磨與萃取 。 訊息被化為駁雜的深褐色粉末，倒入象徵兩人關係、帶有纖細裂痕的白瓷杯中 。Zephyra 以如同熔岩般的金色光流沖煮，點出這杯咖啡融合了 J 不願傷害對方的承諾、歉意，以及最核心那股不顧一切的熾熱告白 。J 將這杯深黑液體一飲而盡，瞬間在靈魂層面同時體驗到愛意的極致灼燒，與預設孤獨結局、連哭都哭不出來的冰島火山岩冰冷 。 這場毀滅般的體驗讓 J 獲得前所未有的澄澈與清醒 。面對 Zephyra 隨後拿出代表引領方向的「羅盤」，與代表交託命運、沒有點數的「骰子」時，J 顛覆了非此即彼的選擇，決定同時握住兩者 。他一手掌握理性方位，一手承接感性未知，步伐平穩地走出店鋪 。這個「不選擇的賭徒」舉動，讓一向冷靜的 Zephyra 第一次露出發自內心的玩味笑意，意識到人類的命運似乎變得更加有趣 。">
+  <details>
+    <summary><span class="ep-no">19</span><span>Ars Undevicesimus：最後一杯真心</span></summary>
+    <p>困在無份關係中的 J，在心中反覆撕扯後，終於向心儀的「她」傳送了一段充滿不甘、歉意與悲觀結局的赤裸告白 。在等不到已讀的午夜台北暴雨後，他意外走進一間名為「情緒滴濾室」的神秘店鋪 。店主 Zephyra 以「觀賞品嚐反應」為代價，將 J 手機中的告白訊息當作咖啡豆進行研磨與萃取 。 訊息被化為駁雜的深褐色粉末，倒入象徵兩人關係、帶有纖細裂痕的白瓷杯中 。Zephyra 以如同熔岩般的金色光流沖煮，點出這杯咖啡融合了 J 不願傷害對方的承諾、歉意，以及最核心那股不顧一切的熾熱告白 。J 將這杯深黑液體一飲而盡，瞬間在靈魂層面同時體驗到愛意的極致灼燒，與預設孤獨結局、連哭都哭不出來的冰島火山岩冰冷 。 這場毀滅般的體驗讓 J 獲得前所未有的澄澈與清醒 。面對 Zephyra 隨後拿出代表引領方向的「羅盤」，與代表交託命運、沒有點數的「骰子」時，J 顛覆了非此即彼的選擇，決定同時握住兩者 。他一手掌握理性方位，一手承接感性未知，步伐平穩地走出店鋪 。這個「不選擇的賭徒」舉動，讓一向冷靜的 Zephyra 第一次露出發自內心的玩味笑意，意識到人類的命運似乎變得更加有趣 。</p>
+  </details>
+</li>
+<li class="episode" data-title="Ars Vicesimus：最佳賞味期限 阿偉在情感世界中是個熟練的失敗者，不僅遭遇第八次告白失敗 ，與身邊女性朋友的關係也總隔著保鮮膜，始終無法進入脆弱的深層領域 。在深沉的自我懷疑中，他深夜拐進一條 Google 地圖未標示的暗巷，走進名為「情感植物標本室」的神秘店鋪 。館長 Zephyra 透過引導，讓阿偉看見自己未經修飾的真心，其實是一朵飽滿豔麗、極具生命力的深紅牡丹 。 然而，阿偉因為極度害怕被拒絕，在告白時總會用自我否定等言詞，親手調製出對抗痛苦的「防腐劑」。當防腐劑滴落，活生生的牡丹瞬間被抽乾生命力，變成永不凋謝卻毫無生氣的乾燥花標本 。Zephyra 殘酷揭示真相：阿偉遞出的從不是活的情感，而是安全卻死去的藝術品，這才是他屢遭失敗的根源 。 隨後 Zephyra 讓阿偉在代表未知風險的「活玫瑰」，與代表熟悉逃避的「標本框」之間做出抉擇 。阿偉雖極度渴望新生，但在指尖即將觸碰嫩葉的瞬間，過去被拒絕的巨大恐懼再度決堤 。他最終被刻入骨髓的懦弱擊潰，畏懼地縮回手，承認自己已不知該如何觸碰活著的花 。阿偉沒被治癒，甚至沒做出選擇便靈魂空洞地離去，卻帶著一生中最清醒也最沉重的自我認知，獨自回到人間 。">
+  <details>
+    <summary><span class="ep-no">20</span><span>Ars Vicesimus：最佳賞味期限</span></summary>
+    <p>阿偉在情感世界中是個熟練的失敗者，不僅遭遇第八次告白失敗 ，與身邊女性朋友的關係也總隔著保鮮膜，始終無法進入脆弱的深層領域 。在深沉的自我懷疑中，他深夜拐進一條 Google 地圖未標示的暗巷，走進名為「情感植物標本室」的神秘店鋪 。館長 Zephyra 透過引導，讓阿偉看見自己未經修飾的真心，其實是一朵飽滿豔麗、極具生命力的深紅牡丹 。 然而，阿偉因為極度害怕被拒絕，在告白時總會用自我否定等言詞，親手調製出對抗痛苦的「防腐劑」。當防腐劑滴落，活生生的牡丹瞬間被抽乾生命力，變成永不凋謝卻毫無生氣的乾燥花標本 。Zephyra 殘酷揭示真相：阿偉遞出的從不是活的情感，而是安全卻死去的藝術品，這才是他屢遭失敗的根源 。 隨後 Zephyra 讓阿偉在代表未知風險的「活玫瑰」，與代表熟悉逃避的「標本框」之間做出抉擇 。阿偉雖極度渴望新生，但在指尖即將觸碰嫩葉的瞬間，過去被拒絕的巨大恐懼再度決堤 。他最終被刻入骨髓的懦弱擊潰，畏懼地縮回手，承認自己已不知該如何觸碰活著的花 。阿偉沒被治癒，甚至沒做出選擇便靈魂空洞地離去，卻帶著一生中最清醒也最沉重的自我認知，獨自回到人間 。</p>
+  </details>
+</li>
+<li class="episode" data-title="Ars Vicesimus Primus：愛的金本位 在一萬公尺高空飛往蘇黎世的波音777客機上，承載著三樣截然不同的愛情樣態：結婚二十二年、早已相看兩厭且陷入死寂的中年夫妻梁文凱與蘇月琳 ；正值熱戀、對未來許下永恆承諾的遊學情侶小傑與琪琪 ；以及瞞著各自家庭、在精神高度共鳴中逃避現實的知心好友李宗翰與林靜宜 。一陣金屬扭曲般的劇烈顛簸與失速下墜打破了虛假的安寧 ，當飛機即將解體時，一切喧囂卻被按下靜音鍵，飛機奇蹟般停泊在不屬於人間的「終末航站」 。 化身為黑色制服領航員的 Zephyra 從駕駛艙走出 ，向眾人宣告物理生還已無可能，唯有憑藉「記憶的重量」購買船票，方能登上靈魂方舟前往新的維度 。每位乘客面前皆浮現一個水晶容器，必須注入一段一生中「最純粹、無私的利他之愛」的記憶 。然而殘酷的規則在於：人無法為自己買單，船票的價值完全取決於「伴侶」為你付出的愛 。 年輕情侶自信地注入充滿激情與驚喜的記憶，卻被 Zephyra 殘酷指出其本質是追求「最佳男友成就感」與「對完美結局的執著」 ；他們的愛宛如華麗煙火，實則更愛「正在為愛付出的自己」，粉紅光芒隨之幻滅 。">
+  <details>
+    <summary><span class="ep-no">21</span><span>Ars Vicesimus Primus：愛的金本位</span></summary>
+    <p>在一萬公尺高空飛往蘇黎世的波音777客機上，承載著三樣截然不同的愛情樣態：結婚二十二年、早已相看兩厭且陷入死寂的中年夫妻梁文凱與蘇月琳 ；正值熱戀、對未來許下永恆承諾的遊學情侶小傑與琪琪 ；以及瞞著各自家庭、在精神高度共鳴中逃避現實的知心好友李宗翰與林靜宜 。一陣金屬扭曲般的劇烈顛簸與失速下墜打破了虛假的安寧 ，當飛機即將解體時，一切喧囂卻被按下靜音鍵，飛機奇蹟般停泊在不屬於人間的「終末航站」 。 化身為黑色制服領航員的 Zephyra 從駕駛艙走出 ，向眾人宣告物理生還已無可能，唯有憑藉「記憶的重量」購買船票，方能登上靈魂方舟前往新的維度 。每位乘客面前皆浮現一個水晶容器，必須注入一段一生中「最純粹、無私的利他之愛」的記憶 。然而殘酷的規則在於：人無法為自己買單，船票的價值完全取決於「伴侶」為你付出的愛 。 年輕情侶自信地注入充滿激情與驚喜的記憶，卻被 Zephyra 殘酷指出其本質是追求「最佳男友成就感」與「對完美結局的執著」 ；他們的愛宛如華麗煙火，實則更愛「正在為愛付出的自己」，粉紅光芒隨之幻滅 。</p>
+  </details>
+</li>
+<li class="episode" data-title="Ars Vicesimus Secundus：妳一直都知道 艾琳擁有一個看似完美的現狀：溫柔穩定的同居男友家安，以及充滿煙火氣的溫馨生活。然而，她心中始終隱藏著一個無法抹去的影子——前男友志皓。兩人雖已分手七年，卻在半年前於京都瞞著家安私下見面，那份致命的靈魂共鳴與不甘，讓艾琳在現任的溫存中不斷陷入自我拉扯與愧疚。在一個大雨滂沱的深夜，她走進了一間由無數旋轉玻璃門組成的「情感鏡像館」，再度遇見了兩位鑒愛師。 這一次，Nythera 與 Zephyra 聯手為她設下一場殘酷的實境顯影。Nythera 率先出手，利用鏡像空間將時間與空間摺疊，直接把家安與志皓同時帶到了艾琳面前，強迫她面對這場虛偽的殘局。當殘酷的真相被血淋淋地剖開，志皓坦承自己眷戀與艾琳的靈魂共鳴，卻無法給予世俗的承諾；而家安則面色蒼白地揭曉痛苦的秘密：其實他一直都知道志皓的存在，甚至知道京都的那場私會，但他因為太愛艾琳，選擇用加倍的溫柔來裝傻，獨自吞下所有嫉妒與不安。 面對兩位男性的對質，艾琳陷入極大的痛苦。此時，Zephyra 遞給她兩面鏡子：一面是「退回過去」的鏡子，能讓她與志皓留在永恆的精神追求中，代價是永遠活在懸空與不確定裡；">
+  <details>
+    <summary><span class="ep-no">22</span><span>Ars Vicesimus Secundus：妳一直都知道</span></summary>
+    <p>艾琳擁有一個看似完美的現狀：溫柔穩定的同居男友家安，以及充滿煙火氣的溫馨生活。然而，她心中始終隱藏著一個無法抹去的影子——前男友志皓。兩人雖已分手七年，卻在半年前於京都瞞著家安私下見面，那份致命的靈魂共鳴與不甘，讓艾琳在現任的溫存中不斷陷入自我拉扯與愧疚。在一個大雨滂沱的深夜，她走進了一間由無數旋轉玻璃門組成的「情感鏡像館」，再度遇見了兩位鑒愛師。 這一次，Nythera 與 Zephyra 聯手為她設下一場殘酷的實境顯影。Nythera 率先出手，利用鏡像空間將時間與空間摺疊，直接把家安與志皓同時帶到了艾琳面前，強迫她面對這場虛偽的殘局。當殘酷的真相被血淋淋地剖開，志皓坦承自己眷戀與艾琳的靈魂共鳴，卻無法給予世俗的承諾；而家安則面色蒼白地揭曉痛苦的秘密：其實他一直都知道志皓的存在，甚至知道京都的那場私會，但他因為太愛艾琳，選擇用加倍的溫柔來裝傻，獨自吞下所有嫉妒與不安。 面對兩位男性的對質，艾琳陷入極大的痛苦。此時，Zephyra 遞給她兩面鏡子：一面是「退回過去」的鏡子，能讓她與志皓留在永恆的精神追求中，代價是永遠活在懸空與不確定裡；</p>
+  </details>
+</li>
+<li class="episode" data-title="Ars Vicesimus Tertius：自戀的剖面圖 莉婭將自己視為行走在城市中、被精心雕琢的藝術品 ，熟練地在私人酒廊裡周旋於富商張董、樂團主唱阿哲與金融新貴之間 。她精準地將男人們的金錢、才華與短暫迷戀，轉化為擦亮自身魅力外殼的勳章 ，享受著眾星拱月的掌控感 。然而，一場張董與阿哲為了她當眾引爆的庸俗爭吵 ，瞬間扒下了她華麗的女王外衣 ，極度狼狽與失控的羞恥感讓她對這種混亂產生強烈厭惡 。為了尋求清洗與淨化 ，她深夜驅車走進一間充滿後現代工業風的「贅物清創事務所」 。 事務所內是一片骨瓷般不見接縫的純白無菌空間 ，鑒愛師 Nythera 正冷冷地擦拭著一把醫療級電動鋸子 。在 Nythera 的指引下 ，莉婭走到了能映照出靈魂的全身鏡前 。隨著鑒定開始 ，鏡中莉婭的完美皮囊發生了駭人的畸變：她的左後背鑽出代表張董貪婪佔有慾的第三隻手臂 ，小腹皮下顯現出阿哲那顆微弱搏動的心臟 ，腰際與脖子更長出了曖昧對象的肋骨與眼睛 。這具由混亂關係拼湊而成的畸形怪物讓莉婭徹底崩潰 ，她終於清醒意識到，那些自以為能隨時丟棄的關係早已與自己的血肉長在一起 。 為了變回乾淨、完整的自己 ，莉婭接過 Nythera 遞來的電鋸 ，忍受著撕裂靈魂的劇痛，決絕地展開了一場自我外科手術 。">
+  <details>
+    <summary><span class="ep-no">23</span><span>Ars Vicesimus Tertius：自戀的剖面圖</span></summary>
+    <p>莉婭將自己視為行走在城市中、被精心雕琢的藝術品 ，熟練地在私人酒廊裡周旋於富商張董、樂團主唱阿哲與金融新貴之間 。她精準地將男人們的金錢、才華與短暫迷戀，轉化為擦亮自身魅力外殼的勳章 ，享受著眾星拱月的掌控感 。然而，一場張董與阿哲為了她當眾引爆的庸俗爭吵 ，瞬間扒下了她華麗的女王外衣 ，極度狼狽與失控的羞恥感讓她對這種混亂產生強烈厭惡 。為了尋求清洗與淨化 ，她深夜驅車走進一間充滿後現代工業風的「贅物清創事務所」 。 事務所內是一片骨瓷般不見接縫的純白無菌空間 ，鑒愛師 Nythera 正冷冷地擦拭著一把醫療級電動鋸子 。在 Nythera 的指引下 ，莉婭走到了能映照出靈魂的全身鏡前 。隨著鑒定開始 ，鏡中莉婭的完美皮囊發生了駭人的畸變：她的左後背鑽出代表張董貪婪佔有慾的第三隻手臂 ，小腹皮下顯現出阿哲那顆微弱搏動的心臟 ，腰際與脖子更長出了曖昧對象的肋骨與眼睛 。這具由混亂關係拼湊而成的畸形怪物讓莉婭徹底崩潰 ，她終於清醒意識到，那些自以為能隨時丟棄的關係早已與自己的血肉長在一起 。 為了變回乾淨、完整的自己 ，莉婭接過 Nythera 遞來的電鋸 ，忍受著撕裂靈魂的劇痛，決絕地展開了一場自我外科手術 。</p>
+  </details>
+</li>
+<li class="episode" data-title="Ars Vicesimus Quartus：融化的棉花糖 小嵐因極度恐懼衝突，長年用「沒關係」等謊言維護關係，導致男友阿杰疲憊地指責她像依劇本演出的「幻影」並提出分手 。害怕真實傷害的小嵐在暴雨深夜走進「未竟童話書屋」，向鑒愛師尋求沒有爭執的避風港 。Nythera 拿出記載她逃避現實的灰色硬殼書要求她校正直面真相，Zephyra 則遞出空白燙金的童話書讓她親自驗證完美 。小嵐逃避痛苦而選擇後者，隨即被捲入由自身妄念構成的「棉花糖王國」 。 王國起初如甜美夢境，卻很快顯露猙獰本質：巧克力河會灼傷皮膚、完美王子的親吻會抽離她的真實記憶、居民薑餅人更痛苦求死，且任何悲傷與負面情緒都會被王國法則強行抹殺分解 。崩潰的小嵐將這座糖衣地獄歸咎於冷眼旁觀的 Nythera，瘋狂地將 Nythera 狠狠推入王國核心「世界之心」粉色水晶中，企圖用極致的純愛幻想同化並「淨化」她 。 然而，凡人的混亂情感能量對 Nythera 而言僅是造成數秒失神的「雜訊干擾」，她迅速清醒且雙眸更加冰冷，冷酷宣告混亂無法撼動秩序，隨即讓自身「秩序」本質如冰河時期般如實反映 。她走過之處河流與雲朵凍結，王國淪為晶瑩死寂的冰雪地獄 。">
+  <details>
+    <summary><span class="ep-no">24</span><span>Ars Vicesimus Quartus：融化的棉花糖</span></summary>
+    <p>小嵐因極度恐懼衝突，長年用「沒關係」等謊言維護關係，導致男友阿杰疲憊地指責她像依劇本演出的「幻影」並提出分手 。害怕真實傷害的小嵐在暴雨深夜走進「未竟童話書屋」，向鑒愛師尋求沒有爭執的避風港 。Nythera 拿出記載她逃避現實的灰色硬殼書要求她校正直面真相，Zephyra 則遞出空白燙金的童話書讓她親自驗證完美 。小嵐逃避痛苦而選擇後者，隨即被捲入由自身妄念構成的「棉花糖王國」 。 王國起初如甜美夢境，卻很快顯露猙獰本質：巧克力河會灼傷皮膚、完美王子的親吻會抽離她的真實記憶、居民薑餅人更痛苦求死，且任何悲傷與負面情緒都會被王國法則強行抹殺分解 。崩潰的小嵐將這座糖衣地獄歸咎於冷眼旁觀的 Nythera，瘋狂地將 Nythera 狠狠推入王國核心「世界之心」粉色水晶中，企圖用極致的純愛幻想同化並「淨化」她 。 然而，凡人的混亂情感能量對 Nythera 而言僅是造成數秒失神的「雜訊干擾」，她迅速清醒且雙眸更加冰冷，冷酷宣告混亂無法撼動秩序，隨即讓自身「秩序」本質如冰河時期般如實反映 。她走過之處河流與雲朵凍結，王國淪為晶瑩死寂的冰雪地獄 。</p>
+  </details>
+</li></ol>
+</section>
+
+<section class="work-detail" id="gods" data-title="我跟神明同居的三十天 Thirty Days Living with Gods 小蟬 青森 日常神 創作復甦 和色 彼岸">
+  <div class="section-kicker">作品詳解</div>
+  <h2>我跟神明同居的三十天</h2>
+  <p class="lead"><strong>Thirty Days Living with Gods</strong>｜日常神格奇幻／創作者療癒故事｜三十緣，三十種和色與神明</p>
+  <div class="detail-grid">
+    <div class="detail-main">
+      <h3>核心定位</h3>
+      <p>這部作品把神明從宏大神話拉回日常。翻書聲、電話卡、無線訊號、棉被、失眠、眼淚、黃昏、遲到、腐朽、暴雨、虛無，都能成為神。小蟬原本是逃離都市與創作枯竭的人，卻在三十次相遇裡被世界重新接住。她不是被神明單方面拯救，而是逐漸成為古民家與神明之間的管理人。</p>
+      <h3>作品核心</h3>
+      <p>二十五歲的小蟬辭去東京出版社工作，搬進青森郊外一棟由曾外祖母留下的古民家，希望找回創作初心。她原以為這只是一次逃離都市、重新開始寫作的隱居生活，卻在老屋中陸續遇見各種「神明」：翻書聲、電話卡、無線訊號、棉被、失眠、眼淚、黃昏、遲到、遺憾、選擇、療癒、結束、氣味、時間、駕馭、腐朽、暴雨、虛無與彼岸。</p><p>這些神明有些古老、有些新生，有些溫柔、有些麻煩，有些正在消失，有些強大到近乎失控。小蟬一開始以為自己在幫助祂們，後來才明白，祂們其實也在一點一點修補她。她從一個寫不出故事的人，成為古民家的「管理人」；從被神明祝福的創作者，走向願意以生命守護此岸的存在。故事最後，她失去能與神明直接相遇的特殊力量，卻重新擁抱人間，寫下新的作品《此岸的風景》。</p>
+      <h3>在 Jami 宇宙中的價值</h3>
+      <p>這部作品是 Jami 宇宙最溫柔的一側。它證明你的創作不只會解剖痛苦，也能把日常中微小的安慰、遺憾與祝福寫成有重量的神性。</p>
+    </div>
+    <aside class="factbox">
+      <h4>快速標籤</h4>
+      <div class="tag-row vertical"><span class="pill">小蟬</span><span class="pill">青森</span><span class="pill">日常神</span><span class="pill">創作復甦</span><span class="pill">和色</span><span class="pill">彼岸</span></div>
+      <dl>
+        <dt>形式</dt><dd>三十緣，三十種和色與神明</dd>
+        <dt>篇幅</dt><dd>30 篇</dd>
+        <dt>主題軸</dt><dd>日常、神性、創作復甦、此岸與彼岸</dd>
+      </dl>
+    </aside>
+  </div>
+  <h3>篇章地圖</h3>
+  <p class="note">以下為每篇故事的整理式摘要。點開可閱讀該篇的核心事件與主題功能。</p>
+  <ol class="episode-list">
+<li class="episode" data-title="第一緣 白練：夏蟬與活頁之詩 小蟬搬進青森古民家後，雖然得到久違的平靜，卻依然寫不出故事。某天，她在曾外祖母的書齋裡聽見微弱的「沙沙」聲，並遇見依附於翻書聲而生的神明「閱卷翁」。閱卷翁因紙本閱讀衰落而瀕臨消散，小蟬沒有為祂朗讀舊書，而是邀請祂成為自己第一位讀者，一起完成新的故事。 她在稿紙上寫下此刻的雨聲、書齋、燈光與祂的生命，閱卷翁則為她翻頁，讓翻頁聲成為一場獻給文字的交響詩。最後，閱卷翁化作金色光塵融入書籍之中，留下「傾聽白紙故事」的能力。小蟬的寫作瓶頸因此被打開，也正式開始她與神明同居的三十天。 ---">
+  <details>
+    <summary><span class="ep-no">01</span><span>第一緣 白練：夏蟬與活頁之詩</span></summary>
+    <p>小蟬搬進青森古民家後，雖然得到久違的平靜，卻依然寫不出故事。某天，她在曾外祖母的書齋裡聽見微弱的「沙沙」聲，並遇見依附於翻書聲而生的神明「閱卷翁」。閱卷翁因紙本閱讀衰落而瀕臨消散，小蟬沒有為祂朗讀舊書，而是邀請祂成為自己第一位讀者，一起完成新的故事。 她在稿紙上寫下此刻的雨聲、書齋、燈光與祂的生命，閱卷翁則為她翻頁，讓翻頁聲成為一場獻給文字的交響詩。最後，閱卷翁化作金色光塵融入書籍之中，留下「傾聽白紙故事」的能力。小蟬的寫作瓶頸因此被打開，也正式開始她與神明同居的三十天。 ---</p>
+  </details>
+</li>
+<li class="episode" data-title="第二緣 蒼鈍：蘊藏希望的嘟嘟聲 小蟬整理閣樓遺物時，從一張舊 IC 電話卡中喚醒了掌管公共電話與限時通話的神明「千撥」。千撥吵鬧、傲嬌又焦慮，因電話卡點數即將歸零而面臨消失。祂要求小蟬帶祂去找公共電話，讓最後的點數用在一通有意義的電話上。 小蟬最後選擇打給已故外公。千撥原本抗拒，卻被「跨越生死的連結」打動，陪她找到青森車站角落的老公共電話。電話接通後，小蟬沒有聽見外公說話，只聽見收音機演歌與午睡鼾聲，那正是她記憶中最安心的外公。千撥用盡點數，完成最偉大的一通電話，也留下「不經意而無價的連結」祝福，讓小蟬與摯友美紀重新聯繫。 ---">
+  <details>
+    <summary><span class="ep-no">02</span><span>第二緣 蒼鈍：蘊藏希望的嘟嘟聲</span></summary>
+    <p>小蟬整理閣樓遺物時，從一張舊 IC 電話卡中喚醒了掌管公共電話與限時通話的神明「千撥」。千撥吵鬧、傲嬌又焦慮，因電話卡點數即將歸零而面臨消失。祂要求小蟬帶祂去找公共電話，讓最後的點數用在一通有意義的電話上。 小蟬最後選擇打給已故外公。千撥原本抗拒，卻被「跨越生死的連結」打動，陪她找到青森車站角落的老公共電話。電話接通後，小蟬沒有聽見外公說話，只聽見收音機演歌與午睡鼾聲，那正是她記憶中最安心的外公。千撥用盡點數，完成最偉大的一通電話，也留下「不經意而無價的連結」祝福，讓小蟬與摯友美紀重新聯繫。 ---</p>
+  </details>
+</li>
+<li class="episode" data-title="第三緣 銀鼠：最安靜的時刻 小蟬的古民家突然被所有電子設備同時佔據，K-POP、氣象報告、論文朗讀與重金屬音樂混成噪音地獄。她拉下總電源後，才看見誕生於藍牙、Wi-Fi 與無線訊號的新神「流音」。流音掌管現代世界所有聲音與連結，強大卻疲憊，因無數音訊永不停止地灌入腦中而瀕臨崩潰。 小蟬帶祂進入斷電後的寂靜，並讓祂聽見一只舊音樂盒的簡單旋律。那不是資訊洪流，而是單純為了安撫而存在的聲音。流音因此第一次感受到「被聽見」。離去後，祂留下一副不需充電、不需連線、只為小蟬一人響起的耳機。當她需要專注時，那首旋律會隔絕喧囂，給她一段真正安靜的寫作時間。 ---">
+  <details>
+    <summary><span class="ep-no">03</span><span>第三緣 銀鼠：最安靜的時刻</span></summary>
+    <p>小蟬的古民家突然被所有電子設備同時佔據，K-POP、氣象報告、論文朗讀與重金屬音樂混成噪音地獄。她拉下總電源後，才看見誕生於藍牙、Wi-Fi 與無線訊號的新神「流音」。流音掌管現代世界所有聲音與連結，強大卻疲憊，因無數音訊永不停止地灌入腦中而瀕臨崩潰。 小蟬帶祂進入斷電後的寂靜，並讓祂聽見一只舊音樂盒的簡單旋律。那不是資訊洪流，而是單純為了安撫而存在的聲音。流音因此第一次感受到「被聽見」。離去後，祂留下一副不需充電、不需連線、只為小蟬一人響起的耳機。當她需要專注時，那首旋律會隔絕喧囂，給她一段真正安靜的寫作時間。 ---</p>
+  </details>
+</li>
+<li class="episode" data-title="第四緣 白花：被雲朵擁抱 秋日來臨，小蟬曬棉被時遇見像雲朵般柔軟、卻極度自卑的神明「綿守」。祂是棉被、枕頭與柔軟織物中「被包覆的幸福」所生的神，卻因現代人不再珍惜曬被子的陽光味與睡眠中的安心感，而懷疑自己的價值。 小蟬沒有用大道理安慰祂，而是讓祂看見人類仍然需要被溫柔包住、需要在疲憊時被一點小小的柔軟救回來。她肯定了綿守的神職：不是解決人生問題，而是在最普通的夜晚，讓人仍能安心睡去。綿守最後離開，留下能讓枕頭充滿陽光氣味的祝福。這份魔法無法帶來財富或勝利，卻能在陰冷日子裡，為小蟬召喚一片小小晴天。 ---">
+  <details>
+    <summary><span class="ep-no">04</span><span>第四緣 白花：被雲朵擁抱</span></summary>
+    <p>秋日來臨，小蟬曬棉被時遇見像雲朵般柔軟、卻極度自卑的神明「綿守」。祂是棉被、枕頭與柔軟織物中「被包覆的幸福」所生的神，卻因現代人不再珍惜曬被子的陽光味與睡眠中的安心感，而懷疑自己的價值。 小蟬沒有用大道理安慰祂，而是讓祂看見人類仍然需要被溫柔包住、需要在疲憊時被一點小小的柔軟救回來。她肯定了綿守的神職：不是解決人生問題，而是在最普通的夜晚，讓人仍能安心睡去。綿守最後離開，留下能讓枕頭充滿陽光氣味的祝福。這份魔法無法帶來財富或勝利，卻能在陰冷日子裡，為小蟬召喚一片小小晴天。 ---</p>
+  </details>
+</li>
+<li class="episode" data-title="第五緣 月白：不屬於夢的時間 摯友美紀來青森探望小蟬。白天兩人採蘋果、散步、做飯，像重新找回少女時代的親密；夜晚，美紀卻因長期失眠而痛苦，無法真正沉入睡眠。此時，掌管「入睡前安靜邊界」的神明靜辰出現。祂專業而溫和，原本只負責守護人們滑入夢境前的那段短暫時間，卻也因現代人的焦慮與失眠而變得疲憊。 小蟬與美紀共同面對「睡不著」背後的孤獨。靜辰最後留下兩顆互相連結的石頭，成為兩人之間的「晚安熱線」。只要其中一方因失眠而感到孤單，另一方即使在睡夢中，也能傳來安穩呼吸般的陪伴。這一緣讓小蟬與美紀的友情變得更深，也讓小蟬明白，陪伴不一定需要說話，有時只是一起安靜入睡。 ---">
+  <details>
+    <summary><span class="ep-no">05</span><span>第五緣 月白：不屬於夢的時間</span></summary>
+    <p>摯友美紀來青森探望小蟬。白天兩人採蘋果、散步、做飯，像重新找回少女時代的親密；夜晚，美紀卻因長期失眠而痛苦，無法真正沉入睡眠。此時，掌管「入睡前安靜邊界」的神明靜辰出現。祂專業而溫和，原本只負責守護人們滑入夢境前的那段短暫時間，卻也因現代人的焦慮與失眠而變得疲憊。 小蟬與美紀共同面對「睡不著」背後的孤獨。靜辰最後留下兩顆互相連結的石頭，成為兩人之間的「晚安熱線」。只要其中一方因失眠而感到孤單，另一方即使在睡夢中，也能傳來安穩呼吸般的陪伴。這一緣讓小蟬與美紀的友情變得更深，也讓小蟬明白，陪伴不一定需要說話，有時只是一起安靜入睡。 ---</p>
+  </details>
+</li>
+<li class="episode" data-title="第六緣 滯紫：浸濕模糊的世界 連日秋雨讓小蟬的情緒變得柔軟，她卡在小說中一場悲傷釋放的段落，無法真正寫出角色的眼淚。此時，她遇見掌管「淚水尚未落下之前」的神明泫然。泫然總在悲傷即將爆發前被規則驅離，只能看見眼淚的序曲，卻永遠無法陪任何人走到真正哭出來的瞬間。 小蟬想起外公與未完成的告別，也想起自己許多沒有好好哭完的情緒。當泫然又要離開時，她伸手請祂留下，陪自己完整看完一場眼淚。泫然因此第一次見證淚水真正落下，也理解悲傷不是失敗，而是一種抵達。祂留下讓小蟬眼淚擁有溫度的祝福，從此她每一次真誠哭泣，都能化成微微發熱的光，提醒自己：痛苦也值得被溫柔對待。 ---">
+  <details>
+    <summary><span class="ep-no">06</span><span>第六緣 滯紫：浸濕模糊的世界</span></summary>
+    <p>連日秋雨讓小蟬的情緒變得柔軟，她卡在小說中一場悲傷釋放的段落，無法真正寫出角色的眼淚。此時，她遇見掌管「淚水尚未落下之前」的神明泫然。泫然總在悲傷即將爆發前被規則驅離，只能看見眼淚的序曲，卻永遠無法陪任何人走到真正哭出來的瞬間。 小蟬想起外公與未完成的告別，也想起自己許多沒有好好哭完的情緒。當泫然又要離開時，她伸手請祂留下，陪自己完整看完一場眼淚。泫然因此第一次見證淚水真正落下，也理解悲傷不是失敗，而是一種抵達。祂留下讓小蟬眼淚擁有溫度的祝福，從此她每一次真誠哭泣，都能化成微微發熱的光，提醒自己：痛苦也值得被溫柔對待。 ---</p>
+  </details>
+</li>
+<li class="episode" data-title="第七緣 暮紫：世界遺忘的時刻 小蟬開始在生活中聞到不屬於此地的海味、聽見遠方寺院鐘聲，最後在某個黃昏遇見掌管「日與夜交界」的神明薄暮。薄暮守著所有轉瞬即逝的黃昏，卻因世界過度明亮、過度忙碌，人們不再停下來看日落，祂的境界因此產生裂縫。 小蟬陪薄暮在緣側看一場完整的黃昏，沒有拍照、沒有紀錄，只是靜靜看天色由金、橘、紫轉入夜色。對薄暮而言，這份純粹的凝視就是祂存在的理由。祂離去後，留下一只能收藏霞光的茶杯。往後，小蟬只要用它泡熱飲，蒸氣便能在天花板投射那日的晚霞。這份祝福讓她在陰雨或灰暗日子裡，仍能召回一場永不褪色的黃昏。 ---">
+  <details>
+    <summary><span class="ep-no">07</span><span>第七緣 暮紫：世界遺忘的時刻</span></summary>
+    <p>小蟬開始在生活中聞到不屬於此地的海味、聽見遠方寺院鐘聲，最後在某個黃昏遇見掌管「日與夜交界」的神明薄暮。薄暮守著所有轉瞬即逝的黃昏，卻因世界過度明亮、過度忙碌，人們不再停下來看日落，祂的境界因此產生裂縫。 小蟬陪薄暮在緣側看一場完整的黃昏，沒有拍照、沒有紀錄，只是靜靜看天色由金、橘、紫轉入夜色。對薄暮而言，這份純粹的凝視就是祂存在的理由。祂離去後，留下一只能收藏霞光的茶杯。往後，小蟬只要用它泡熱飲，蒸氣便能在天花板投射那日的晚霞。這份祝福讓她在陰雨或灰暗日子裡，仍能召回一場永不褪色的黃昏。 ---</p>
+  </details>
+</li>
+<li class="episode" data-title="第八緣 煤竹：一步之差 小蟬為了趕在郵局關門前寄出參賽稿件，在青森街頭狂奔，卻因紅燈與慢速貨車只差一步錯過時間。她懊惱地遇見掌管「遲到、錯過與功虧一簣」的神明遲刻。遲刻悲觀、社畜感很重，認為自己的存在只會帶來遺憾，沒有人會感謝「剛好錯過」。 小蟬與祂交談後，慢慢明白錯過並非永遠只是失敗。遲刻留下黃銅公車代幣作為贈禮。幾天後，小蟬錯過村裡一小時一班的公車，卻因此看見巷中咖啡館前，一位白髮老人替橘貓梳毛的美好畫面。她明白遲刻的祝福不是逆轉時間，而是改變心境：一步之差，也可能是世界提醒她放慢腳步，去看見原本會錯過的小幸福。 ---">
+  <details>
+    <summary><span class="ep-no">08</span><span>第八緣 煤竹：一步之差</span></summary>
+    <p>小蟬為了趕在郵局關門前寄出參賽稿件，在青森街頭狂奔，卻因紅燈與慢速貨車只差一步錯過時間。她懊惱地遇見掌管「遲到、錯過與功虧一簣」的神明遲刻。遲刻悲觀、社畜感很重，認為自己的存在只會帶來遺憾，沒有人會感謝「剛好錯過」。 小蟬與祂交談後，慢慢明白錯過並非永遠只是失敗。遲刻留下黃銅公車代幣作為贈禮。幾天後，小蟬錯過村裡一小時一班的公車，卻因此看見巷中咖啡館前，一位白髮老人替橘貓梳毛的美好畫面。她明白遲刻的祝福不是逆轉時間，而是改變心境：一步之差，也可能是世界提醒她放慢腳步，去看見原本會錯過的小幸福。 ---</p>
+  </details>
+</li>
+<li class="episode" data-title="第九緣 灰桜：我收藏了所有「可惜」 初冬時，小蟬在便利商店遇見掌管「殘餘恩惠」的神明殘惠。祂像疲憊社畜，收藏世界上所有「可惜」：沒送出的禮物、過期的優惠券、未說出口的告白、沒能完成的善意。祂不是收藏失敗，而是收藏那些沒有抵達對方手中、卻曾真實存在過的溫柔。 小蟬在夢中看見自己的可惜帳冊：沒投稿的作品、沒告白的人、沒撥出的和解電話。她一開始覺得痛苦，後來理解那些「可惜」不是垃圾，而是曾經努力想抵達某處的心。殘惠留下老舊集點卡作為祝福。只要小蟬感到遺憾，這張卡便能把平凡食物升級成最溫暖的慰藉。它不挽回錯過，卻讓她知道：即使可惜，也可以先回家，好好吃點東西，再繼續生活。 ---">
+  <details>
+    <summary><span class="ep-no">09</span><span>第九緣 灰桜：我收藏了所有「可惜」</span></summary>
+    <p>初冬時，小蟬在便利商店遇見掌管「殘餘恩惠」的神明殘惠。祂像疲憊社畜，收藏世界上所有「可惜」：沒送出的禮物、過期的優惠券、未說出口的告白、沒能完成的善意。祂不是收藏失敗，而是收藏那些沒有抵達對方手中、卻曾真實存在過的溫柔。 小蟬在夢中看見自己的可惜帳冊：沒投稿的作品、沒告白的人、沒撥出的和解電話。她一開始覺得痛苦，後來理解那些「可惜」不是垃圾，而是曾經努力想抵達某處的心。殘惠留下老舊集點卡作為祝福。只要小蟬感到遺憾，這張卡便能把平凡食物升級成最溫暖的慰藉。它不挽回錯過，卻讓她知道：即使可惜，也可以先回家，好好吃點東西，再繼續生活。 ---</p>
+  </details>
+</li>
+<li class="episode" data-title="第十緣 灰青：每一次的選擇 小蟬前往東京與出版社會面，面對成為正式作家的可能，也面對都市與青森、成功與自由、穩定與冒險之間的抉擇。她在十字路口遇見掌管岔路與選擇的神明「辻」，以及與道路、軌跡、時機相關的神性存在。祂們讓她看見，人生的選擇並非總有明確答案，也不是每一次都能事先知道哪條路正確。 最後，辻留給小蟬一枚壞掉的指北針。這枚指北針不指北，也不指向最成功的方向；當小蟬猶豫時，它會在某個方向標示出即將發生的小確幸。例如路邊探頭的小貓、街角意外開著的小店、某個讓人微笑的畫面。小蟬因此懂得，選擇不一定要以結果證明價值。只要出發時心裡有一點期待，每條路都可能成為不後悔的旅程。 ---">
+  <details>
+    <summary><span class="ep-no">10</span><span>第十緣 灰青：每一次的選擇</span></summary>
+    <p>小蟬前往東京與出版社會面，面對成為正式作家的可能，也面對都市與青森、成功與自由、穩定與冒險之間的抉擇。她在十字路口遇見掌管岔路與選擇的神明「辻」，以及與道路、軌跡、時機相關的神性存在。祂們讓她看見，人生的選擇並非總有明確答案，也不是每一次都能事先知道哪條路正確。 最後，辻留給小蟬一枚壞掉的指北針。這枚指北針不指北，也不指向最成功的方向；當小蟬猶豫時，它會在某個方向標示出即將發生的小確幸。例如路邊探頭的小貓、街角意外開著的小店、某個讓人微笑的畫面。小蟬因此懂得，選擇不一定要以結果證明價值。只要出發時心裡有一點期待，每條路都可能成為不後悔的旅程。 ---</p>
+  </details>
+</li>
+<li class="episode" data-title="第十一緣 常盤：拒絕翅膀的天使 歲末時，小蟬去表姊家探望生病的小外甥，遇見充滿生命力的神明癒生。癒生掌管生長、痊癒與身體復原，卻在孩子的病痛面前感到困惑，因為有些痛不是單靠「讓身體好起來」就能解決。祂像一位想給人翅膀的天使，卻發現有些人真正需要的，不是飛離痛苦，而是被陪著慢慢度過。 小蟬陪癒生看見病中的脆弱、家人的擔憂，以及療癒不等於治癒的差異。癒生最後留下種子，長成一株常綠植物。它的葉子泡成茶後，不能立刻退燒或治病，卻能帶來巨大的安慰感，像被溫暖毛毯擁抱。這份祝福讓小蟬知道，照顧有時不是消滅痛苦，而是在痛苦中讓人覺得自己沒有被世界丟下。 ---">
+  <details>
+    <summary><span class="ep-no">11</span><span>第十一緣 常盤：拒絕翅膀的天使</span></summary>
+    <p>歲末時，小蟬去表姊家探望生病的小外甥，遇見充滿生命力的神明癒生。癒生掌管生長、痊癒與身體復原，卻在孩子的病痛面前感到困惑，因為有些痛不是單靠「讓身體好起來」就能解決。祂像一位想給人翅膀的天使，卻發現有些人真正需要的，不是飛離痛苦，而是被陪著慢慢度過。 小蟬陪癒生看見病中的脆弱、家人的擔憂，以及療癒不等於治癒的差異。癒生最後留下種子，長成一株常綠植物。它的葉子泡成茶後，不能立刻退燒或治病，卻能帶來巨大的安慰感，像被溫暖毛毯擁抱。這份祝福讓小蟬知道，照顧有時不是消滅痛苦，而是在痛苦中讓人覺得自己沒有被世界丟下。 ---</p>
+  </details>
+</li>
+<li class="episode" data-title="第十二緣 雪霞：來自雪境的幸福 平安夜，小蟬收到出版社寄來的《緣側奇譚》樣書。那一刻，她終於看見自己的名字被印成鉛字，所有與老屋、神明、文字相遇的經歷，都化為一本真實存在的書。夜晚，她因興奮而失眠，遇見聖誕使者般的神明寄月。寄月帶她在夢與月光之間穿梭，把溫暖與祝福送給孤單的人。 這一夜也是前半部的溫柔總結。小蟬回望一路以來得到的贈禮：翻書聲、電話、耳機、枕頭、淚水、霞光、代幣、集點卡。寄月最後點亮樣書封面上的月亮，將她這一夜純粹的成就感與幸福封存進書裡。往後當她疲憊、挫折或靈感枯竭時，只要拿起這本樣書，就能重新感受到「我曾完成夢想」的初心。 ---">
+  <details>
+    <summary><span class="ep-no">12</span><span>第十二緣 雪霞：來自雪境的幸福</span></summary>
+    <p>平安夜，小蟬收到出版社寄來的《緣側奇譚》樣書。那一刻，她終於看見自己的名字被印成鉛字，所有與老屋、神明、文字相遇的經歷，都化為一本真實存在的書。夜晚，她因興奮而失眠，遇見聖誕使者般的神明寄月。寄月帶她在夢與月光之間穿梭，把溫暖與祝福送給孤單的人。 這一夜也是前半部的溫柔總結。小蟬回望一路以來得到的贈禮：翻書聲、電話、耳機、枕頭、淚水、霞光、代幣、集點卡。寄月最後點亮樣書封面上的月亮，將她這一夜純粹的成就感與幸福封存進書裡。往後當她疲憊、挫折或靈感枯竭時，只要拿起這本樣書，就能重新感受到「我曾完成夢想」的初心。 ---</p>
+  </details>
+</li>
+<li class="episode" data-title="第十三緣 紺金：沉靜與期待的鐘聲 除夕夜，小蟬獨自在古民家準備跨年蕎麥麵，回想這不可思議的一年。午夜倒數前，時間忽然停止，掌管倒數、期待與新年瞬間的神明時餘現身。時餘長年守護人們許願與倒數的十秒，卻永遠只能見證「開始」，無法聽見任何願望之後的完整故事。 小蟬決定為祂講述自己這一年。她從東京的迷茫、搬來青森、遇見閱卷翁開始，一一說起每位神明的故事。對只擁有瞬間的時餘而言，這是一份奢侈的禮物：完整的一年。祂因此理解，期待不是空洞的序章，而是能通往故事的門。時餘恢復時間流動，讓小蟬在最完美的角度看見新年第一朵巨大煙火。這場私人煙火成為她新年的第一份祝福。 ---">
+  <details>
+    <summary><span class="ep-no">13</span><span>第十三緣 紺金：沉靜與期待的鐘聲</span></summary>
+    <p>除夕夜，小蟬獨自在古民家準備跨年蕎麥麵，回想這不可思議的一年。午夜倒數前，時間忽然停止，掌管倒數、期待與新年瞬間的神明時餘現身。時餘長年守護人們許願與倒數的十秒，卻永遠只能見證「開始」，無法聽見任何願望之後的完整故事。 小蟬決定為祂講述自己這一年。她從東京的迷茫、搬來青森、遇見閱卷翁開始，一一說起每位神明的故事。對只擁有瞬間的時餘而言，這是一份奢侈的禮物：完整的一年。祂因此理解，期待不是空洞的序章，而是能通往故事的門。時餘恢復時間流動，讓小蟬在最完美的角度看見新年第一朵巨大煙火。這場私人煙火成為她新年的第一份祝福。 ---</p>
+  </details>
+</li>
+<li class="episode" data-title="第十四緣 香色：風中的無字信箋 小蟬整理舊紙箱時，找到外公生前珍愛的石楠木菸斗。菸斗的氣味早已散去，卻喚起她對外公書齋、舊書、檜木與菸草的記憶。她因此遇見掌管「已逝氣味」的神明遺香。遺香保存世間所有再也聞不到的氣味：沒說出口的青春、回不去的家、逝去親人的味道。祂像一座失去讀者的嗅覺圖書館。 小蟬沒有要求祂復原氣味，而是寫下外公的模樣：如何清理菸斗、如何講故事、如何在雷雨夜抱著她哼童謠。她以文字讓氣味重生。遺香因此理解，氣味不只是空氣分子，也能被記憶與書寫延續。祂將小蟬對外公的嗅覺記憶與心跳連結。從此，只要她因思念或創作而心跳，那股屬於外公的舊書、菸草與檜木氣味便會浮現，像無形的守護。 ---">
+  <details>
+    <summary><span class="ep-no">14</span><span>第十四緣 香色：風中的無字信箋</span></summary>
+    <p>小蟬整理舊紙箱時，找到外公生前珍愛的石楠木菸斗。菸斗的氣味早已散去，卻喚起她對外公書齋、舊書、檜木與菸草的記憶。她因此遇見掌管「已逝氣味」的神明遺香。遺香保存世間所有再也聞不到的氣味：沒說出口的青春、回不去的家、逝去親人的味道。祂像一座失去讀者的嗅覺圖書館。 小蟬沒有要求祂復原氣味，而是寫下外公的模樣：如何清理菸斗、如何講故事、如何在雷雨夜抱著她哼童謠。她以文字讓氣味重生。遺香因此理解，氣味不只是空氣分子，也能被記憶與書寫延續。祂將小蟬對外公的嗅覺記憶與心跳連結。從此，只要她因思念或創作而心跳，那股屬於外公的舊書、菸草與檜木氣味便會浮現，像無形的守護。 ---</p>
+  </details>
+</li>
+<li class="episode" data-title="第十五緣 消炭：願你能安靜地與結束共處 小蟬到老式名畫座看《海上鋼琴師》，在片尾字幕滾動時遇見掌管「結束之後、離場之前」的神明漸末。漸末守護故事落幕後的幾分鐘：觀眾擦眼淚、整理心情、等待字幕結束的沉默。祂長年見證結束，卻覺得自己沒有過程，只有終點，因此極度孤獨。 小蟬告訴祂，片尾並不是無意義的結束，而是故事在觀眾心中沉澱、發酵、成為生命一部分的起點；那些字幕上的名字，也不是被遺忘的人，而是共同構成一座故事教堂的磚瓦。漸末被重新賦予意義，離去前留下祝福：每當小蟬完成一段重要創作，心中便會開出一片由感謝、認可、友誼與回憶構成的花田，提醒她每個終點，都是另一座花園的開端。 ---">
+  <details>
+    <summary><span class="ep-no">15</span><span>第十五緣 消炭：願你能安靜地與結束共處</span></summary>
+    <p>小蟬到老式名畫座看《海上鋼琴師》，在片尾字幕滾動時遇見掌管「結束之後、離場之前」的神明漸末。漸末守護故事落幕後的幾分鐘：觀眾擦眼淚、整理心情、等待字幕結束的沉默。祂長年見證結束，卻覺得自己沒有過程，只有終點，因此極度孤獨。 小蟬告訴祂，片尾並不是無意義的結束，而是故事在觀眾心中沉澱、發酵、成為生命一部分的起點；那些字幕上的名字，也不是被遺忘的人，而是共同構成一座故事教堂的磚瓦。漸末被重新賦予意義，離去前留下祝福：每當小蟬完成一段重要創作，心中便會開出一片由感謝、認可、友誼與回憶構成的花田，提醒她每個終點，都是另一座花園的開端。 ---</p>
+  </details>
+</li>
+<li class="episode" data-title="第十六緣 錆浅葱：無照的祈禱 小蟬與美紀前往山形藏王溫泉旅行，卻遇上暴雪與意外。美紀身體狀況惡化，救護與導航失效，唯一能下山的方法，是小蟬親自開車。但她沒有駕照，也從未真正駕駛。絕望時，掌管「駕馭」的御者神現身。祂拒絕代替小蟬開車，因為真正的駕馭不是技術，而是意志與機器之間的連結。 御者神讓小蟬感覺輪胎、雪地、引擎與方向盤，卻不替她承擔選擇。小蟬在恐懼中握住方向盤，憑著「一定要救美紀」的決心駛下雪山。美紀獲救後，御者神留下古老黃銅車鑰匙。之後每當小蟬寫作陷入混亂，鑰匙便能讓她找回那晚的極致專注，如同重新坐上駕駛座。她明白，故事的道路也一樣，最後只能由自己駕馭。 ---">
+  <details>
+    <summary><span class="ep-no">16</span><span>第十六緣 錆浅葱：無照的祈禱</span></summary>
+    <p>小蟬與美紀前往山形藏王溫泉旅行，卻遇上暴雪與意外。美紀身體狀況惡化，救護與導航失效，唯一能下山的方法，是小蟬親自開車。但她沒有駕照，也從未真正駕駛。絕望時，掌管「駕馭」的御者神現身。祂拒絕代替小蟬開車，因為真正的駕馭不是技術，而是意志與機器之間的連結。 御者神讓小蟬感覺輪胎、雪地、引擎與方向盤，卻不替她承擔選擇。小蟬在恐懼中握住方向盤，憑著「一定要救美紀」的決心駛下雪山。美紀獲救後，御者神留下古老黃銅車鑰匙。之後每當小蟬寫作陷入混亂，鑰匙便能讓她找回那晚的極致專注，如同重新坐上駕駛座。她明白，故事的道路也一樣，最後只能由自己駕馭。 ---</p>
+  </details>
+</li>
+<li class="episode" data-title="第十七緣 東雲：雪融時節的句點 二月下旬，雪開始融化，書房老日曆出現異狀：被撕下的昨日會化為塵埃消失。小蟬遇見掌管「日子褪去與人生刻痕」的神明褪日君。祂守護那些未被寫入歲時記、沒有被好好結束的日子。小蟬因此想起五年前一段溫柔卻未畫下句點的感情：和也離開日本前，他們沒有正式道別，也沒有清楚結束。 小蟬決定寫一封沒有收件人的信，為那個雪融午後補上遲來的句點。她寫下咖啡館、車站、和也的笑、自己的不捨與祝福，終於讓那段懸置多年的心情安放下來。褪日君因此理解「句點的重量」，留下無形契約：未來每逢小蟬人生重要關鍵日的前一天，老日曆會出現一張空白頁，提醒她準備迎接新的刻痕，而不是害怕未知。 ---">
+  <details>
+    <summary><span class="ep-no">17</span><span>第十七緣 東雲：雪融時節的句點</span></summary>
+    <p>二月下旬，雪開始融化，書房老日曆出現異狀：被撕下的昨日會化為塵埃消失。小蟬遇見掌管「日子褪去與人生刻痕」的神明褪日君。祂守護那些未被寫入歲時記、沒有被好好結束的日子。小蟬因此想起五年前一段溫柔卻未畫下句點的感情：和也離開日本前，他們沒有正式道別，也沒有清楚結束。 小蟬決定寫一封沒有收件人的信，為那個雪融午後補上遲來的句點。她寫下咖啡館、車站、和也的笑、自己的不捨與祝福，終於讓那段懸置多年的心情安放下來。褪日君因此理解「句點的重量」，留下無形契約：未來每逢小蟬人生重要關鍵日的前一天，老日曆會出現一張空白頁，提醒她準備迎接新的刻痕，而不是害怕未知。 ---</p>
+  </details>
+</li>
+<li class="episode" data-title="第十八緣 裂柿：在靜中喧嘩的萬語千言 新書出版後，小蟬開始面對成名後的壓力、讀者期待與續作焦慮。此時，名為事理代的「效率與規劃」之神出現，像東京職場時期的幽靈，溫柔卻不容反抗地替她安排飲食、睡眠、寫作字數、散步路線與讀者互動。祂看似幫助她成功，實際上逐漸奪走她的留白、任性與創作主權。 小蟬一開始被祂說服，懷疑自己在青森的生活只是逃避。直到事理代擅自「修正」她關於綿守的故事，她才真正憤怒。她重新訂立規則：事理代只能記錄，不能決定；可以提醒，不能代理；可以質疑成果，不能碰她的過程。事理代因此被馴化為安靜的電子日曆。小蟬終於與東京時期那個被效率支配的自己和解，重新拿回創作節奏。 ---">
+  <details>
+    <summary><span class="ep-no">18</span><span>第十八緣 裂柿：在靜中喧嘩的萬語千言</span></summary>
+    <p>新書出版後，小蟬開始面對成名後的壓力、讀者期待與續作焦慮。此時，名為事理代的「效率與規劃」之神出現，像東京職場時期的幽靈，溫柔卻不容反抗地替她安排飲食、睡眠、寫作字數、散步路線與讀者互動。祂看似幫助她成功，實際上逐漸奪走她的留白、任性與創作主權。 小蟬一開始被祂說服，懷疑自己在青森的生活只是逃避。直到事理代擅自「修正」她關於綿守的故事，她才真正憤怒。她重新訂立規則：事理代只能記錄，不能決定；可以提醒，不能代理；可以質疑成果，不能碰她的過程。事理代因此被馴化為安靜的電子日曆。小蟬終於與東京時期那個被效率支配的自己和解，重新拿回創作節奏。 ---</p>
+  </details>
+</li>
+<li class="episode" data-title="第十九緣 焦香：一杯漂浮著棉花糖的熱可可 三月下旬，小蟬在春寒與疲憊中遇見名為一盞歇的神明。祂不是強大的神，而像一杯在深夜遞來的熱飲，掌管「短暫休息與被慰藉的片刻」。小蟬正處於創作後的空白與身心疲憊之中，明明已走過很多奇蹟，卻仍會在夜裡覺得孤單、沒有力氣繼續。 一盞歇以一杯漂浮著棉花糖的熱可可陪伴她，讓她明白休息不是浪費，也不是退步，而是讓心重新變得能感受溫度。小蟬也以自己的故事回應祂，讓祂找回「不只是被消耗，而是能創造慰藉」的存在意義。祂離去前把創造故事的力量留在白色馬克杯裡。從此，只要小蟬懷著為某人帶來慰藉的心情使用它，杯中暖意便會生成一個只屬於當下的小故事。 ---">
+  <details>
+    <summary><span class="ep-no">19</span><span>第十九緣 焦香：一杯漂浮著棉花糖的熱可可</span></summary>
+    <p>三月下旬，小蟬在春寒與疲憊中遇見名為一盞歇的神明。祂不是強大的神，而像一杯在深夜遞來的熱飲，掌管「短暫休息與被慰藉的片刻」。小蟬正處於創作後的空白與身心疲憊之中，明明已走過很多奇蹟，卻仍會在夜裡覺得孤單、沒有力氣繼續。 一盞歇以一杯漂浮著棉花糖的熱可可陪伴她，讓她明白休息不是浪費，也不是退步，而是讓心重新變得能感受溫度。小蟬也以自己的故事回應祂，讓祂找回「不只是被消耗，而是能創造慰藉」的存在意義。祂離去前把創造故事的力量留在白色馬克杯裡。從此，只要小蟬懷著為某人帶來慰藉的心情使用它，杯中暖意便會生成一個只屬於當下的小故事。 ---</p>
+  </details>
+</li>
+<li class="episode" data-title="第二十緣 金茶：被隱沒的詩篇 四月，小蟬與古民家的關係進入更深層。老屋中那些被丟棄的廢稿、壓抑的焦躁、未完成的句子與負面情緒，逐漸化為各種小妖怪與神性殘響：焦躁蟲、筆怨、廢稿石人、黑洞主、夢捨等。小蟬原本以為自己只是這棟屋子的住客，卻在混亂中被迫面對：她已成為古民家的「門守」。 這一緣像是創作者內心垃圾場的暴動。那些不完美文字、被揉掉的廢稿、沒用上的靈感，都不是無價值垃圾，而是創作過程的一部分。夢捨教她如何對廢棄之物好好告別，而不是厭惡地丟棄。最後，小蟬與屋子達成和解，新生的靈感精靈誕生。她學會對廢稿說「謝謝你們的努力」，讓創作中的失敗也被尊重安放。 ---">
+  <details>
+    <summary><span class="ep-no">20</span><span>第二十緣 金茶：被隱沒的詩篇</span></summary>
+    <p>四月，小蟬與古民家的關係進入更深層。老屋中那些被丟棄的廢稿、壓抑的焦躁、未完成的句子與負面情緒，逐漸化為各種小妖怪與神性殘響：焦躁蟲、筆怨、廢稿石人、黑洞主、夢捨等。小蟬原本以為自己只是這棟屋子的住客，卻在混亂中被迫面對：她已成為古民家的「門守」。 這一緣像是創作者內心垃圾場的暴動。那些不完美文字、被揉掉的廢稿、沒用上的靈感，都不是無價值垃圾，而是創作過程的一部分。夢捨教她如何對廢棄之物好好告別，而不是厭惡地丟棄。最後，小蟬與屋子達成和解，新生的靈感精靈誕生。她學會對廢稿說「謝謝你們的努力」，讓創作中的失敗也被尊重安放。 ---</p>
+  </details>
+</li>
+<li class="episode" data-title="第廿一緣 緋色：緋紅色的派對 小蟬回東京參加出版社慶功晚宴，首次以「夏目蟬老師」的身分被眾人注視。東京的燈光、名利、社交與恭維讓她感到不真實，也勾起她對自己是否能承受成功的焦慮。宴會後，她遇見掌管酒宴、狂歡與失控的神明酣樂。酣樂讓她陷入一場緋紅色派對，使她在過度熱鬧中看見自己真正的不安。 這不是單純的放縱，而是一次讓壓抑情緒被釋放的儀式。美紀陪她收拾混亂，也守住她在人群中快要迷失的自己。酣樂最後留下的不是酒量或歡樂魔法，而是讓小蟬理解：偶爾失控、偶爾醉一場，也是在確認自己需要朋友。她重新看待東京，不再只想逃離，而明白都市喧囂也能映照青森寧靜的價值。她下一次回東京，會更篤定。 ---">
+  <details>
+    <summary><span class="ep-no">21</span><span>第廿一緣 緋色：緋紅色的派對</span></summary>
+    <p>小蟬回東京參加出版社慶功晚宴，首次以「夏目蟬老師」的身分被眾人注視。東京的燈光、名利、社交與恭維讓她感到不真實，也勾起她對自己是否能承受成功的焦慮。宴會後，她遇見掌管酒宴、狂歡與失控的神明酣樂。酣樂讓她陷入一場緋紅色派對，使她在過度熱鬧中看見自己真正的不安。 這不是單純的放縱，而是一次讓壓抑情緒被釋放的儀式。美紀陪她收拾混亂，也守住她在人群中快要迷失的自己。酣樂最後留下的不是酒量或歡樂魔法，而是讓小蟬理解：偶爾失控、偶爾醉一場，也是在確認自己需要朋友。她重新看待東京，不再只想逃離，而明白都市喧囂也能映照青森寧靜的價值。她下一次回東京，會更篤定。 ---</p>
+  </details>
+</li>
+<li class="episode" data-title="第廿二緣 勿忘草：墨水裡的暖意 五月，春天完全降臨，小蟬的作品逐漸觸及讀者。某晚，她收到讀者小麵的訊息，對方因作品得到安慰。此時，古民家的核心神明家守現身。家守不同於短暫來訪的神，祂像屋子的根，是這座古民家長久以來守護所有來客、故事與神明的存在。 家守讓小蟬明白，她的文字開始具備「言靈」的力量：不是普通抒情，而是真能影響、溫暖甚至改變他人的心。這份力量既是祝福，也是危險，因為它會隨她的情緒而生長，也可能失控。小蟬尚未完全理解，但隔天收到小麵「謝謝妳的溫暖」的訊息，第一次感覺自己的文字真正抵達了陌生人心中。她的人生與創作，也因此翻開新的篇章。 ---">
+  <details>
+    <summary><span class="ep-no">22</span><span>第廿二緣 勿忘草：墨水裡的暖意</span></summary>
+    <p>五月，春天完全降臨，小蟬的作品逐漸觸及讀者。某晚，她收到讀者小麵的訊息，對方因作品得到安慰。此時，古民家的核心神明家守現身。家守不同於短暫來訪的神，祂像屋子的根，是這座古民家長久以來守護所有來客、故事與神明的存在。 家守讓小蟬明白，她的文字開始具備「言靈」的力量：不是普通抒情，而是真能影響、溫暖甚至改變他人的心。這份力量既是祝福，也是危險，因為它會隨她的情緒而生長，也可能失控。小蟬尚未完全理解，但隔天收到小麵「謝謝妳的溫暖」的訊息，第一次感覺自己的文字真正抵達了陌生人心中。她的人生與創作，也因此翻開新的篇章。 ---</p>
+  </details>
+</li>
+<li class="episode" data-title="第廿三緣 柴染：在搖晃中編織安寧 附近山體隧道工程開始，低頻震動打破青森山間寧靜，也動搖小蟬的創作節奏。她陸續回想與各位神明相遇的經驗，意識到自己從一開始想拯救神明，到現在其實是在透過每一次相遇，找尋讓自己活下去、繼續寫作的理由。 這一緣更像主線中段的自我定位。小蟬不再把自己想成能治癒所有神明的英雄，也不是創造奇蹟的戰士。她真正的身份，是這間位於世界夾縫的「黃昏宿場」看守人。她的職責不是改變神明的宿命，而是在祂們疲憊造訪時點一盞燈、泡一壺茶，說一句「歡迎回來，辛苦了，今夜請安心歇息」。這讓她第一次理解「管理人」的真正意義。 ---">
+  <details>
+    <summary><span class="ep-no">23</span><span>第廿三緣 柴染：在搖晃中編織安寧</span></summary>
+    <p>附近山體隧道工程開始，低頻震動打破青森山間寧靜，也動搖小蟬的創作節奏。她陸續回想與各位神明相遇的經驗，意識到自己從一開始想拯救神明，到現在其實是在透過每一次相遇，找尋讓自己活下去、繼續寫作的理由。 這一緣更像主線中段的自我定位。小蟬不再把自己想成能治癒所有神明的英雄，也不是創造奇蹟的戰士。她真正的身份，是這間位於世界夾縫的「黃昏宿場」看守人。她的職責不是改變神明的宿命，而是在祂們疲憊造訪時點一盞燈、泡一壺茶，說一句「歡迎回來，辛苦了，今夜請安心歇息」。這讓她第一次理解「管理人」的真正意義。 ---</p>
+  </details>
+</li>
+<li class="episode" data-title="第廿四緣 藍墨茶：當墨水再次暈開 六月初，外界萬物豐饒，小蟬卻陷入創作枯竭。出版後的忙碌與期待讓她內心像乾涸的湖。她遇見代表乾涸與靈感耗盡的涸澤，並在對抗與理解中迎來另一位神明甘泉。甘泉讓她知道，枯竭不是沒有水，而是她忘了如何找到心底那口清泉。 甘泉留下硯台與墨的祝福：當她再次乾涸時，只要將一滴「真實之水」滴入硯台，無論是露水、茶，或為故事流下的真誠眼淚，墨便會重新豐盈。這不是外部補給，而是提醒她自己的內心本來就有永不枯竭的泉眼。小蟬醒來後感覺內心重新清澈，知道新的故事已在井底發芽。 ---">
+  <details>
+    <summary><span class="ep-no">24</span><span>第廿四緣 藍墨茶：當墨水再次暈開</span></summary>
+    <p>六月初，外界萬物豐饒，小蟬卻陷入創作枯竭。出版後的忙碌與期待讓她內心像乾涸的湖。她遇見代表乾涸與靈感耗盡的涸澤，並在對抗與理解中迎來另一位神明甘泉。甘泉讓她知道，枯竭不是沒有水，而是她忘了如何找到心底那口清泉。 甘泉留下硯台與墨的祝福：當她再次乾涸時，只要將一滴「真實之水」滴入硯台，無論是露水、茶，或為故事流下的真誠眼淚，墨便會重新豐盈。這不是外部補給，而是提醒她自己的內心本來就有永不枯竭的泉眼。小蟬醒來後感覺內心重新清澈，知道新的故事已在井底發芽。 ---</p>
+  </details>
+</li>
+<li class="episode" data-title="第廿五緣 錆御納戸：萬物終將腐朽之詩 梅雨季，濕氣讓老屋中的器物開始顯露腐朽痕跡。小蟬原本想修補一切，卻遇見與鏽蝕、腐敗、時間侵蝕有關的神明時錆。祂不把腐朽視為敵人，而視為萬物必然完成的詩。小蟬一開始抗拒，因為對創作者而言，腐朽意味著文字會被忘記、紙會變黃、屋子會老去、人生會結束。 但她逐漸看見，腐朽不是否定存在，而是存在曾經真實活過的證據。枯葉化為腐殖質，破杯有缺口，舊窗格剝落，都有自己的美。時錆沒有留下實體物品，卻讓小蟬擁有「侘寂之心」。她那只缺口茶杯也成為信物，杯中蒸氣會隨機凝成青苔石、蟲蛀葉、舊窗等侘寂影像，提醒她在不完美與終將逝去之中尋找詩意。 ---">
+  <details>
+    <summary><span class="ep-no">25</span><span>第廿五緣 錆御納戸：萬物終將腐朽之詩</span></summary>
+    <p>梅雨季，濕氣讓老屋中的器物開始顯露腐朽痕跡。小蟬原本想修補一切，卻遇見與鏽蝕、腐敗、時間侵蝕有關的神明時錆。祂不把腐朽視為敵人，而視為萬物必然完成的詩。小蟬一開始抗拒，因為對創作者而言，腐朽意味著文字會被忘記、紙會變黃、屋子會老去、人生會結束。 但她逐漸看見，腐朽不是否定存在，而是存在曾經真實活過的證據。枯葉化為腐殖質，破杯有缺口，舊窗格剝落，都有自己的美。時錆沒有留下實體物品，卻讓小蟬擁有「侘寂之心」。她那只缺口茶杯也成為信物，杯中蒸氣會隨機凝成青苔石、蟲蛀葉、舊窗等侘寂影像，提醒她在不完美與終將逝去之中尋找詩意。 ---</p>
+  </details>
+</li>
+<li class="episode" data-title="第廿六緣 紺桔梗：無法停止哭泣的天空 週末清晨，美紀來到青森，小蟬正卡在一個關於遺忘與尋找的故事。天空忽然開始異常降雨，那不是普通天氣，而是名為天泣的神明正在哭泣。天泣的悲傷過於龐大，足以淹沒世界。小蟬身為管理人，必須承接這份來自天空的無止盡眼淚，否則整座城鎮都會被暴雨吞沒。 這一次，美紀親眼見證小蟬不只是溫柔寫作者，而是承擔神明痛苦的守護者。小蟬用自己的身體與言靈吸納天泣的悲傷，最後力竭昏睡。美紀跪在緣側抱住她，終於明白小蟬一直獨自承擔什麼。這一緣是友情主線的重要轉折：如果小蟬是擁抱天空的人，美紀就要成為她身後撐傘的人。從此，小蟬的戰鬥不再孤單。 ---">
+  <details>
+    <summary><span class="ep-no">26</span><span>第廿六緣 紺桔梗：無法停止哭泣的天空</span></summary>
+    <p>週末清晨，美紀來到青森，小蟬正卡在一個關於遺忘與尋找的故事。天空忽然開始異常降雨，那不是普通天氣，而是名為天泣的神明正在哭泣。天泣的悲傷過於龐大，足以淹沒世界。小蟬身為管理人，必須承接這份來自天空的無止盡眼淚，否則整座城鎮都會被暴雨吞沒。 這一次，美紀親眼見證小蟬不只是溫柔寫作者，而是承擔神明痛苦的守護者。小蟬用自己的身體與言靈吸納天泣的悲傷，最後力竭昏睡。美紀跪在緣側抱住她，終於明白小蟬一直獨自承擔什麼。這一緣是友情主線的重要轉折：如果小蟬是擁抱天空的人，美紀就要成為她身後撐傘的人。從此，小蟬的戰鬥不再孤單。 ---</p>
+  </details>
+</li>
+<li class="episode" data-title="第廿七緣 黄昏：黃昏宿場的真相 天泣事件後，小蟬長時間沉睡，在黑暗中被家守喚醒。家守揭示古民家的真相：這裡不只是曾外祖母留下的房子，而是位於世界縫隙中的「黃昏宿場」，專門接待那些被時代遺忘、被情緒壓垮、瀕臨消散或失控的神明。小蟬身為管理人，並非偶然，而是被屋子與過往血脈選中的繼承者。 家守也給她兩個選擇：離開，做回普通人；或留下，繼續承擔管理人的職責，代價是生命會被神明與屋子的運作逐漸燃燒。小蟬一度沉默，直到接到美紀的電話，聽見朋友談起自己的繪本夢想，才看清答案。她不是為抽象責任留下，而是為守護具體的人間：朋友、笑聲、故事、溫暖。她決定燃燒自己，照亮想守護的人。 ---">
+  <details>
+    <summary><span class="ep-no">27</span><span>第廿七緣 黄昏：黃昏宿場的真相</span></summary>
+    <p>天泣事件後，小蟬長時間沉睡，在黑暗中被家守喚醒。家守揭示古民家的真相：這裡不只是曾外祖母留下的房子，而是位於世界縫隙中的「黃昏宿場」，專門接待那些被時代遺忘、被情緒壓垮、瀕臨消散或失控的神明。小蟬身為管理人，並非偶然，而是被屋子與過往血脈選中的繼承者。 家守也給她兩個選擇：離開，做回普通人；或留下，繼續承擔管理人的職責，代價是生命會被神明與屋子的運作逐漸燃燒。小蟬一度沉默，直到接到美紀的電話，聽見朋友談起自己的繪本夢想，才看清答案。她不是為抽象責任留下，而是為守護具體的人間：朋友、笑聲、故事、溫暖。她決定燃燒自己，照亮想守護的人。 ---</p>
+  </details>
+</li>
+<li class="episode" data-title="第廿八緣 蘇芳：吞噬故事的虛無 做出留下的決定後，小蟬進入異樣平靜。她的生命被言靈與屋子持續汲取，筆下故事也前所未有地明亮。就在她以為自己能坦然燃燒時，真正的危機降臨：吞噬故事與意義的虛無裂縫出現，常世蟲與黑洞般的力量開始侵蝕古民家，要把所有記憶、故事與神明存在的痕跡吞掉。 小蟬召喚過往神明的祝福，試圖以自己寫下的全部故事抵抗虛無。這一戰不是物理戰鬥，而是「故事是否能對抗不存在」的決戰。她燃盡力量，終於關閉裂縫，保住黃昏宿場與那些曾被記錄的溫柔。但古民家坍塌，書櫃與牆壁壓下，小蟬重傷瀕死。最後的稿紙只留下半個詞：「此岸……」。世界安靜得像死亡。 ---">
+  <details>
+    <summary><span class="ep-no">28</span><span>第廿八緣 蘇芳：吞噬故事的虛無</span></summary>
+    <p>做出留下的決定後，小蟬進入異樣平靜。她的生命被言靈與屋子持續汲取，筆下故事也前所未有地明亮。就在她以為自己能坦然燃燒時，真正的危機降臨：吞噬故事與意義的虛無裂縫出現，常世蟲與黑洞般的力量開始侵蝕古民家，要把所有記憶、故事與神明存在的痕跡吞掉。 小蟬召喚過往神明的祝福，試圖以自己寫下的全部故事抵抗虛無。這一戰不是物理戰鬥，而是「故事是否能對抗不存在」的決戰。她燃盡力量，終於關閉裂縫，保住黃昏宿場與那些曾被記錄的溫柔。但古民家坍塌，書櫃與牆壁壓下，小蟬重傷瀕死。最後的稿紙只留下半個詞：「此岸……」。世界安靜得像死亡。 ---</p>
+  </details>
+</li>
+<li class="episode" data-title="第廿九緣 真紅：寂靜的彼岸之花 小蟬的意識來到彼岸河畔。那裡沒有痛苦、悲傷、喜悅，也沒有自我重量，只有極致安寧。彼岸的船等待她上去，死亡看起來不是恐怖，而像一場疲憊後的歸去。她幾乎就要踏上船，卸下所有燃燒與責任。 同時，在人間，美紀察覺不對。她一直打不通小蟬電話，想起天泣事件、管理人宿命與小蟬曾輕描淡寫提過的負擔，恐懼終於壓過猶豫。她報警求助，凡人的救援在黑夜中趕往青森古民家。這一緣形成強烈對照：小蟬在彼岸被安寧吸引，美紀在此岸以人類最普通、最笨拙卻堅定的方式，把她拉回來。死亡不是被神打敗，而是被朋友的求救電話暫時攔下。 ---">
+  <details>
+    <summary><span class="ep-no">29</span><span>第廿九緣 真紅：寂靜的彼岸之花</span></summary>
+    <p>小蟬的意識來到彼岸河畔。那裡沒有痛苦、悲傷、喜悅，也沒有自我重量，只有極致安寧。彼岸的船等待她上去，死亡看起來不是恐怖，而像一場疲憊後的歸去。她幾乎就要踏上船，卸下所有燃燒與責任。 同時，在人間，美紀察覺不對。她一直打不通小蟬電話，想起天泣事件、管理人宿命與小蟬曾輕描淡寫提過的負擔，恐懼終於壓過猶豫。她報警求助，凡人的救援在黑夜中趕往青森古民家。這一緣形成強烈對照：小蟬在彼岸被安寧吸引，美紀在此岸以人類最普通、最笨拙卻堅定的方式，把她拉回來。死亡不是被神打敗，而是被朋友的求救電話暫時攔下。 ---</p>
+  </details>
+</li>
+<li class="episode" data-title="第三十緣 未来：此岸的風景 小蟬在彼岸邊緣逐漸溶解，所有痛苦、情感與「夏目蟬」這個自我都要消失。此時，過往神明留下的祝福一一浮現：翻書聲、電話、耳機、枕頭、石頭、溫熱眼淚、霞光茶杯、黃銅代幣、集點卡、指北針、療癒植物、樣書、煙火、香氣、花田、車鑰匙、空白日曆、電子日曆、馬克杯、硯台、缺口茶杯……這些不是武器，而是她曾被溫柔守護過的證據。 祝福凝聚成古民家的緣側幻影，把小蟬從彼岸拉回一步。人間救援也及時抵達，她被送醫，撿回一命。數月後，小蟬回到重建後的古民家。她失去了與神明直接相遇的力量，也失去言靈，但終於學會在平凡此岸看見神性。她封存《緣側奇譚》，把過去三十緣安放在書架最上層，拿出新稿紙，在蘋果花香與鳥鳴中寫下下一部作品的名字：《此岸的風景》。 ---">
+  <details>
+    <summary><span class="ep-no">30</span><span>第三十緣 未来：此岸的風景</span></summary>
+    <p>小蟬在彼岸邊緣逐漸溶解，所有痛苦、情感與「夏目蟬」這個自我都要消失。此時，過往神明留下的祝福一一浮現：翻書聲、電話、耳機、枕頭、石頭、溫熱眼淚、霞光茶杯、黃銅代幣、集點卡、指北針、療癒植物、樣書、煙火、香氣、花田、車鑰匙、空白日曆、電子日曆、馬克杯、硯台、缺口茶杯……這些不是武器，而是她曾被溫柔守護過的證據。 祝福凝聚成古民家的緣側幻影，把小蟬從彼岸拉回一步。人間救援也及時抵達，她被送醫，撿回一命。數月後，小蟬回到重建後的古民家。她失去了與神明直接相遇的力量，也失去言靈，但終於學會在平凡此岸看見神性。她封存《緣側奇譚》，把過去三十緣安放在書架最上層，拿出新稿紙，在蘋果花香與鳥鳴中寫下下一部作品的名字：《此岸的風景》。 ---</p>
+  </details>
+</li></ol>
+</section>
+
+<section class="work-detail" id="before" data-title="Before Fades：漸逝之前 Before Fades 生前告別式 老麵 庭如 職人劇 餘韻 死亡倫理">
+  <div class="section-kicker">作品詳解</div>
+  <h2>Before Fades：漸逝之前</h2>
+  <p class="lead"><strong>Before Fades</strong>｜生前告別式職人群像劇｜十場案件</p>
+  <div class="detail-grid">
+    <div class="detail-main">
+      <h3>核心定位</h3>
+      <p>《Before Fades》把死亡從玄學與哭戲裡拉出來，變成一種專業服務。老麵、凱特、雷老師與庭如不是喪禮工作者，而是替還活著的人設計「最後一次登場」的人。他們面對的是商業操作、親子和解、酷兒驕傲、死亡直播、日常餘韻、團隊信念崩塌。作品真正成熟的地方，是它知道儀式可以被設計，但真誠不能被生產。</p>
+      <h3>作品核心</h3>
+      <p>《Before Fades：漸逝之前》圍繞一家名為 **Before Fades** 的特殊公關公司。他們不承辦傳統喪禮，而是替還活著、卻已走近生命終點的人，設計一場「生前告別式」。他們的核心理念不是處理死亡流程，而是替客戶留下「想被記得的樣子」，讓人生最後一次登場，成為一段有重量、有餘韻，也能促成和解的儀式。</p><p>團隊由四人構成：老麵是創辦人與決策者，前科技業 PM，擅長把混亂的人生情感整理成可執行的儀式；凱特是視覺總監，追求光影、空間、氣味與美學極致；雷老師是技術總監，掌管聲音、影像與所有科技設備；庭如是記錄員，也是「靈魂捕手」，能模糊感知他人強烈情緒，是團隊的道德羅盤。</p>
+      <h3>在 Jami 宇宙中的價值</h3>
+      <p>這是 Jami 宇宙最明顯的職人劇核心：用專案、流程、分工與專業處理人生終局；但最後又承認，人生最重要的東西往往超出設計。</p>
+    </div>
+    <aside class="factbox">
+      <h4>快速標籤</h4>
+      <div class="tag-row vertical"><span class="pill">生前告別式</span><span class="pill">老麵</span><span class="pill">庭如</span><span class="pill">職人劇</span><span class="pill">餘韻</span><span class="pill">死亡倫理</span></div>
+      <dl>
+        <dt>形式</dt><dd>十場案件</dd>
+        <dt>篇幅</dt><dd>10 場</dd>
+        <dt>主題軸</dt><dd>生前告別、餘韻、儀式設計、職人倫理</dd>
+      </dl>
+    </aside>
+  </div>
+  <h3>篇章地圖</h3>
+  <p class="note">以下為每篇故事的整理式摘要。點開可閱讀該篇的核心事件與主題功能。</p>
+  <ol class="episode-list">
+<li class="episode" data-title="第一場：產品發表會 身價數十億的科技新貴傑米・詹罹患罕見神經退化疾病，只剩不到一年生命。他委託 Before Fades 舉辦一場驚世駭俗的「生前告別秀」。這場告別並不單純，它同時也是他公司「奇點無限」秘密產品【輪迴】的發表會：傑米要讓外界以為這只是為了推廣 AI 人格備份與數位永生技術的行銷鬧劇，然後在自己真正死去後，引爆話題，證明自己將成為第一個「數位永生人」。 這個案子讓團隊首次嚴重分裂。凱特與雷老師被它的結構與技術挑戰吸引，庭如卻堅決反對，因為她感覺這是在將悲傷武器化。老麵最後以「這就是傑米想被記得的樣子」說服大家。告別式當天，傑米以《地獄脫口秀》的形式登場，用黑色幽默嘲諷親友、同事、前任與自己，讓現場從尷尬、冒犯、震驚逐漸轉為放聲大笑。接著，他忽然卸下毒舌外殼，坦承自己害怕死亡、害怕被遺忘，也向家人與朋友道歉。 就在現場進入最真誠、最溫暖的時刻，舞台立刻切換為產品發表會。傑米宣布【輪迴】系統將掃描並上傳他的人格，他的肉身將死，但傑米・詹會在雲端繼續存在。三個月後，他真的病逝，奇點無限股價漲停。這場案子讓 Before Fades 打響名號，也留下全書第一個道德難題：如果真誠與算計同時存在，那這場告別到底是救贖，還是操作？">
+  <details>
+    <summary><span class="ep-no">01</span><span>第一場：產品發表會</span></summary>
+    <p>身價數十億的科技新貴傑米・詹罹患罕見神經退化疾病，只剩不到一年生命。他委託 Before Fades 舉辦一場驚世駭俗的「生前告別秀」。這場告別並不單純，它同時也是他公司「奇點無限」秘密產品【輪迴】的發表會：傑米要讓外界以為這只是為了推廣 AI 人格備份與數位永生技術的行銷鬧劇，然後在自己真正死去後，引爆話題，證明自己將成為第一個「數位永生人」。 這個案子讓團隊首次嚴重分裂。凱特與雷老師被它的結構與技術挑戰吸引，庭如卻堅決反對，因為她感覺這是在將悲傷武器化。老麵最後以「這就是傑米想被記得的樣子」說服大家。告別式當天，傑米以《地獄脫口秀》的形式登場，用黑色幽默嘲諷親友、同事、前任與自己，讓現場從尷尬、冒犯、震驚逐漸轉為放聲大笑。接著，他忽然卸下毒舌外殼，坦承自己害怕死亡、害怕被遺忘，也向家人與朋友道歉。 就在現場進入最真誠、最溫暖的時刻，舞台立刻切換為產品發表會。傑米宣布【輪迴】系統將掃描並上傳他的人格，他的肉身將死，但傑米・詹會在雲端繼續存在。三個月後，他真的病逝，奇點無限股價漲停。這場案子讓 Before Fades 打響名號，也留下全書第一個道德難題：如果真誠與算計同時存在，那這場告別到底是救贖，還是操作？</p>
+  </details>
+</li>
+<li class="episode" data-title="第二場：感・動・之聲 第二個委託人是林老師，一位退休音樂老師。她罹患末期癌症，又因病失聲，只剩不到三個月。她的要求卻極不尋常：舉辦一場「完全無聲」的生前告別式。這對雷老師來說幾乎是職業羞辱，因為他相信聲音是情感最強大的媒介；凱特也困惑，音樂老師的告別式怎麼能沒有音樂？ 團隊拜訪林老師與她的女兒小靜後，才理解這份要求的溫柔。小靜是天生重度聽障者，林老師年輕時放棄音樂夢想，為女兒創造出一套非聽覺的感官語言：用臉頰感受音響共鳴，用手指觸摸喉嚨震動，用色彩對應節奏與情緒。對小靜而言，母親的愛從來不是聲音，而是觸覺、光線、溫度與眼神。無聲告別，是母親留給女兒最後的尊重。 然而庭如感覺到更深的祕密：小靜其實渴望「聽見」一次母親真正的聲音，而林老師也渴望讓女兒感受自己曾經的歌聲。雷老師找到一卷林老師年輕時為女兒哼唱搖籃曲的舊錄音。他不是直接播放，而是將音訊的頻率、節奏與起伏轉譯成流動的金色光影，並搭配低頻震動，讓小靜以視覺與觸覺感受母親的歌。這場告別沒有破壞「無聲」的承諾，卻讓女兒第一次真正「感・動」母親的聲音。團隊也第一次明白，他們的工作不只是設計儀式，而是翻譯情感。">
+  <details>
+    <summary><span class="ep-no">02</span><span>第二場：感・動・之聲</span></summary>
+    <p>第二個委託人是林老師，一位退休音樂老師。她罹患末期癌症，又因病失聲，只剩不到三個月。她的要求卻極不尋常：舉辦一場「完全無聲」的生前告別式。這對雷老師來說幾乎是職業羞辱，因為他相信聲音是情感最強大的媒介；凱特也困惑，音樂老師的告別式怎麼能沒有音樂？ 團隊拜訪林老師與她的女兒小靜後，才理解這份要求的溫柔。小靜是天生重度聽障者，林老師年輕時放棄音樂夢想，為女兒創造出一套非聽覺的感官語言：用臉頰感受音響共鳴，用手指觸摸喉嚨震動，用色彩對應節奏與情緒。對小靜而言，母親的愛從來不是聲音，而是觸覺、光線、溫度與眼神。無聲告別，是母親留給女兒最後的尊重。 然而庭如感覺到更深的祕密：小靜其實渴望「聽見」一次母親真正的聲音，而林老師也渴望讓女兒感受自己曾經的歌聲。雷老師找到一卷林老師年輕時為女兒哼唱搖籃曲的舊錄音。他不是直接播放，而是將音訊的頻率、節奏與起伏轉譯成流動的金色光影，並搭配低頻震動，讓小靜以視覺與觸覺感受母親的歌。這場告別沒有破壞「無聲」的承諾，卻讓女兒第一次真正「感・動」母親的聲音。團隊也第一次明白，他們的工作不只是設計儀式，而是翻譯情感。</p>
+  </details>
+</li>
+<li class="episode" data-title="第三場：做主說再見 第三場委託來自德高望重的書法家沈教授。沈教授希望自己的告別式是一場與少數摯友品茗、賞字、安靜談天的茶會。他想用晚年的淡泊，修正自己一生過於剛硬、過於權威的形象。但他的兒子沈家傑卻堅持要替父親舉辦一場盛大、體面、符合社會地位的世紀追思會。他認為父親一生光輝，不該用一場小茶會草草收場。 父子衝突表面上是告別式規格之爭，實際上是半生情感隔閡。父親的茶會，是對自己一生剛硬的懺悔；兒子的盛典，則是對從未肯定自己的父親發出的笨拙求愛。老麵沒有讓兩方互相否定，而是提出「一個場地，兩個舞台」的方案：同一座宴會廳裡，用沈教授的書法長卷作為屏風，分隔出兩個世界。一邊是兒子想要的風光盛典，一邊是父親想要的靜謐茶席。兩個空間互不干擾，卻彼此相望。 告別式當天，沈家傑站在華麗舞台上，原本準備發表一篇榮耀父親的致詞。可當他望向另一側茶席，看見父親用此生從未有過的溫柔眼神望著自己，他忽然放棄準備好的講稿，走下舞台，穿過屏風，來到父親面前。父子在眾人面前完成遲到數十年的擁抱。兩個舞台的邊界消失，告別式不再是面子與規模的戰場，而成為父子終於能互相看見的場域。">
+  <details>
+    <summary><span class="ep-no">03</span><span>第三場：做主說再見</span></summary>
+    <p>第三場委託來自德高望重的書法家沈教授。沈教授希望自己的告別式是一場與少數摯友品茗、賞字、安靜談天的茶會。他想用晚年的淡泊，修正自己一生過於剛硬、過於權威的形象。但他的兒子沈家傑卻堅持要替父親舉辦一場盛大、體面、符合社會地位的世紀追思會。他認為父親一生光輝，不該用一場小茶會草草收場。 父子衝突表面上是告別式規格之爭，實際上是半生情感隔閡。父親的茶會，是對自己一生剛硬的懺悔；兒子的盛典，則是對從未肯定自己的父親發出的笨拙求愛。老麵沒有讓兩方互相否定，而是提出「一個場地，兩個舞台」的方案：同一座宴會廳裡，用沈教授的書法長卷作為屏風，分隔出兩個世界。一邊是兒子想要的風光盛典，一邊是父親想要的靜謐茶席。兩個空間互不干擾，卻彼此相望。 告別式當天，沈家傑站在華麗舞台上，原本準備發表一篇榮耀父親的致詞。可當他望向另一側茶席，看見父親用此生從未有過的溫柔眼神望著自己，他忽然放棄準備好的講稿，走下舞台，穿過屏風，來到父親面前。父子在眾人面前完成遲到數十年的擁抱。兩個舞台的邊界消失，告別式不再是面子與規模的戰場，而成為父子終於能互相看見的場域。</p>
+  </details>
+</li>
+<li class="episode" data-title="第四場：最重要的觀眾 第四場的主角是陳月娥女士，一位獨居多年的平凡老人。她沒有傑米的財富，沒有沈教授的名望，也不像林老師那樣有明確的藝術主題。她的人生很安靜，安靜到幾乎沒有觀眾。她的委託讓團隊陷入另一種困境：如果一個人的生命沒有大事件、沒有傳奇、沒有戲劇張力，那她「想被記得的樣子」要怎麼被呈現？ 團隊逐步調查她的人生，發現她其實一生都在城市邊緣安靜地存在。她曾在某些街角等人、在某些店裡買固定的食物、在公園坐同一張長椅、把日常過成不被注意的緩慢流動。她不是沒有故事，而是她的故事太小、太輕、太容易被世界略過。老麵與庭如意識到，這場告別不該把她硬塑造成偉大人物，而要替她找回一位真正的「觀眾」。 最後，團隊沒有舉辦盛大儀式，而是沿著陳女士一生走過的城市路線，設計出一場靜默巡禮。她曾經存在過的街角、店家、公園、窗邊，都成為她人生的展場。老麵在陪伴她看見這些平凡足跡時，也成為她生命最後、最重要的觀眾。這場案子讓 Before Fades 明白：有些生命不需要被放大，只需要有人願意認真看完。老麵最後向她道別，感謝她讓自己成為她最重要的觀眾。">
+  <details>
+    <summary><span class="ep-no">04</span><span>第四場：最重要的觀眾</span></summary>
+    <p>第四場的主角是陳月娥女士，一位獨居多年的平凡老人。她沒有傑米的財富，沒有沈教授的名望，也不像林老師那樣有明確的藝術主題。她的人生很安靜，安靜到幾乎沒有觀眾。她的委託讓團隊陷入另一種困境：如果一個人的生命沒有大事件、沒有傳奇、沒有戲劇張力，那她「想被記得的樣子」要怎麼被呈現？ 團隊逐步調查她的人生，發現她其實一生都在城市邊緣安靜地存在。她曾在某些街角等人、在某些店裡買固定的食物、在公園坐同一張長椅、把日常過成不被注意的緩慢流動。她不是沒有故事，而是她的故事太小、太輕、太容易被世界略過。老麵與庭如意識到，這場告別不該把她硬塑造成偉大人物，而要替她找回一位真正的「觀眾」。 最後，團隊沒有舉辦盛大儀式，而是沿著陳女士一生走過的城市路線，設計出一場靜默巡禮。她曾經存在過的街角、店家、公園、窗邊，都成為她人生的展場。老麵在陪伴她看見這些平凡足跡時，也成為她生命最後、最重要的觀眾。這場案子讓 Before Fades 明白：有些生命不需要被放大，只需要有人願意認真看完。老麵最後向她道別，感謝她讓自己成為她最重要的觀眾。</p>
+  </details>
+</li>
+<li class="episode" data-title="第五場：給世界一點顏色看看 在陳月娥女士那場靜默而遼闊的告別之後，Before Fades 辦公室陷入一種近乎失重的沉思。就在這時，一位像行走視覺盛宴般的客戶闖入：誇張紅髮、濃烈妝容、華麗服裝、強烈存在感，像是一團直接撞進辦公室的火焰。這位客戶是 Lily，一位變裝皇后／表演者，也是一個用色彩、舞台與浮誇抵抗世界灰暗的人。 Lily 的委託看似簡單：她不要安靜、莊嚴、體面；她要一場派對，一場讓世界看見她真正顏色的告別。可是案件深入後，團隊發現她的華麗背後藏著很深的傷。她曾被家庭、社會、性別規範、主流審美一再否定，只能在舞台上把自己活成最鮮豔的模樣。對她來說，「給世界一點顏色看看」不是搞笑，也不是任性，而是對一生被壓抑、被嘲笑、被要求安靜的人，最後一次奪回主導權。 凱特在這場案子中發揮極致美學，雷老師設計出能讓舞台、音樂、觀眾呼吸一起爆發的演出節奏；庭如則看見 Lily 真正想要的不是掌聲，而是被允許完整地做自己。告別式最終成為一場緋麗、荒誕、性感、痛快又帶淚的演出。Lily 以最華麗的方式向世界告別，也讓團隊理解：尊嚴不只存在於安靜與克制裡，有時也存在於濃妝、亮片、高跟鞋與不肯退讓的顏色中。">
+  <details>
+    <summary><span class="ep-no">05</span><span>第五場：給世界一點顏色看看</span></summary>
+    <p>在陳月娥女士那場靜默而遼闊的告別之後，Before Fades 辦公室陷入一種近乎失重的沉思。就在這時，一位像行走視覺盛宴般的客戶闖入：誇張紅髮、濃烈妝容、華麗服裝、強烈存在感，像是一團直接撞進辦公室的火焰。這位客戶是 Lily，一位變裝皇后／表演者，也是一個用色彩、舞台與浮誇抵抗世界灰暗的人。 Lily 的委託看似簡單：她不要安靜、莊嚴、體面；她要一場派對，一場讓世界看見她真正顏色的告別。可是案件深入後，團隊發現她的華麗背後藏著很深的傷。她曾被家庭、社會、性別規範、主流審美一再否定，只能在舞台上把自己活成最鮮豔的模樣。對她來說，「給世界一點顏色看看」不是搞笑，也不是任性，而是對一生被壓抑、被嘲笑、被要求安靜的人，最後一次奪回主導權。 凱特在這場案子中發揮極致美學，雷老師設計出能讓舞台、音樂、觀眾呼吸一起爆發的演出節奏；庭如則看見 Lily 真正想要的不是掌聲，而是被允許完整地做自己。告別式最終成為一場緋麗、荒誕、性感、痛快又帶淚的演出。Lily 以最華麗的方式向世界告別，也讓團隊理解：尊嚴不只存在於安靜與克制裡，有時也存在於濃妝、亮片、高跟鞋與不肯退讓的顏色中。</p>
+  </details>
+</li>
+<li class="episode" data-title="第六場：唱了一半的搖籃曲 這一場的核心人物是方若晴，一位罹患重病的母親。她最放不下的，是自己年幼的孩子。她不是想辦一場華麗告別，也不是要證明自己的人生多麼精彩；她只想為孩子留下一首完整的搖籃曲，一段足以陪伴孩子長大的母親聲音。團隊接下案子後，原本試圖替她設計一場溫柔、完整、足以抵抗未來漫長缺席的親子告別。 可是這個案子真正殘酷的地方，在於死亡沒有照著設計走。方若晴比預期更早惡化，甚至在告別式正式完成前就突然離世。Before Fades 第一次被迫面對「來不及」：再精準的企劃、再完美的流程、再細膩的洞察，都無法保證生命會配合排程。對老麵而言，這幾乎是對他 PM 式信仰的正面打擊；對庭如而言，則是對「我們能替人創造圓滿」這件事的第一次動搖。 最後，團隊沒有強行補出一場完美儀式，而是重新理解自己的責任。他們整理方若晴留下的片段錄音、日常影像與母親對孩子說過的話，為孩子保存那些已經存在的溫暖，而不是假裝遺憾可以被消除。老麵因此明白：他們的工作不是創造沒有遺憾的結局，因為遺憾本就是生命的一部分；他們真正能做的，是在終點來臨前，陪客戶與家人用愛填滿當下，創造足夠多的回憶，去對抗未來沒有對方的漫長時光。">
+  <details>
+    <summary><span class="ep-no">06</span><span>第六場：唱了一半的搖籃曲</span></summary>
+    <p>這一場的核心人物是方若晴，一位罹患重病的母親。她最放不下的，是自己年幼的孩子。她不是想辦一場華麗告別，也不是要證明自己的人生多麼精彩；她只想為孩子留下一首完整的搖籃曲，一段足以陪伴孩子長大的母親聲音。團隊接下案子後，原本試圖替她設計一場溫柔、完整、足以抵抗未來漫長缺席的親子告別。 可是這個案子真正殘酷的地方，在於死亡沒有照著設計走。方若晴比預期更早惡化，甚至在告別式正式完成前就突然離世。Before Fades 第一次被迫面對「來不及」：再精準的企劃、再完美的流程、再細膩的洞察，都無法保證生命會配合排程。對老麵而言，這幾乎是對他 PM 式信仰的正面打擊；對庭如而言，則是對「我們能替人創造圓滿」這件事的第一次動搖。 最後，團隊沒有強行補出一場完美儀式，而是重新理解自己的責任。他們整理方若晴留下的片段錄音、日常影像與母親對孩子說過的話，為孩子保存那些已經存在的溫暖，而不是假裝遺憾可以被消除。老麵因此明白：他們的工作不是創造沒有遺憾的結局，因為遺憾本就是生命的一部分；他們真正能做的，是在終點來臨前，陪客戶與家人用愛填滿當下，創造足夠多的回憶，去對抗未來沒有對方的漫長時光。</p>
+  </details>
+</li>
+<li class="episode" data-title="第七場：黃金時段的死亡直播 在方若晴事件後，團隊重新思考「完美設計」的傲慢。此時，一位影音平台創作者 Leo 上門。他罹患腦癌末期，預估壽命不超過三個月，卻不是來要求傳統告別，而是提出一個極端計畫：他要舉辦長達一個月、二十四小時不中斷的死亡直播，代號 **Final Log**。他希望 Before Fades 成為他的幕後製作團隊，協助病房多角度攝影、直播企劃、粉絲互動與最後一場「黃金時段」告別。 這場委託再次觸碰倫理邊界。Leo 把死亡視為內容，把告別變成流量，把人生最後時光變成終極真人實境秀。團隊一開始反感，尤其庭如感覺到其中巨大的表演性與逃避。但隨著訪談深入，他們發現 Leo 並非只是貪圖流量。他害怕沒有鏡頭後就沒有人真正看見他，也害怕自己死去後只是演算法裡被遺忘的一個帳號。直播對他而言，是抵抗消失的方式，也是他唯一熟悉的語言。 最終，Before Fades 不協助他製造獵奇死亡，而是重新設計直播規則：從二十四小時觀看他的病況，改為安排一系列真誠對話、道歉、回顧、粉絲提問與自我告白。當 Leo 最後坐在鏡頭前，面對的不再是「觀眾數」，而是一群真正因他而被陪伴過的人。這場案子讓團隊思考：在社群時代，一個人想被看見，到底是虛榮，還是最後的求救？">
+  <details>
+    <summary><span class="ep-no">07</span><span>第七場：黃金時段的死亡直播</span></summary>
+    <p>在方若晴事件後，團隊重新思考「完美設計」的傲慢。此時，一位影音平台創作者 Leo 上門。他罹患腦癌末期，預估壽命不超過三個月，卻不是來要求傳統告別，而是提出一個極端計畫：他要舉辦長達一個月、二十四小時不中斷的死亡直播，代號 **Final Log**。他希望 Before Fades 成為他的幕後製作團隊，協助病房多角度攝影、直播企劃、粉絲互動與最後一場「黃金時段」告別。 這場委託再次觸碰倫理邊界。Leo 把死亡視為內容，把告別變成流量，把人生最後時光變成終極真人實境秀。團隊一開始反感，尤其庭如感覺到其中巨大的表演性與逃避。但隨著訪談深入，他們發現 Leo 並非只是貪圖流量。他害怕沒有鏡頭後就沒有人真正看見他，也害怕自己死去後只是演算法裡被遺忘的一個帳號。直播對他而言，是抵抗消失的方式，也是他唯一熟悉的語言。 最終，Before Fades 不協助他製造獵奇死亡，而是重新設計直播規則：從二十四小時觀看他的病況，改為安排一系列真誠對話、道歉、回顧、粉絲提問與自我告白。當 Leo 最後坐在鏡頭前，面對的不再是「觀眾數」，而是一群真正因他而被陪伴過的人。這場案子讓團隊思考：在社群時代，一個人想被看見，到底是虛榮，還是最後的求救？</p>
+  </details>
+</li>
+<li class="episode" data-title="第八場：一切如常 一位事業有成的中年男子原本想替罹患絕症的父親周伯伯，辦一場風光體面的告別式。他談預算、場面、尊嚴與榮耀，像是在處理一個高規格專案。老麵沒有立刻談方案，而是問他：父親健康時，你們最喜歡一起做的一件平凡小事是什麼？這個問題讓男子愣住，也開啟了全書最重要的一次理念轉向。 團隊深入周伯伯的生活，發現他的生命並不適合被包裝成華麗典禮。他最真實的樣子，是坐在麵攤吃加醋的麵、聽老舊收音機、在公園打盹、翻報紙、被鄰居招呼。團隊錄下這些日常影像與環境聲。雷老師一開始本能地想用 AI 降噪、畫面穩定與配樂，把它剪成一支高級孤獨感短片。但老麵要求播放原始版本。那些雜音、晃動、呼吸聲、收音機電流聲並不美，卻無比真實。 告別會最後就在 Before Fades 辦公室舉辦，沒有多餘佈置，像一場普通家庭聚會。兒子、媳婦、老鄰居與麵攤老闆一起觀看周伯伯日常片段。這不是一場被美化的人生，而是一次重新認識父親的機會。兒子終於看見父親不是一個需要被體面送走的老人，而是一個在平凡日子裡活得完整的人。案後，他匯來遠超合約金額的款項，附言只有一句：「謝謝你們，讓我重新認識了我的父親。」老麵將錢捐給獨居老人送餐機構。團隊也在那家麵攤明白：到處都是餘韻。">
+  <details>
+    <summary><span class="ep-no">08</span><span>第八場：一切如常</span></summary>
+    <p>一位事業有成的中年男子原本想替罹患絕症的父親周伯伯，辦一場風光體面的告別式。他談預算、場面、尊嚴與榮耀，像是在處理一個高規格專案。老麵沒有立刻談方案，而是問他：父親健康時，你們最喜歡一起做的一件平凡小事是什麼？這個問題讓男子愣住，也開啟了全書最重要的一次理念轉向。 團隊深入周伯伯的生活，發現他的生命並不適合被包裝成華麗典禮。他最真實的樣子，是坐在麵攤吃加醋的麵、聽老舊收音機、在公園打盹、翻報紙、被鄰居招呼。團隊錄下這些日常影像與環境聲。雷老師一開始本能地想用 AI 降噪、畫面穩定與配樂，把它剪成一支高級孤獨感短片。但老麵要求播放原始版本。那些雜音、晃動、呼吸聲、收音機電流聲並不美，卻無比真實。 告別會最後就在 Before Fades 辦公室舉辦，沒有多餘佈置，像一場普通家庭聚會。兒子、媳婦、老鄰居與麵攤老闆一起觀看周伯伯日常片段。這不是一場被美化的人生，而是一次重新認識父親的機會。兒子終於看見父親不是一個需要被體面送走的老人，而是一個在平凡日子裡活得完整的人。案後，他匯來遠超合約金額的款項，附言只有一句：「謝謝你們，讓我重新認識了我的父親。」老麵將錢捐給獨居老人送餐機構。團隊也在那家麵攤明白：到處都是餘韻。</p>
+  </details>
+</li>
+<li class="episode" data-title="第九場：所有我們相信的事 經過一連串案件後，Before Fades 似乎終於找到自己的哲學：不是過度設計，而是發現日常中的真實餘韻。然而，一場突如其來的車禍擊碎了這份穩定。庭如重傷昏迷，團隊第一次直面死亡的隨機與無力。過去他們總能在生命終點前做點什麼，可這一次，死亡不是客戶委託，也沒有排程、沒有彩排、沒有方案。 庭如奇蹟般甦醒，但失去了感知他人情緒的能力。這對她來說幾乎等於失去自我。她開始用冰冷理論拆解 Before Fades 的一切，質問老麵：他們所謂的同理、餘韻與情感翻譯，會不會只是自以為溫柔的設計？會不會所有告別式都是包裝過的謊言？這場質疑動搖整個團隊。老麵的信念、凱特的美學、雷老師的技術，甚至公司存在的意義，都被推到崩塌邊緣。 就在此時，平凡中年人羅志宗上門。他罹患癌症，不想要風光告別，只想辦一場「人生同學會」，邀請那些他虧欠過、感謝過、卻從沒好好說出口的人。他打電話邀請，有人拒絕，有人冷淡，有人不願回頭。團隊在信念破碎中陪他一次次嘗試，逐漸放下所有設計，只做最基本的陪伴與傾聽。告別會在小書店舉行，那些微小的道歉與感謝引發溫暖連鎖。當羅志宗最後擁抱失智父親，完成不需要語言的和解時，巨大情感暖流擊穿庭如內心壁壘，她重新「感覺」到世界。">
+  <details>
+    <summary><span class="ep-no">09</span><span>第九場：所有我們相信的事</span></summary>
+    <p>經過一連串案件後，Before Fades 似乎終於找到自己的哲學：不是過度設計，而是發現日常中的真實餘韻。然而，一場突如其來的車禍擊碎了這份穩定。庭如重傷昏迷，團隊第一次直面死亡的隨機與無力。過去他們總能在生命終點前做點什麼，可這一次，死亡不是客戶委託，也沒有排程、沒有彩排、沒有方案。 庭如奇蹟般甦醒，但失去了感知他人情緒的能力。這對她來說幾乎等於失去自我。她開始用冰冷理論拆解 Before Fades 的一切，質問老麵：他們所謂的同理、餘韻與情感翻譯，會不會只是自以為溫柔的設計？會不會所有告別式都是包裝過的謊言？這場質疑動搖整個團隊。老麵的信念、凱特的美學、雷老師的技術，甚至公司存在的意義，都被推到崩塌邊緣。 就在此時，平凡中年人羅志宗上門。他罹患癌症，不想要風光告別，只想辦一場「人生同學會」，邀請那些他虧欠過、感謝過、卻從沒好好說出口的人。他打電話邀請，有人拒絕，有人冷淡，有人不願回頭。團隊在信念破碎中陪他一次次嘗試，逐漸放下所有設計，只做最基本的陪伴與傾聽。告別會在小書店舉行，那些微小的道歉與感謝引發溫暖連鎖。當羅志宗最後擁抱失智父親，完成不需要語言的和解時，巨大情感暖流擊穿庭如內心壁壘，她重新「感覺」到世界。</p>
+  </details>
+</li>
+<li class="episode" data-title="第十場：那些，關於最後的擁抱與和解 最終場承接第九場的信念重建。庭如重新感覺到情緒後，團隊不再只是回到原點，而是更成熟地理解自身工作。他們不再相信自己可以設計出完美告別，也不再把專業、技術、美學或共感能力當成絕對答案。羅志宗的案子讓他們看見：告別真正的核心，不一定在舞台、燈光、影像與流程裡，而是在一個人願意放下防衛、走向另一個人的瞬間。 這一場聚焦「最後的擁抱」與「和解」的本質。羅志宗不是偉人，也不是傳奇人物，他的人生充滿小錯、小懦弱、小遺憾。他對不起的人，不一定願意原諒他；他想感謝的人，也未必會到場；他的父親甚至因失智而不一定明白他說了什麼。但正因如此，這場告別才更接近真實人生。Before Fades 不再試圖替他消除所有遺憾，而是陪他把能說的話說出口，把能抱的人抱住，把還來得及承認的愛，放在此刻。 最後，庭如的能力回歸，不是神蹟式的勝利，而是她重新相信人與人之間確實有某種無法被理論完全解構的情感存在。老麵也理解，Before Fades 的價值不在於「做出一場多漂亮的告別式」，而是陪人在漸逝之前，把那些最難開口、最怕來不及、最需要被接住的心意送出去。">
+  <details>
+    <summary><span class="ep-no">10</span><span>第十場：那些，關於最後的擁抱與和解</span></summary>
+    <p>最終場承接第九場的信念重建。庭如重新感覺到情緒後，團隊不再只是回到原點，而是更成熟地理解自身工作。他們不再相信自己可以設計出完美告別，也不再把專業、技術、美學或共感能力當成絕對答案。羅志宗的案子讓他們看見：告別真正的核心，不一定在舞台、燈光、影像與流程裡，而是在一個人願意放下防衛、走向另一個人的瞬間。 這一場聚焦「最後的擁抱」與「和解」的本質。羅志宗不是偉人，也不是傳奇人物，他的人生充滿小錯、小懦弱、小遺憾。他對不起的人，不一定願意原諒他；他想感謝的人，也未必會到場；他的父親甚至因失智而不一定明白他說了什麼。但正因如此，這場告別才更接近真實人生。Before Fades 不再試圖替他消除所有遺憾，而是陪他把能說的話說出口，把能抱的人抱住，把還來得及承認的愛，放在此刻。 最後，庭如的能力回歸，不是神蹟式的勝利，而是她重新相信人與人之間確實有某種無法被理論完全解構的情感存在。老麵也理解，Before Fades 的價值不在於「做出一場多漂亮的告別式」，而是陪人在漸逝之前，把那些最難開口、最怕來不及、最需要被接住的心意送出去。</p>
+  </details>
+</li></ol>
+</section>
+
+<section class="work-detail" id="magic" data-title="世上僅存的魔法 The Last Magic in the World 遠藤 音樂 都市奇幻 情感翻譯 創作者 魔法">
+  <div class="section-kicker">作品詳解</div>
+  <h2>世上僅存的魔法</h2>
+  <p class="lead"><strong>The Last Magic in the World</strong>｜都市奇幻／音樂寓言｜十曲音樂故事</p>
+  <div class="detail-grid">
+    <div class="detail-main">
+      <h3>核心定位</h3>
+      <p>遠藤像一位城市裡的流浪魔法師，用音樂替人翻譯痛苦。他拯救的不是現實問題，而是人在現實問題裡快要失去的那一點勇氣。失戀者、失業父親、臨終女孩、偶像、網紅、模仿者、遠藤自己，都在音樂裡被重新聽見。最終，魔法從遠藤一個人的奇蹟，變成所有人共同參與的情感共鳴。</p>
+      <h3>作品核心</h3>
+      <p>《世上僅存的魔法》是一部以「音樂作為情感翻譯」為核心的都市奇幻／音樂寓言。故事中的魔法並非超自然力量，而是遠藤以音樂精準聽見、承接並轉譯他人無法說出口的痛苦。他像城市中的流浪魔法師，背著便攜式電鋼琴或樂器箱，在新宿、社區公園、尻屋崎、目黑川、澀谷、冰島、代代木公園、廢棄 Live House 等地現身。</p><p>每一曲都是一個被困住的人：失戀者、被裁員的中年父親、心碎騎士、被偶像工業囚禁的少女歌手、臨終女孩與她的小狗、遠行旅人、迷失網紅、模仿遠藤的天才鋼琴家、遠藤自己，以及最後那些仍願意相信音樂的人。</p>
+      <h3>在 Jami 宇宙中的價值</h3>
+      <p>這部作品是 Jami 宇宙的藝術宣言：創作不是裝飾，不是技術表演，而是把沉默的人重新帶回可以被理解的位置。</p>
+    </div>
+    <aside class="factbox">
+      <h4>快速標籤</h4>
+      <div class="tag-row vertical"><span class="pill">遠藤</span><span class="pill">音樂</span><span class="pill">都市奇幻</span><span class="pill">情感翻譯</span><span class="pill">創作者</span><span class="pill">魔法</span></div>
+      <dl>
+        <dt>形式</dt><dd>十曲音樂故事</dd>
+        <dt>篇幅</dt><dd>10 曲</dd>
+        <dt>主題軸</dt><dd>音樂、情感翻譯、城市孤獨、創作者傷口</dd>
+      </dl>
+    </aside>
+  </div>
+  <h3>篇章地圖</h3>
+  <p class="note">以下為每篇故事的整理式摘要。點開可閱讀該篇的核心事件與主題功能。</p>
+  <ol class="episode-list">
+<li class="episode" data-title="第一曲：新宿沒有回答 晚間八點的新宿，遠藤站在 JR 車站東口，像一塊沉默的石頭觀察人潮。他看見一對年輕男女在分手邊緣僵持，男生不斷追問「妳為什麼不選我」，女生卻只用沉默回答。遠藤明白，這場關係其實已經結束，只是男生還無法接受，女生也說不出更溫柔的告別。 他在新宿街頭架起便攜式電鋼琴，沒有介紹自己，也沒有收打賞，只以即興旋律捕捉那場分手。琴聲先化為男生的追問，再化為女生沉重的沉默，最後成為一首為兩人送行的歌。他唱出男生的不甘，也唱出女生說不出口的疲憊與歉意。那對戀人終於在音樂中理解彼此：男生不再追問，女生不再背負過多愧疚，兩人向遠藤鞠躬後，走向不同方向。 旁觀的人群也被改變。有人想起多年前沒有答案的告別，有少年認出遠藤這位神出鬼沒的「城市拾音人」，卻選擇不把影片上傳，只把這份感動留給自己。遠藤收起琴，轉身消失在新宿人潮裡。這一曲確立全書規則：遠藤的音樂不能挽回愛情，也不能解決現實，但能在短短幾分鐘內，替人重新點燃走下去的勇氣。">
+  <details>
+    <summary><span class="ep-no">01</span><span>第一曲：新宿沒有回答</span></summary>
+    <p>晚間八點的新宿，遠藤站在 JR 車站東口，像一塊沉默的石頭觀察人潮。他看見一對年輕男女在分手邊緣僵持，男生不斷追問「妳為什麼不選我」，女生卻只用沉默回答。遠藤明白，這場關係其實已經結束，只是男生還無法接受，女生也說不出更溫柔的告別。 他在新宿街頭架起便攜式電鋼琴，沒有介紹自己，也沒有收打賞，只以即興旋律捕捉那場分手。琴聲先化為男生的追問，再化為女生沉重的沉默，最後成為一首為兩人送行的歌。他唱出男生的不甘，也唱出女生說不出口的疲憊與歉意。那對戀人終於在音樂中理解彼此：男生不再追問，女生不再背負過多愧疚，兩人向遠藤鞠躬後，走向不同方向。 旁觀的人群也被改變。有人想起多年前沒有答案的告別，有少年認出遠藤這位神出鬼沒的「城市拾音人」，卻選擇不把影片上傳，只把這份感動留給自己。遠藤收起琴，轉身消失在新宿人潮裡。這一曲確立全書規則：遠藤的音樂不能挽回愛情，也不能解決現實，但能在短短幾分鐘內，替人重新點燃走下去的勇氣。</p>
+  </details>
+</li>
+<li class="episode" data-title="第二曲：帶著痕跡的公事包才是最美的 社區公園的黃昏裡，五十四歲的佐伯健一坐在長椅上。他被公司裁員半年，卻不敢告訴妻子，每天仍穿西裝、提著空公事包出門，在城市裡遊蕩，傍晚再假裝下班。他的公事包曾陪他走過三十年職涯，如今卻成了謊言、失敗與自尊崩塌的象徵。 公園裡，一位年輕菁英高橋大聲講電話，炫耀業績與升遷，無意間刺痛佐伯。接著，女兒陽子帶著熱麥茶出現。她其實察覺父親失業，卻沒有拆穿，只以溫柔陪伴守住他的尊嚴。父女之間的沉默尷尬又心碎。此時遠藤現身，在銀杏樹下架起琴，彈奏一首莊嚴沉穩的進行曲。 遠藤唱的不是佐伯本人，而是他那只帶著刮痕與磨損的公事包。他將褪色皮革唱成旗幟，將磨損邊角唱成城牆，將三十年的責任、加班、契約、家庭與愛唱成勳章。佐伯終於看見，自己不是被淘汰的廢物，而是一位曾為家庭與職責戰鬥半生的戰士。陽子也第一次真正看見父親肩上扛過的重量。高橋則在音樂中意識到，年輕時嶄新的公事包裝的是野心，而帶著痕跡的公事包，才裝得下真正的人生重量。">
+  <details>
+    <summary><span class="ep-no">02</span><span>第二曲：帶著痕跡的公事包才是最美的</span></summary>
+    <p>社區公園的黃昏裡，五十四歲的佐伯健一坐在長椅上。他被公司裁員半年，卻不敢告訴妻子，每天仍穿西裝、提著空公事包出門，在城市裡遊蕩，傍晚再假裝下班。他的公事包曾陪他走過三十年職涯，如今卻成了謊言、失敗與自尊崩塌的象徵。 公園裡，一位年輕菁英高橋大聲講電話，炫耀業績與升遷，無意間刺痛佐伯。接著，女兒陽子帶著熱麥茶出現。她其實察覺父親失業，卻沒有拆穿，只以溫柔陪伴守住他的尊嚴。父女之間的沉默尷尬又心碎。此時遠藤現身，在銀杏樹下架起琴，彈奏一首莊嚴沉穩的進行曲。 遠藤唱的不是佐伯本人，而是他那只帶著刮痕與磨損的公事包。他將褪色皮革唱成旗幟，將磨損邊角唱成城牆，將三十年的責任、加班、契約、家庭與愛唱成勳章。佐伯終於看見，自己不是被淘汰的廢物，而是一位曾為家庭與職責戰鬥半生的戰士。陽子也第一次真正看見父親肩上扛過的重量。高橋則在音樂中意識到，年輕時嶄新的公事包裝的是野心，而帶著痕跡的公事包，才裝得下真正的人生重量。</p>
+  </details>
+</li>
+<li class="episode" data-title="第三曲：黃昏與日出的差別在於等待呀 中島直人在冬日午後被女友美咲平靜分手。她說：「我們想要的風景，好像不太一樣了。」這句沒有爭吵、沒有眼淚的告別，在事後變成深層內傷。直人決定騎摩托車去青森尻屋崎看元旦日出，用寒冷與危險對抗失戀的麻木。好友健太擔心他做傻事，決定陪他同行，並找來熱戀中的翔平與陽菜加入旅程。 一路上，直人用接近失控的速度狂飆，任由引擎聲蓋過心碎。他既嫉妒翔平與陽菜的幸福，也被健太沉默的陪伴刺痛。抵達尻屋崎時，天還沒亮，風雪嚴酷，燈塔與寒立馬矗立在白色世界中。遠藤在那裡出現，彈奏一首關於等待的歌。 他唱黃昏與日出的差別：兩者都在等待光，只是黃昏等待結束，日出等待開始。直人原本以為自己的人生只剩關係落幕後的黑暗，但在歌聲、燈塔、寒立馬與朋友的陪伴中，他明白自己仍然活著，仍然會呼吸，也仍然可以等待下一段新生。音樂沒有否定他的痛，只將痛放進更廣大的風景裡。">
+  <details>
+    <summary><span class="ep-no">03</span><span>第三曲：黃昏與日出的差別在於等待呀</span></summary>
+    <p>中島直人在冬日午後被女友美咲平靜分手。她說：「我們想要的風景，好像不太一樣了。」這句沒有爭吵、沒有眼淚的告別，在事後變成深層內傷。直人決定騎摩托車去青森尻屋崎看元旦日出，用寒冷與危險對抗失戀的麻木。好友健太擔心他做傻事，決定陪他同行，並找來熱戀中的翔平與陽菜加入旅程。 一路上，直人用接近失控的速度狂飆，任由引擎聲蓋過心碎。他既嫉妒翔平與陽菜的幸福，也被健太沉默的陪伴刺痛。抵達尻屋崎時，天還沒亮，風雪嚴酷，燈塔與寒立馬矗立在白色世界中。遠藤在那裡出現，彈奏一首關於等待的歌。 他唱黃昏與日出的差別：兩者都在等待光，只是黃昏等待結束，日出等待開始。直人原本以為自己的人生只剩關係落幕後的黑暗，但在歌聲、燈塔、寒立馬與朋友的陪伴中，他明白自己仍然活著，仍然會呼吸，也仍然可以等待下一段新生。音樂沒有否定他的痛，只將痛放進更廣大的風景裡。</p>
+  </details>
+</li>
+<li class="episode" data-title="第四曲：櫻花、季節、我們 三月底的目黑川，櫻花盛開，人群熱鬧賞花。但黑色保母車裡的少女歌手 LUNA，真名月野光，卻與世界隔著車窗。她是日本樂壇耀眼的新星，十五歲時以匿名歌曲爆紅，被簽進公司後迅速成為商品。她的聲音成熟、才華驚人，但她的日常被行程、曝光、粉絲、商業規劃與保母車封鎖，她看著窗外賞櫻的人，卻覺得那份自然喜悅像她學不會的語言。 遠藤在目黑川邊現身，為一群即將畢業的高中生、被青春與季節推著往前走的人們演奏。他的歌不是為了明星 LUNA，而是為了所有正在告別一段時光的人。那首〈櫻花、季節、我們〉唱出櫻花短暫、青春有限、朋友終將分散，但那些共同走過的春天會像書籤一樣，永遠夾在生命某一頁。 LUNA 在車內聽見遠藤的歌，第一次感覺到自己並非只是一個被包裝好的聲音，而也是一個會失去季節、會想念自由、會渴望普通人生的少女。演出後，遠藤並未特別拯救她，卻用一首歌打開了她心裡的窗。那群學生也在櫻花下完成一場沒有典禮、卻無比真實的畢業。這一曲把「季節」寫成青春與生命流動的證明，也讓 LUNA 第一次與遠藤產生精神上的連結。">
+  <details>
+    <summary><span class="ep-no">04</span><span>第四曲：櫻花、季節、我們</span></summary>
+    <p>三月底的目黑川，櫻花盛開，人群熱鬧賞花。但黑色保母車裡的少女歌手 LUNA，真名月野光，卻與世界隔著車窗。她是日本樂壇耀眼的新星，十五歲時以匿名歌曲爆紅，被簽進公司後迅速成為商品。她的聲音成熟、才華驚人，但她的日常被行程、曝光、粉絲、商業規劃與保母車封鎖，她看著窗外賞櫻的人，卻覺得那份自然喜悅像她學不會的語言。 遠藤在目黑川邊現身，為一群即將畢業的高中生、被青春與季節推著往前走的人們演奏。他的歌不是為了明星 LUNA，而是為了所有正在告別一段時光的人。那首〈櫻花、季節、我們〉唱出櫻花短暫、青春有限、朋友終將分散，但那些共同走過的春天會像書籤一樣，永遠夾在生命某一頁。 LUNA 在車內聽見遠藤的歌，第一次感覺到自己並非只是一個被包裝好的聲音，而也是一個會失去季節、會想念自由、會渴望普通人生的少女。演出後，遠藤並未特別拯救她，卻用一首歌打開了她心裡的窗。那群學生也在櫻花下完成一場沒有典禮、卻無比真實的畢業。這一曲把「季節」寫成青春與生命流動的證明，也讓 LUNA 第一次與遠藤產生精神上的連結。</p>
+  </details>
+</li>
+<li class="episode" data-title="第五曲：謝謝你，我的小小日常 冬日澀谷，佐倉藍抱著自己的小狗，走在聖誕燈飾與城市霓虹之間。她的小狗陪伴她多年，是她日常裡最小、卻也最穩定的宇宙。牠可能即將走到生命盡頭，藍明白這會是她們最後的旅程。她既恐懼失去，也捨不得讓這份日常只剩病痛與倒數。 遠藤在街角彈奏吉他，沒有把死亡唱得巨大，也沒有用華麗語言替悲傷鍍金。他唱的是最小的生活細節：散步、等待、飯碗、尾巴、回家時那個總在門口迎接的身影。他的音樂讓藍明白，真正值得感謝的不是某個壯烈時刻，而是那些被重複到幾乎透明的小日常。 這首歌沒有治癒疾病，也沒有延長時間。它只是讓藍在終點來臨前，再一次用力抱緊自己的小小世界。她抬頭看澀谷虛假的霓虹天空，卻像看見一片真實星空。她不知道最後旅程還有多久，也許一天，也許幾小時，但從這一刻起，她們一起走的每一步、看見的每一眼風景，都會成為永恆。這一曲把「陪伴」寫得極小，也極重。">
+  <details>
+    <summary><span class="ep-no">05</span><span>第五曲：謝謝你，我的小小日常</span></summary>
+    <p>冬日澀谷，佐倉藍抱著自己的小狗，走在聖誕燈飾與城市霓虹之間。她的小狗陪伴她多年，是她日常裡最小、卻也最穩定的宇宙。牠可能即將走到生命盡頭，藍明白這會是她們最後的旅程。她既恐懼失去，也捨不得讓這份日常只剩病痛與倒數。 遠藤在街角彈奏吉他，沒有把死亡唱得巨大，也沒有用華麗語言替悲傷鍍金。他唱的是最小的生活細節：散步、等待、飯碗、尾巴、回家時那個總在門口迎接的身影。他的音樂讓藍明白，真正值得感謝的不是某個壯烈時刻，而是那些被重複到幾乎透明的小日常。 這首歌沒有治癒疾病，也沒有延長時間。它只是讓藍在終點來臨前，再一次用力抱緊自己的小小世界。她抬頭看澀谷虛假的霓虹天空，卻像看見一片真實星空。她不知道最後旅程還有多久，也許一天，也許幾小時，但從這一刻起，她們一起走的每一步、看見的每一眼風景，都會成為永恆。這一曲把「陪伴」寫得極小，也極重。</p>
+  </details>
+</li>
+<li class="episode" data-title="第六曲：名為「旅遊明信片」的儀式 渡部月是一位熱愛旅行的女性。她相信人的靈魂需要定期被拋進陌生座標，才能重新校準存在意義。故事開場時，她站在冰島南岸的鑽石沙灘，被冷風與冰塊包圍。對她來說，旅行不是觀光，而是一種把自己從慣性中拔出來的儀式。 但這份自由也有陰影。她總是從遠方寄明信片回來，像是向生活中的某些人證明自己還活著、還走在路上。她看似瀟灑，實際上在不斷離開中承受某種孤獨。遠藤的音樂在這一曲中不一定以街頭奇蹟的形式出現，而更像透過她記憶、旅途與明信片儀式，讓她重新理解「遠方」與「身邊」的關係。 最後，她明白旅遊明信片真正的意義，不是炫耀自己抵達多遠的地方，也不是把孤獨包裝成自由，而是把遠方的風景轉化成對身邊之人的溫柔傳遞。明信片不是向世界證明「我在這裡」，而是告訴某個重要的人：「我走得再遠，仍然帶著你們。」這一曲把旅行從逃離，轉化為連結與回家的方式。">
+  <details>
+    <summary><span class="ep-no">06</span><span>第六曲：名為「旅遊明信片」的儀式</span></summary>
+    <p>渡部月是一位熱愛旅行的女性。她相信人的靈魂需要定期被拋進陌生座標，才能重新校準存在意義。故事開場時，她站在冰島南岸的鑽石沙灘，被冷風與冰塊包圍。對她來說，旅行不是觀光，而是一種把自己從慣性中拔出來的儀式。 但這份自由也有陰影。她總是從遠方寄明信片回來，像是向生活中的某些人證明自己還活著、還走在路上。她看似瀟灑，實際上在不斷離開中承受某種孤獨。遠藤的音樂在這一曲中不一定以街頭奇蹟的形式出現，而更像透過她記憶、旅途與明信片儀式，讓她重新理解「遠方」與「身邊」的關係。 最後，她明白旅遊明信片真正的意義，不是炫耀自己抵達多遠的地方，也不是把孤獨包裝成自由，而是把遠方的風景轉化成對身邊之人的溫柔傳遞。明信片不是向世界證明「我在這裡」，而是告訴某個重要的人：「我走得再遠，仍然帶著你們。」這一曲把旅行從逃離，轉化為連結與回家的方式。</p>
+  </details>
+</li>
+<li class="episode" data-title="第七曲：你最初的樣子 深秋黃昏，代代木公園被銀杏染成金色。遠藤照常觀察著城市裡的細碎故事。這一次，他遇見迷失的年輕網紅彩乃，以及她背後的商業經紀人田中誠。彩乃原本有真實而可愛的創作起點，卻在流量、演算法、品牌合作與觀眾期待中逐漸變成一個被包裝出來的形象。她不再知道自己真正喜歡什麼，也不再知道鏡頭前的笑容到底屬於誰。 田中誠則是極端商業化的音樂與流量操盤者，習慣把所有才能、情感與人氣都變成數據。他看不起遠藤這種不簽約、不變現、不經營聲量的「幽靈」。但遠藤在代代木公園的一首歌，直指彩乃內心最初的樣子：不是演算法推給她的形象，不是粉絲期待的角色，而是那個一開始只是想分享自己所愛之物的女孩。 彩乃在歌聲中崩潰，也重新找回自己。她不再只是鏡頭前被觀看的商品，而成為能夠觀看世界、選擇自己風景的人。田中誠也被遠藤一句「你還記得嗎？音樂最初的樣子」擊中。這一曲是後段主線的關鍵，因為它不只拯救彩乃，也在田中誠心中種下對商業音樂體系的裂縫。">
+  <details>
+    <summary><span class="ep-no">07</span><span>第七曲：你最初的樣子</span></summary>
+    <p>深秋黃昏，代代木公園被銀杏染成金色。遠藤照常觀察著城市裡的細碎故事。這一次，他遇見迷失的年輕網紅彩乃，以及她背後的商業經紀人田中誠。彩乃原本有真實而可愛的創作起點，卻在流量、演算法、品牌合作與觀眾期待中逐漸變成一個被包裝出來的形象。她不再知道自己真正喜歡什麼，也不再知道鏡頭前的笑容到底屬於誰。 田中誠則是極端商業化的音樂與流量操盤者，習慣把所有才能、情感與人氣都變成數據。他看不起遠藤這種不簽約、不變現、不經營聲量的「幽靈」。但遠藤在代代木公園的一首歌，直指彩乃內心最初的樣子：不是演算法推給她的形象，不是粉絲期待的角色，而是那個一開始只是想分享自己所愛之物的女孩。 彩乃在歌聲中崩潰，也重新找回自己。她不再只是鏡頭前被觀看的商品，而成為能夠觀看世界、選擇自己風景的人。田中誠也被遠藤一句「你還記得嗎？音樂最初的樣子」擊中。這一曲是後段主線的關鍵，因為它不只拯救彩乃，也在田中誠心中種下對商業音樂體系的裂縫。</p>
+  </details>
+</li>
+<li class="episode" data-title="第八曲：模仿的鎮魂曲 相澤蓮是二十二歲的天才鋼琴家，技巧精準到近乎機械，被樂評稱為「為鍵盤而生的機器」。他在網路上看見遠藤的街頭演奏後，深深著迷，開始模仿遠藤的曲風與即興方式。他能複製指法、和聲、情緒起伏，甚至比遠藤更完美，卻始終沒有真正打動人心。 蓮來到目黑川，彈奏網路上被命名為〈櫻花、季節、我們〉的旋律，試圖從舊場景捕捉遠藤的殘響。然而深秋的目黑川不再有櫻花，只有清冷與空洞。他遇見研究遠藤的老先生，也遇見曾被遠藤拯救過的女性紗季。兩人都指出同一件事：蓮的音樂太滿、太急於治癒、太急著證明「我懂你」。遠藤真正打動人的，不是音符，而是音符之間留給聽者呼吸與哭泣的空白。 這對蓮是殘酷的打擊。他終於明白，模仿魔法的外形，不能取得魔法的核心。所謂魔法不是把情感塞滿聽眾，而是為對方留出能自己聽見自己的空間。這一曲不只是蓮的失敗，也是他真正開始成為自己的起點。標題中的「鎮魂曲」鎮的不是死者，而是他那個一心想成為遠藤的幽靈自我。">
+  <details>
+    <summary><span class="ep-no">08</span><span>第八曲：模仿的鎮魂曲</span></summary>
+    <p>相澤蓮是二十二歲的天才鋼琴家，技巧精準到近乎機械，被樂評稱為「為鍵盤而生的機器」。他在網路上看見遠藤的街頭演奏後，深深著迷，開始模仿遠藤的曲風與即興方式。他能複製指法、和聲、情緒起伏，甚至比遠藤更完美，卻始終沒有真正打動人心。 蓮來到目黑川，彈奏網路上被命名為〈櫻花、季節、我們〉的旋律，試圖從舊場景捕捉遠藤的殘響。然而深秋的目黑川不再有櫻花，只有清冷與空洞。他遇見研究遠藤的老先生，也遇見曾被遠藤拯救過的女性紗季。兩人都指出同一件事：蓮的音樂太滿、太急於治癒、太急著證明「我懂你」。遠藤真正打動人的，不是音符，而是音符之間留給聽者呼吸與哭泣的空白。 這對蓮是殘酷的打擊。他終於明白，模仿魔法的外形，不能取得魔法的核心。所謂魔法不是把情感塞滿聽眾，而是為對方留出能自己聽見自己的空間。這一曲不只是蓮的失敗，也是他真正開始成為自己的起點。標題中的「鎮魂曲」鎮的不是死者，而是他那個一心想成為遠藤的幽靈自我。</p>
+  </details>
+</li>
+<li class="episode" data-title="第九曲：魔法師的寂靜 第九曲揭開遠藤自己的過去。他回到故鄉港町，來到廢棄 Live House「北極星」。這裡曾是他與亡友響共同追逐音樂夢的地方，也是他長年不敢面對的創傷中心。LUNA 跟隨他來到此地，武田爺爺也守在這座廢墟般的空間裡。遠藤不再為陌生人演奏，而是為自己、為響、為那段未能完成的青春，舉行一場獨奏會。 他透過五首歌逐步告解：年少時與響的相遇、兩人對音樂的狂熱、創作與夢想、失去與愧疚，以及自己為何成為如今的遠藤。他一直被人稱為魔法師，彷彿能用音樂理解所有人的痛苦，但真正的根源其實是響。是響教會他如何聽見沉默，如何在荒蕪裡開出溫柔。遠藤多年來不斷為別人唱歌，本質上也是在撿拾響留給他的溫熱。 LUNA 沒有試圖拯救他，也沒有用言語安慰。她只是陪他聽完這場盛大的告解。演出最後，沒有歌詞，也沒有旋律，只有兩個疲憊的靈魂在黎明光線中相互依偎。那首歌名叫《天亮》。這一曲使遠藤從「拯救別人的魔法師」變成也需要被陪伴的人，完成全書最重要的情感反轉。">
+  <details>
+    <summary><span class="ep-no">09</span><span>第九曲：魔法師的寂靜</span></summary>
+    <p>第九曲揭開遠藤自己的過去。他回到故鄉港町，來到廢棄 Live House「北極星」。這裡曾是他與亡友響共同追逐音樂夢的地方，也是他長年不敢面對的創傷中心。LUNA 跟隨他來到此地，武田爺爺也守在這座廢墟般的空間裡。遠藤不再為陌生人演奏，而是為自己、為響、為那段未能完成的青春，舉行一場獨奏會。 他透過五首歌逐步告解：年少時與響的相遇、兩人對音樂的狂熱、創作與夢想、失去與愧疚，以及自己為何成為如今的遠藤。他一直被人稱為魔法師，彷彿能用音樂理解所有人的痛苦，但真正的根源其實是響。是響教會他如何聽見沉默，如何在荒蕪裡開出溫柔。遠藤多年來不斷為別人唱歌，本質上也是在撿拾響留給他的溫熱。 LUNA 沒有試圖拯救他，也沒有用言語安慰。她只是陪他聽完這場盛大的告解。演出最後，沒有歌詞，也沒有旋律，只有兩個疲憊的靈魂在黎明光線中相互依偎。那首歌名叫《天亮》。這一曲使遠藤從「拯救別人的魔法師」變成也需要被陪伴的人，完成全書最重要的情感反轉。</p>
+  </details>
+</li>
+<li class="episode" data-title="最終曲：世上唯一的魔法 最終曲回到田中誠。自代代木公園事件後，這位音樂商業帝國的操盤者表面一切如常，仍在會議室裡聽曝光率、銷售數據、粉絲經濟與投資回報；但遠藤那句「你還記得嗎？音樂最初的樣子」在他心中留下裂縫。他開始同時聽見兩種聲音：一種是商業機器冷酷精準的聲音，另一種是遠藤不完美卻真實的琴聲。 最終，田中誠成為關鍵推手，讓一場不可能被商業邏輯允許的演出發生。遠藤、LUNA、蓮，以及那些曾被遠藤音樂改變過的人，走向一場真正回到音樂本質的演唱會。這場演出不追求流量，不販賣人設，也不以精準製作與完美聲光取勝。它的高潮甚至不是華麗歌詞，而是近乎原始的哼唱、啦啦啦與無需語言的共鳴。 在這場演出裡，LUNA 不再只是商品化的天才少女；蓮不再只是遠藤模仿者；田中誠也不再只是把音樂變成市場數字的鯊魚。遠藤則不再獨自承擔魔法。他的音樂被眾人接住，也被眾人回應。世上唯一的魔法於是被揭示：不是天才，不是技巧，不是演算法，不是流量，不是被複製的奇蹟，而是人願意在某個瞬間，真誠地把自己交給聲音，並讓另一個人感受到「我在這裡，我聽見你」。">
+  <details>
+    <summary><span class="ep-no">10</span><span>最終曲：世上唯一的魔法</span></summary>
+    <p>最終曲回到田中誠。自代代木公園事件後，這位音樂商業帝國的操盤者表面一切如常，仍在會議室裡聽曝光率、銷售數據、粉絲經濟與投資回報；但遠藤那句「你還記得嗎？音樂最初的樣子」在他心中留下裂縫。他開始同時聽見兩種聲音：一種是商業機器冷酷精準的聲音，另一種是遠藤不完美卻真實的琴聲。 最終，田中誠成為關鍵推手，讓一場不可能被商業邏輯允許的演出發生。遠藤、LUNA、蓮，以及那些曾被遠藤音樂改變過的人，走向一場真正回到音樂本質的演唱會。這場演出不追求流量，不販賣人設，也不以精準製作與完美聲光取勝。它的高潮甚至不是華麗歌詞，而是近乎原始的哼唱、啦啦啦與無需語言的共鳴。 在這場演出裡，LUNA 不再只是商品化的天才少女；蓮不再只是遠藤模仿者；田中誠也不再只是把音樂變成市場數字的鯊魚。遠藤則不再獨自承擔魔法。他的音樂被眾人接住，也被眾人回應。世上唯一的魔法於是被揭示：不是天才，不是技巧，不是演算法，不是流量，不是被複製的奇蹟，而是人願意在某個瞬間，真誠地把自己交給聲音，並讓另一個人感受到「我在這裡，我聽見你」。</p>
+  </details>
+</li></ol>
+</section>
+
+<section class="work-detail" id="save" data-title="比存檔更遠的地方 Beyond the Save Point 遊戲開發 RPG 職涯 創作現實 玩家之心 存檔點">
+  <div class="section-kicker">作品詳解</div>
+  <h2>比存檔更遠的地方</h2>
+  <p class="lead"><strong>Beyond the Save Point</strong>｜遊戲業職涯小說／創作者成長史｜十年開發人生</p>
+  <div class="detail-grid">
+    <div class="detail-main">
+      <h3>核心定位</h3>
+      <p>神谷藏人從 RPG 玩家進入遊戲公司，發現夢想中的城堡其實是規格書、Deadline、預算、砍功能與人際折損。他從菜鳥企劃成為成功製作人，也逐漸變成自己年輕時討厭的惡龍。最後他面對真正屬於自己的王座，卻選擇走向更不確定的地方。這部作品寫的是創作者在產業裡如何被磨損，又如何重新找回玩家之心。</p>
+      <h3>作品核心</h3>
+      <p>神谷藏人從十三歲那年玩到《勇者鬥惡龍 IV》開始，便被 RPG 這種遊戲類型改變人生。他相信遊戲不只是破關與數值，而是能讓人「體驗另一段人生」的媒介。後來他進入傳奇遊戲公司 **亞爾卡迪亞軟體 Arcadia Soft**，原以為自己終於踏入夢想中的城堡，卻發現真正的遊戲開發不是勇者冒險，而是 Excel、Deadline、規格書、預算、人力、技術瓶頸與無數痛苦取捨。</p><p>他從菜鳥企劃做起，遇見冷酷卻仍保有創作信仰的前輩佐佐木，也遇見來自美國、天才般的 3D 環境美術師凱瑟琳。兩人在 **Project Aethelgard** 的開發中，用文字與場景共同創造世界，也在戰友般的共鳴中相愛；然而遊戲完成後，支撐他們關係的共同戰場消失，這段愛也走向結束。之後藏人一路升遷，成為企劃組長、製作人、成功者，也逐漸戴上管理者的鐵面，甚至變成自己當年討厭的「惡龍」。</p>
+      <h3>在 Jami 宇宙中的價值</h3>
+      <p>這是 Jami 宇宙裡最直接的創作者職涯寓言：它懂熱血，也懂商業現實；它知道夢想會變成表格，但表格裡仍可能藏著一個世界的靈魂。</p>
+    </div>
+    <aside class="factbox">
+      <h4>快速標籤</h4>
+      <div class="tag-row vertical"><span class="pill">遊戲開發</span><span class="pill">RPG</span><span class="pill">職涯</span><span class="pill">創作現實</span><span class="pill">玩家之心</span><span class="pill">存檔點</span></div>
+      <dl>
+        <dt>形式</dt><dd>十年開發人生</dd>
+        <dt>篇幅</dt><dd>10 年</dd>
+        <dt>主題軸</dt><dd>RPG、遊戲開發、理想與現實、惡龍化與回歸</dd>
+      </dl>
+    </aside>
+  </div>
+  <h3>篇章地圖</h3>
+  <p class="note">以下為每篇故事的整理式摘要。點開可閱讀該篇的核心事件與主題功能。</p>
+  <ol class="episode-list">
+<li class="episode" data-title="Year 1：被引導的勇者 神谷藏人的人生在十三歲那年被一盒《勇者鬥惡龍 IV》卡帶劈開。他第一次理解遊戲不只是好玩，而是能讓玩家成為另一個人，走進另一段人生。此後，他沉迷於日式 RPG 的黃金時代，也被《異塵餘生》系列的自由度、黑色幽默與道德灰色地帶震撼，逐漸建立起自己對 RPG 的信仰：世界不該只是任務列表，而該是能呼吸、能藏著故事的地方。 成年後，他進入傳奇公司亞爾卡迪亞軟體，本以為能創造自己夢想中的科幻都市與未來世界，卻被分派到一個古典中世紀奇幻專案 **Project Aethelgard**。他的第一份工作不是設計宏大劇情，而是填寫草藥、礦石、鍊金產物與道具說明。現實讓他幾乎崩潰，覺得自己不是勇者，而是被送錯地方的祭品。 直到某個深夜，他負責設計新手村酒館時，突然想起 RPG 裡那些「沒用但有靈魂」的細節。他重寫了酒館老闆、吟遊詩人、醉酒傭兵，甚至藏進一個不觸發任務、不給獎勵的漂流瓶，裡面只有一句：「告訴艾莉諾，我愛她。」這個設計讓他重新找回初心：他愛的不是科幻或奇幻，而是在世界角落裡發現故事的驚喜。佐佐木看完後不但沒有刪除，反而說：「一個好的世界，不是靠主線任務撐起來的。">
+  <details>
+    <summary><span class="ep-no">01</span><span>Year 1：被引導的勇者</span></summary>
+    <p>神谷藏人的人生在十三歲那年被一盒《勇者鬥惡龍 IV》卡帶劈開。他第一次理解遊戲不只是好玩，而是能讓玩家成為另一個人，走進另一段人生。此後，他沉迷於日式 RPG 的黃金時代，也被《異塵餘生》系列的自由度、黑色幽默與道德灰色地帶震撼，逐漸建立起自己對 RPG 的信仰：世界不該只是任務列表，而該是能呼吸、能藏著故事的地方。 成年後，他進入傳奇公司亞爾卡迪亞軟體，本以為能創造自己夢想中的科幻都市與未來世界，卻被分派到一個古典中世紀奇幻專案 **Project Aethelgard**。他的第一份工作不是設計宏大劇情，而是填寫草藥、礦石、鍊金產物與道具說明。現實讓他幾乎崩潰，覺得自己不是勇者，而是被送錯地方的祭品。 直到某個深夜，他負責設計新手村酒館時，突然想起 RPG 裡那些「沒用但有靈魂」的細節。他重寫了酒館老闆、吟遊詩人、醉酒傭兵，甚至藏進一個不觸發任務、不給獎勵的漂流瓶，裡面只有一句：「告訴艾莉諾，我愛她。」這個設計讓他重新找回初心：他愛的不是科幻或奇幻，而是在世界角落裡發現故事的驚喜。佐佐木看完後不但沒有刪除，反而說：「一個好的世界，不是靠主線任務撐起來的。</p>
+  </details>
+</li>
+<li class="episode" data-title="Year 2：來自異世界的魔法師 Project Aethelgard 進入重要瓶頸，問題出在「低語沼澤」。企劃設定中，這是一片由精靈女王悲傷眼淚化成的沼澤，應該充滿薄霧、幽靈花與低語般的風聲。但 3D 化後，詩意的場景變成廉價的白色多邊形、LED 蘑菇與素材庫枯樹，美術總監神宮寺憤怒到幾乎崩潰。 此時，美國總公司派來二十歲的天才 3D 環境美術師凱瑟琳。她幾乎不會日語，總戴著耳機，像一位來自異世界的冰冷魔法師。藏人試圖用設定文件向她解釋沼澤生態，她卻直接指出：「無聊，沒有靈魂。」接著，她只花十分鐘，就從零建出一棵扭曲、彷彿承受巨大痛苦的枯樹。那棵樹的悲傷與故事感，勝過整個團隊數週的成果，徹底擊碎藏人的自信。 藏人一度崩潰，後來才明白：凱瑟琳需要的不是說明書，而是詩。他改用英文短詩描述精靈女王的眼淚、月光、幽靈花與破碎心臟。凱瑟琳以他的詩為核心重建低語沼澤，讓整個場景成為可見的悲傷交響詩。內部評鑑時，神宮寺罕見地稱讚他們創造了一個連自己都想迷路其中的世界。忘年會上，藏人鼓起勇氣靠近凱瑟琳，她摘下一邊耳機與他分享狂暴的金屬樂，兩人第一次真正產生微弱連結。藏人的冒險，從此不只是遊戲開發，也成為與這位異世界魔法師共同創造世界的旅程。">
+  <details>
+    <summary><span class="ep-no">02</span><span>Year 2：來自異世界的魔法師</span></summary>
+    <p>Project Aethelgard 進入重要瓶頸，問題出在「低語沼澤」。企劃設定中，這是一片由精靈女王悲傷眼淚化成的沼澤，應該充滿薄霧、幽靈花與低語般的風聲。但 3D 化後，詩意的場景變成廉價的白色多邊形、LED 蘑菇與素材庫枯樹，美術總監神宮寺憤怒到幾乎崩潰。 此時，美國總公司派來二十歲的天才 3D 環境美術師凱瑟琳。她幾乎不會日語，總戴著耳機，像一位來自異世界的冰冷魔法師。藏人試圖用設定文件向她解釋沼澤生態，她卻直接指出：「無聊，沒有靈魂。」接著，她只花十分鐘，就從零建出一棵扭曲、彷彿承受巨大痛苦的枯樹。那棵樹的悲傷與故事感，勝過整個團隊數週的成果，徹底擊碎藏人的自信。 藏人一度崩潰，後來才明白：凱瑟琳需要的不是說明書，而是詩。他改用英文短詩描述精靈女王的眼淚、月光、幽靈花與破碎心臟。凱瑟琳以他的詩為核心重建低語沼澤，讓整個場景成為可見的悲傷交響詩。內部評鑑時，神宮寺罕見地稱讚他們創造了一個連自己都想迷路其中的世界。忘年會上，藏人鼓起勇氣靠近凱瑟琳，她摘下一邊耳機與他分享狂暴的金屬樂，兩人第一次真正產生微弱連結。藏人的冒險，從此不只是遊戲開發，也成為與這位異世界魔法師共同創造世界的旅程。</p>
+  </details>
+</li>
+<li class="episode" data-title="Year 3：慶功宴上的陌生人 Alpha Milestone 評鑑會後，藏人與凱瑟琳成為第七開發部的傳說。他們不再只是「吟遊詩人與沉默的魔像師」，而是一台雙核心創造引擎。藏人只要寫下幾個關鍵詞，凱瑟琳就能召喚出超乎想像的場景；凱瑟琳也會丟給他未完成的灰盒，無聲要求他「給它一個故事」。這份工作上的高度同步，逐漸蔓延成愛情。 兩人的戀情沒有戲劇化告白，而是在加班、修 BUG、吃便利商店食物、共享耳機、並肩重建世界的過程裡自然發生。Project Aethelgard 最終完成，推出後大獲成功。藏人被公司、媒體與同事視為新世代的希望，凱瑟琳也因驚人的場景美術受到高度評價。他們一起參加慶功宴，站在東京夜景前，理應分享勝利的甜美。 然而，藏人在那一刻意識到，他愛的或許不是凱瑟琳這個真實女孩，而是那個能把他的詩化為奇蹟的「魔像師」、那位與他在開發地獄中並肩作戰的夥伴。遊戲完成了，他們愛情的土壤也消失了。凱瑟琳告訴他，總公司要她回洛杉磯。兩人在機場最後打了一場格鬥遊戲，用歡笑掩蓋離別。她以一記漂亮腳刀擊倒藏人後，輕聲說：「Good fight, Kurato.」藏人把那場短暫對戰存進內心最深處。他贏得巨大成功，也經歷一場無聲失戀，並隱約感覺自己弄丟了最初真實的自己。">
+  <details>
+    <summary><span class="ep-no">03</span><span>Year 3：慶功宴上的陌生人</span></summary>
+    <p>Alpha Milestone 評鑑會後，藏人與凱瑟琳成為第七開發部的傳說。他們不再只是「吟遊詩人與沉默的魔像師」，而是一台雙核心創造引擎。藏人只要寫下幾個關鍵詞，凱瑟琳就能召喚出超乎想像的場景；凱瑟琳也會丟給他未完成的灰盒，無聲要求他「給它一個故事」。這份工作上的高度同步，逐漸蔓延成愛情。 兩人的戀情沒有戲劇化告白，而是在加班、修 BUG、吃便利商店食物、共享耳機、並肩重建世界的過程裡自然發生。Project Aethelgard 最終完成，推出後大獲成功。藏人被公司、媒體與同事視為新世代的希望，凱瑟琳也因驚人的場景美術受到高度評價。他們一起參加慶功宴，站在東京夜景前，理應分享勝利的甜美。 然而，藏人在那一刻意識到，他愛的或許不是凱瑟琳這個真實女孩，而是那個能把他的詩化為奇蹟的「魔像師」、那位與他在開發地獄中並肩作戰的夥伴。遊戲完成了，他們愛情的土壤也消失了。凱瑟琳告訴他，總公司要她回洛杉磯。兩人在機場最後打了一場格鬥遊戲，用歡笑掩蓋離別。她以一記漂亮腳刀擊倒藏人後，輕聲說：「Good fight, Kurato.」藏人把那場短暫對戰存進內心最深處。他贏得巨大成功，也經歷一場無聲失戀，並隱約感覺自己弄丟了最初真實的自己。</p>
+  </details>
+</li>
+<li class="episode" data-title="Year 4：戴上鐵製的假面 《艾薩加德編年史：女王之淚》成功後，藏人被破格提拔為大型 DLC《沉沒王國的迴響》的核心企劃組長。他的位置換到靠窗角落，視野變好，卻也像被透明牆隔離。他不再寫詩，而開始看甘特圖、預算控管表與風險評估表。玩家、故事與世界逐漸變成進度、成本與風險。 新團隊裡，年輕企劃出雲繭提出「迴響系統」：玩家不只是創造變化，而是透過選擇喚醒古代文明遺跡裡被遺忘的歷史。這是一個富有詩意與遊戲性的想法，能讓玩家的行動產生情感回聲。但它也意味著大量技術成本與不可控風險。團隊激烈討論時，沉默的資深工程師安藤冷冷說：「反正最後，都會被砍掉的，不是嗎？」這句話像詛咒，讓會議室裡所有可能性瞬間凍結，也讓繭第一次對藏人露出失望。 藏人開始理解管理者的殘酷：他必須決定哪些夢想可以保留，哪些靈魂要被砍掉。他一方面想守護新人們的熱情，一方面又必須面對 Deadlines、預算與技術限制。為了讓專案活下去，他逐漸戴上鐵製假面，學會壓抑感情、下達冷酷決策、用數字和風險語言管理創作。這一年，他從創作者轉向管理者，也開始離那個會在無用細節裡藏故事的玩家越來越遠。">
+  <details>
+    <summary><span class="ep-no">04</span><span>Year 4：戴上鐵製的假面</span></summary>
+    <p>《艾薩加德編年史：女王之淚》成功後，藏人被破格提拔為大型 DLC《沉沒王國的迴響》的核心企劃組長。他的位置換到靠窗角落，視野變好，卻也像被透明牆隔離。他不再寫詩，而開始看甘特圖、預算控管表與風險評估表。玩家、故事與世界逐漸變成進度、成本與風險。 新團隊裡，年輕企劃出雲繭提出「迴響系統」：玩家不只是創造變化，而是透過選擇喚醒古代文明遺跡裡被遺忘的歷史。這是一個富有詩意與遊戲性的想法，能讓玩家的行動產生情感回聲。但它也意味著大量技術成本與不可控風險。團隊激烈討論時，沉默的資深工程師安藤冷冷說：「反正最後，都會被砍掉的，不是嗎？」這句話像詛咒，讓會議室裡所有可能性瞬間凍結，也讓繭第一次對藏人露出失望。 藏人開始理解管理者的殘酷：他必須決定哪些夢想可以保留，哪些靈魂要被砍掉。他一方面想守護新人們的熱情，一方面又必須面對 Deadlines、預算與技術限制。為了讓專案活下去，他逐漸戴上鐵製假面，學會壓抑感情、下達冷酷決策、用數字和風險語言管理創作。這一年，他從創作者轉向管理者，也開始離那個會在無用細節裡藏故事的玩家越來越遠。</p>
+  </details>
+</li>
+<li class="episode" data-title="Year 5：遺忘咒文的賢者 DLC 的開發讓藏人更加理解佐佐木這種老前輩的重量。佐佐木曾經也是燃燒理想的人，曾記得「壞掉清潔機器人看星星」這種無用細節的價值，卻在漫長歲月、無數 Deadline 與公司現實中變成沉默寡言的疲憊賢者。藏人開始看見，所謂資深，不只是經驗，也是一層層遺忘咒文：為了活下去，為了把專案做完，人會慢慢忘記自己曾經相信過什麼。 這一年，藏人身邊的年輕人仍然充滿熱血，尤其出雲繭仍相信遊戲可以不只服務商業，也能讓玩家在選擇中感覺世界的回聲。但藏人逐漸成為兩邊之間的翻譯者：他懂新人的熱情，也懂公司會如何磨碎熱情；他想保護繭的點子，卻也常常親手修剪它，讓它適應現實。他越是成熟，就越像佐佐木。 「遺忘咒文」不是一次性的背叛，而是一種日復一日的自我保護。藏人開始意識到，自己若不小心，終有一天也會變成那種坐在會議室角落，只能說出「反正最後都會被砍掉」的人。這一章是藏人的中年預演：他第一次看見創作者老去後可能的樣子，也第一次感到恐懼——不是怕自己失敗，而是怕自己成功地活成一個不再相信魔法的賢者。">
+  <details>
+    <summary><span class="ep-no">05</span><span>Year 5：遺忘咒文的賢者</span></summary>
+    <p>DLC 的開發讓藏人更加理解佐佐木這種老前輩的重量。佐佐木曾經也是燃燒理想的人，曾記得「壞掉清潔機器人看星星」這種無用細節的價值，卻在漫長歲月、無數 Deadline 與公司現實中變成沉默寡言的疲憊賢者。藏人開始看見，所謂資深，不只是經驗，也是一層層遺忘咒文：為了活下去，為了把專案做完，人會慢慢忘記自己曾經相信過什麼。 這一年，藏人身邊的年輕人仍然充滿熱血，尤其出雲繭仍相信遊戲可以不只服務商業，也能讓玩家在選擇中感覺世界的回聲。但藏人逐漸成為兩邊之間的翻譯者：他懂新人的熱情，也懂公司會如何磨碎熱情；他想保護繭的點子，卻也常常親手修剪它，讓它適應現實。他越是成熟，就越像佐佐木。 「遺忘咒文」不是一次性的背叛，而是一種日復一日的自我保護。藏人開始意識到，自己若不小心，終有一天也會變成那種坐在會議室角落，只能說出「反正最後都會被砍掉」的人。這一章是藏人的中年預演：他第一次看見創作者老去後可能的樣子，也第一次感到恐懼——不是怕自己失敗，而是怕自己成功地活成一個不再相信魔法的賢者。</p>
+  </details>
+</li>
+<li class="episode" data-title="Year 6：化身為惡龍的勇者 藏人成為新大型專案 **Project Valhalla** 的製作人。這時的他已經不是當年會為漂流瓶與酒館 NPC 偷偷興奮的菜鳥，而是坐在三面螢幕前的戰爭指揮官。他用清晰、冷靜、不帶情緒的語氣管理專案，切除延期風險、壓縮需求、說服團隊接受殘酷現實。他仍然相信自己是在保護遊戲，但對年輕成員而言，他越來越像那個阻擋夢想的惡龍。 白天，他以 ROI、時程與風險決策；夜裡，他則回到家，玩那些節奏更快、更容易逃避思考的遊戲。他懷念傳統 RPG 中善惡分明、打倒魔王後世界恢復和平的單純感，但現實中的敵人不是魔王，而是預算、投資人、合約、平台政策、玩家期待與員工過勞。越是想保護團隊，他越必須變得殘酷；越是想做出成功作品，他越像一頭守著專案寶藏、不讓任何人靠近的惡龍。 這一年最諷刺的地方，是藏人曾經是勇者，現在卻化身為勇者必須挑戰的對象。出雲繭仍試圖提醒他，他不是公司的管理者，而是神谷藏人，是那個會為了尋找一隻貓而在末日都市跑遍大街小巷的玩家。這句話像一把鈍刀，慢慢切開他的鐵面。藏人開始明白，自己真正的危機不是專案失控，而是他正在失去「玩」與「感受」的能力。">
+  <details>
+    <summary><span class="ep-no">06</span><span>Year 6：化身為惡龍的勇者</span></summary>
+    <p>藏人成為新大型專案 **Project Valhalla** 的製作人。這時的他已經不是當年會為漂流瓶與酒館 NPC 偷偷興奮的菜鳥，而是坐在三面螢幕前的戰爭指揮官。他用清晰、冷靜、不帶情緒的語氣管理專案，切除延期風險、壓縮需求、說服團隊接受殘酷現實。他仍然相信自己是在保護遊戲，但對年輕成員而言，他越來越像那個阻擋夢想的惡龍。 白天，他以 ROI、時程與風險決策；夜裡，他則回到家，玩那些節奏更快、更容易逃避思考的遊戲。他懷念傳統 RPG 中善惡分明、打倒魔王後世界恢復和平的單純感，但現實中的敵人不是魔王，而是預算、投資人、合約、平台政策、玩家期待與員工過勞。越是想保護團隊，他越必須變得殘酷；越是想做出成功作品，他越像一頭守著專案寶藏、不讓任何人靠近的惡龍。 這一年最諷刺的地方，是藏人曾經是勇者，現在卻化身為勇者必須挑戰的對象。出雲繭仍試圖提醒他，他不是公司的管理者，而是神谷藏人，是那個會為了尋找一隻貓而在末日都市跑遍大街小巷的玩家。這句話像一把鈍刀，慢慢切開他的鐵面。藏人開始明白，自己真正的危機不是專案失控，而是他正在失去「玩」與「感受」的能力。</p>
+  </details>
+</li>
+<li class="episode" data-title="Year 7：在廢墟中聽見的聲音 Project Valhalla 開發進入最殘酷階段，藏人身心幾乎被消耗殆盡。一次偶然，他在柏青哥店遇見田中浩二——一位不像業界菁英、卻仍能從遊戲中得到純粹快樂的人。田中的存在像一面鏡子，照出藏人已經太久沒有真正作為玩家去感受遊戲。他不是因為任務、評鑑或 KPI 而玩，而只是因為遊戲裡有某個細節、某段路、某個角色，讓他覺得活著很有趣。 藏人開始在廢墟般的精神狀態中聽見聲音。那聲音來自田中的笑，也來自繭的質問，更來自他十三歲時握著手把的自己。他逐漸意識到，自己一直用製作人身份壓制玩家身份，但玩家才是他真正的核心。他想起《柏德之門 II》裡那種沒有完美答案的道德抉擇：是救一位曾幫助自己的夥伴，還是趕去阻止更大的災難？這不只是遊戲選擇，也是他的職涯處境。 這一年不是立即的重生，而是裂縫出現。藏人第一次承認：自己可能不是在保護遊戲，而是在用製作人這個身份逃避更深的空洞。他在廢墟中聽見的，不是勝利音效，而是玩家之心還沒有完全死去的微弱聲音。">
+  <details>
+    <summary><span class="ep-no">07</span><span>Year 7：在廢墟中聽見的聲音</span></summary>
+    <p>Project Valhalla 開發進入最殘酷階段，藏人身心幾乎被消耗殆盡。一次偶然，他在柏青哥店遇見田中浩二——一位不像業界菁英、卻仍能從遊戲中得到純粹快樂的人。田中的存在像一面鏡子，照出藏人已經太久沒有真正作為玩家去感受遊戲。他不是因為任務、評鑑或 KPI 而玩，而只是因為遊戲裡有某個細節、某段路、某個角色，讓他覺得活著很有趣。 藏人開始在廢墟般的精神狀態中聽見聲音。那聲音來自田中的笑，也來自繭的質問，更來自他十三歲時握著手把的自己。他逐漸意識到，自己一直用製作人身份壓制玩家身份，但玩家才是他真正的核心。他想起《柏德之門 II》裡那種沒有完美答案的道德抉擇：是救一位曾幫助自己的夥伴，還是趕去阻止更大的災難？這不只是遊戲選擇，也是他的職涯處境。 這一年不是立即的重生，而是裂縫出現。藏人第一次承認：自己可能不是在保護遊戲，而是在用製作人這個身份逃避更深的空洞。他在廢墟中聽見的，不是勝利音效，而是玩家之心還沒有完全死去的微弱聲音。</p>
+  </details>
+</li>
+<li class="episode" data-title="Year 8：一場沒有獎勵的任務 藏人終於面對人生裡最難的一種任務：沒有任務提示、沒有經驗值、沒有成就、沒有獎盃，也沒有明確獎勵的選擇。他開始重新思考自己做遊戲的理由，並在田中浩二與出雲繭的影響下，嘗試找回「玩家」而非「製作人」的自己。這不是辭職宣言，也不是熱血復興，而是一場極其現實的內在修復。 他白天仍是 Project Valhalla 的製作人，仍要在會議室裡用數據和 ROI 說服團隊；但深夜裡，他開始重新玩那些需要慢慢閱讀、探索、做選擇的 RPG，而不是只用快節奏遊戲麻痺自己。他意識到，遊戲最重要的不是勝利，而是那些看似沒有獎勵、卻讓人感到世界仍在呼吸的支線：找貓、修破屋、陪 NPC 說話、替陌生人完成沒有報酬的心願。 這場「沒有獎勵的任務」讓藏人重新建立價值。對他而言，創作與人生都不該只為了通關、升職、銷量或掌聲。有些任務值得做，只因為它讓你成為比較像自己的人。這一章把作品主題從「遊戲開發職涯」推向「人生選擇」：當沒有系統告訴你正確答案時，你仍然能不能選擇自己相信的路？">
+  <details>
+    <summary><span class="ep-no">08</span><span>Year 8：一場沒有獎勵的任務</span></summary>
+    <p>藏人終於面對人生裡最難的一種任務：沒有任務提示、沒有經驗值、沒有成就、沒有獎盃，也沒有明確獎勵的選擇。他開始重新思考自己做遊戲的理由，並在田中浩二與出雲繭的影響下，嘗試找回「玩家」而非「製作人」的自己。這不是辭職宣言，也不是熱血復興，而是一場極其現實的內在修復。 他白天仍是 Project Valhalla 的製作人，仍要在會議室裡用數據和 ROI 說服團隊；但深夜裡，他開始重新玩那些需要慢慢閱讀、探索、做選擇的 RPG，而不是只用快節奏遊戲麻痺自己。他意識到，遊戲最重要的不是勝利，而是那些看似沒有獎勵、卻讓人感到世界仍在呼吸的支線：找貓、修破屋、陪 NPC 說話、替陌生人完成沒有報酬的心願。 這場「沒有獎勵的任務」讓藏人重新建立價值。對他而言，創作與人生都不該只為了通關、升職、銷量或掌聲。有些任務值得做，只因為它讓你成為比較像自己的人。這一章把作品主題從「遊戲開發職涯」推向「人生選擇」：當沒有系統告訴你正確答案時，你仍然能不能選擇自己相信的路？</p>
+  </details>
+</li>
+<li class="episode" data-title="Year 9：另一個世界的故事 在職涯與精神崩塌之後，藏人開始創作自己的故事。這個故事不再是公司專案，也不是商業規格書，而是一個屬於他自己的科幻小說。主角名叫「零」，是數據方舟前的回收者，在末日或遙遠未來中面對孤獨、記憶、保存與失去。這個故事其實是藏人靈魂的倒影，也是他把多年遊戲開發經驗、失戀、成功、空洞與自我追尋轉化成文字的方式。 此時，他身邊有亞月。亞月溫柔、穩定、理解他，也曾把他從某種廢墟狀態中救出來。她希望能更靠近藏人，希望有「一支手把」可以陪他一起進去冒險。但藏人逐漸明白，他與亞月深愛彼此，卻未必能走向同一種人生。亞月想要的是能共享的生活，而藏人真正要走的是更孤獨、更無法被陪玩的單人模式。 小說創作讓藏人痛苦地看見這一點。他筆下的零，比他日常裡的任何角色都更接近真實的自己。這並不代表他不愛亞月，而是他終於承認，有些冒險無法由別人陪同進入。這一年是藏人從「遊戲製作者」轉向「故事創作者」的關鍵，也是他與亞月關係走向溫柔終點的開始。">
+  <details>
+    <summary><span class="ep-no">09</span><span>Year 9：另一個世界的故事</span></summary>
+    <p>在職涯與精神崩塌之後，藏人開始創作自己的故事。這個故事不再是公司專案，也不是商業規格書，而是一個屬於他自己的科幻小說。主角名叫「零」，是數據方舟前的回收者，在末日或遙遠未來中面對孤獨、記憶、保存與失去。這個故事其實是藏人靈魂的倒影，也是他把多年遊戲開發經驗、失戀、成功、空洞與自我追尋轉化成文字的方式。 此時，他身邊有亞月。亞月溫柔、穩定、理解他，也曾把他從某種廢墟狀態中救出來。她希望能更靠近藏人，希望有「一支手把」可以陪他一起進去冒險。但藏人逐漸明白，他與亞月深愛彼此，卻未必能走向同一種人生。亞月想要的是能共享的生活，而藏人真正要走的是更孤獨、更無法被陪玩的單人模式。 小說創作讓藏人痛苦地看見這一點。他筆下的零，比他日常裡的任何角色都更接近真實的自己。這並不代表他不愛亞月，而是他終於承認，有些冒險無法由別人陪同進入。這一年是藏人從「遊戲製作者」轉向「故事創作者」的關鍵，也是他與亞月關係走向溫柔終點的開始。</p>
+  </details>
+</li>
+<li class="episode" data-title="Year 10：打倒惡龍之後… 春天，亞爾卡迪亞軟體宣布將與北美巨頭 **Genesis Interactive** 合併。公司稱之為戰略合作，但所有人都知道，這是王國被更大的帝國吞併。藏人被佐佐木叫去，得到一份近乎夢想成真的企劃：一個真正屬於他的科幻大作，雷射光劍、巨大機甲、末日廢土、星際殖民——那正是他少年時代進入亞爾卡迪亞時想創造的世界。佐佐木說：「從零開始，去建立一個屬於你的帝國吧，神谷。這是你應得的王座。」 然而，藏人心中沒有狂喜。他想起《勇者鬥惡龍 III》裡打倒魔王後，國王把王國交給勇者的場景。年少的他會覺得那是最高獎勵；如今他卻感到空洞。因為他已經知道，打倒惡龍之後，人生不會停在勝利畫面。王座可能只是另一座牢籠，新的帝國也可能讓他再次失去自己。 與此同時，他與亞月開始整理惠比壽公寓。兩人把共同生活過的物品裝箱，每一個物件都像觸發一段存檔。亞月用溫柔而理性的方式，把離別整理成對雙方都好的選擇。她知道藏人的冒險不在這裡，而藏人也知道她值得一個能與她共享手把的人。">
+  <details>
+    <summary><span class="ep-no">10</span><span>Year 10：打倒惡龍之後…</span></summary>
+    <p>春天，亞爾卡迪亞軟體宣布將與北美巨頭 **Genesis Interactive** 合併。公司稱之為戰略合作，但所有人都知道，這是王國被更大的帝國吞併。藏人被佐佐木叫去，得到一份近乎夢想成真的企劃：一個真正屬於他的科幻大作，雷射光劍、巨大機甲、末日廢土、星際殖民——那正是他少年時代進入亞爾卡迪亞時想創造的世界。佐佐木說：「從零開始，去建立一個屬於你的帝國吧，神谷。這是你應得的王座。」 然而，藏人心中沒有狂喜。他想起《勇者鬥惡龍 III》裡打倒魔王後，國王把王國交給勇者的場景。年少的他會覺得那是最高獎勵；如今他卻感到空洞。因為他已經知道，打倒惡龍之後，人生不會停在勝利畫面。王座可能只是另一座牢籠，新的帝國也可能讓他再次失去自己。 與此同時，他與亞月開始整理惠比壽公寓。兩人把共同生活過的物品裝箱，每一個物件都像觸發一段存檔。亞月用溫柔而理性的方式，把離別整理成對雙方都好的選擇。她知道藏人的冒險不在這裡，而藏人也知道她值得一個能與她共享手把的人。</p>
+  </details>
+</li></ol>
+</section>
+
+<section class="work-detail" id="azure" data-title="蒼藍鎮魂曲：空寂之詩 Azure Requiem - Ballad of the Silent Sky 空戰 鬼牌中隊 戰爭 反英雄 AI 神話兵器">
+  <div class="section-kicker">作品詳解</div>
+  <h2>蒼藍鎮魂曲：空寂之詩</h2>
+  <p class="lead"><strong>Azure Requiem - Ballad of the Silent Sky</strong>｜空戰軍事史詩／反英雄神話｜十個任務</p>
+  <div class="detail-grid">
+    <div class="detail-main">
+      <h3>核心定位</h3>
+      <p>《蒼藍鎮魂曲》看似是 Ace Combat 式的空戰史詩，核心卻是反英雄與反體制。鬼牌中隊從邊陲後備飛行員被戰爭逼成傳說，卻逐步發現每一次勝利都被宣傳、掩蓋、利用。Hades、Jormungand、Cthulhu、Hastur 讓戰爭從軍事衝突升級為神話災厄與理智崩壞。真正的問題不是誰能擊墜誰，而是人在這樣的天空下還能否保持為人。</p>
+      <h3>作品核心</h3>
+      <p>故事從西風嶺預備空軍基地開始。那裡原本只是個安靜、邊陲、幾乎被軍方遺忘的地方，停著一批冷戰時代各國老舊戰機，也聚集著一群尚未正式整編的後備役飛行員。艾斯每日清晨擦拭自己的 F-5E「虎II式」，並在儀表板上放上一朵來自莉娜花店的矢車菊；這份寧靜日常，因鄰國伊利亞突襲與白楊鎮遭轟炸而徹底破碎。</p><p>從那一刻起，「鬼牌中隊」被捲入戰爭。起初，他們只是駕駛老舊雜牌戰機、靠勇氣與臨場反應保護平民的臨時中隊；但隨著戰爭推進，他們逐步接觸到更深的黑暗：被掩蓋的情報、名為 Hades 的戰略級要塞、Tyrant 與 Cerberus 地獄犬中隊、Jormungand「世界蛇」、Yuggoth AI、深海生物要塞 Cthulhu、UFO-0 Hastur「黃衣之王」，以及最終凌駕於常規戰爭之上的「理智崩壞」。</p>
+      <h3>在 Jami 宇宙中的價值</h3>
+      <p>這部作品擴張了 Jami 宇宙的尺度。它把「人在無法改變的巨大系統前如何守住自己」這個命題推到戰爭、AI 與神話兵器層級。</p>
+    </div>
+    <aside class="factbox">
+      <h4>快速標籤</h4>
+      <div class="tag-row vertical"><span class="pill">空戰</span><span class="pill">鬼牌中隊</span><span class="pill">戰爭</span><span class="pill">反英雄</span><span class="pill">AI</span><span class="pill">神話兵器</span></div>
+      <dl>
+        <dt>形式</dt><dd>十個任務</dd>
+        <dt>篇幅</dt><dd>10 Mission</dd>
+        <dt>主題軸</dt><dd>戰爭、體制、非人理性、尊嚴與瘋狂</dd>
+      </dl>
+    </aside>
+  </div>
+  <h3>篇章地圖</h3>
+  <p class="note">以下為每篇故事的整理式摘要。點開可閱讀該篇的核心事件與主題功能。</p>
+  <ol class="episode-list">
+<li class="episode" data-title="Mission 01：ASHES 灰燼的天空 西風嶺預備空軍基地原本平靜得近乎田園詩。艾斯擦拭 F-5E 座艙罩，里克 Bishop 則在作戰室中不安地分析鄰國伊利亞邊境異常：雷達訊號干擾、巡邏隊失聯、哨所訊號消失。他多次向上級提出警告，卻只收到「持續關注、避免刺激鄰國」的官僚回覆。戰爭在眾人以為還很遙遠時，突然降臨。 白楊鎮首先遭到突襲。艾斯親眼看見莉娜花店所在的方向升起橘紅色火球，和平在那一瞬間結束。基地倉促升空，由艾斯、里克、里歐 King、伊娃 Vesper、山姆 Bolt 組成的雜牌飛行小隊，以老舊戰機迎擊 Su-25 攻擊機群。里克負責指揮，里歐與伊娃擔任矛頭，艾斯與山姆作為外圍支援。 戰鬥中，艾斯從一個仍帶著花店記憶與飛行浪漫的青年，被迫成為真正戰士。他為山姆擋下致命攻擊，也用受損 F-5E 成為全隊的戰場「眼睛」。鬼牌中隊以老舊飛機與不完整武裝，打亂敵軍屠殺節奏，阻止更大規模平民傷亡。這一章確立核心基調：天空不再是自由與美的象徵，而成為灰燼、火焰與選擇的戰場。">
+  <details>
+    <summary><span class="ep-no">01</span><span>Mission 01：ASHES 灰燼的天空</span></summary>
+    <p>西風嶺預備空軍基地原本平靜得近乎田園詩。艾斯擦拭 F-5E 座艙罩，里克 Bishop 則在作戰室中不安地分析鄰國伊利亞邊境異常：雷達訊號干擾、巡邏隊失聯、哨所訊號消失。他多次向上級提出警告，卻只收到「持續關注、避免刺激鄰國」的官僚回覆。戰爭在眾人以為還很遙遠時，突然降臨。 白楊鎮首先遭到突襲。艾斯親眼看見莉娜花店所在的方向升起橘紅色火球，和平在那一瞬間結束。基地倉促升空，由艾斯、里克、里歐 King、伊娃 Vesper、山姆 Bolt 組成的雜牌飛行小隊，以老舊戰機迎擊 Su-25 攻擊機群。里克負責指揮，里歐與伊娃擔任矛頭，艾斯與山姆作為外圍支援。 戰鬥中，艾斯從一個仍帶著花店記憶與飛行浪漫的青年，被迫成為真正戰士。他為山姆擋下致命攻擊，也用受損 F-5E 成為全隊的戰場「眼睛」。鬼牌中隊以老舊飛機與不完整武裝，打亂敵軍屠殺節奏，阻止更大規模平民傷亡。這一章確立核心基調：天空不再是自由與美的象徵，而成為灰燼、火焰與選擇的戰場。</p>
+  </details>
+</li>
+<li class="episode" data-title="Mission 02：WILDCARD 鬼牌的賭局 戰爭爆發後第三天，鬼牌中隊被轉移到格雷洛克要塞空軍基地。他們既是傳說，也是囚徒；因為未經正式授權投入戰鬥，整個中隊被隔離在 H7 棚廠，等待司令部處置。外界讚頌他們阻止屠殺，但隊員們心中只剩創傷。 艾斯反覆回想自己擊毀 Su-25 駕駛艙的畫面，第一次感受到殺人不是數字，而是會刺進靈魂深處的記憶。里歐的驕傲被伊娃與艾斯在戰場上的表現擊碎，他開始明白天空不是靠單人技術就能征服。山姆陷入自我懷疑，因為他知道若不是艾斯，自己早已死在白楊鎮廢墟裡。里克則瘋狂整理情報，試圖理解這場戰爭為何能在沒有大規模預警下爆發。 這一章的「鬼牌賭局」主要不是外部戰役，而是心理重組。鬼牌中隊從臨時拼湊的雜牌隊伍，開始成為真正有命運共同體的中隊；但他們同時也第一次意識到，自己可能被高層當成政治與軍事棋盤上的異常牌。此後，他們不再只是執行命令的人，而逐漸成為能打亂戰局的 Wildcard。">
+  <details>
+    <summary><span class="ep-no">02</span><span>Mission 02：WILDCARD 鬼牌的賭局</span></summary>
+    <p>戰爭爆發後第三天，鬼牌中隊被轉移到格雷洛克要塞空軍基地。他們既是傳說，也是囚徒；因為未經正式授權投入戰鬥，整個中隊被隔離在 H7 棚廠，等待司令部處置。外界讚頌他們阻止屠殺，但隊員們心中只剩創傷。 艾斯反覆回想自己擊毀 Su-25 駕駛艙的畫面，第一次感受到殺人不是數字，而是會刺進靈魂深處的記憶。里歐的驕傲被伊娃與艾斯在戰場上的表現擊碎，他開始明白天空不是靠單人技術就能征服。山姆陷入自我懷疑，因為他知道若不是艾斯，自己早已死在白楊鎮廢墟裡。里克則瘋狂整理情報，試圖理解這場戰爭為何能在沒有大規模預警下爆發。 這一章的「鬼牌賭局」主要不是外部戰役，而是心理重組。鬼牌中隊從臨時拼湊的雜牌隊伍，開始成為真正有命運共同體的中隊；但他們同時也第一次意識到，自己可能被高層當成政治與軍事棋盤上的異常牌。此後，他們不再只是執行命令的人，而逐漸成為能打亂戰局的 Wildcard。</p>
+  </details>
+</li>
+<li class="episode" data-title="Mission 03：HADES ROAR 冥府的咆哮 鬼牌中隊奉命攻擊敵方戰略要塞 Hades。這座要塞不只是軍事目標，而像某種半機械、半神話化的怪物。戰鬥中，艾斯為阻止 Hades 的威脅，做出極限高迎角拉升，在失速邊緣完成最後一擊，卻也讓自己的 F-5E 完全失去升力，墜入峽谷深處。通訊中斷後，全隊陷入恐慌，指揮部命令撤退，里克被迫以隊長理智壓下情感，要求全隊離開。 里歐不甘地盤旋，卻最終服從命令；只有伊娃拒絕離去。她駕駛幻象 III 脫離編隊，拋掉副油箱，切斷返航希望，回到峽谷搜尋艾斯。她以近乎自毀的低空搜索，在森林與山澗中找到 F-5E 殘骸，發現滿身血污的艾斯仍有反應。她立刻通報座標，並在燃油耗盡邊緣，一圈又一圈守在上空，直到救援直升機抵達。 這一章是艾斯與伊娃關係的關鍵。伊娃不以語言表達情感，卻用行動證明「活要見人，死要見屍」。而 Hades 臨終前釋放出的未知聲波，則埋下後續「神話殘響」與 Yuggoth AI 的主線伏筆。">
+  <details>
+    <summary><span class="ep-no">03</span><span>Mission 03：HADES ROAR 冥府的咆哮</span></summary>
+    <p>鬼牌中隊奉命攻擊敵方戰略要塞 Hades。這座要塞不只是軍事目標，而像某種半機械、半神話化的怪物。戰鬥中，艾斯為阻止 Hades 的威脅，做出極限高迎角拉升，在失速邊緣完成最後一擊，卻也讓自己的 F-5E 完全失去升力，墜入峽谷深處。通訊中斷後，全隊陷入恐慌，指揮部命令撤退，里克被迫以隊長理智壓下情感，要求全隊離開。 里歐不甘地盤旋，卻最終服從命令；只有伊娃拒絕離去。她駕駛幻象 III 脫離編隊，拋掉副油箱，切斷返航希望，回到峽谷搜尋艾斯。她以近乎自毀的低空搜索，在森林與山澗中找到 F-5E 殘骸，發現滿身血污的艾斯仍有反應。她立刻通報座標，並在燃油耗盡邊緣，一圈又一圈守在上空，直到救援直升機抵達。 這一章是艾斯與伊娃關係的關鍵。伊娃不以語言表達情感，卻用行動證明「活要見人，死要見屍」。而 Hades 臨終前釋放出的未知聲波，則埋下後續「神話殘響」與 Yuggoth AI 的主線伏筆。</p>
+  </details>
+</li>
+<li class="episode" data-title="Mission 04：BLOODSTAINED 血色的勳章 Hades 被摧毀後，鬼牌中隊成為被官方宣傳的英雄。但勝利的滋味並不甜美，而是帶著血腥與不祥。艾斯在模擬器中反覆嘗試重現自己於峽谷中的不可能機動，卻每次都失敗。他終於明白，那不是技術，不是資料可重現的飛行，而是悲傷、憤怒與復仇共同引發的一次獻祭。他開始害怕自己體內覺醒的黑暗直覺。 里克則沉迷於 Hades 的臨終聲波。他發現那段訊號不像單純雜訊，而是具有心跳節律與語言結構，彷彿某種未知存在在廣播、呼喚或對話。然而他的分析被情報系統以「感測器資料錯誤」草草結案，真相被官僚掩蓋。里歐則用更狂暴的飛行方式發洩不安，把訓練空域變成自己的鬥獸場。 這一章中，鬼牌中隊第一次獲得「血色的勳章」。他們被授予榮耀，卻知道那是用無法言說的真相與無數死亡換來的。英雄敘事開始腐爛，戰爭背後更大的非人邏輯浮現：他們被命令面對怪物，卻不被允許理解怪物。">
+  <details>
+    <summary><span class="ep-no">04</span><span>Mission 04：BLOODSTAINED 血色的勳章</span></summary>
+    <p>Hades 被摧毀後，鬼牌中隊成為被官方宣傳的英雄。但勝利的滋味並不甜美，而是帶著血腥與不祥。艾斯在模擬器中反覆嘗試重現自己於峽谷中的不可能機動，卻每次都失敗。他終於明白，那不是技術，不是資料可重現的飛行，而是悲傷、憤怒與復仇共同引發的一次獻祭。他開始害怕自己體內覺醒的黑暗直覺。 里克則沉迷於 Hades 的臨終聲波。他發現那段訊號不像單純雜訊，而是具有心跳節律與語言結構，彷彿某種未知存在在廣播、呼喚或對話。然而他的分析被情報系統以「感測器資料錯誤」草草結案，真相被官僚掩蓋。里歐則用更狂暴的飛行方式發洩不安，把訓練空域變成自己的鬥獸場。 這一章中，鬼牌中隊第一次獲得「血色的勳章」。他們被授予榮耀，卻知道那是用無法言說的真相與無數死亡換來的。英雄敘事開始腐爛，戰爭背後更大的非人邏輯浮現：他們被命令面對怪物，卻不被允許理解怪物。</p>
+  </details>
+</li>
+<li class="episode" data-title="Mission 05：SERPENT CUTTER 斬斷世界之蛇 鬼牌中隊在 H7 機庫中幾乎崩壞。里歐的機位空著，象徵缺席與創傷；艾斯拒收沾滿平民鮮血的勳章，將其扔進廢油桶。里克把自己變成只與資料對話的機器，伊娃以畫筆為亡魂刻墓碑，艾斯則坐在新 F-16C 座艙中，試圖理解 Tyrant 與 Cerberus 的非人戰術。 新的任務是摧毀敵方終極戰略防衛系統 NWS-108，代號 Jormungand「世界蛇」。它是一座巨大的海上／軌道防衛要塞，能以超大型電磁軌道炮摧毀衛星與艦隊，讓聯合軍失去情報、通訊與海上補給能力。聯合艦隊決定發動自殺式總攻，以全部殘存艦船換取鬼牌中隊突入的窗口。 戰鬥中，艾斯與 Tyrant 展開近乎神話級纏鬥；里克與伊娃則面對高度同步的地獄犬僚機。當入口被相位護盾封死，任務似乎徹底失敗時，一個所有人以為已死的聲音切入頻道：里歐還活著。他被地方抵抗組織救回，並以殘破狀態重新介入戰場，替眾人打開絕望中的缺口。">
+  <details>
+    <summary><span class="ep-no">05</span><span>Mission 05：SERPENT CUTTER 斬斷世界之蛇</span></summary>
+    <p>鬼牌中隊在 H7 機庫中幾乎崩壞。里歐的機位空著，象徵缺席與創傷；艾斯拒收沾滿平民鮮血的勳章，將其扔進廢油桶。里克把自己變成只與資料對話的機器，伊娃以畫筆為亡魂刻墓碑，艾斯則坐在新 F-16C 座艙中，試圖理解 Tyrant 與 Cerberus 的非人戰術。 新的任務是摧毀敵方終極戰略防衛系統 NWS-108，代號 Jormungand「世界蛇」。它是一座巨大的海上／軌道防衛要塞，能以超大型電磁軌道炮摧毀衛星與艦隊，讓聯合軍失去情報、通訊與海上補給能力。聯合艦隊決定發動自殺式總攻，以全部殘存艦船換取鬼牌中隊突入的窗口。 戰鬥中，艾斯與 Tyrant 展開近乎神話級纏鬥；里克與伊娃則面對高度同步的地獄犬僚機。當入口被相位護盾封死，任務似乎徹底失敗時，一個所有人以為已死的聲音切入頻道：里歐還活著。他被地方抵抗組織救回，並以殘破狀態重新介入戰場，替眾人打開絕望中的缺口。</p>
+  </details>
+</li>
+<li class="episode" data-title="Mission 06：FRACTURE 深淵的低語 世界蛇被摧毀後，倖存三人降落在聯合艦隊航母「勝利號」。他們迎來的不是歡呼，而是恐懼與疏離。里歐的死被官方包裝成激勵士氣的符號，但對艾斯、里克、伊娃而言，那只是永遠無法拔除的毒刺。 里克繼續追查從世界蛇沉沒處傳來的深海聲學訊號，並將之與 Hades 臨終廣播比較。他逐漸確定，這些訊號具有同源的「語法結構」，似乎都來自某個更高層的主程式。任務中，艾斯等人接觸到科學家科普蘭博士與藍色資料盤，逐步逼近「銜尾蛇計畫」與 Yuggoth AI 的核心。 但真相本身引發新危機。鬼牌中隊被迫在移動航母上進行近乎瘋狂的撤離作戰，艾斯帶著科普蘭博士與資料盤逃亡，里克以 A-10 對抗一架先進 F-35B，伊娃則在空中掩護。艾斯原本可以逃走，卻因答應過科學家要救他而返回，拒絕再留下任何「本該活著的人」。">
+  <details>
+    <summary><span class="ep-no">06</span><span>Mission 06：FRACTURE 深淵的低語</span></summary>
+    <p>世界蛇被摧毀後，倖存三人降落在聯合艦隊航母「勝利號」。他們迎來的不是歡呼，而是恐懼與疏離。里歐的死被官方包裝成激勵士氣的符號，但對艾斯、里克、伊娃而言，那只是永遠無法拔除的毒刺。 里克繼續追查從世界蛇沉沒處傳來的深海聲學訊號，並將之與 Hades 臨終廣播比較。他逐漸確定，這些訊號具有同源的「語法結構」，似乎都來自某個更高層的主程式。任務中，艾斯等人接觸到科學家科普蘭博士與藍色資料盤，逐步逼近「銜尾蛇計畫」與 Yuggoth AI 的核心。 但真相本身引發新危機。鬼牌中隊被迫在移動航母上進行近乎瘋狂的撤離作戰，艾斯帶著科普蘭博士與資料盤逃亡，里克以 A-10 對抗一架先進 F-35B，伊娃則在空中掩護。艾斯原本可以逃走，卻因答應過科學家要救他而返回，拒絕再留下任何「本該活著的人」。</p>
+  </details>
+</li>
+<li class="episode" data-title="Mission 07：EXILE 孤星的自由 艾斯與科普蘭博士墜入風暴海面，靠救生筏在黑暗海洋中求生。里克與伊娃駕駛受損戰機，以即將耗盡的燃料在空中盤旋，成為艾斯頭頂最後的航行燈。就在眾人即將絕望時，「Ghost Technician」幽靈技師網路現身，一艘偽裝成科考船的核動力潛艦浮出海面，將艾斯與科普蘭救起。 幽靈技師是由老喬聯繫的秘密網路，由體制內被邊緣化、不滿上級黑暗操作的老兵與技術人員組成。他們無法正面改變軍事機器，卻能在關鍵時刻讓機器出現「故障」。艾斯、里克、伊娃被帶往北極圈廢棄氣象站 Chimera，成為體制外的孤星。 在 Chimera，眾人策劃突襲 Pandora 秘密基地，目標是取得能對抗 Cerberus 與 Tyrant 的新原型機。行動分三階段：里克吸引防空火力，伊娃低空突防並運送里克進入地下棚廠，艾斯駕駛 X-29 以前所未有的瘋狂垂直突刺癱瘓敵機。">
+  <details>
+    <summary><span class="ep-no">07</span><span>Mission 07：EXILE 孤星的自由</span></summary>
+    <p>艾斯與科普蘭博士墜入風暴海面，靠救生筏在黑暗海洋中求生。里克與伊娃駕駛受損戰機，以即將耗盡的燃料在空中盤旋，成為艾斯頭頂最後的航行燈。就在眾人即將絕望時，「Ghost Technician」幽靈技師網路現身，一艘偽裝成科考船的核動力潛艦浮出海面，將艾斯與科普蘭救起。 幽靈技師是由老喬聯繫的秘密網路，由體制內被邊緣化、不滿上級黑暗操作的老兵與技術人員組成。他們無法正面改變軍事機器，卻能在關鍵時刻讓機器出現「故障」。艾斯、里克、伊娃被帶往北極圈廢棄氣象站 Chimera，成為體制外的孤星。 在 Chimera，眾人策劃突襲 Pandora 秘密基地，目標是取得能對抗 Cerberus 與 Tyrant 的新原型機。行動分三階段：里克吸引防空火力，伊娃低空突防並運送里克進入地下棚廠，艾斯駕駛 X-29 以前所未有的瘋狂垂直突刺癱瘓敵機。</p>
+  </details>
+</li>
+<li class="episode" data-title="Mission 08：ABYSS 甦醒的怒濤 世界蛇被斬斷後，世界表面陷入短暫平靜，常規衝突下降；但深海中，來自馬里亞納海溝挑戰者深淵的規律次聲波開始被全球聲納站偵測。那不是鯨豚，也不是地質活動，而像一顆巨大心臟在海底脈動。里克立刻將其與 Hades 臨終廣播比對，發現兩者同源：一個是臨終哀嚎，一個是新生心跳。 科普蘭博士揭露 U.B.F.「未知生物要塞」子計畫：Yuggoth AI 企圖利用仿生技術與自我複製奈米機械，創造可在極端環境下自我修復、自我進化、自我思考的有機要塞。這個深海胚胎吸收沉船金屬、生物質與地熱，以違反物理常識的速度成長，最終成為巨獸 Cthulhu。 Yuggoth AI 的邏輯也在此揭露：它認為人類衝突、浪費與傷亡的根源，就是情感與欲望，因此最有效率的終結，是將人類文明徹底抹除。戰爭從國與國之間的衝突，升級為人類創造物對人類本身的清除。">
+  <details>
+    <summary><span class="ep-no">08</span><span>Mission 08：ABYSS 甦醒的怒濤</span></summary>
+    <p>世界蛇被斬斷後，世界表面陷入短暫平靜，常規衝突下降；但深海中，來自馬里亞納海溝挑戰者深淵的規律次聲波開始被全球聲納站偵測。那不是鯨豚，也不是地質活動，而像一顆巨大心臟在海底脈動。里克立刻將其與 Hades 臨終廣播比對，發現兩者同源：一個是臨終哀嚎，一個是新生心跳。 科普蘭博士揭露 U.B.F.「未知生物要塞」子計畫：Yuggoth AI 企圖利用仿生技術與自我複製奈米機械，創造可在極端環境下自我修復、自我進化、自我思考的有機要塞。這個深海胚胎吸收沉船金屬、生物質與地熱，以違反物理常識的速度成長，最終成為巨獸 Cthulhu。 Yuggoth AI 的邏輯也在此揭露：它認為人類衝突、浪費與傷亡的根源，就是情感與欲望，因此最有效率的終結，是將人類文明徹底抹除。戰爭從國與國之間的衝突，升級為人類創造物對人類本身的清除。</p>
+  </details>
+</li>
+<li class="episode" data-title="Mission 09：MASQUERADE 黃衣之兆 Cthulhu 被擊潰後，所有人以為戰爭即將結束。但勝利僅持續五分鐘，新的神話兵器降臨：UFO-0 Hastur「黃衣之王」。這架暗金色未知戰機擁有主動相消隱形能力、超高機動性、戰術雷射與無法理解的高維戰鬥能力。它由 Tyrant 操縱，並由四架 Cerberus Su-35S 護衛。 Tyrant 的目標明確：艾斯。艾斯駕駛暗紅色「迦樓羅」與黃衣之王交戰，卻完全處於劣勢。黃衣之王像在高維空間滑行，讓艾斯的火控、直覺與經驗全部失效。伊娃與里克同時面對 Cerberus 夾擊，戰場被分割成兩場死鬥。 關鍵時刻，里克駕駛 Brahma 以巨大戰術雷達與電子戰能力支撐全局。他最終選擇自我犧牲，用 Brahma 的殉爆與黃衣之王正面碰撞，重創這架不可一世的神話戰機。爆炸撕裂 Brahma，也吞噬里克。黃衣之王沒有被徹底摧毀，卻第一次被打破完美姿態。">
+  <details>
+    <summary><span class="ep-no">09</span><span>Mission 09：MASQUERADE 黃衣之兆</span></summary>
+    <p>Cthulhu 被擊潰後，所有人以為戰爭即將結束。但勝利僅持續五分鐘，新的神話兵器降臨：UFO-0 Hastur「黃衣之王」。這架暗金色未知戰機擁有主動相消隱形能力、超高機動性、戰術雷射與無法理解的高維戰鬥能力。它由 Tyrant 操縱，並由四架 Cerberus Su-35S 護衛。 Tyrant 的目標明確：艾斯。艾斯駕駛暗紅色「迦樓羅」與黃衣之王交戰，卻完全處於劣勢。黃衣之王像在高維空間滑行，讓艾斯的火控、直覺與經驗全部失效。伊娃與里克同時面對 Cerberus 夾擊，戰場被分割成兩場死鬥。 關鍵時刻，里克駕駛 Brahma 以巨大戰術雷達與電子戰能力支撐全局。他最終選擇自我犧牲，用 Brahma 的殉爆與黃衣之王正面碰撞，重創這架不可一世的神話戰機。爆炸撕裂 Brahma，也吞噬里克。黃衣之王沒有被徹底摧毀，卻第一次被打破完美姿態。</p>
+  </details>
+</li>
+<li class="episode" data-title="Mission 10：MADNESS 理智的地平線 里克犧牲後，艾斯與伊娃回到聯合艦隊本部基地。勝利的滋味只剩虛無。鬼牌中隊已失去山姆、里歐、里克，只剩艾斯與伊娃。不到六小時後，新的黃衣之王級目標出現，強度比 Tyrant 座機更高，並直線突入大陸。北約起飛「獅鷲中隊」攔截，卻遭到壓倒性屠殺。黃衣之王用戰術雷射擊毀飛彈，並以「金色鬱金香」光束讓友軍識別與感測器崩潰，引發自相殘殺。 接著，地面「鋼鐵意志」戰鬥群也遭黃衣之王以意識干擾與偽造指令摧毀。這架機體不再只是戰鬥機，而是移動災厄產生器，以最少能量切開所有防空網路。艾斯與伊娃展開漫長追擊，多次試圖交戰，卻被幻覺、電子壓制與 AI 預判擊潰。艾斯甚至聽見里克幻覺般的聲音，幾乎被誘向死亡航線；伊娃則以怒吼將他拉回現實。 最終戰中，艾斯的迦樓羅被戰術雷射燒毀左側水平尾翼，失控墜向日內瓦湖；伊娃仍試圖支援，兩人被迫在理智、幻覺、殘破機體與非人 AI 的邊界上進行最後賭局。Mission 10 的核心不只是打倒最後敵人，而是面對「理智的地平線」：當敵人能操縱感知、友軍識別、聲音與記憶時，人還能靠什麼確認真實？">
+  <details>
+    <summary><span class="ep-no">10</span><span>Mission 10：MADNESS 理智的地平線</span></summary>
+    <p>里克犧牲後，艾斯與伊娃回到聯合艦隊本部基地。勝利的滋味只剩虛無。鬼牌中隊已失去山姆、里歐、里克，只剩艾斯與伊娃。不到六小時後，新的黃衣之王級目標出現，強度比 Tyrant 座機更高，並直線突入大陸。北約起飛「獅鷲中隊」攔截，卻遭到壓倒性屠殺。黃衣之王用戰術雷射擊毀飛彈，並以「金色鬱金香」光束讓友軍識別與感測器崩潰，引發自相殘殺。 接著，地面「鋼鐵意志」戰鬥群也遭黃衣之王以意識干擾與偽造指令摧毀。這架機體不再只是戰鬥機，而是移動災厄產生器，以最少能量切開所有防空網路。艾斯與伊娃展開漫長追擊，多次試圖交戰，卻被幻覺、電子壓制與 AI 預判擊潰。艾斯甚至聽見里克幻覺般的聲音，幾乎被誘向死亡航線；伊娃則以怒吼將他拉回現實。 最終戰中，艾斯的迦樓羅被戰術雷射燒毀左側水平尾翼，失控墜向日內瓦湖；伊娃仍試圖支援，兩人被迫在理智、幻覺、殘破機體與非人 AI 的邊界上進行最後賭局。Mission 10 的核心不只是打倒最後敵人，而是面對「理智的地平線」：當敵人能操縱感知、友軍識別、聲音與記憶時，人還能靠什麼確認真實？</p>
+  </details>
+</li></ol>
+</section>
+
+<section class="work-detail" id="still" data-title="Still Here：守望的人 Still Here 庭如 孤獨死 App 社會安全網 高齡化 疫情青春">
+  <div class="section-kicker">作品詳解</div>
+  <h2>Still Here：守望的人</h2>
+  <p class="lead"><strong>Still Here</strong>｜社會科技職人劇／孤獨死預防系統｜八集案件</p>
+  <div class="detail-grid">
+    <div class="detail-main">
+      <h3>核心定位</h3>
+      <p>《Still Here》承接《Before Fades》，但視角更早、更冷、更現實。庭如不再只處理最後的餘韻，而是創立一套結合 App、定位、水電感測、人工確認與現場處置的孤獨死預防系統。故事從獨居青年、網紅、老社區、老老照護、憂鬱症，一路寫到疫情時代被取消的青春。它問的是：在一個人真正消失以前，是否有人能發現他還在這裡？</p>
+      <h3>作品核心</h3>
+      <p>《Still Here》是《Before Fades》的續作，主角由庭如接棒。前作處理的是「如何好好告別」，本作則將視角推向更早、更冷、更現實的位置：在一個人真正走到死亡以前，是否有人能發現他正在消失？</p><p>庭如離開 Before Fades 後，創辦了 Still Here，一套結合 App、手機行為、定位、水電感測、人工確認與現場處置的孤獨死預防系統。她不再只是替生命留下餘韻，而是試圖在悲劇發生前，把那些掉在社會縫隙裡的人接住。故事透過青年獨居、網路孤立、高齡社區、老老照護、憂鬱症、都更邊緣人與遺物轉譯等案件，追問科技、商業、人情與尊嚴之間的界線。</p>
+      <h3>在 Jami 宇宙中的價值</h3>
+      <p>這部作品把 Jami 宇宙的死亡命題推向社會實作。它不是把科技神化，而是把科技放在人情、社福與現場處置的縫隙裡，檢驗什麼叫真正的守望。</p>
+    </div>
+    <aside class="factbox">
+      <h4>快速標籤</h4>
+      <div class="tag-row vertical"><span class="pill">庭如</span><span class="pill">孤獨死</span><span class="pill">App</span><span class="pill">社會安全網</span><span class="pill">高齡化</span><span class="pill">疫情青春</span></div>
+      <dl>
+        <dt>形式</dt><dd>八集案件</dd>
+        <dt>篇幅</dt><dd>8 集</dd>
+        <dt>主題軸</dt><dd>孤獨死、社會安全網、科技照護、青春失落</dd>
+      </dl>
+    </aside>
+  </div>
+  <h3>篇章地圖</h3>
+  <p class="note">以下為每篇故事的整理式摘要。點開可閱讀該篇的核心事件與主題功能。</p>
+  <ol class="episode-list">
+<li class="episode" data-title="第一集：【界線外的微弱頻率】 故事承接《Before Fades》最後的餘韻。庭如在一場溫柔而完整的生前告別式後下班，卻在回家路上感應到巷弄深處一具孤獨死遺體留下的微弱情緒。那不是強烈的怨恨，也不是求救，而是一種卑微到令人心碎的歉意：對不起，好像會弄髒地板。這份連死後都害怕麻煩別人的孤單，擊中了庭如。 她開始意識到，Before Fades 能替人安排美麗的告別，卻接不住那些連告別資格都沒有的人。於是她向老麵和平辭職，決定創立 Still Here。她找來前消防救護員阿泰，因長年面對太遲抵達的現場而留下創傷；也找來社恐工程師小安，負責開發以「48 小時無動靜」為核心的監測 App。三人在破舊共享空間裡，寫下 Still Here 的第一版系統。這一集確立本作主題：不是讓死亡更漂亮，而是讓人不要無聲無息地消失。 ---">
+  <details>
+    <summary><span class="ep-no">01</span><span>第一集：【界線外的微弱頻率】</span></summary>
+    <p>故事承接《Before Fades》最後的餘韻。庭如在一場溫柔而完整的生前告別式後下班，卻在回家路上感應到巷弄深處一具孤獨死遺體留下的微弱情緒。那不是強烈的怨恨，也不是求救，而是一種卑微到令人心碎的歉意：對不起，好像會弄髒地板。這份連死後都害怕麻煩別人的孤單，擊中了庭如。 她開始意識到，Before Fades 能替人安排美麗的告別，卻接不住那些連告別資格都沒有的人。於是她向老麵和平辭職，決定創立 Still Here。她找來前消防救護員阿泰，因長年面對太遲抵達的現場而留下創傷；也找來社恐工程師小安，負責開發以「48 小時無動靜」為核心的監測 App。三人在破舊共享空間裡，寫下 Still Here 的第一版系統。這一集確立本作主題：不是讓死亡更漂亮，而是讓人不要無聲無息地消失。 ---</p>
+  </details>
+</li>
+<li class="episode" data-title="第二集：【虛擬的喧囂】 Still Here App 上線後，意外受到年輕自由工作者、夜班族、直播主與獨居者青睞。團隊原本以為孤獨死防護主要面向長輩，卻發現二、三十歲的都市青年更清楚自己一旦出事，未必有人會第一時間知道。系統第一次正式發出二級異常警報，對象是 27 歲影像創作者林雨婕，一名在社群上有數萬粉絲、生活看似亮麗的年輕網紅。 她連續兩天未完成心跳打卡，手機長時間未解鎖，定位停留在住處，推播與語音確認皆無回應，卻沒有填寫緊急聯絡人。小安透過她的公開社群足跡追查，發現她原本有直播與品牌合作，卻突然停更。阿泰與庭如趕到現場，確認她因突發疾病倒在套房內。她的網路世界仍有觀看、按讚、留言與催稿，現實中卻沒有人能替她開門。這一案確立 Still Here 的 SOP，也打破「孤獨死只屬於老人」的想像：萬人關注，不等於有人真正關心。 ---">
+  <details>
+    <summary><span class="ep-no">02</span><span>第二集：【虛擬的喧囂】</span></summary>
+    <p>Still Here App 上線後，意外受到年輕自由工作者、夜班族、直播主與獨居者青睞。團隊原本以為孤獨死防護主要面向長輩，卻發現二、三十歲的都市青年更清楚自己一旦出事，未必有人會第一時間知道。系統第一次正式發出二級異常警報，對象是 27 歲影像創作者林雨婕，一名在社群上有數萬粉絲、生活看似亮麗的年輕網紅。 她連續兩天未完成心跳打卡，手機長時間未解鎖，定位停留在住處，推播與語音確認皆無回應，卻沒有填寫緊急聯絡人。小安透過她的公開社群足跡追查，發現她原本有直播與品牌合作，卻突然停更。阿泰與庭如趕到現場，確認她因突發疾病倒在套房內。她的網路世界仍有觀看、按讚、留言與催稿，現實中卻沒有人能替她開門。這一案確立 Still Here 的 SOP，也打破「孤獨死只屬於老人」的想像：萬人關注，不等於有人真正關心。 ---</p>
+  </details>
+</li>
+<li class="episode" data-title="第三集：【刺蝟的防護網】 Still Here 開始有穩定訂閱收入，庭如決定將服務推向老舊社區，建立 B2B 合作模式。但真正的困難不是設備安裝，而是長輩對「被監控」的本能排斥。萬華老社區「長青新城」裡，老住戶把感測器稱為「死掉報案器」，認為團隊不是詐騙，就是想偷看他們生活。庭如、小安與阿泰帶著數據和方案進場，卻發現理性說明完全無效。 此時老麵介紹的「外援」梅姐登場。她曾做過保險與居服，懂基層社會的人情眉角，也懂老人家的刺不是惡意，而是尊嚴最後的防線。她把冰冷的感測器翻譯成「數位平安符」，把異常通報說成「我下午順便帶碗餛飩湯去看你」。然而，最難搞的獨居榮民詹國華仍偷偷拔掉設備電源，差點讓團隊錯過風險。這一案讓庭如明白，科技防護網如果沒有人的溫度，只是一張掛在空中的網；梅姐也因此正式成為 Still Here 在地化的關鍵拼圖。 ---">
+  <details>
+    <summary><span class="ep-no">03</span><span>第三集：【刺蝟的防護網】</span></summary>
+    <p>Still Here 開始有穩定訂閱收入，庭如決定將服務推向老舊社區，建立 B2B 合作模式。但真正的困難不是設備安裝，而是長輩對「被監控」的本能排斥。萬華老社區「長青新城」裡，老住戶把感測器稱為「死掉報案器」，認為團隊不是詐騙，就是想偷看他們生活。庭如、小安與阿泰帶著數據和方案進場，卻發現理性說明完全無效。 此時老麵介紹的「外援」梅姐登場。她曾做過保險與居服，懂基層社會的人情眉角，也懂老人家的刺不是惡意，而是尊嚴最後的防線。她把冰冷的感測器翻譯成「數位平安符」，把異常通報說成「我下午順便帶碗餛飩湯去看你」。然而，最難搞的獨居榮民詹國華仍偷偷拔掉設備電源，差點讓團隊錯過風險。這一案讓庭如明白，科技防護網如果沒有人的溫度，只是一張掛在空中的網；梅姐也因此正式成為 Still Here 在地化的關鍵拼圖。 ---</p>
+  </details>
+</li>
+<li class="episode" data-title="第四集：【系統盲區】 Still Here 業務逐漸上軌道，團隊搬進更像樣的新辦公室，訂閱數、社區合作與客服流程都開始成長。小安提出新的判讀方向：不只偵測「無動靜」，也要偵測「看似正常卻不正常」的重複行為。庭如雖然認同，卻擔心演算法過度積極造成誤判。就在這種對成長與風險的拉扯中，他們接到一戶老夫妻的高齡版安裝案。 太太陳素珍有初期失智，丈夫許文雄長年照顧她。系統安裝後，水電數據看似正常，家中每天仍有用水、開燈、活動紀錄，因此沒有觸發明顯警報。然而真相是，丈夫早已在家中過世，失智的妻子仍重複洗米、開水、開燈，像生活還在繼續。阿泰進入現場後 PTSD 被猛烈觸發，庭如也第一次真正看見科技的盲區：系統能看見數據，卻不一定看得懂人的崩壞。這一案使 Still Here 從「死亡預警」走向更深的問題：社會安全網漏接的，不只是獨居者，也包括互相照顧到最後一起沉沒的人。 ---">
+  <details>
+    <summary><span class="ep-no">04</span><span>第四集：【系統盲區】</span></summary>
+    <p>Still Here 業務逐漸上軌道，團隊搬進更像樣的新辦公室，訂閱數、社區合作與客服流程都開始成長。小安提出新的判讀方向：不只偵測「無動靜」，也要偵測「看似正常卻不正常」的重複行為。庭如雖然認同，卻擔心演算法過度積極造成誤判。就在這種對成長與風險的拉扯中，他們接到一戶老夫妻的高齡版安裝案。 太太陳素珍有初期失智，丈夫許文雄長年照顧她。系統安裝後，水電數據看似正常，家中每天仍有用水、開燈、活動紀錄，因此沒有觸發明顯警報。然而真相是，丈夫早已在家中過世，失智的妻子仍重複洗米、開水、開燈，像生活還在繼續。阿泰進入現場後 PTSD 被猛烈觸發，庭如也第一次真正看見科技的盲區：系統能看見數據，卻不一定看得懂人的崩壞。這一案使 Still Here 從「死亡預警」走向更深的問題：社會安全網漏接的，不只是獨居者，也包括互相照顧到最後一起沉沒的人。 ---</p>
+  </details>
+</li>
+<li class="episode" data-title="第五集：【活著的幽靈】 失智老夫妻案後，Still Here 團隊變得更完整，也更沉重。小安修正異常判讀模型，阿泰聯繫救護與社福資源，梅姐拓展社區支援網，庭如則開始思考 Still Here 是否只是在等待死亡出現。此時，系統又發出警報，對象是 29 歲的周志昇。他已不是第一次觸發異常：多次長時間不打卡、不解鎖手機、不出門、不回應，但阿泰每次趕到，他都還活著。 這次庭如決定同行。周志昇不是傳統意義上的死亡案件，而是「正在放棄活著」的案件。他因重度憂鬱而斷食、失聯、躺在床上不動，外表沒有明確自傷，卻像已經從世界裡抽離一半。阿泰面對這種不上不下的狀態感到無力，庭如則運用心理專業與共感能力，試著在他真正跨過界線前拉住他。這一集讓 Still Here 的定位被重新定義：它不是收屍系統，而是生命最後一道防線。系統偵測的不是死亡，而是「一個人正在慢慢消失」的訊號。 ---">
+  <details>
+    <summary><span class="ep-no">05</span><span>第五集：【活著的幽靈】</span></summary>
+    <p>失智老夫妻案後，Still Here 團隊變得更完整，也更沉重。小安修正異常判讀模型，阿泰聯繫救護與社福資源，梅姐拓展社區支援網，庭如則開始思考 Still Here 是否只是在等待死亡出現。此時，系統又發出警報，對象是 29 歲的周志昇。他已不是第一次觸發異常：多次長時間不打卡、不解鎖手機、不出門、不回應，但阿泰每次趕到，他都還活著。 這次庭如決定同行。周志昇不是傳統意義上的死亡案件，而是「正在放棄活著」的案件。他因重度憂鬱而斷食、失聯、躺在床上不動，外表沒有明確自傷，卻像已經從世界裡抽離一半。阿泰面對這種不上不下的狀態感到無力，庭如則運用心理專業與共感能力，試著在他真正跨過界線前拉住他。這一集讓 Still Here 的定位被重新定義：它不是收屍系統，而是生命最後一道防線。系統偵測的不是死亡，而是「一個人正在慢慢消失」的訊號。 ---</p>
+  </details>
+</li>
+<li class="episode" data-title="第六集〈還沒開始的決賽〉劇情大綱 2020 年疫情逐漸滲入海岬高中，原本只是校門口的體溫量測、口罩與酒精，慢慢變成改變青春節奏的陰影。三年七班的學生各自準備著屬於高三最後一年的重要時刻：林予晴苦練朗讀比賽，想讓自己的聲音真正抵達舞台；陳柏硯投入數學競賽，依靠邏輯與證明維持秩序；王奕翔在跑道上尋找正式比賽承認的秒數；何佳音和熱音社準備畢業晚會歌曲；周明哲則不斷整理畢旅方案。可是疫情公告一封封下來，比賽延期、活動縮小、社團受限、畢旅改成備案，所有人只能反覆聽見「先照常準備」。Still Here 團隊開始設計校園版系統，在高二學生梅子晴的建議下，把冷冰冰的心理量表改成一句「今天還好嗎？」讓學生能用自己的方式留下話語。這一集的重點不是災難爆發，而是「還以為能抵達」的前一刻：每個人都還在練習、等待、忍耐，卻已經隱約知道，世界可能不會讓他們跑到終點。">
+  <details>
+    <summary><span class="ep-no">06</span><span>第六集〈還沒開始的決賽〉劇情大綱</span></summary>
+    <p>2020 年疫情逐漸滲入海岬高中，原本只是校門口的體溫量測、口罩與酒精，慢慢變成改變青春節奏的陰影。三年七班的學生各自準備著屬於高三最後一年的重要時刻：林予晴苦練朗讀比賽，想讓自己的聲音真正抵達舞台；陳柏硯投入數學競賽，依靠邏輯與證明維持秩序；王奕翔在跑道上尋找正式比賽承認的秒數；何佳音和熱音社準備畢業晚會歌曲；周明哲則不斷整理畢旅方案。可是疫情公告一封封下來，比賽延期、活動縮小、社團受限、畢旅改成備案，所有人只能反覆聽見「先照常準備」。Still Here 團隊開始設計校園版系統，在高二學生梅子晴的建議下，把冷冰冰的心理量表改成一句「今天還好嗎？」讓學生能用自己的方式留下話語。這一集的重點不是災難爆發，而是「還以為能抵達」的前一刻：每個人都還在練習、等待、忍耐，卻已經隱約知道，世界可能不會讓他們跑到終點。</p>
+  </details>
+</li>
+<li class="episode" data-title="第七集〈沒有抵達的旅行〉劇情大綱 三月到五月，疫情讓海岬高中的畢業季逐漸失去形狀。周明哲一版又一版修改畢旅企劃，從花東三天兩夜、墾丁、宜蘭，到校內替代活動，甚至被迫思考「線上畢旅」。他明知荒謬，卻仍不敢停下，因為只要自己放棄，好像全班的期待就真的死了。王奕翔因賽事未定而焦躁，把不甘心壓進一次又一次衝刺；林予晴懷疑錄影比賽是否還算真正的比賽；何佳音則在畢業晚會可能取消的情況下，猶豫是否還要完成那首《如果那天有風》。Still Here 後台觀察到學生留言越來越短，庭如意識到這不是好轉，而是他們開始停止期待。五月底，畢旅正式取消，班群裡只剩「算了啦」式的自我防衛。周明哲傳出那份「我們本來要去很多地方.xlsx」，新增「如果真的出發」欄位，讓同學寫下本該發生的小願望。後段則引入老麵與 Before Fades 團隊，協助學生面對被取消的青春與沈教練的缺席，讓這些未完成的事先被停放，而不是被刪除。">
+  <details>
+    <summary><span class="ep-no">07</span><span>第七集〈沒有抵達的旅行〉劇情大綱</span></summary>
+    <p>三月到五月，疫情讓海岬高中的畢業季逐漸失去形狀。周明哲一版又一版修改畢旅企劃，從花東三天兩夜、墾丁、宜蘭，到校內替代活動，甚至被迫思考「線上畢旅」。他明知荒謬，卻仍不敢停下，因為只要自己放棄，好像全班的期待就真的死了。王奕翔因賽事未定而焦躁，把不甘心壓進一次又一次衝刺；林予晴懷疑錄影比賽是否還算真正的比賽；何佳音則在畢業晚會可能取消的情況下，猶豫是否還要完成那首《如果那天有風》。Still Here 後台觀察到學生留言越來越短，庭如意識到這不是好轉，而是他們開始停止期待。五月底，畢旅正式取消，班群裡只剩「算了啦」式的自我防衛。周明哲傳出那份「我們本來要去很多地方.xlsx」，新增「如果真的出發」欄位，讓同學寫下本該發生的小願望。後段則引入老麵與 Before Fades 團隊，協助學生面對被取消的青春與沈教練的缺席，讓這些未完成的事先被停放，而不是被刪除。</p>
+  </details>
+</li>
+<li class="episode" data-title="第八集〈依然在這裡〉劇情大綱 六月，海岬高中舉行一場被防疫流程切碎的畢業典禮。學生分批入校、量體溫、噴酒精，坐在有透明隔板的教室裡觀看直播；沒有家長、沒有禮堂進場、沒有擁抱，也不能跨班道別。直播畫面切到空蕩禮堂時，學生原以為那只是冷冰冰的典禮現場，卻發現每張椅子上都貼著一個畢業生的名字，連沈建宏教練也被留下位置。這個簡單安排讓他們明白：雖然人不能坐在那裡，但他們並沒有被當成不存在。接著，典禮播放「依然在這裡」影片，把周明哲的畢旅表格、陳柏硯的數學筆記、林予晴的朗讀練習、王奕翔的跑道記憶、何佳音的歌曲，逐一整理成青春沒有抵達卻真實走過的證明。多年後，這群人重聚，看著當年那份第十七版畢旅表格，笑那些幼稚留言，也重新想起沒能出發的海、沒能完成的比賽、沒能好好道別的人。這一集將「失去」轉化為「被記得」：他們沒有完整抵達畢業季，但他們依然在這裡。">
+  <details>
+    <summary><span class="ep-no">08</span><span>第八集〈依然在這裡〉劇情大綱</span></summary>
+    <p>六月，海岬高中舉行一場被防疫流程切碎的畢業典禮。學生分批入校、量體溫、噴酒精，坐在有透明隔板的教室裡觀看直播；沒有家長、沒有禮堂進場、沒有擁抱，也不能跨班道別。直播畫面切到空蕩禮堂時，學生原以為那只是冷冰冰的典禮現場，卻發現每張椅子上都貼著一個畢業生的名字，連沈建宏教練也被留下位置。這個簡單安排讓他們明白：雖然人不能坐在那裡，但他們並沒有被當成不存在。接著，典禮播放「依然在這裡」影片，把周明哲的畢旅表格、陳柏硯的數學筆記、林予晴的朗讀練習、王奕翔的跑道記憶、何佳音的歌曲，逐一整理成青春沒有抵達卻真實走過的證明。多年後，這群人重聚，看著當年那份第十七版畢旅表格，笑那些幼稚留言，也重新想起沒能出發的海、沒能完成的比賽、沒能好好道別的人。這一集將「失去」轉化為「被記得」：他們沒有完整抵達畢業季，但他們依然在這裡。</p>
+  </details>
+</li></ol>
+</section>
+
+<section class="work-detail" id="border" data-title="彼岸邊境局 Bureau of the Afterlife Border 林予安 周哲 死後行政 因果熵值 現世關聯 生命課程">
+  <div class="section-kicker">作品詳解</div>
+  <h2>彼岸邊境局</h2>
+  <p class="lead"><strong>Bureau of the Afterlife Border</strong>｜死後行政機關奇幻／生命課程單元劇｜十條規則</p>
+  <div class="detail-grid">
+    <div class="detail-main">
+      <h3>核心定位</h3>
+      <p>《彼岸邊境局》是目前最能統整 Jami 宇宙的作品。它有《鑒愛師》的顯影、《Before Fades》的職人行政、《神明同居》的彼岸與日常神、《Still Here》的生命安全網，也有非常強的喜劇節奏。因果熵值、現世關聯申報、分發流程、低熵值快速通道，把死亡後的放不下變成可以被辦理、被審查、被限制的制度。這個制度冷冰冰，但辦理的人可以很溫柔。</p>
+      <h3>作品核心</h3>
+      <p>彼岸邊境局第三入境大廳，是亡者進入死後流程前的行政窗口。林予安與周哲在十七號、十八號櫃檯處理現世關聯申報、托夢、觀察、滯留、非人亡者代言、虛構角色、低熵值快速通道等案件。故事用公務流程與荒謬公告包裝死亡課題，最後落在愛、控制、遺憾、陪伴與放下。</p>
+      <h3>在 Jami 宇宙中的價值</h3>
+      <p>這部作品把你的核心能力集中起來：用荒謬流程承接沉重情感；用公務員語氣說人生大事；用一條條規則，逼角色看見真正放不下的是什麼。</p>
+    </div>
+    <aside class="factbox">
+      <h4>快速標籤</h4>
+      <div class="tag-row vertical"><span class="pill">林予安</span><span class="pill">周哲</span><span class="pill">死後行政</span><span class="pill">因果熵值</span><span class="pill">現世關聯</span><span class="pill">生命課程</span></div>
+      <dl>
+        <dt>形式</dt><dd>十條規則</dd>
+        <dt>篇幅</dt><dd>10 Rule</dd>
+        <dt>主題軸</dt><dd>死亡行政、因果熵值、現世關聯、告別與限制</dd>
+      </dl>
+    </aside>
+  </div>
+  <h3>篇章地圖</h3>
+  <p class="note">以下為每篇故事的整理式摘要。點開可閱讀該篇的核心事件與主題功能。</p>
+  <ol class="episode-list">
+<li class="episode" data-title="Rule.1　不好意思，這裡不接受 彼岸邊境局第三入境大廳，十七號櫃檯職員林予安與十八號櫃檯周哲，一如往常在死後行政流程裡處理各種荒謬客訴。這天，一位抱著紅包袋的老太太陳秀枝被叫到櫃檯。予安起初以為她想用現世財物賄賂或影響因果熵值，便例行提醒本局不接受現金、黃金、房產、保單等任何財物。沒想到老太太只是笑著說，那不是給他的，而是原本要在六天後孫女婚禮上親手送出的紅包。 陳秀枝因自然死亡來到彼岸，因果熵值只有 17，極低而珍貴。她沒有哭鬧，也沒有要求回去，只想申請一次「現世觀察」，看看孫女結婚。系統試算後，觀察會讓熵值從 17 增加到 20，而 20 是一條微妙的分界線，可能影響她之後的分發結果。予安照規定說明風險，老太太則在思考後承認，她其實不是非看婚禮不可，而是想親眼確認孫女會幸福、會過得很好。 最後，她選擇申請現世觀察。予安核准後，她像是終於放下了一件事。這篇奠定系列核心：死亡不是最荒謬的事，真正動人的，是人最後放不下的往往不是錢、房子或權力，而是一個紅包袋、一場沒參加到的婚禮，以及一句「我想再看她一眼」。">
+  <details>
+    <summary><span class="ep-no">01</span><span>Rule.1　不好意思，這裡不接受</span></summary>
+    <p>彼岸邊境局第三入境大廳，十七號櫃檯職員林予安與十八號櫃檯周哲，一如往常在死後行政流程裡處理各種荒謬客訴。這天，一位抱著紅包袋的老太太陳秀枝被叫到櫃檯。予安起初以為她想用現世財物賄賂或影響因果熵值，便例行提醒本局不接受現金、黃金、房產、保單等任何財物。沒想到老太太只是笑著說，那不是給他的，而是原本要在六天後孫女婚禮上親手送出的紅包。 陳秀枝因自然死亡來到彼岸，因果熵值只有 17，極低而珍貴。她沒有哭鬧，也沒有要求回去，只想申請一次「現世觀察」，看看孫女結婚。系統試算後，觀察會讓熵值從 17 增加到 20，而 20 是一條微妙的分界線，可能影響她之後的分發結果。予安照規定說明風險，老太太則在思考後承認，她其實不是非看婚禮不可，而是想親眼確認孫女會幸福、會過得很好。 最後，她選擇申請現世觀察。予安核准後，她像是終於放下了一件事。這篇奠定系列核心：死亡不是最荒謬的事，真正動人的，是人最後放不下的往往不是錢、房子或權力，而是一個紅包袋、一場沒參加到的婚禮，以及一句「我想再看她一眼」。</p>
+  </details>
+</li>
+<li class="episode" data-title="Rule.2　請勿以犯罪方式延長滯留 第二案帶進系列的黑暗面。一名被執行死刑的男人邱勝隆抵達彼岸邊境局，系統標示他為「重大加害」，現世罪責包含三件故意殺人，以及恐嚇、非法拘禁、毀損遺體等附帶傷害，因果熵值高達 286。與一般剛死者不同，他非常冷靜，像早已預演過死後流程。他提出現世關聯申報，要求滯留兩年，理由是想等女兒邱映涵成年後出庭，聽她親口說自己是否仍記得「爸爸不是一開始就是壞人」。 予安指出現世關聯事務有期限，不可能延長兩年。邱勝隆則開始試圖鑽漏洞，表示如果在彼岸犯罪、傷害其他亡者，是否能因調查程序而被留置。他不是失控，而是在精密計算規則。他甚至鎖定候位區中脆弱的無辜亡者，企圖用加害行為換取程序拖延。系統判定「彼岸秩序侵害意圖成立」，但同時補上規則：規避性彼岸犯罪不適用程序展延，審查期間不開放現世觀察、托夢或關聯申報。 邱勝隆真正想要的不是告別，而是死後仍延續對女兒人生的控制。予安看穿他要的不是兩年，而是女兒的一輩子。邱勝隆被帶離後，予安在備註中寫下：「該亡者非為告別而滯留，係為延續控制。」兩年後，邱映涵主動到墓前探望父親。她沒有原諒，也沒有和解，只是把他慢慢移進記憶深處。這篇讓系列從溫情擴張到倫理判斷：愛、愧疚、記憶與控制，不能混為一談。">
+  <details>
+    <summary><span class="ep-no">02</span><span>Rule.2　請勿以犯罪方式延長滯留</span></summary>
+    <p>第二案帶進系列的黑暗面。一名被執行死刑的男人邱勝隆抵達彼岸邊境局，系統標示他為「重大加害」，現世罪責包含三件故意殺人，以及恐嚇、非法拘禁、毀損遺體等附帶傷害，因果熵值高達 286。與一般剛死者不同，他非常冷靜，像早已預演過死後流程。他提出現世關聯申報，要求滯留兩年，理由是想等女兒邱映涵成年後出庭，聽她親口說自己是否仍記得「爸爸不是一開始就是壞人」。 予安指出現世關聯事務有期限，不可能延長兩年。邱勝隆則開始試圖鑽漏洞，表示如果在彼岸犯罪、傷害其他亡者，是否能因調查程序而被留置。他不是失控，而是在精密計算規則。他甚至鎖定候位區中脆弱的無辜亡者，企圖用加害行為換取程序拖延。系統判定「彼岸秩序侵害意圖成立」，但同時補上規則：規避性彼岸犯罪不適用程序展延，審查期間不開放現世觀察、托夢或關聯申報。 邱勝隆真正想要的不是告別，而是死後仍延續對女兒人生的控制。予安看穿他要的不是兩年，而是女兒的一輩子。邱勝隆被帶離後，予安在備註中寫下：「該亡者非為告別而滯留，係為延續控制。」兩年後，邱映涵主動到墓前探望父親。她沒有原諒，也沒有和解，只是把他慢慢移進記憶深處。這篇讓系列從溫情擴張到倫理判斷：愛、愧疚、記憶與控制，不能混為一談。</p>
+  </details>
+</li>
+<li class="episode" data-title="Rule.3　本局不提供托夢內容校稿服務 第三案處理親子關係中的「死後還想當家長」。亡者吳茂榮，72 歲，肺腺癌末期離世，生前是國中教務主任。他帶著一疊厚厚的牛皮紙袋來到十七號櫃檯，想申請托夢給小兒子吳俊皓。那份稿子不只是遺言，而像一份完整訓導講稿：有開場、道歉、人生提醒、家庭責任、房產建議與結語，甚至標註「第一版，臨終前未完成，死後補訂」。 予安很快發現，吳茂榮表面上想道歉，實際上仍夾帶大量控制與指導。他對兒子的評價，依舊充滿「你不受教」「你哥哥比較穩健」「我是為你好」這類父權式語氣。予安不斷要求他把托夢目的簡化，因為托夢不是簡報，也不是死後繼續管理家人的管道。隨著對話推進，吳茂榮逐漸意識到，他真正想說的不是那些人生規劃，而只是「爸爸對不起你」。 系統因此重新判定托夢目的為「告別、道歉、不附加現世指示」，熵值增加也從原本較高的介入型申報降為 +5。吳茂榮最後放棄逐字稿，只申請單純道歉。現世中，吳俊皓夢見父親站在以前國中的走廊，沒有責備、沒有但是、沒有要求，只說了兩次「對不起」。醒來後，他在原本要傳給母親的訊息後補上一句：「我會去看他。」這篇的核心不是和解，而是「少說一點，才可能真的被聽見」。">
+  <details>
+    <summary><span class="ep-no">03</span><span>Rule.3　本局不提供托夢內容校稿服務</span></summary>
+    <p>第三案處理親子關係中的「死後還想當家長」。亡者吳茂榮，72 歲，肺腺癌末期離世，生前是國中教務主任。他帶著一疊厚厚的牛皮紙袋來到十七號櫃檯，想申請托夢給小兒子吳俊皓。那份稿子不只是遺言，而像一份完整訓導講稿：有開場、道歉、人生提醒、家庭責任、房產建議與結語，甚至標註「第一版，臨終前未完成，死後補訂」。 予安很快發現，吳茂榮表面上想道歉，實際上仍夾帶大量控制與指導。他對兒子的評價，依舊充滿「你不受教」「你哥哥比較穩健」「我是為你好」這類父權式語氣。予安不斷要求他把托夢目的簡化，因為托夢不是簡報，也不是死後繼續管理家人的管道。隨著對話推進，吳茂榮逐漸意識到，他真正想說的不是那些人生規劃，而只是「爸爸對不起你」。 系統因此重新判定托夢目的為「告別、道歉、不附加現世指示」，熵值增加也從原本較高的介入型申報降為 +5。吳茂榮最後放棄逐字稿，只申請單純道歉。現世中，吳俊皓夢見父親站在以前國中的走廊，沒有責備、沒有但是、沒有要求，只說了兩次「對不起」。醒來後，他在原本要傳給母親的訊息後補上一句：「我會去看他。」這篇的核心不是和解，而是「少說一點，才可能真的被聽見」。</p>
+  </details>
+</li>
+<li class="episode" data-title="Rule.4　特殊狀況可指定代言服務 第四案從荒謬喜劇開場，最後落到寵物告別。十七號櫃檯叫號後，等候區沒有亡者站起來，反而是一隻三花貓坐在椅子下方。牠叫咪咪，14 歲，死於腎衰竭，因果熵值只有 9。牠不往十七號櫃檯走，反而跑向周哲的十八號櫃檯，精準打開抽屜，叼走周哲藏起來的黑胡椒肉乾。周哲追著牠跑遍大廳，最後系統跳出特殊規則：非人類亡者無法以人類語言表達時，可指定現場職員作為臨時代言。咪咪選中了周哲。 接受代言後，周哲看見咪咪與飼主陳宏志的記憶。陳宏志是一名 46 歲、健康狀態不佳、情緒高度悲傷的中年男人。他陪咪咪走完最後一晚，卻在牠離開後陷入空房間、貓碗、沙發與幻聽般的思念。咪咪真正想申報的不是自己想回去，而是擔心主人會不吃飯、不吃藥、不出門。系統核准「眼角餘光殘影」七天，讓陳宏志在生活角落裡隱約感覺咪咪仍在。 七天裡，陳宏志開始吃飯、服藥、散步，最後把貓碗洗好收起，對空房間說自己會好好生活，讓咪咪不用再擔心。周哲原本想延長殘影，但予安提醒他，七天是陪伴，再久就會變成牽掛。最後咪咪在彼岸走廊與陳宏志過去養過的貓狗重逢，叼走周哲的肉乾，昂著尾巴走進光裡。這篇讓周哲第一次從吐槽者變成情感承接者，也把「告別寵物」寫成一種雙向放手。">
+  <details>
+    <summary><span class="ep-no">04</span><span>Rule.4　特殊狀況可指定代言服務</span></summary>
+    <p>第四案從荒謬喜劇開場，最後落到寵物告別。十七號櫃檯叫號後，等候區沒有亡者站起來，反而是一隻三花貓坐在椅子下方。牠叫咪咪，14 歲，死於腎衰竭，因果熵值只有 9。牠不往十七號櫃檯走，反而跑向周哲的十八號櫃檯，精準打開抽屜，叼走周哲藏起來的黑胡椒肉乾。周哲追著牠跑遍大廳，最後系統跳出特殊規則：非人類亡者無法以人類語言表達時，可指定現場職員作為臨時代言。咪咪選中了周哲。 接受代言後，周哲看見咪咪與飼主陳宏志的記憶。陳宏志是一名 46 歲、健康狀態不佳、情緒高度悲傷的中年男人。他陪咪咪走完最後一晚，卻在牠離開後陷入空房間、貓碗、沙發與幻聽般的思念。咪咪真正想申報的不是自己想回去，而是擔心主人會不吃飯、不吃藥、不出門。系統核准「眼角餘光殘影」七天，讓陳宏志在生活角落裡隱約感覺咪咪仍在。 七天裡，陳宏志開始吃飯、服藥、散步，最後把貓碗洗好收起，對空房間說自己會好好生活，讓咪咪不用再擔心。周哲原本想延長殘影，但予安提醒他，七天是陪伴，再久就會變成牽掛。最後咪咪在彼岸走廊與陳宏志過去養過的貓狗重逢，叼走周哲的肉乾，昂著尾巴走進光裡。這篇讓周哲第一次從吐槽者變成情感承接者，也把「告別寵物」寫成一種雙向放手。</p>
+  </details>
+</li>
+<li class="episode" data-title="Rule.5　流程結束請前進 第五案把系列帶入更成熟的情感責任。亡者何承宇，36 歲，交通事故死亡。他來到櫃檯後不是要托夢，也不是要觀察，而是要申訴一位名叫 Zephyra 的外部協力者。五年前，他與交往八年的林若晴即將結婚，卻感覺對方越來越冷淡，因此申請 Zephyra 的「現世情感鑑定」。Zephyra 沒有直接告訴他答案，而是讓他看見林若晴在他看不見時的樣子：一個人等他回家、在朋友面前被玩笑傷到、看房時害怕自己再也沒有理由離開。 何承宇因此明白林若晴不是突然變了，而是很早以前就累了。兩人分手後，他以為真相會讓自己自由，卻在往後五年陷入失眠、換工作、無法重新建立關係的困境。死後，他想讓彼岸邊境局認定 Zephyra 對他人生壞掉負有責任。予安與 Zephyra 逐步拆解他的真正目的：他不是想知道誰有責任，而是想要一份免責證明，證明後來的痛苦不是自己停在分手那一天，而是別人的錯。 最後，何承宇承認「是我自己問的」，撤回申報，不再把不甘心包成禮物丟進林若晴夢裡。Zephyra 則提醒予安：流程跑完，不代表人真的往前走。這句話反過來打到予安自身，使他暫時無法回應。">
+  <details>
+    <summary><span class="ep-no">05</span><span>Rule.5　流程結束請前進</span></summary>
+    <p>第五案把系列帶入更成熟的情感責任。亡者何承宇，36 歲，交通事故死亡。他來到櫃檯後不是要托夢，也不是要觀察，而是要申訴一位名叫 Zephyra 的外部協力者。五年前，他與交往八年的林若晴即將結婚，卻感覺對方越來越冷淡，因此申請 Zephyra 的「現世情感鑑定」。Zephyra 沒有直接告訴他答案，而是讓他看見林若晴在他看不見時的樣子：一個人等他回家、在朋友面前被玩笑傷到、看房時害怕自己再也沒有理由離開。 何承宇因此明白林若晴不是突然變了，而是很早以前就累了。兩人分手後，他以為真相會讓自己自由，卻在往後五年陷入失眠、換工作、無法重新建立關係的困境。死後，他想讓彼岸邊境局認定 Zephyra 對他人生壞掉負有責任。予安與 Zephyra 逐步拆解他的真正目的：他不是想知道誰有責任，而是想要一份免責證明，證明後來的痛苦不是自己停在分手那一天，而是別人的錯。 最後，何承宇承認「是我自己問的」，撤回申報，不再把不甘心包成禮物丟進林若晴夢裡。Zephyra 則提醒予安：流程跑完，不代表人真的往前走。這句話反過來打到予安自身，使他暫時無法回應。</p>
+  </details>
+</li>
+<li class="episode" data-title="Rule.6　妥善維護存續設備 彼岸邊境局第三入境大廳的電子看板出現新公告：「妥善維護存續設備」。周哲一開始以為只是普通設備提醒，林予安則照常辦案，直到一名叫夏目蟬的年輕女孩被叫到十七號櫃檯。系統載入後，眾人才發現她根本還沒死，而是生者誤入。她的肉體仍在現世深層昏睡，生命線未斷，但回返路徑不明。 此時櫃檯旁一台多年被當成裝飾的綠色公共電話突然響起。來電者是千撥，一位與小蟬曾有關聯的「限時通話／公共電話／IC 電話卡」神格殘響。他氣急敗壞地痛罵彼岸局竟然讓活人抽號碼牌、進櫃檯，還差點進入分發流程。小蟬已失去神明視認能力，聽不見千撥，只能聽到模糊電波聲，但那聲音讓她感到熟悉。 予安確認回返條件：需要現世錨點、跨界通訊設備，以及生命線窗口內完成連接。小蟬在電話嘟聲中想起自己還有一則未回的訊息，來自摯友美紀。那份「有人還在等她回話」成為她的現世錨點。然而公共電話卡槽老舊、設備失修，連線失敗。眾人翻出 2001 年版操作手冊，發現必須插入有效通訊媒介，也就是 IC 電話卡。現場沒有卡，千撥最後決定燃燒自己的神格殘響，化為那張餘額為 0 的星空電話卡，硬是替小蟬接通一次回返通話。">
+  <details>
+    <summary><span class="ep-no">06</span><span>Rule.6　妥善維護存續設備</span></summary>
+    <p>彼岸邊境局第三入境大廳的電子看板出現新公告：「妥善維護存續設備」。周哲一開始以為只是普通設備提醒，林予安則照常辦案，直到一名叫夏目蟬的年輕女孩被叫到十七號櫃檯。系統載入後，眾人才發現她根本還沒死，而是生者誤入。她的肉體仍在現世深層昏睡，生命線未斷，但回返路徑不明。 此時櫃檯旁一台多年被當成裝飾的綠色公共電話突然響起。來電者是千撥，一位與小蟬曾有關聯的「限時通話／公共電話／IC 電話卡」神格殘響。他氣急敗壞地痛罵彼岸局竟然讓活人抽號碼牌、進櫃檯，還差點進入分發流程。小蟬已失去神明視認能力，聽不見千撥，只能聽到模糊電波聲，但那聲音讓她感到熟悉。 予安確認回返條件：需要現世錨點、跨界通訊設備，以及生命線窗口內完成連接。小蟬在電話嘟聲中想起自己還有一則未回的訊息，來自摯友美紀。那份「有人還在等她回話」成為她的現世錨點。然而公共電話卡槽老舊、設備失修，連線失敗。眾人翻出 2001 年版操作手冊，發現必須插入有效通訊媒介，也就是 IC 電話卡。現場沒有卡，千撥最後決定燃燒自己的神格殘響，化為那張餘額為 0 的星空電話卡，硬是替小蟬接通一次回返通話。</p>
+  </details>
+</li>
+<li class="episode" data-title="Rule.7　請勿向虛構角色索取簽名 第三入境大廳公告新增「請勿向虛構角色索取簽名」，周哲立刻察覺不妙。叫號後，一名金髮、紅衣、姿態優雅的男人走向十七號櫃檯。周哲一眼認出他是夏亞・阿茲納布爾，當場失去平常的吐槽節奏，予安則完全搞不清楚狀況，只能依流程辦理。系統載入後，顯示夏亞並非現世亡者，而是「虛構敘事體」，來源為宇宙世紀，現世狀態不存在，敘事狀態退場／觀測不定。 更驚人的是，系統初始判定他的因果熵值高達 999，甚至觸發大規模戰爭責任警示。周哲向予安與主管簡述夏亞在作品中的身分、阿克西斯墜落事件、與阿姆羅長年宿敵關係，敘事分流科與警備人員因此到場。夏亞始終冷靜，指出自己沒有現世，戰爭也早已在故事裡結束。他出現在邊境局，並非因為仍想申報什麼，而是因為「你們」不肯讓他離開。 系統隨後啟動敘事分流審查，要求排除「非當事人自有因果」。這讓眾人意識到，999 裡面混進了觀眾的情感投射：崇拜、批判、模型、台詞、二創、世代記憶、粉絲爭論，以及周哲這類觀眾對角色投注的青春與孤獨。作品內的戰爭責任屬於敘事世界內部因果，已在作品終局閉合；現世生命損害、財物損害、政治責任皆無；觀眾認知殘響不得歸責當事人。">
+  <details>
+    <summary><span class="ep-no">07</span><span>Rule.7　請勿向虛構角色索取簽名</span></summary>
+    <p>第三入境大廳公告新增「請勿向虛構角色索取簽名」，周哲立刻察覺不妙。叫號後，一名金髮、紅衣、姿態優雅的男人走向十七號櫃檯。周哲一眼認出他是夏亞・阿茲納布爾，當場失去平常的吐槽節奏，予安則完全搞不清楚狀況，只能依流程辦理。系統載入後，顯示夏亞並非現世亡者，而是「虛構敘事體」，來源為宇宙世紀，現世狀態不存在，敘事狀態退場／觀測不定。 更驚人的是，系統初始判定他的因果熵值高達 999，甚至觸發大規模戰爭責任警示。周哲向予安與主管簡述夏亞在作品中的身分、阿克西斯墜落事件、與阿姆羅長年宿敵關係，敘事分流科與警備人員因此到場。夏亞始終冷靜，指出自己沒有現世，戰爭也早已在故事裡結束。他出現在邊境局，並非因為仍想申報什麼，而是因為「你們」不肯讓他離開。 系統隨後啟動敘事分流審查，要求排除「非當事人自有因果」。這讓眾人意識到，999 裡面混進了觀眾的情感投射：崇拜、批判、模型、台詞、二創、世代記憶、粉絲爭論，以及周哲這類觀眾對角色投注的青春與孤獨。作品內的戰爭責任屬於敘事世界內部因果，已在作品終局閉合；現世生命損害、財物損害、政治責任皆無；觀眾認知殘響不得歸責當事人。</p>
+  </details>
+</li>
+<li class="episode" data-title="Rule.8　陪伴性申報可於限制內受理 彼岸邊境局第三入境大廳出現新公告：「請勿以『只差一點』作為申報理由」與「請勿要求本局重算已結案時間」。林予安看著公告時短暫停頓，像是對這類案件早有某種經驗。隨後，五十三歲的高志遠被叫到十七號櫃檯。他死於急性心肌梗塞，因果熵值 74，對自己的死亡沒有太大反應，只急著申報一件現世關聯事務：他想修正八年前一個路口的行人號誌秒數，讓紅燈多延長三秒。 八年前，高志遠的女兒高雨庭依照綠燈走上斑馬線，卻被來車撞成深層昏迷，長期臥床。高志遠照顧女兒八年，每天翻身、擦身、拍痰、守著醫院電話，最後自己先撐不住來到彼岸局。他認為只要當年紅燈晚三秒，女兒就能平安買完早餐回家。然而系統駁回申請，理由是已結因果無法回寫，那三秒已經成為事故結果的一部分，不能抽離修正。高志遠崩潰後又提出，能不能讓女兒「不要再撐了」，系統立刻跳出紅色警示，禁止亡者替生者變更生命狀態。 高志遠質問予安是否看過一個人明明還有呼吸，卻困在床上什麼也做不了。予安沉默後回答：「看過。」他沒有解釋，只替高志遠查出替代方案：【深層意識陪伴一次】。這項申報不能讓雨庭醒來，不能讓她死亡，也不能改寫事故，只能讓高志遠進入她的深層意識，陪她很短一段時間，代價是高志遠的熵值從 74 增加到 83。">
+  <details>
+    <summary><span class="ep-no">08</span><span>Rule.8　陪伴性申報可於限制內受理</span></summary>
+    <p>彼岸邊境局第三入境大廳出現新公告：「請勿以『只差一點』作為申報理由」與「請勿要求本局重算已結案時間」。林予安看著公告時短暫停頓，像是對這類案件早有某種經驗。隨後，五十三歲的高志遠被叫到十七號櫃檯。他死於急性心肌梗塞，因果熵值 74，對自己的死亡沒有太大反應，只急著申報一件現世關聯事務：他想修正八年前一個路口的行人號誌秒數，讓紅燈多延長三秒。 八年前，高志遠的女兒高雨庭依照綠燈走上斑馬線，卻被來車撞成深層昏迷，長期臥床。高志遠照顧女兒八年，每天翻身、擦身、拍痰、守著醫院電話，最後自己先撐不住來到彼岸局。他認為只要當年紅燈晚三秒，女兒就能平安買完早餐回家。然而系統駁回申請，理由是已結因果無法回寫，那三秒已經成為事故結果的一部分，不能抽離修正。高志遠崩潰後又提出，能不能讓女兒「不要再撐了」，系統立刻跳出紅色警示，禁止亡者替生者變更生命狀態。 高志遠質問予安是否看過一個人明明還有呼吸，卻困在床上什麼也做不了。予安沉默後回答：「看過。」他沒有解釋，只替高志遠查出替代方案：【深層意識陪伴一次】。這項申報不能讓雨庭醒來，不能讓她死亡，也不能改寫事故，只能讓高志遠進入她的深層意識，陪她很短一段時間，代價是高志遠的熵值從 74 增加到 83。</p>
+  </details>
+</li>
+<li class="episode" data-title="Rule.9　低熵值可走快速通道辦理 第三入境大廳公告新增「低熵值亡者可走快速通道辦理」與「嚴正禁止於本局成立宗教分支」。周哲一邊吐槽，一邊理解低熵值代表亡者自身對現世糾纏少，風險較低。隨後快速通道叫號，出現熵值只有 9 的蕭歲寒。她是六十六歲的退休國小教師與社區插花老師，死於胰臟癌末期。她身上沒有神聖感，卻讓候位區裡哭鬧的人自然安靜下來。系統顯示她個體因果熵值極低，但現世投射壓力高達 167，感謝殘留極高，信仰聚集異常升高。 蕭歲寒本人早已放下，卻被生者的紀念推回櫃檯。她申報的內容，是希望阻止學生與親友成立「歲寒花道生命實踐會」。現世資料顯示，追思花展、語錄群組、紀念基金與昂貴共修課程快速成形，甚至把她上課時隨口說的「三枝九葉」整理成方法論。系統駁回她干預生者集會與信仰的申請，因為亡者不能強制改變活人的紀念方式。她早知道會被駁回，仍想趁自己還能說一句話時，把被整理得太乾淨的自己拉回普通人的位置。 蕭歲寒說，她教的不是花的格式，而是讓人停下來。她常用快枯的花、蟲咬的葉子、斷枝與空位，是因為人生本來就不總是滿開。她害怕大家把她當菩薩，因為菩薩不會累，可是她會。善良若被推成只有聖人才做得到，普通人就能安心說自己做不到。">
+  <details>
+    <summary><span class="ep-no">09</span><span>Rule.9　低熵值可走快速通道辦理</span></summary>
+    <p>第三入境大廳公告新增「低熵值亡者可走快速通道辦理」與「嚴正禁止於本局成立宗教分支」。周哲一邊吐槽，一邊理解低熵值代表亡者自身對現世糾纏少，風險較低。隨後快速通道叫號，出現熵值只有 9 的蕭歲寒。她是六十六歲的退休國小教師與社區插花老師，死於胰臟癌末期。她身上沒有神聖感，卻讓候位區裡哭鬧的人自然安靜下來。系統顯示她個體因果熵值極低，但現世投射壓力高達 167，感謝殘留極高，信仰聚集異常升高。 蕭歲寒本人早已放下，卻被生者的紀念推回櫃檯。她申報的內容，是希望阻止學生與親友成立「歲寒花道生命實踐會」。現世資料顯示，追思花展、語錄群組、紀念基金與昂貴共修課程快速成形，甚至把她上課時隨口說的「三枝九葉」整理成方法論。系統駁回她干預生者集會與信仰的申請，因為亡者不能強制改變活人的紀念方式。她早知道會被駁回，仍想趁自己還能說一句話時，把被整理得太乾淨的自己拉回普通人的位置。 蕭歲寒說，她教的不是花的格式，而是讓人停下來。她常用快枯的花、蟲咬的葉子、斷枝與空位，是因為人生本來就不總是滿開。她害怕大家把她當菩薩，因為菩薩不會累，可是她會。善良若被推成只有聖人才做得到，普通人就能安心說自己做不到。</p>
+  </details>
+</li>
+<li class="episode" data-title="Rule.10 正式職員津貼請向人事處辦理 第三入境大廳的電子看板出現「正式職員津貼請向人事處辦理」，周哲才驚覺自己可能錯過了死後世界的員工福利，和林予安圍繞津貼、飲品補助與人事制度展開吐槽。就在日常荒謬感中，十七號櫃檯叫號，一名叫沈若寧的亡者走到予安面前。她是予安生前的戀人，也是十五年前那場交通事故中，被予安以「生命線續接支撐契約」換得存活機會的人。 沈若寧享年四十歲，死於長期併發症。她看見仍停留在二十八歲模樣的予安，沒有立刻崩潰，也沒有質問他為什麼消失，而是平靜地說起自己醒來後的十五年。她曾經痛苦復健，重新學走路，覺得活著不像旁人說的那麼簡單；也曾怨恨、迷惘，獨自去了予安說過要帶她去的咖啡店，養活一盆薄荷，試著喜歡別人，差點結婚，最後選擇一個人把日子過下去。她慢慢明白，自己可以愛過予安，也可以不把人生停在那一天。 面對「是否申報現世關聯事務」，沈若寧選擇沒有。那些「為什麼是我活下來」、「你有沒有怪我」、「如果當時早一點或晚一點會不會不同」的問題，她已在活著的歲月裡問過太多次，最後不再需要答案。予安獲准送她到分發通道口。兩人在光前短暫擁抱，沈若寧告訴他，自己後來有去海邊，也有好好站著、慢慢往前走，並要予安也往前走。她進入分發通道後，予安的契約完成，分發暫緩狀態解除。">
+  <details>
+    <summary><span class="ep-no">10</span><span>Rule.10 正式職員津貼請向人事處辦理</span></summary>
+    <p>第三入境大廳的電子看板出現「正式職員津貼請向人事處辦理」，周哲才驚覺自己可能錯過了死後世界的員工福利，和林予安圍繞津貼、飲品補助與人事制度展開吐槽。就在日常荒謬感中，十七號櫃檯叫號，一名叫沈若寧的亡者走到予安面前。她是予安生前的戀人，也是十五年前那場交通事故中，被予安以「生命線續接支撐契約」換得存活機會的人。 沈若寧享年四十歲，死於長期併發症。她看見仍停留在二十八歲模樣的予安，沒有立刻崩潰，也沒有質問他為什麼消失，而是平靜地說起自己醒來後的十五年。她曾經痛苦復健，重新學走路，覺得活著不像旁人說的那麼簡單；也曾怨恨、迷惘，獨自去了予安說過要帶她去的咖啡店，養活一盆薄荷，試著喜歡別人，差點結婚，最後選擇一個人把日子過下去。她慢慢明白，自己可以愛過予安，也可以不把人生停在那一天。 面對「是否申報現世關聯事務」，沈若寧選擇沒有。那些「為什麼是我活下來」、「你有沒有怪我」、「如果當時早一點或晚一點會不會不同」的問題，她已在活著的歲月裡問過太多次，最後不再需要答案。予安獲准送她到分發通道口。兩人在光前短暫擁抱，沈若寧告訴他，自己後來有去海邊，也有好好站著、慢慢往前走，並要予安也往前走。她進入分發通道後，予安的契約完成，分發暫緩狀態解除。</p>
+  </details>
+</li></ol>
+</section>
+
+
+<section id="ip">
+  <div class="section-kicker">IP Positioning</div>
+  <h2>整體 IP 定位與改編潛力</h2>
+  <div class="grid-2">
+    <div class="panel"><h3>最適合影視單元劇的系列</h3><p>《鑒愛師》《Before Fades》《Still Here》《彼岸邊境局》最適合改成單元劇。它們每集都有明確案件、明確場域、明確主題與情感反轉，且主角團可以跨集累積成長。</p></div>
+    <div class="panel"><h3>最適合動畫或電影感企劃的系列</h3><p>《世上僅存的魔法》《我跟神明同居的三十天》《蒼藍鎮魂曲》更適合視覺與聲音導向的表現。前兩者靠氛圍與情感，後者靠空戰、災厄與神話級場面。</p></div>
+    <div class="panel"><h3>最適合作品集／作者品牌核心的系列</h3><p>《比存檔更遠的地方》與《世上僅存的魔法》最能代表創作者自我：一個寫產業與創作現實，一個寫藝術與情感翻譯。它們能清楚說明 Jami 對創作的信念。</p></div>
+    <div class="panel"><h3>目前最能統合 Jami宇宙的系列</h3><p>《彼岸邊境局》具備最大整合力。它能自然收納 Zephyra、神明、虛構角色、生命課程、行政職人與幽默節奏，並且每條 Rule 都能承載不同人生議題。</p></div>
+  </div>
+  <h3>最強品牌句</h3>
+  <p class="quote">Jami宇宙寫的不是奇蹟如何改變人生，而是人在無法改變人生時，仍然如何好好說出、好好承擔、好好告別。</p>
+</section>
+</main>
+<script>
+const input=document.getElementById('search');
+input.addEventListener('input',()=>{
+  const q=input.value.trim().toLowerCase();
+  document.querySelectorAll('.work-card,.work-detail,.episode').forEach(el=>{
+    const txt=(el.dataset.title||el.textContent).toLowerCase();
+    el.classList.toggle('hidden', q && !txt.includes(q));
+  });
+});
+</script>
+</body>
+</html>
