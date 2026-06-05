@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>張啟業 Jami ACE｜客觀式個人能力與價值介紹</title>
+  <style>
+    :root{
+      --bg:#0f1117;
+      --panel:#171b24;
+      --panel2:#202635;
+      --text:#eef2f8;
+      --muted:#aeb8c8;
+      --line:#303849;
+      --accent:#6ee7b7;
+      --accent2:#93c5fd;
+      --warn:#fbbf24;
+      --soft:#111827;
+      --chip:#263143;
+      --red:#fca5a5;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      background:
+        radial-gradient(circle at 20% 0%, rgba(110,231,183,.16), transparent 32rem),
+        radial-gradient(circle at 85% 10%, rgba(147,197,253,.16), transparent 34rem),
+        linear-gradient(180deg,#0f1117 0%,#111827 55%,#0f1117 100%);
+      color:var(--text);
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC","Microsoft JhengHei",Arial,sans-serif;
+      line-height:1.78;
+      letter-spacing:.02em;
+    }
+    a{color:var(--accent2)}
+    .wrap{max-width:1180px;margin:0 auto;padding:46px 22px 80px}
+    .hero{
+      border:1px solid var(--line);
+      background:linear-gradient(135deg,rgba(32,38,53,.92),rgba(23,27,36,.92));
+      border-radius:28px;
+      padding:42px;
+      box-shadow:0 22px 80px rgba(0,0,0,.34);
+      position:relative;
+      overflow:hidden;
+    }
+    .hero:after{
+      content:"";
+      position:absolute;
+      width:380px;height:380px;
+      right:-150px;top:-150px;
+      background:radial-gradient(circle,rgba(110,231,183,.22),transparent 70%);
+      pointer-events:none;
+    }
+    .eyebrow{
+      display:inline-flex;
+      gap:8px;
+      flex-wrap:wrap;
+      align-items:center;
+      color:var(--accent);
+      font-weight:700;
+      font-size:14px;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+    }
+    h1{
+      margin:14px 0 12px;
+      font-size:46px;
+      line-height:1.18;
+      letter-spacing:.01em;
+    }
+    .subtitle{
+      font-size:20px;
+      color:#d8e2f0;
+      max-width:880px;
+      margin:0 0 22px;
+    }
+    .note{
+      color:var(--muted);
+      font-size:14px;
+      border-left:3px solid var(--accent2);
+      padding-left:14px;
+      margin-top:24px;
+    }
+    .chips{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+    .chip{
+      display:inline-block;
+      background:rgba(147,197,253,.13);
+      border:1px solid rgba(147,197,253,.24);
+      color:#dcecff;
+      border-radius:999px;
+      padding:7px 12px;
+      font-size:13px;
+      white-space:nowrap;
+    }
+    .grid{display:grid;gap:18px}
+    .grid.cards{grid-template-columns:repeat(4,1fr);margin:28px 0}
+    .card{
+      background:rgba(23,27,36,.92);
+      border:1px solid var(--line);
+      border-radius:22px;
+      padding:22px;
+      box-shadow:0 10px 30px rgba(0,0,0,.18);
+    }
+    .card h3{margin:0 0 8px;font-size:18px}
+    .num{font-size:32px;font-weight:800;color:var(--accent);line-height:1.1}
+    .label{color:var(--muted);font-size:14px}
+    section{
+      margin-top:28px;
+      background:rgba(23,27,36,.88);
+      border:1px solid var(--line);
+      border-radius:26px;
+      padding:30px;
+      box-shadow:0 10px 35px rgba(0,0,0,.14);
+    }
+    h2{
+      margin:0 0 18px;
+      font-size:28px;
+      display:flex;
+      gap:10px;
+      align-items:center;
+    }
+    h2:before{
+      content:"";
+      width:10px;height:28px;
+      border-radius:99px;
+      background:linear-gradient(var(--accent),var(--accent2));
+      display:inline-block;
+    }
+    h3{font-size:20px;margin:22px 0 8px}
+    p{margin:10px 0}
+    .lead{font-size:18px;color:#e5ecf6}
+    .muted{color:var(--muted)}
+    .two{grid-template-columns:1fr 1fr}
+    .three{grid-template-columns:repeat(3,1fr)}
+    .timeline{
+      position:relative;
+      padding-left:24px;
+    }
+    .timeline:before{
+      content:"";
+      position:absolute;
+      left:5px;top:8px;bottom:8px;
+      width:2px;background:var(--line);
+    }
+    .tl{
+      position:relative;
+      padding:0 0 20px 18px;
+      border-bottom:1px dashed rgba(174,184,200,.18);
+      margin-bottom:16px;
+    }
+    .tl:last-child{border-bottom:0;margin-bottom:0;padding-bottom:0}
+    .tl:before{
+      content:"";
+      position:absolute;
+      left:-24px;top:8px;
+      width:12px;height:12px;border-radius:50%;
+      background:var(--accent);
+      box-shadow:0 0 0 5px rgba(110,231,183,.12);
+    }
+    .tl .year{
+      color:var(--accent2);
+      font-weight:800;
+      font-size:16px;
+    }
+    .tl .title{
+      font-size:19px;
+      font-weight:800;
+      margin:2px 0 4px;
+    }
+    table{
+      width:100%;
+      border-collapse:separate;
+      border-spacing:0;
+      overflow:hidden;
+      border:1px solid var(--line);
+      border-radius:16px;
+      margin:16px 0;
+    }
+    th,td{
+      padding:14px 16px;
+      vertical-align:top;
+      border-bottom:1px solid var(--line);
+    }
+    th{
+      background:rgba(147,197,253,.12);
+      color:#e7f1ff;
+      text-align:left;
+      font-weight:800;
+      white-space:nowrap;
+    }
+    tr:last-child td{border-bottom:0}
+    td{color:#dbe5f3}
+    ul{padding-left:1.25rem;margin:10px 0}
+    li{margin:6px 0}
+    .callout{
+      border:1px solid rgba(110,231,183,.32);
+      background:rgba(110,231,183,.08);
+      border-radius:20px;
+      padding:18px 20px;
+      margin:18px 0;
+    }
+    .warning{
+      border-color:rgba(251,191,36,.34);
+      background:rgba(251,191,36,.08);
+    }
+    .quote{
+      font-size:22px;
+      line-height:1.6;
+      color:#fff;
+      border-left:4px solid var(--accent);
+      padding:8px 0 8px 18px;
+      margin:16px 0 6px;
+    }
+    .compact li{margin:3px 0}
+    .badge{
+      color:#0f172a;
+      background:var(--accent);
+      border-radius:8px;
+      padding:2px 8px;
+      font-weight:800;
+      font-size:12px;
+      display:inline-block;
+      margin-right:6px;
+    }
+    .footer{
+      color:var(--muted);
+      text-align:center;
+      margin-top:28px;
+      font-size:13px;
+    }
+    @media (max-width:900px){
+      h1{font-size:34px}
+      .grid.cards,.two,.three{grid-template-columns:1fr}
+      .hero,section{padding:24px}
+      th{white-space:normal}
+      table,thead,tbody,tr,th,td{display:block}
+      thead{display:none}
+      td{border-bottom:0;padding:10px 14px}
+      tr{border-bottom:1px solid var(--line);display:block;padding:8px 0}
+      tr:last-child{border-bottom:0}
+      td:before{
+        content:attr(data-label);
+        display:block;
+        color:var(--accent2);
+        font-weight:800;
+        font-size:13px;
+        margin-bottom:2px;
+      }
+    }
+    @media print{
+      body{background:white;color:#111}
+      .hero,section,.card{background:white;color:#111;border-color:#ddd;box-shadow:none}
+      .subtitle,.lead,td,.muted,.label,.note{color:#333}
+      h1,h2,h3,.quote{color:#111}
+      .chip{border-color:#bbb;background:#f4f4f4;color:#111}
+      .wrap{max-width:100%;padding:20px}
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <header class="hero">
+      <div class="eyebrow">Objective Profile · Product / Game / EdTech / Creative Systems</div>
+      <h1>張啟業 Jami ACE</h1>
+      <p class="subtitle">
+        以遊戲企劃與多平台軟體開發為起點，橫跨產品規劃、專案管理、互動內容、教育科技、AI 輔助工作流程與原創敘事系統的複合型產品人。
+      </p>
+      <div class="chips">
+        <span class="chip">Product Architect</span>
+        <span class="chip">遊戲系統與數值企劃</span>
+        <span class="chip">Web / APP 軟體 PM</span>
+        <span class="chip">互動內容與 VR/AR 專案</span>
+        <span class="chip">教育科技平台規劃</span>
+        <span class="chip">AI 輔助分析與文件審查</span>
+        <span class="chip">世界觀與敘事系統設計</span>
+      </div>
+      <p class="note">
+        本文件採第三人稱、客觀履歷式整理。內容依據使用者提供之 2019 自傳、歷次對話中明確陳述之職涯資訊、專案脈絡、工作方法與創作資料彙整；其中履歷與專案資訊屬當事人陳述，未另行進行第三方查核。
+      </p>
+    </header>
+
+    <div class="grid cards">
+      <div class="card">
+        <div class="num">20+</div>
+        <h3>產業年資</h3>
+        <div class="label">遊戲、軟體、互動內容與教育科技相關經驗累積逾二十年。</div>
+      </div>
+      <div class="card">
+        <div class="num">30+</div>
+        <h3>管理規模</h3>
+        <div class="label">曾任研發處長，具備超過三十人團隊管理經驗。</div>
+      </div>
+      <div class="card">
+        <div class="num">2</div>
+        <h3>國際設計獎項</h3>
+        <div class="label">2014 年 iOS 節奏遊戲與 Bluetooth 硬體整合專案，曾獲 Red Dot 與 Good Design。</div>
+      </div>
+      <div class="card">
+        <div class="num">多領域</div>
+        <h3>跨域整合</h3>
+        <div class="label">遊戲、APP、Web、硬體、展場互動、數據營運、教育平台與 AI 工作流。</div>
+      </div>
+    </div>
+
+    <section>
+      <h2>一、快速定位</h2>
+      <p class="lead">
+        張啟業（Jami ACE）可被客觀描述為「產品架構型 PM / 企劃主管」：其工作重點不是單純接收需求與追蹤進度，而是將模糊需求、複雜系統、跨部門資訊與外包協作，整理成可判斷、可執行、可驗收、可營運的產品方案。
+      </p>
+      <div class="callout">
+        <div class="quote">
+          核心價值可概括為：把混亂變成結構，把想法變成規格，把規格變成可執行方案，再把方案導向交付與營運。
+        </div>
+      </div>
+      <div class="grid two">
+        <div>
+          <h3>主要職能軸線</h3>
+          <ul>
+            <li>產品規劃：需求判斷、流程設計、版本範圍、驗收條件。</li>
+            <li>遊戲企劃：系統、任務、數值、關卡節奏與遊戲化機制。</li>
+            <li>專案管理：外包溝通、排程控管、跨部門協作、風險排序。</li>
+            <li>數據與營運：GA / GA4、使用者行為、留存、行銷導入與後台報表。</li>
+            <li>技術理解：多平台開發流程、Web / APP / Unity / HTML5 / Swift / PHP 等實作脈絡。</li>
+            <li>AI 工作流：AI 產出審查、漏洞檢查、資訊壓縮、角色視角模擬。</li>
+          </ul>
+        </div>
+        <div>
+          <h3>可識別工作特徵</h3>
+          <ul>
+            <li>重視 root cause，不滿足於表面補洞。</li>
+            <li>重視優先級，會先判斷是否阻塞、是否爆炸、是否影響主線。</li>
+            <li>重視可執行性，要求需求不能只停留在概念或口號。</li>
+            <li>重視責任邊界，認為「答應」代表承諾，需要可交付。</li>
+            <li>重視工作方法，認為流程改善不是工作做完後才處理，而是工作本身的一部分。</li>
+            <li>重視團隊思考品質，傾向要求同仁提升判斷能力，而不只是完成交辦事項。</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>二、客觀履歷時間軸</h2>
+      <div class="timeline">
+        <div class="tl">
+          <div class="year">高中時期</div>
+          <div class="title">自學程式與早期多媒體產品化經驗</div>
+          <p>高中階段自學程式設計，曾代表學校參賽並取得台北市高中高職軟體設計相關成績。<br>另於 1995–1997 年間自建兒童幼教多媒體設計工作室，與皇統光碟合作推出兒童英語、日語、注音等多媒體教材。<br>此階段顯示其早期即具備自學、產品化與內容軟體整合經驗。</p>
+        </div>
+        <div class="tl">
+          <div class="year">2000–2008</div>
+          <div class="title">遊戲產業：單機、MMORPG 與知名作品參與</div>
+          <p>參與多款單機與線上遊戲專案，包括《軒轅劍參外傳：天之痕》、《軒轅劍肆》、《軒轅伏魔錄》、《秘密 Online》、《萬王之王 3》等。<br>此階段累積遊戲企劃、系統設計、任務設計、數值調整與大型產品協作經驗。</p>
+        </div>
+        <div class="tl">
+          <div class="year">2009–2013</div>
+          <div class="title">Web Game 與 iOS Game 製作</div>
+          <p>製作多款 Web Game 與 iOS Game，並有實際上架經驗。<br>此階段從傳統遊戲產業延伸到 Web 與行動平台，熟悉較短迭代週期、平台上架與跨裝置產品開發。</p>
+        </div>
+        <div class="tl">
+          <div class="year">2014</div>
+          <div class="title">iOS 節奏遊戲與 Bluetooth 硬體整合</div>
+          <p>製作 iOS 節奏遊戲及相關 Bluetooth 配套硬體。<br>該專案複雜度高於單純軟體遊戲，涉及硬體、藍牙通訊、互動體驗與遊戲節奏整合，並獲德國 Red Dot 與日本 Good Design 設計獎項。</p>
+        </div>
+        <div class="tl">
+          <div class="year">2015–2016</div>
+          <div class="title">中國多地孵化器培訓講師</div>
+          <p>於上海、北京、蘇州、深圳等地擔任孵化器培訓講師，輔導多組團隊開發 Android 與 TV Box 平台遊戲。<br>此階段顯示其不只具備個案開發經驗，也具備知識輸出、團隊輔導與產品落地訓練能力。</p>
+        </div>
+        <div class="tl">
+          <div class="year">2016–2018</div>
+          <div class="title">博弈、Slot、棋牌、彩票與區塊鏈 ICO</div>
+          <p>承接博弈業界委外開發案件，開發 Slot、棋牌、彩票等遊戲，並跨足區塊鏈與 ICO 平台。<br>此階段包含高規則性遊戲設計、機率與營運邏輯、平台化服務與商業化產品經驗。</p>
+        </div>
+        <div class="tl">
+          <div class="year">2018 起</div>
+          <div class="title">台灣接案、影音 APP、展場 VR/AR 與互動多媒體</div>
+          <p>回台後以外包接案方式承接線上視頻播放 APP 產品企劃，並參與 GA 數據追蹤、會員狀態分析、行銷導入與留存方案。<br>後續轉入展場多媒體互動 VR/AR 內容開發，負責專案整體管理與企劃內容。</p>
+        </div>
+        <div class="tl">
+          <div class="year">近年</div>
+          <div class="title">教育出版、教材數位化與教育科技平台</div>
+          <p>近年工作重心轉向高中職教育出版與教材數位化，參與 LTutor、AI Mate、SmartQ、CDP / CRM、任務系統、學習數據報表與教育平台規劃。<br>工作內容包括 Web / APP 軟體 PM、平台功能規劃、AI 教育產品整合、第三方內容串接與使用者行為分析。</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>三、能力結構總覽</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>能力面向</th>
+            <th>客觀內容</th>
+            <th>適用場景</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td data-label="能力面向"><strong>產品架構與需求判斷</strong></td>
+            <td data-label="客觀內容">能將模糊想法整理成明確功能目標、使用者流程、資料需求、例外狀況、驗收條件與版本邊界。<br>對需求會先評估來源、價值、成本、風險與優先級。</td>
+            <td data-label="適用場景">新產品規劃、功能改版、平台重構、跨部門需求整合、外包規格書。</td>
+          </tr>
+          <tr>
+            <td data-label="能力面向"><strong>遊戲系統與遊戲化設計</strong></td>
+            <td data-label="客觀內容">具備任務系統、數值調整、遊戲流程、玩家動機、回饋節奏、獎勵設計與長期留存結構經驗。</td>
+            <td data-label="適用場景">學習任務、成就系統、稱號、排行榜、點數經濟、教育產品遊戲化。</td>
+          </tr>
+          <tr>
+            <td data-label="能力面向"><strong>多平台軟體 PM</strong></td>
+            <td data-label="客觀內容">熟悉 Web、APP、HTML5、Unity3D、Swift、PHP、UI/UX、Dashboard、Admin Panel、GA4 等軟體開發與管理脈絡。</td>
+            <td data-label="適用場景">APP / Web 平台、後台管理、資料報表、第三方串接、使用者旅程優化。</td>
+          </tr>
+          <tr>
+            <td data-label="能力面向"><strong>專案與外包管理</strong></td>
+            <td data-label="客觀內容">具備排程控管、外包溝通、需求拆解、交付驗收與跨角色協調經驗。<br>對工作風險會以「是否阻塞、是否爆炸、是否影響主線」進行排序。</td>
+            <td data-label="適用場景">外包開發、跨部門專案、廠商協作、驗收流程、需求變更控制。</td>
+          </tr>
+          <tr>
+            <td data-label="能力面向"><strong>數據與營運思維</strong></td>
+            <td data-label="客觀內容">曾以 GA 報表、會員狀態、使用者行為、留存與行銷導入作為產品調整依據。<br>近年於教育科技專案中也涉及 CDP / CRM 與學習行為分析。</td>
+            <td data-label="適用場景">使用者分群、行為標籤、任務推播、留存策略、後台報表與營運監看。</td>
+          </tr>
+          <tr>
+            <td data-label="能力面向"><strong>AI 輔助工作流</strong></td>
+            <td data-label="客觀內容">AI 使用方式偏向審查、挑洞、壓縮資訊、模擬主管與工程師視角，而非單純產出內容。<br>可用 AI 協助做需求漏洞檢查、報告摘要、風險分級與溝通稿整理。</td>
+            <td data-label="適用場景">PRD 審查、需求規格補洞、會議準備、長文件摘要、專案風險分析、創作輔助。</td>
+          </tr>
+          <tr>
+            <td data-label="能力面向"><strong>原創敘事與世界觀設計</strong></td>
+            <td data-label="客觀內容">擁有多部系列創作與完整作品宇宙，題材涵蓋科技、死亡、愛、記憶、制度、遊戲產業、AI 與人類情感。<br>作品結構常結合產品邏輯、制度設定與情緒敘事。</td>
+            <td data-label="適用場景">互動敘事、角色世界觀、IP 發展、遊戲劇情、品牌內容、AI 生成內容策劃。</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>四、產品與管理方法論</h2>
+      <div class="grid two">
+        <div class="card">
+          <h3>需求處理原則</h3>
+          <ul>
+            <li>需求不應全部收下，需先判斷是否值得評估。</li>
+            <li>「好」代表承諾，不能作為暫時安撫的語言。</li>
+            <li>需求入口需要成本，否則會養成低品質提案習慣。</li>
+            <li>需求若缺少目的、影響範圍與優先級，應先要求補資訊。</li>
+            <li>明顯低價值或偏離主線的需求，應先擋掉或列為未來版本。</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>優先級判斷原則</h3>
+          <ul>
+            <li>問題處理順序不以「最簡單」為優先，而以「最容易造成重大損害」為優先。</li>
+            <li>每日工作應先確認是否阻塞他人、是否會爆炸、是否影響專案主線。</li>
+            <li>不急但重要的事項若長期忽略，會轉變為急件。</li>
+            <li>若當日工作做不完，需回頭檢查估時與規劃能力，而非單純歸因於努力不足。</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>文件與規格原則</h3>
+          <ul>
+            <li>需求文件需包含目的、使用者流程、例外情境、資料需求、狀態定義、驗收條件與不做範圍。</li>
+            <li>回饋不應照單全收，需分為必修、重要、建議、未來版本或可忽略。</li>
+            <li>長報告應要求摘要與優先級，否則資訊完整不等於可消化。</li>
+            <li>可執行版本優先於理想完整版本。</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>團隊協作原則</h3>
+          <ul>
+            <li>主管與 PM 的價值之一是篩選與排序，而非接收全部工作。</li>
+            <li>與主管討論時應帶方案、判斷與卡點，而非要求對方從零決策。</li>
+            <li>對工程溝通時需提供足以拆工、估時與驗收的資訊。</li>
+            <li>團隊成員若長期無法掌握工作，應建立日報或可視化追蹤，而非依賴口頭感覺。</li>
+          </ul>
+        </div>
+      </div>
+      <div class="callout warning">
+        <strong>客觀補充：</strong>此類管理標準高於一般「任務執行型」PM，較接近資深 PM、產品負責人、研發主管或小型產品團隊負責人對工作品質的要求。
+      </div>
+    </section>
+
+    <section>
+      <h2>五、教育科技與平台規劃經驗</h2>
+      <p>
+        近年教育科技相關工作包含教材數位化、平台入口、AI 教育角色、練題系統、任務系統、CDP / CRM、商城與點數機制、學習數據報表等面向。工作重點集中在「教育內容如何產品化」、「學習行為如何數據化」、「平台功能如何可營運」。
+      </p>
+      <table>
+        <thead>
+          <tr>
+            <th>專案 / 模組</th>
+            <th>內容摘要</th>
+            <th>對應能力</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td data-label="專案 / 模組"><strong>LTutor / LTrust</strong></td>
+            <td data-label="內容摘要">教育平台入口與上市前活動，包含高中生對象、學習人格、名單收集、導流與平台定位。</td>
+            <td data-label="對應能力">產品定位、活動頁規劃、使用者旅程、第三方產品整合。</td>
+          </tr>
+          <tr>
+            <td data-label="專案 / 模組"><strong>AI Mate</strong></td>
+            <td data-label="內容摘要">平台內 AI 對話角色與學伴定位，涉及角色形象、使用情境、學習陪伴與品牌語氣。</td>
+            <td data-label="對應能力">AI 產品設計、角色體驗、教育場景對話設計。</td>
+          </tr>
+          <tr>
+            <td data-label="專案 / 模組"><strong>SmartQ 練題系統</strong></td>
+            <td data-label="內容摘要">自主練題、錯題分析、知識點評等、任務系統、排行榜、題量與答對率圖表。</td>
+            <td data-label="對應能力">遊戲化學習、題庫產品、學習數據、任務與獎勵機制。</td>
+          </tr>
+          <tr>
+            <td data-label="專案 / 模組"><strong>CDP / CRM</strong></td>
+            <td data-label="內容摘要">帳號、年級、學制、地區、登入時間、答題紀錄、任務完成、訂閱、點數消費、推廣碼等資料收集與分析。</td>
+            <td data-label="對應能力">資料欄位設計、使用者行為分析、推播策略、後台報表。</td>
+          </tr>
+          <tr>
+            <td data-label="專案 / 模組"><strong>QuBear 量子熊 APP</strong></td>
+            <td data-label="內容摘要">教育相關 APP 與後台專案，包含商城、成就 / 稱號、報表與監看等模組規劃。</td>
+            <td data-label="對應能力">APP PM、後台功能規劃、驗收溝通、營運機制設計。</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>六、AI 使用與工作效率特徵</h2>
+      <p>
+        在對話資料中，Jami 對 AI 的使用方式並非單純要求 AI 代寫，而是將 AI 視為思考與審查工具。其常見使用方式包括：將需求稿交由 AI 以工程師或主管角度挑漏洞、將長報告濃縮為決策重點、將模糊想法整理為 HTML 報告、將複雜對話重組為可執行改善方案。
+      </p>
+      <div class="grid three">
+        <div class="card">
+          <h3>AI 作為審查員</h3>
+          <p>要求 AI 扮演工程師、主管、PM 或使用者視角，檢查需求漏洞、未決問題、返工風險與溝通盲點。</p>
+        </div>
+        <div class="card">
+          <h3>AI 作為資訊壓縮器</h3>
+          <p>面對 41 頁報告或大量對話時，要求 AI 區分必修、重要、建議與可延後事項，降低資訊過載。</p>
+        </div>
+        <div class="card">
+          <h3>AI 作為結構整理器</h3>
+          <p>將鬆散討論、履歷資訊、作品設定與職場案例整理為 HTML、報告、簡報式架構或可交付文件。</p>
+        </div>
+      </div>
+      <div class="callout">
+        <strong>客觀定位：</strong>此使用模式較接近「AI 輔助判斷與工作流程設計」，而非一般「AI 代筆」或「AI 一次產出」。
+      </div>
+    </section>
+
+    <section>
+      <h2>七、創作與敘事系統</h2>
+      <p>
+        除職涯專案外，Jami 具備大規模原創敘事系統建構經驗。其作品群常被統稱為「Jami 宇宙」，涵蓋科技、愛情、死亡、制度、記憶、遊戲產業、AI 與人類情感等題材。這類創作能力與其產品能力有明顯連動：作品常透過制度、流程、規則、職業與產品化設定，承載情緒與主題。
+      </p>
+      <table>
+        <thead>
+          <tr>
+            <th>作品 / 系列</th>
+            <th>客觀描述</th>
+            <th>呈現能力</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td data-label="作品 / 系列"><strong>《未來情書》</strong></td>
+            <td data-label="客觀描述">以 AI、記憶、情感與死亡為核心的系列，篇章以月份命名，包含「AI 角色陪伴」與人類終末情緒的設定。</td>
+            <td data-label="呈現能力">科技情感化、AI 敘事、制度與人性衝突。</td>
+          </tr>
+          <tr>
+            <td data-label="作品 / 系列"><strong>《鑒愛師》</strong></td>
+            <td data-label="客觀描述">英文名 Romance Appraiser，篇章以 Ars Primus 等拉丁文藝術品編號命名，聚焦愛情、鑑定、情感價值與人際關係。</td>
+            <td data-label="呈現能力">命名系統、情感分析、品牌式作品架構。</td>
+          </tr>
+          <tr>
+            <td data-label="作品 / 系列"><strong>《Before Fades：漸逝之前》</strong></td>
+            <td data-label="客觀描述">以案件形式呈現記憶、真相、創傷與人生餘韻，篇章編號為「第幾案」。</td>
+            <td data-label="呈現能力">案件結構、情緒反轉、互動敘事潛力。</td>
+          </tr>
+          <tr>
+            <td data-label="作品 / 系列"><strong>《世上僅存的魔法》</strong></td>
+            <td data-label="客觀描述">以「曲」作為篇章單位，結合音樂、創傷、救贖、網路文化與現代社會議題。</td>
+            <td data-label="呈現能力">音樂化敘事、角色救贖、現代議題轉譯。</td>
+          </tr>
+          <tr>
+            <td data-label="作品 / 系列"><strong>《比存檔更遠的地方》</strong></td>
+            <td data-label="客觀描述">以遊戲產業與職人經驗為核心，帶有半自傳式色彩，篇章編號為 Year。</td>
+            <td data-label="呈現能力">遊戲業職場觀察、職人精神、產業記憶。</td>
+          </tr>
+          <tr>
+            <td data-label="作品 / 系列"><strong>《彼岸邊境局》</strong></td>
+            <td data-label="客觀描述">以死後行政機構、櫃台、規則與因果熵值為設定，處理死亡、留戀、愛與界線。篇章編號為 Rule。</td>
+            <td data-label="呈現能力">制度化世界觀、生命議題、行政流程轉譯敘事。</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="callout">
+        <strong>客觀觀察：</strong>其創作不只屬文字表達，也呈現系統設計、世界觀規則、命名架構、角色功能、情緒流程與多媒體化潛力。
+      </div>
+    </section>
+
+    <section>
+      <h2>八、職場行為與合作風格</h2>
+      <div class="grid two">
+        <div>
+          <h3>合作中可預期的優勢</h3>
+          <ul>
+            <li>能快速抓出需求、流程或團隊運作中的 root cause。</li>
+            <li>能從主管、PM、工程、使用者與營運等多角色角度檢查問題。</li>
+            <li>能將抽象討論轉為文件、規格、流程、表格或 HTML 報告。</li>
+            <li>對不清楚、不完整、不可執行的需求有高敏感度。</li>
+            <li>具備從遊戲化、數據、內容、平台與營運綜合設計產品的能力。</li>
+            <li>面對高複雜度專案時，傾向先建立結構與判斷規則，再進入執行。</li>
+          </ul>
+        </div>
+        <div>
+          <h3>合作上需對齊的條件</h3>
+          <ul>
+            <li>對方需能接受較高的思考品質要求，而不只是完成表面任務。</li>
+            <li>需求溝通需提供目的、價值、影響範圍與優先級，避免只丟想法。</li>
+            <li>若團隊缺少主動性、判斷力或責任感，合作過程可能出現明顯摩擦。</li>
+            <li>Jami 對低品質溝通與重複性錯誤容忍度較低，適合搭配願意學習與修正的團隊。</li>
+            <li>若組織期待的是單純服從型角色，可能無法完整發揮其產品判斷與系統重整能力。</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>九、適合承擔的角色</h2>
+      <div class="grid three">
+        <div class="card">
+          <h3>產品負責人 / Product Owner</h3>
+          <p>適合負責需求篩選、版本範圍、功能優先級、驗收條件與跨部門協作。</p>
+        </div>
+        <div class="card">
+          <h3>產品架構型 PM</h3>
+          <p>適合處理高複雜度平台、教育科技系統、後台、任務機制、數據與營運功能。</p>
+        </div>
+        <div class="card">
+          <h3>遊戲化產品顧問</h3>
+          <p>適合將點數、任務、成就、稱號、學習目標、留存與行為回饋轉換成產品設計。</p>
+        </div>
+        <div class="card">
+          <h3>互動內容 / IP 系統設計</h3>
+          <p>適合原創敘事、互動劇情、角色世界觀、展場互動與多媒體內容規劃。</p>
+        </div>
+        <div class="card">
+          <h3>AI 工作流導入者</h3>
+          <p>適合協助團隊建立 AI 審查、摘要、補洞、風險分級與文件整理流程。</p>
+        </div>
+        <div class="card">
+          <h3>專案救火與流程重整</h3>
+          <p>適合處理需求混亂、文件失控、優先級不明、外包溝通失焦與交付風險升高的專案。</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>十、客觀式自我介紹文案</h2>
+      <h3>30 秒版本</h3>
+      <div class="callout">
+        張啟業（Jami ACE）是遊戲企劃出身的產品架構型 PM，具備二十年以上遊戲、軟體、互動內容與教育科技經驗。其工作範圍橫跨遊戲系統設計、Web / APP 產品規劃、後台與數據報表、外包與專案管理、AI 輔助工作流，以及原創敘事與世界觀設計。主要價值在於將模糊需求與複雜資訊整理為可執行、可驗收、可營運的產品方案。
+      </div>
+
+      <h3>2 分鐘版本</h3>
+      <div class="callout">
+        張啟業（Jami ACE）長期從事遊戲與軟體產品相關工作，早期曾自學程式並投入兒童多媒體教材製作，後續進入遊戲產業，參與單機、MMORPG、Web Game、iOS Game 與多平台遊戲專案。其經驗包含知名遊戲作品參與、iOS 節奏遊戲與 Bluetooth 硬體整合、孵化器團隊培訓、博弈與區塊鏈平台、影音 APP、展場 VR/AR 互動內容，以及近年的教育科技平台與教材數位化專案。
+        <br><br>
+        在產品與管理方法上，張啟業重視需求判斷、優先級、root cause、可執行性與驗收邊界。其能力不只在於撰寫規格或追蹤進度，而是能將混亂的需求、跨部門資訊、外包溝通與使用者行為資料整理成具體產品方案。近年也將 AI 作為文件審查、資訊壓縮、需求補洞與多角色視角模擬工具，用於提升產品規劃與專案管理效率。
+        <br><br>
+        除商業產品外，張啟業亦建立多部原創敘事作品與世界觀系統，將科技、遊戲、AI、死亡、記憶、制度與情感議題轉換為具有結構化設定的故事。此創作能力與其產品設計能力相互連動，呈現出兼具系統思維與敘事轉譯的工作特徵。
+      </div>
+
+      <h3>履歷摘要版本</h3>
+      <div class="callout">
+        遊戲企劃與軟體 PM 出身，具備二十年以上產品、專案、互動內容與教育科技相關經驗。曾參與《軒轅劍》系列、MMORPG、Web Game、iOS Game、Bluetooth 硬體整合遊戲、展場 VR/AR、多媒體互動、影音 APP、博弈遊戲、區塊鏈平台與教育科技產品。曾任研發主管，具備三十人以上團隊管理經驗。專長包括產品架構、需求分析、遊戲化設計、任務與數值系統、UI/UX 流程、外包管理、GA / GA4 數據分析、後台報表、CDP / CRM、AI 輔助工作流與原創敘事系統設計。
+      </div>
+    </section>
+
+    <section>
+      <h2>十一、簡短結論</h2>
+      <p class="lead">
+        以客觀方式整理，Jami 的主要價值不是單一技術或單一職稱，而是橫跨遊戲、軟體、內容、數據、AI 與教育科技的整合能力。其職涯與對話資料顯示，Jami 擅長處理「尚未成形的想法」、「失控的需求」、「需要拆解的系統」與「需要變成可執行方案的複雜資訊」。
+      </p>
+      <div class="quote">
+        適合的使用方式：將其放在需要判斷、拆解、規劃、整合與推進的位置；較不適合只作為被動接單或單純執行角色。
+      </div>
+    </section>
+
+    <div class="footer">
+      版本日期：2026-06-05｜整理方式：第三人稱客觀簡介｜資料範圍：Jami 提供之履歷、自述與歷次對話脈絡
+    </div>
+  </main>
+</body>
+</html>
