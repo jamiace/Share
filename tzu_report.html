@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>褚的工作問題診斷與改善建議</title>
+  <style>
+    :root {
+      --bg: #f6f3ef;
+      --paper: #fffaf3;
+      --ink: #26211d;
+      --muted: #6f655c;
+      --line: #ddd1c5;
+      --accent: #9b3d2e;
+      --accent2: #2f5d62;
+      --soft: #efe3d7;
+      --warning: #b85c38;
+      --ok: #4f6f52;
+      --code: #2d2926;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: linear-gradient(180deg, #efe7de 0%, var(--bg) 240px, var(--bg) 100%);
+      color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+      line-height: 1.82;
+      letter-spacing: 0.02em;
+    }
+
+    .wrap {
+      width: min(1080px, calc(100% - 40px));
+      margin: 0 auto;
+      padding: 48px 0 80px;
+    }
+
+    header {
+      background: rgba(255, 250, 243, 0.82);
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      padding: 44px 48px;
+      box-shadow: 0 20px 50px rgba(70, 45, 25, 0.08);
+      position: relative;
+      overflow: hidden;
+    }
+
+    header::after {
+      content: "";
+      position: absolute;
+      right: -90px;
+      top: -90px;
+      width: 240px;
+      height: 240px;
+      border-radius: 50%;
+      background: rgba(155, 61, 46, 0.09);
+    }
+
+    .eyebrow {
+      color: var(--accent);
+      font-weight: 800;
+      font-size: 14px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    h1 {
+      margin: 0 0 18px;
+      font-size: clamp(32px, 5vw, 56px);
+      line-height: 1.12;
+      letter-spacing: -0.04em;
+    }
+
+    .subtitle {
+      max-width: 780px;
+      color: var(--muted);
+      font-size: 18px;
+      margin: 0;
+    }
+
+    .toc {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin: 26px 0 0;
+    }
+
+    .toc a {
+      display: block;
+      text-decoration: none;
+      color: var(--ink);
+      background: var(--soft);
+      border: 1px solid rgba(160, 128, 100, 0.22);
+      border-radius: 16px;
+      padding: 14px 16px;
+      font-weight: 700;
+      transition: transform .15s ease, background .15s ease;
+    }
+
+    .toc a:hover { transform: translateY(-2px); background: #e8d6c7; }
+
+    section {
+      margin-top: 32px;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: 34px 38px;
+      box-shadow: 0 10px 32px rgba(70, 45, 25, 0.055);
+    }
+
+    h2 {
+      margin: 0 0 18px;
+      font-size: 30px;
+      line-height: 1.25;
+      letter-spacing: -0.03em;
+      padding-bottom: 12px;
+      border-bottom: 2px solid var(--soft);
+    }
+
+    h3 {
+      margin: 30px 0 10px;
+      font-size: 22px;
+      line-height: 1.35;
+      color: var(--accent2);
+    }
+
+    h4 {
+      margin: 22px 0 8px;
+      font-size: 18px;
+      color: var(--accent);
+    }
+
+    p { margin: 10px 0; }
+
+    .lead {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    .quote {
+      border-left: 5px solid var(--accent);
+      background: #f4e8dc;
+      padding: 16px 18px;
+      border-radius: 0 14px 14px 0;
+      margin: 18px 0;
+      color: #3b3029;
+      font-weight: 650;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 18px;
+    }
+
+    .card {
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 20px;
+      background: #fffdf8;
+    }
+
+    .card h3, .card h4 { margin-top: 0; }
+
+    ul, ol { padding-left: 1.35em; }
+    li { margin: 6px 0; }
+
+    .tag {
+      display: inline-block;
+      border-radius: 999px;
+      padding: 3px 10px;
+      font-size: 13px;
+      font-weight: 800;
+      background: var(--soft);
+      color: var(--accent);
+      margin-right: 8px;
+      vertical-align: 1px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 18px 0 8px;
+      overflow: hidden;
+      border-radius: 16px;
+      border: 1px solid var(--line);
+      background: #fffdf9;
+    }
+
+    th, td {
+      padding: 13px 14px;
+      border-bottom: 1px solid var(--line);
+      vertical-align: top;
+      text-align: left;
+    }
+
+    th {
+      background: #e9d8c8;
+      color: #352820;
+      font-weight: 800;
+    }
+
+    tr:last-child td { border-bottom: none; }
+
+    .flow {
+      display: grid;
+      gap: 8px;
+      margin: 14px 0;
+      font-weight: 700;
+    }
+
+    .flow span {
+      display: block;
+      background: #f1e3d5;
+      border: 1px solid #e0cdbb;
+      border-radius: 14px;
+      padding: 10px 14px;
+    }
+
+    .bad { color: var(--warning); font-weight: 800; }
+    .good { color: var(--ok); font-weight: 800; }
+
+    .checklist {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .checklist li {
+      position: relative;
+      padding-left: 30px;
+      margin: 8px 0;
+    }
+
+    .checklist li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 22px;
+      height: 22px;
+      line-height: 22px;
+      text-align: center;
+      border-radius: 50%;
+      background: var(--accent2);
+      color: white;
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    .prompt {
+      background: var(--code);
+      color: #fff6ea;
+      border-radius: 18px;
+      padding: 18px 20px;
+      white-space: pre-wrap;
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+      font-size: 14px;
+      line-height: 1.7;
+      margin: 14px 0;
+    }
+
+    .phase {
+      border-left: 6px solid var(--accent2);
+      background: #edf1ee;
+      padding: 16px 18px;
+      border-radius: 0 16px 16px 0;
+      margin: 18px 0;
+    }
+
+    .summary-box {
+      background: #33251e;
+      color: #fff4e9;
+      border-radius: 22px;
+      padding: 26px 30px;
+      margin-top: 24px;
+    }
+
+    .summary-box strong { color: #ffd9b3; }
+
+    footer {
+      color: var(--muted);
+      text-align: center;
+      margin-top: 28px;
+      font-size: 14px;
+    }
+
+    @media (max-width: 780px) {
+      .wrap { width: min(100% - 24px, 1080px); padding-top: 24px; }
+      header, section { padding: 26px 22px; border-radius: 20px; }
+      .toc, .grid { grid-template-columns: 1fr; }
+      table { font-size: 14px; }
+      th, td { padding: 10px; }
+    }
+
+    @media print {
+      body { background: white; }
+      .wrap { width: 100%; padding: 0; }
+      header, section { box-shadow: none; page-break-inside: avoid; }
+      .toc { display: none; }
+      a { color: inherit; }
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <header>
+      <div class="eyebrow">Work Diagnosis / PM Process Review</div>
+      <h1>褚的工作問題診斷與改善建議</h1>
+      <p class="subtitle">根據對話內容與工作行為模式整理：這不是單一技能問題，而是一整套工作系統失控。改善重點不是更努力，而是重新建立篩選、排序、承諾與資訊處理機制。</p>
+      <nav class="toc">
+        <a href="#summary">核心結論</a>
+        <a href="#problems">實際問題</a>
+        <a href="#solutions">改善方法</a>
+        <a href="#execution">執行順序</a>
+      </nav>
+    </header>
+
+    <section id="summary">
+      <h2>一、核心結論</h2>
+      <p class="lead">褚的問題不是單純「不會寫需求」、「不會用 AI」、「不會溝通」。真正的問題是：他缺少一套穩定的工作判斷流程。</p>
+      <p>他目前的工作模式像是：</p>
+      <div class="flow">
+        <span>需求來了 → 先收</span>
+        <span>文件來了 → 先看</span>
+        <span>回饋來了 → 先改</span>
+        <span>問題來了 → 先扛</span>
+      </div>
+      <p>這會讓所有事情混在一起，最後變成：需求照收、文件照看、問題照扛、回饋照改，自己則被工作量與資訊量壓垮。</p>
+      <div class="quote">他一直在努力處理工作，但沒有先管理工作。</div>
+      <p>所以改善方向不是讓他變得更會熬夜、更會寫文件、更會硬吞資訊，而是讓他學會：</p>
+      <ul class="checklist">
+        <li>管理需求入口</li>
+        <li>管理承諾</li>
+        <li>管理優先級</li>
+        <li>管理資訊量</li>
+        <li>管理自己的腦力與工作節奏</li>
+      </ul>
+    </section>
+
+    <section id="problems">
+      <h2>二、褚的實際問題</h2>
+
+      <h3>1. 把「收到」誤當成「承諾」</h3>
+      <p>褚說他有很多需求是「收下來說會安排評估」。他可能覺得自己只是先收下，之後再評估；但對提出需求的人來說，這很容易被理解成「這件事已經進入處理流程」。</p>
+      <p>這會造成兩個後果：</p>
+      <ol>
+        <li>對方覺得需求很好提，反正褚都會收，久了之後需求品質會下降。</li>
+        <li>褚自己背上一堆「未完成承諾」，即使沒有答應要做，也答應了要評估。</li>
+      </ol>
+      <div class="quote">成熟 PM 收到需求時，不是先說「好」，而是先判斷這是 bug、必要調整、功能建議、老闆想法、使用者抱怨，還是不值得處理的雜訊。</div>
+
+      <h3>2. 缺少「需求是否值得處理」的判斷</h3>
+      <p>他的模式像是：有人提需求 → 我先收 → 之後再想怎麼辦。</p>
+      <p>但 PM 應該更早做判斷：</p>
+      <ul>
+        <li>這個需求要解決什麼問題？</li>
+        <li>現在不做會怎樣？</li>
+        <li>誰遇到？幾個人遇到？</li>
+        <li>有沒有替代方案？</li>
+        <li>會不會影響目前更重要的事項？</li>
+      </ul>
+      <p>他太晚才開始思考，等需求已經被收進來、已經有人期待、已經變成待辦，才發現這東西怪怪的、很難做、不清楚或不值得做。</p>
+
+      <h3>3. 不會管理「好」這個字的重量</h3>
+      <p>職場上的「好」不是禮貌用語，而是一種承諾。如果他習慣先說好，最後做不到、想不清楚、排不進去、寫不完整，別人會慢慢不相信他的「好」。</p>
+      <table>
+        <tr><th>原本別人以為</th><th>後來別人感受到</th></tr>
+        <tr><td>他說好，代表這件事可執行。</td><td>他說好，可能只是先安撫我。</td></tr>
+      </table>
+      <p>PM 最重要的資產之一就是可信度。可以拒絕，可以說要確認，可以說需要排優先級，但不能一直用「好」去換當下的安全感。</p>
+
+      <h3>4. 把「溝通問題」誤判成「講話能力問題」</h3>
+      <p>褚說他不想跟程式同事溝通，覺得自己什麼都解釋不清楚。但真正的問題未必是口才，而是需求還沒想清楚就拿去討論。</p>
+      <p>工程師一追問，需求的洞就會出現：</p>
+      <ul>
+        <li>狀態怎麼切？</li>
+        <li>例外情境怎麼處理？</li>
+        <li>資料從哪來？</li>
+        <li>失敗時顯示什麼？</li>
+        <li>這個流程跟既有功能衝突嗎？</li>
+      </ul>
+      <div class="quote">講話只是表層。需求沒有消化，講得再漂亮也沒用。</div>
+
+      <h3>5. 不知道「完成」的標準是什麼</h3>
+      <p>他覺得 OK 的東西，同事覺得問題很多。這代表他和同事對「可執行」的標準不一致。</p>
+      <table>
+        <tr><th>褚眼中的 OK</th><th>工程師眼中的 OK</th></tr>
+        <tr>
+          <td>大方向有寫、功能概念有寫、自己知道想表達什麼。</td>
+          <td>可以拆工、可以估時、可以實作、可以測試、邊界條件清楚、例外狀況有定義。</td>
+        </tr>
+      </table>
+      <p>所以他一直以為自己完成了，拿出去後卻被打回來。這不是單純文件寫不好，而是缺少交付標準。</p>
+
+      <h3>6. 遇到回饋時全部吸收，缺少分級能力</h3>
+      <p>志瑋給他 41 頁報告，他直接崩潰。這代表他沒有把回饋分成必須修正、重要但可排程、建議優化、個人偏好、可忽略。</p>
+      <p>如果 41 頁裡面每一句都被視為「我要處理」，他一定會爆炸。</p>
+
+      <h3>7. AI 還停在「產出工具」，沒有變成「審查工具」</h3>
+      <p>他一開始的 AI 用法是：叫 AI 寫 → 看了覺得有洞 → 退回手動 → AI 時間花了，手動時間也花了。</p>
+      <p>AI 對他更有價值的用法是：</p>
+      <ul>
+        <li>用工程師角度挑漏洞</li>
+        <li>用主管角度看優先級</li>
+        <li>把長報告濃縮成重點</li>
+        <li>把需求拆成可執行項目</li>
+        <li>列出尚未決策的問題</li>
+        <li>區分必修與可延後</li>
+      </ul>
+
+      <h3>8. 太容易被「更好的做法」吸走</h3>
+      <p>PM 不是看到更好的做法就要改。PM 要判斷這個更好是否值得現在改。</p>
+      <p>有些東西比較完整，但會拖垮時程；比較漂亮，但不影響核心功能；比較理想，但超出目前版本範圍。褚容易把「更好」當成「應該要做」，導致無限修補。</p>
+
+      <h3>9. 缺少優先級排序能力</h3>
+      <p>他被所有事情拉著走：急的要處理，不急的拖到變急，新需求要評估，舊文件要補洞，同事回饋要看，主管要求要改，AI 產出要修。</p>
+      <div class="quote">問題的解決，不是解決最簡單的，而是解決最容易死人的。</div>
+      <p>他目前不是工作量單純太大，而是優先級系統壞掉。</p>
+
+      <h3>10. 有「等我忙完再改善」的錯誤心態</h3>
+      <p>如果工作方法是錯的，他永遠忙不完。這就像船漏水時一直舀水，卻說等水舀完再補洞。</p>
+      <p>正確做法是先停下來補洞，再繼續划船。現在最優先的不是多做幾件事，而是重建工作流程。</p>
+
+      <h3>11. 把方法問題變成人格問題</h3>
+      <p>他一直說自己超廢、該死、沒救、晚期。這會讓問題變得無法改善。</p>
+      <table>
+        <tr><th>錯誤翻譯</th><th>可改善翻譯</th></tr>
+        <tr><td>我是廢物。</td><td>我沒有需求篩選流程。</td></tr>
+        <tr><td>我沒救了。</td><td>我沒有優先級排序。</td></tr>
+        <tr><td>我不會溝通。</td><td>我沒有把需求整理到可討論程度。</td></tr>
+      </table>
+    </section>
+
+    <section id="solutions">
+      <h2>三、改善與調整方法</h2>
+
+      <h3>改善 1：建立需求入口規則</h3>
+      <div class="grid">
+        <div class="card">
+          <h4>A. 明顯重要，直接收</h4>
+          <p>適用於 bug、上線阻塞、客戶已受影響、老闆明確指定、會影響合約或交付。</p>
+          <p><strong>回覆：</strong>這個我先收，會排進目前優先處理項目。我會先確認影響範圍，再回覆預計處理方式。</p>
+        </div>
+        <div class="card">
+          <h4>B. 需要判斷，先要求補資訊</h4>
+          <p>適用於新功能、體驗改善、使用者建議、同事提出的「感覺可以更好」。</p>
+          <p><strong>回覆：</strong>我先了解一下。這個需求要解決的主要問題是什麼？目前影響哪些使用者？如果不做，會造成什麼影響？</p>
+        </div>
+        <div class="card">
+          <h4>C. 明顯低價值，先擋掉</h4>
+          <p>適用於沒有明確目的、只是個人喜好、成本高但價值低、跟目前目標無關、會干擾主線進度。</p>
+          <p><strong>回覆：</strong>這個目前先不排入，因為現階段主要目標是完成既有功能與驗收項目。這個可以先列為未來版本參考。</p>
+        </div>
+      </div>
+
+      <h3>改善 2：把「好」改成更精準的職場語言</h3>
+      <table>
+        <tr><th>情境</th><th>建議說法</th></tr>
+        <tr><td>尚未判斷</td><td>我先確認影響範圍，不會先承諾排入。</td></tr>
+        <tr><td>需要更多資訊</td><td>這個我需要補幾個資訊後才能判斷。</td></tr>
+        <tr><td>可能做，但要排優先級</td><td>方向可以討論，但目前要先看是否會影響既有進度。</td></tr>
+        <tr><td>不確定能不能做</td><td>我不能先答應，因為這會牽涉到工程成本與時程，我先評估後再回覆。</td></tr>
+        <tr><td>暫時不做</td><td>目前不建議排入，先保留為後續版本參考。</td></tr>
+      </table>
+
+      <h3>改善 3：每天先做 15 分鐘工作排序</h3>
+      <p>每天上班第一件事，不是開文件、回訊息、看報告，而是先做排序。</p>
+      <table>
+        <tr><th>工作項目</th><th>今天不做會怎樣</th><th>重要性</th><th>急迫性</th><th>預估時間</th><th>今天是否處理</th></tr>
+        <tr><td>STORY 修正</td><td>影響工程拆工</td><td>高</td><td>高</td><td>3 小時</td><td>是</td></tr>
+        <tr><td>新需求 A 評估</td><td>可延後</td><td>中</td><td>低</td><td>1 小時</td><td>否</td></tr>
+        <tr><td>志瑋 41 頁報告</td><td>需先濃縮</td><td>高</td><td>中</td><td>30 分鐘整理</td><td>是</td></tr>
+        <tr><td>小文案調整</td><td>不影響主線</td><td>低</td><td>低</td><td>20 分鐘</td><td>否</td></tr>
+      </table>
+      <p>每天只問三個問題：今天不做會爆炸嗎？是否影響別人開工？是否比手上的主線更重要？</p>
+
+      <h3>改善 4：今天最多三件大事</h3>
+      <p>每天最多只能設定：</p>
+      <ul>
+        <li>1 件主線任務</li>
+        <li>1 件阻塞解除</li>
+        <li>1 件回覆或同步</li>
+      </ul>
+      <p>例如：完成新手教學 STORY 可執行版、請志瑋濃縮 41 頁報告、整理今日進度給正一。</p>
+
+      <h3>改善 5：要求對方提供可消化資訊</h3>
+      <p>遇到 41 頁報告這種狀況，可以直接回：</p>
+      <div class="quote">這份報告很完整，謝謝你整理。但我目前需要先快速判斷哪些會影響執行，麻煩你幫我再補一份重點摘要，分成三類：1. 必須修正，否則無法實作；2. 建議修正，會影響品質但不阻塞；3. 可延後討論，屬於優化或未來版本。如果只能先改三件事，也請幫我標出最重要的三項。</div>
+      <p>這不是推工作，而是在管理資訊格式。</p>
+
+      <h3>改善 6：回饋分級，不要照單全收</h3>
+      <table>
+        <tr><th>等級</th><th>定義</th><th>處理方式</th></tr>
+        <tr><td><span class="tag">P0</span></td><td>不處理就無法實作，例如缺關鍵狀態、資料來源不明。</td><td>立刻改。</td></tr>
+        <tr><td><span class="tag">P1</span></td><td>可能造成工程誤解或返工，例如文案邏輯不清、例外情境沒寫。</td><td>優先改。</td></tr>
+        <tr><td><span class="tag">P2</span></td><td>品質改善，例如動效、額外提示、更好的流程。</td><td>排後面。</td></tr>
+        <tr><td><span class="tag">P3</span></td><td>未來版本或個人偏好。</td><td>先放掉。</td></tr>
+      </table>
+
+      <h3>改善 7：AI 改成分段審查工具</h3>
+      <p>AI 不要拿來一次寫完整需求，而是用來挑洞、分級、濃縮與建立決策清單。</p>
+      <div class="prompt">請你扮演資深前端工程師與後端工程師，檢查以下需求。
+請列出：
+1. 無法實作或缺少資訊的地方
+2. 需要 PM 補決策的地方
+3. 可能造成返工的地方
+4. 工程師會追問的問題
+5. 哪些內容目前已經足夠清楚
+
+接著請把上述問題分成 P0、P1、P2、P3。
+P0 是不處理就無法實作。
+P1 是可能造成返工。
+P2 是品質改善。
+P3 是可延後或未來版本。</div>
+      <p>只補 P0 / P1，不要一開始就補所有東西。</p>
+
+      <h3>改善 8：固定需求文件模板</h3>
+      <p>每份 STORY 或需求規格固定成同一格式：</p>
+      <ol>
+        <li>需求目的：這個功能要解決什麼問題？</li>
+        <li>使用對象：誰會用？</li>
+        <li>使用情境：什麼情況下進入流程？</li>
+        <li>主流程：一步一步列出使用者操作。</li>
+        <li>例外情境：沒網路、載入失敗、中途離開、跳過後能不能重看等。</li>
+        <li>頁面 / 狀態：每個畫面有哪些狀態？</li>
+        <li>資料需求：需要哪些資料？從哪裡來？</li>
+        <li>不做範圍：這版不做什麼？</li>
+        <li>驗收條件：做到什麼程度算完成？</li>
+      </ol>
+
+      <h3>改善 9：建立完成定義</h3>
+      <p>一份需求至少要達到這些條件，才算可以交給工程討論：</p>
+      <ul class="checklist">
+        <li>主流程清楚</li>
+        <li>例外情境有列</li>
+        <li>頁面狀態有定義</li>
+        <li>文案或提示方向有寫</li>
+        <li>資料來源有初步說明</li>
+        <li>不做範圍有列</li>
+        <li>有驗收條件</li>
+        <li>有未決問題清單</li>
+      </ul>
+      <p>不是所有問題都要解完才能討論，但沒有解的問題要列出來。</p>
+
+      <h3>改善 10：會議前要帶方案，不是帶問題</h3>
+      <p>找主管或工程討論前，至少要準備：</p>
+      <ul>
+        <li>我理解的問題是什麼</li>
+        <li>我打算怎麼做</li>
+        <li>我為什麼這樣做</li>
+        <li>我卡在哪裡</li>
+        <li>我需要你決定什麼</li>
+      </ul>
+      <div class="quote">主管要幫他修方向，不是從零開始替他想。</div>
+
+      <h3>改善 11：主動壓縮資訊流</h3>
+      <p>他應該主動要求資訊格式，例如：</p>
+      <ul>
+        <li>請直接給我前三個最重要問題。</li>
+        <li>請幫我標註哪些會阻塞工程。</li>
+        <li>這個需求先不要展開，請先補目的與影響範圍。</li>
+        <li>這份文件太長，我需要你先整理成一頁摘要。</li>
+        <li>這個問題我今天不處理，先排到下週評估。</li>
+      </ul>
+
+      <h3>改善 12：先救工作節奏，再救單一文件</h3>
+      <p>下班前固定整理：</p>
+      <div class="prompt">今日完成：
+1.
+2.
+
+未完成：
+1. 原因：
+2. 明日處理方式：
+
+明日優先：
+1.
+2.
+3.</div>
+      <p>這會讓他重新掌控工作，而不是一直在爆炸裡滅火。</p>
+    </section>
+
+    <section id="execution">
+      <h2>四、建議執行順序</h2>
+      <p>不要全部一起改，他一定做不到。建議照四階段推進。</p>
+
+      <div class="phase">
+        <h3>第 1 階段：先止血，3 天內做</h3>
+        <p><strong>目標：</strong>不要繼續爆炸。</p>
+        <ul>
+          <li>每天早上先排今日三件事。</li>
+          <li>所有新需求先不答應，只回「我先確認影響範圍」。</li>
+          <li>所有超過 3 頁的回饋，要求對方提供重點摘要。</li>
+          <li>所有 AI 產出，只處理 P0 / P1，不處理優化項。</li>
+        </ul>
+      </div>
+
+      <div class="phase">
+        <h3>第 2 階段：建立需求審查流程，1 週內做</h3>
+        <p><strong>目標：</strong>讓需求不再亂進來。</p>
+        <table>
+          <tr><th>需求</th><th>來源</th><th>目的</th><th>影響範圍</th><th>急迫性</th><th>重要性</th><th>狀態</th><th>下一步</th></tr>
+          <tr><td>範例需求</td><td>同事 / 客戶</td><td>解決什麼問題</td><td>誰受影響</td><td>高 / 中 / 低</td><td>高 / 中 / 低</td><td>待補資訊</td><td>請對方補使用情境</td></tr>
+        </table>
+        <p>狀態只能有：待補資訊、評估中、已排入、暫不處理、已拒絕、未來版本。不能全部都是「待處理」。</p>
+      </div>
+
+      <div class="phase">
+        <h3>第 3 階段：建立需求文件模板，2 週內做</h3>
+        <p><strong>目標：</strong>減少反覆補洞。</p>
+        <p>所有 STORY 固定包含目的、使用情境、主流程、例外情境、頁面狀態、資料需求、不做範圍、驗收條件、未決問題。</p>
+      </div>
+
+      <div class="phase">
+        <h3>第 4 階段：訓練判斷與拒絕，長期做</h3>
+        <p><strong>目標：</strong>從接球的人，變成篩球的人。</p>
+        <ul>
+          <li>這個目前不排入。</li>
+          <li>這個需要補目的，否則無法評估。</li>
+          <li>這個方向可以，但不是這版要做的。</li>
+          <li>這個會影響目前時程，要先跟既有項目排優先級。</li>
+          <li>這個我不能直接答應，因為成本與影響還不清楚。</li>
+        </ul>
+      </div>
+
+      <div class="summary-box">
+        <h2>最後總結</h2>
+        <p>褚的核心問題是：<strong>他一直在努力處理工作，但沒有先管理工作。</strong></p>
+        <p>他需要改善的不是某一份 STORY，而是整套工作運作方式。他不需要先變成更聰明的人，而是要先變成更會擋、更會排、更會切、更會判斷的人。</p>
+        <p>現在最該救的不是單一文件，而是他的需求入口、承諾管理、優先級排序、資訊壓縮與每日工作節奏。</p>
+      </div>
+    </section>
+
+    <footer>整理版本：褚的工作問題診斷與改善建議｜HTML 文件</footer>
+  </main>
+</body>
+</html>
