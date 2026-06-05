@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jami｜產品與創意型 PM 個人介紹</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --panel: #111827;
+      --panel-2: #1e293b;
+      --text: #e5e7eb;
+      --muted: #94a3b8;
+      --line: rgba(148, 163, 184, 0.25);
+      --accent: #f97316;
+      --accent-2: #38bdf8;
+      --soft: rgba(249, 115, 22, 0.12);
+      --soft-blue: rgba(56, 189, 248, 0.12);
+      --white: #fff;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans TC", "Microsoft JhengHei", Arial, sans-serif;
+      background:
+        radial-gradient(circle at 15% 0%, rgba(249, 115, 22, 0.22), transparent 28%),
+        radial-gradient(circle at 85% 5%, rgba(56, 189, 248, 0.18), transparent 30%),
+        var(--bg);
+      color: var(--text);
+      line-height: 1.75;
+    }
+
+    .page {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 56px 24px 80px;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.35fr 0.65fr;
+      gap: 28px;
+      align-items: stretch;
+      margin-bottom: 28px;
+    }
+
+    .card {
+      background: linear-gradient(180deg, rgba(255,255,255,0.055), rgba(255,255,255,0.025));
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.28);
+      backdrop-filter: blur(10px);
+    }
+
+    .hero-main { padding: 42px; }
+    .hero-side { padding: 34px; }
+
+    .eyebrow {
+      color: var(--accent);
+      font-size: 14px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+
+    h1 {
+      margin: 0 0 16px;
+      font-size: clamp(36px, 5vw, 64px);
+      line-height: 1.06;
+      letter-spacing: -0.04em;
+    }
+
+    .subtitle {
+      font-size: clamp(20px, 2.4vw, 30px);
+      color: var(--white);
+      font-weight: 700;
+      margin: 0 0 18px;
+    }
+
+    .lead {
+      font-size: 18px;
+      color: #cbd5e1;
+      max-width: 780px;
+      margin: 0;
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 28px;
+    }
+
+    .chip {
+      border: 1px solid rgba(249, 115, 22, 0.35);
+      background: var(--soft);
+      color: #fed7aa;
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .side-title {
+      margin: 0 0 18px;
+      font-size: 18px;
+      color: #f8fafc;
+    }
+
+    .quick-list {
+      display: grid;
+      gap: 14px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .quick-list li {
+      padding: 14px 14px;
+      border-radius: 18px;
+      background: rgba(15, 23, 42, 0.48);
+      border: 1px solid rgba(148, 163, 184, 0.16);
+    }
+
+    .quick-list strong {
+      display: block;
+      color: #fff;
+      font-size: 15px;
+      margin-bottom: 2px;
+    }
+
+    .quick-list span {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    section { margin-top: 28px; }
+
+    .section-card { padding: 34px; }
+
+    h2 {
+      margin: 0 0 18px;
+      font-size: 28px;
+      letter-spacing: -0.02em;
+    }
+
+    .section-intro {
+      color: #cbd5e1;
+      font-size: 17px;
+      margin: 0 0 24px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .mini-card {
+      padding: 22px;
+      border-radius: 22px;
+      background: rgba(15, 23, 42, 0.58);
+      border: 1px solid rgba(148, 163, 184, 0.18);
+    }
+
+    .mini-card h3 {
+      margin: 0 0 10px;
+      font-size: 19px;
+      color: #fff;
+    }
+
+    .mini-card p {
+      margin: 0;
+      color: #cbd5e1;
+      font-size: 15.5px;
+    }
+
+    .timeline {
+      position: relative;
+      display: grid;
+      gap: 14px;
+    }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 150px 1fr;
+      gap: 18px;
+      padding: 18px;
+      border-radius: 20px;
+      background: rgba(15, 23, 42, 0.48);
+      border: 1px solid rgba(148, 163, 184, 0.16);
+    }
+
+    .year {
+      color: var(--accent-2);
+      font-weight: 900;
+      font-size: 15px;
+    }
+
+    .timeline-item h3 {
+      margin: 0 0 6px;
+      font-size: 18px;
+      color: #fff;
+    }
+
+    .timeline-item p {
+      margin: 0;
+      color: #cbd5e1;
+      font-size: 15px;
+    }
+
+    .quote {
+      padding: 28px;
+      border-radius: 24px;
+      background: linear-gradient(135deg, rgba(249, 115, 22, 0.16), rgba(56, 189, 248, 0.10));
+      border: 1px solid rgba(249, 115, 22, 0.26);
+      font-size: 22px;
+      color: #fff;
+      font-weight: 800;
+      line-height: 1.55;
+      margin: 22px 0 0;
+    }
+
+    .two-column-list {
+      columns: 2;
+      column-gap: 30px;
+      margin: 0;
+      padding-left: 20px;
+      color: #cbd5e1;
+    }
+
+    .two-column-list li { break-inside: avoid; margin-bottom: 10px; }
+
+    .tagline {
+      display: inline-block;
+      padding: 10px 14px;
+      border-radius: 14px;
+      background: var(--soft-blue);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      color: #bae6fd;
+      font-weight: 800;
+      margin-bottom: 16px;
+    }
+
+    .footer {
+      margin-top: 28px;
+      padding: 26px 34px;
+      color: var(--muted);
+      font-size: 14px;
+      text-align: center;
+    }
+
+    @media (max-width: 860px) {
+      .hero, .grid-2, .grid-3 { grid-template-columns: 1fr; }
+      .hero-main, .hero-side, .section-card { padding: 26px; }
+      .timeline-item { grid-template-columns: 1fr; gap: 4px; }
+      .two-column-list { columns: 1; }
+    }
+
+    @media print {
+      body { background: #fff; color: #111827; }
+      .card, .mini-card, .timeline-item { box-shadow: none; background: #fff; border-color: #ddd; }
+      .page { max-width: none; padding: 24px; }
+      .lead, .section-intro, .mini-card p, .timeline-item p, .two-column-list, .quick-list span { color: #374151; }
+      h1, h2, h3, .subtitle, .quick-list strong { color: #111827; }
+      .quote { color: #111827; background: #fff7ed; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="hero">
+      <div class="card hero-main">
+        <div class="eyebrow">Product / Game / Creative / System Thinking</div>
+        <h1>Jami<br/>張啟業</h1>
+        <p class="subtitle">把混亂的需求、產品與團隊，整理成可以執行、可以交付、可以營運的系統。</p>
+        <p class="lead">
+          Jami 是一位橫跨遊戲、軟體、互動內容、教育科技與產品管理的複合型產品人。從高中時期自組多媒體工作室開始，他長期參與產品從 0 到 1 的企劃、開發、管理、上線與營運，擅長在模糊情境中找出真正問題，建立可落地的流程與判斷標準，並將創意轉化為具備商業價值與執行效率的產品成果。
+        </p>
+        <div class="chips">
+          <span class="chip">產品架構型 PM</span>
+          <span class="chip">遊戲企劃與系統設計</span>
+          <span class="chip">需求判斷與優先級管理</span>
+          <span class="chip">跨職能溝通</span>
+          <span class="chip">Root Cause Thinking</span>
+          <span class="chip">創意落地與商業化</span>
+        </div>
+      </div>
+
+      <aside class="card hero-side">
+        <h2 class="side-title">快速認識</h2>
+        <ul class="quick-list">
+          <li><strong>核心定位</strong><span>產品、企劃、專案與團隊系統的整合者。</span></li>
+          <li><strong>主要價值</strong><span>把「想做什麼」變成「該不該做、怎麼做、做到什麼程度」。</span></li>
+          <li><strong>工作特質</strong><span>重視判斷、優先級、可執行性、交付品質與長期系統改善。</span></li>
+          <li><strong>適合角色</strong><span>產品負責人、資深 PM、遊戲製作人、專案顧問、創意技術整合者。</span></li>
+        </ul>
+      </aside>
+    </section>
+
+    <section class="card section-card">
+      <span class="tagline">一句話介紹</span>
+      <h2>不是單純執行需求，而是判斷需求是否值得被執行。</h2>
+      <p class="section-intro">
+        Jami 的工作強項不只在於產出企劃或追蹤進度，而是在於看懂一個專案真正卡住的地方：是需求不清楚、優先級錯誤、資源配置失衡、團隊理解不同步，還是產品方向本身有問題。他擅長把這些問題拆解成可討論、可決策、可執行的工作項目。
+      </p>
+      <div class="quote">
+        「產品管理不是把所有需求接下來，而是判斷哪些需求值得做、哪些現在不能做、哪些需要先想清楚。」
+      </div>
+    </section>
+
+    <section class="card section-card">
+      <h2>核心能力模組</h2>
+      <p class="section-intro">Jami 的能力不是單點技能，而是由產品判斷、遊戲設計、技術理解、營運思維與團隊管理組成的複合型能力。</p>
+      <div class="grid-3">
+        <div class="mini-card">
+          <h3>產品判斷</h3>
+          <p>能從需求背後找出真正問題，判斷功能價值、成本、風險與優先級，避免團隊被低價值需求拖垮。</p>
+        </div>
+        <div class="mini-card">
+          <h3>遊戲與互動設計</h3>
+          <p>熟悉任務設計、系統機制、數值調整、玩家流程、互動節奏與內容體驗，能兼顧好玩、可做與可營運。</p>
+        </div>
+        <div class="mini-card">
+          <h3>專案與外包管理</h3>
+          <p>具備跨團隊、跨廠商、跨職能協作經驗，能控管進度、釐清責任、拆解交付內容並降低返工風險。</p>
+        </div>
+        <div class="mini-card">
+          <h3>技術理解與溝通</h3>
+          <p>雖以產品與企劃為核心，但理解軟體開發與實作限制，能與工程、美術、營運、外包單位進行有效溝通。</p>
+        </div>
+        <div class="mini-card">
+          <h3>營運與商業思維</h3>
+          <p>不只關注產品是否有趣，也關注留存、數據、使用者行為、商業模式與公司獲利。</p>
+        </div>
+        <div class="mini-card">
+          <h3>系統改善</h3>
+          <p>擅長發現流程中的根本問題，建立 SOP、檢核標準、工作節奏與資訊流，讓團隊從救火轉向穩定運作。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="card section-card">
+      <h2>職涯脈絡</h2>
+      <p class="section-intro">從多媒體教材、單機遊戲、MMORPG、Web Game、iOS Game、硬體互動、VR/AR、博弈、區塊鏈到教育科技，Jami 的職涯橫跨多種產品型態與開發環境。</p>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="year">1995–1997</div>
+          <div>
+            <h3>高中時期成立兒童幼教多媒體設計工作室</h3>
+            <p>與光碟出版通路合作，推出兒童英語、日語、注音等多媒體教材，早期即具備產品化與交付經驗。</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="year">2000–2008</div>
+          <div>
+            <h3>參與知名單機與 MMORPG 專案</h3>
+            <p>投入《軒轅劍參外傳 天之痕》、《軒轅劍肆》、《軒轅伏魔錄》、《秘密 Online》、《萬王之王 3》等遊戲開發，累積遊戲企劃、系統設計與大型專案經驗。</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="year">2009–2013</div>
+          <div>
+            <h3>Web Game 與 iOS Game 製作</h3>
+            <p>參與多款 Web Game 與 iOS Game，具備從企劃、開發到上架的完整產品實作經驗。</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="year">2014</div>
+          <div>
+            <h3>iOS 節奏遊戲與 Bluetooth 配套硬體</h3>
+            <p>整合遊戲軟體與硬體互動裝置，專案複雜度高，並獲得德國 Red Dot 與日本 Good Design 設計獎項肯定。</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="year">2015–2016</div>
+          <div>
+            <h3>中國多地孵化器培訓講師</h3>
+            <p>於上海、北京、蘇州、深圳等地輔導團隊開發 Android 與 TV Box 平台遊戲，具備培訓、顧問與團隊指導經驗。</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="year">2016–2018</div>
+          <div>
+            <h3>博弈遊戲、Slot、棋牌、彩票與區塊鏈專案</h3>
+            <p>承接博弈業界委外開發，並跨足 ICO 與平台型產品，累積高商業壓力環境下的產品與專案經驗。</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="year">2018 之後</div>
+          <div>
+            <h3>影音 APP、VR/AR 展場互動與教育科技產品</h3>
+            <p>負責線上視頻播放 APP 產品企劃、GA 數據觀察、會員行為與留存方案，後續投入展場多媒體互動、VR/AR 與教育產品規劃。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card section-card">
+      <h2>管理與合作風格</h2>
+      <p class="section-intro">Jami 對團隊的要求不是盲目加速，而是要求每個人提升思考品質，讓工作能真正被理解、被判斷、被執行。</p>
+      <div class="grid-2">
+        <div class="mini-card">
+          <h3>重視主動判斷</h3>
+          <p>不鼓勵單純等主管決定，也不鼓勵看到需求就照單全收。更重視成員能先提出自己的理解、拆解、判斷與建議。</p>
+        </div>
+        <div class="mini-card">
+          <h3>要求可執行性</h3>
+          <p>文件與需求不只要看起來完整，更要能讓工程、美術、營運或外包單位知道下一步怎麼做。</p>
+        </div>
+        <div class="mini-card">
+          <h3>擅長找 Root Cause</h3>
+          <p>面對問題時，不只處理表面現象，而會追問為什麼反覆發生、流程哪裡壞掉、是否需要建立新的工作方式。</p>
+        </div>
+        <div class="mini-card">
+          <h3>高標準但重視成長</h3>
+          <p>對低品質思考容忍度低，但願意花時間教方法、拆問題、建立框架，幫助同仁從執行者提升為能判斷的人。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="card section-card">
+      <h2>適合投入的工作場景</h2>
+      <ul class="two-column-list">
+        <li>產品方向混亂，需要重新整理需求與優先級。</li>
+        <li>團隊常常返工，需要建立更清楚的規格與交付標準。</li>
+        <li>遊戲、互動內容或教育產品需要兼顧內容、體驗與商業模式。</li>
+        <li>跨部門或外包合作頻繁，需要有人管理資訊流與決策節奏。</li>
+        <li>專案有創意但難以落地，需要拆解成可執行項目。</li>
+        <li>公司需要一位能看見產品、技術、營運與使用者之間關係的產品型人才。</li>
+        <li>團隊需要從被動執行，升級到能主動判斷與自我管理。</li>
+        <li>AI 工具導入後，需要建立真正能提升效率的工作流程，而不是增加更多內容負擔。</li>
+      </ul>
+    </section>
+
+    <section class="card section-card">
+      <h2>個人價值總結</h2>
+      <p class="section-intro">
+        Jami 的價值不只是「做過很多產品」，而是長期在不同產業、平台與團隊結構中，持續累積出一套判斷產品、拆解問題、管理需求與推動交付的工作方法。他能在混亂中抓出主線，在模糊中建立規則，在創意與現實之間找到可落地的方案。
+      </p>
+      <div class="quote">
+        適合找 Jami 的原因很簡單：當一個專案不知道該往哪裡走、需求多到失控、團隊各說各話時，他能先把問題看清楚，再把事情排回正確的順序。
+      </div>
+    </section>
+
+    <footer class="card footer">
+      Jami / 張啟業｜產品企劃・遊戲設計・專案管理・系統思考・創意落地
+    </footer>
+  </main>
+</body>
+</html>
