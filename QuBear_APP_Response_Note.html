@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>量子熊 APP｜YT Player、APP 優化與成就規則回覆說明</title>
+  <style>
+    :root {
+      --bg: #f6f7fb;
+      --card: #ffffff;
+      --text: #172033;
+      --muted: #667085;
+      --line: #e6e8ef;
+      --brand: #f97316;
+      --brand-dark: #c2410c;
+      --brand-soft: #fff3e8;
+      --blue: #2563eb;
+      --blue-soft: #eff6ff;
+      --green: #16a34a;
+      --green-soft: #ecfdf3;
+      --red: #dc2626;
+      --red-soft: #fef2f2;
+      --amber: #d97706;
+      --amber-soft: #fffbeb;
+      --purple: #7c3aed;
+      --purple-soft: #f5f3ff;
+      --shadow: 0 12px 32px rgba(15, 23, 42, 0.08);
+      --radius: 18px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at 20% 0%, rgba(249, 115, 22, 0.12), transparent 34%),
+        radial-gradient(circle at 90% 10%, rgba(37, 99, 235, 0.10), transparent 34%),
+        var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+      line-height: 1.72;
+      letter-spacing: 0.01em;
+    }
+
+    .page {
+      width: min(1120px, calc(100% - 40px));
+      margin: 0 auto;
+      padding: 34px 0 72px;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #111827 0%, #1e293b 44%, #f97316 100%);
+      color: #fff;
+      border-radius: 26px;
+      padding: 42px 46px;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto -90px -150px auto;
+      width: 360px;
+      height: 360px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.14);
+      filter: blur(2px);
+    }
+
+    .eyebrow {
+      font-size: 14px;
+      font-weight: 700;
+      opacity: 0.86;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(28px, 4vw, 42px);
+      line-height: 1.22;
+      letter-spacing: -0.03em;
+    }
+
+    .subtitle {
+      margin-top: 14px;
+      max-width: 820px;
+      font-size: 17px;
+      opacity: 0.92;
+    }
+
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 24px;
+    }
+
+    .meta span {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 13px;
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(8px);
+      font-size: 13px;
+      font-weight: 650;
+    }
+
+    .section {
+      margin-top: 28px;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .section-head {
+      padding: 24px 30px 20px;
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      background: linear-gradient(180deg, #ffffff, #fbfcff);
+    }
+
+    .section-num {
+      width: 38px;
+      height: 38px;
+      flex: 0 0 38px;
+      border-radius: 12px;
+      background: var(--brand);
+      color: #fff;
+      display: grid;
+      place-items: center;
+      font-size: 18px;
+      font-weight: 850;
+      box-shadow: 0 8px 18px rgba(249, 115, 22, 0.24);
+    }
+
+    .section h2 {
+      margin: 0;
+      font-size: 24px;
+      line-height: 1.35;
+      letter-spacing: -0.02em;
+    }
+
+    .section-desc {
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .section-body {
+      padding: 28px 30px 32px;
+    }
+
+    .notice {
+      border-radius: 14px;
+      padding: 16px 18px;
+      background: var(--blue-soft);
+      border: 1px solid #bfdbfe;
+      color: #1e3a8a;
+      margin-bottom: 20px;
+    }
+
+    .notice strong { color: #1d4ed8; }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    @media (max-width: 860px) {
+      .grid, .grid-3 { grid-template-columns: 1fr; }
+      .hero { padding: 34px 28px; }
+      .section-head, .section-body { padding-left: 22px; padding-right: 22px; }
+      .page { width: min(100% - 24px, 1120px); }
+    }
+
+    .item-card {
+      border: 1px solid var(--line);
+      border-radius: 15px;
+      background: #fff;
+      padding: 18px 18px 17px;
+      min-height: 100%;
+    }
+
+    .item-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+      font-weight: 850;
+      font-size: 17px;
+      color: #111827;
+    }
+
+    .item-title .letter {
+      width: 28px;
+      height: 28px;
+      border-radius: 9px;
+      display: grid;
+      place-items: center;
+      background: var(--brand-soft);
+      color: var(--brand-dark);
+      font-size: 14px;
+      font-weight: 900;
+    }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 850;
+      margin-bottom: 10px;
+      white-space: nowrap;
+    }
+
+    .status.ok { background: var(--green-soft); color: #15803d; border: 1px solid #bbf7d0; }
+    .status.limit { background: var(--amber-soft); color: #92400e; border: 1px solid #fde68a; }
+    .status.done { background: var(--blue-soft); color: #1d4ed8; border: 1px solid #bfdbfe; }
+
+    .item-card p {
+      margin: 0;
+      color: #475467;
+      font-size: 15px;
+    }
+
+    .item-card .reason {
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px dashed var(--line);
+      color: #667085;
+      font-size: 14px;
+    }
+
+    .callout {
+      margin-top: 18px;
+      border-left: 4px solid var(--brand);
+      background: var(--brand-soft);
+      border-radius: 0 14px 14px 0;
+      padding: 14px 16px;
+      color: #7c2d12;
+      font-size: 15px;
+    }
+
+    .simple-list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 12px;
+    }
+
+    .simple-list li {
+      padding: 14px 16px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: #fff;
+    }
+
+    .simple-list strong {
+      color: #111827;
+    }
+
+    .achievement-group {
+      margin-top: 18px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      overflow: hidden;
+      background: #fff;
+    }
+
+    .achievement-head {
+      padding: 18px 22px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      background: linear-gradient(135deg, #fff7ed, #ffffff);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .achievement-head.blue {
+      background: linear-gradient(135deg, #eff6ff, #ffffff);
+    }
+
+    .achievement-head.purple {
+      background: linear-gradient(135deg, #f5f3ff, #ffffff);
+    }
+
+    .achievement-head h3 {
+      margin: 0;
+      font-size: 21px;
+      line-height: 1.35;
+    }
+
+    .achievement-head p {
+      margin: 4px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .count-pill {
+      flex: 0 0 auto;
+      padding: 5px 11px;
+      border-radius: 999px;
+      background: #fff;
+      border: 1px solid var(--line);
+      color: #475467;
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .achievement-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 15px;
+    }
+
+    .achievement-table th,
+    .achievement-table td {
+      padding: 13px 16px;
+      border-bottom: 1px solid var(--line);
+      vertical-align: top;
+      text-align: left;
+    }
+
+    .achievement-table th {
+      background: #fbfcff;
+      color: #475467;
+      font-size: 13px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      font-weight: 850;
+    }
+
+    .achievement-table tr:last-child td { border-bottom: none; }
+
+    .no {
+      color: var(--muted);
+      font-weight: 800;
+      width: 56px;
+      white-space: nowrap;
+    }
+
+    .ach-name {
+      font-weight: 850;
+      color: #111827;
+      min-width: 180px;
+    }
+
+    .condition {
+      color: #344054;
+    }
+
+    .note-text {
+      margin-top: 3px;
+      color: #667085;
+      font-size: 13px;
+    }
+
+    .summary-strip {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    @media (max-width: 900px) {
+      .summary-strip { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 520px) {
+      .summary-strip { grid-template-columns: 1fr; }
+      .achievement-table { font-size: 14px; }
+      .achievement-table th:nth-child(1),
+      .achievement-table td:nth-child(1) { display: none; }
+    }
+
+    .metric {
+      padding: 16px 18px;
+      border: 1px solid var(--line);
+      border-radius: 15px;
+      background: #fff;
+    }
+
+    .metric .value {
+      font-size: 24px;
+      font-weight: 900;
+      color: var(--brand-dark);
+      line-height: 1.1;
+    }
+
+    .metric .label {
+      margin-top: 5px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .footer-note {
+      margin-top: 28px;
+      color: var(--muted);
+      text-align: center;
+      font-size: 13px;
+    }
+
+    @media print {
+      body { background: white; }
+      .page { width: auto; padding: 0; }
+      .hero, .section { box-shadow: none; }
+      .section { break-inside: avoid; }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="page">
+    <header class="hero">
+      <div class="eyebrow">QuBear APP Response Note</div>
+      <h1>量子熊 APP｜YT Player、APP 優化與成就規則回覆說明</h1>
+      <div class="subtitle">
+        本文件彙整 YouTube Player 功能可行性、APP 與後台優化項目、YouTube AI 測驗串接限制，以及三大類成就規則。內容以可實作判斷、限制原因與後續執行方向為主，方便雙方確認範圍與驗收口徑。
+      </div>
+      <div class="meta">
+        <span>回覆用途：功能確認與優化說明</span>
+        <span>文件對象：量子熊 APP 專案</span>
+        <span>版本：整理版</span>
+      </div>
+    </header>
+
+    <section class="section">
+      <div class="section-head">
+        <div class="section-num">1</div>
+        <div>
+          <h2>YT Player 功能與限制</h2>
+          <p class="section-desc">以下依目前播放器套件與 YouTube API 可支援範圍進行說明。</p>
+        </div>
+      </div>
+      <div class="section-body">
+        <div class="grid">
+          <div class="item-card">
+            <div class="item-title"><span class="letter">A</span>畫面放大縮小</div>
+            <div class="status ok">可以做</div>
+            <p>APP 端可針對播放器所在容器或顯示區域進行縮放控制，因此畫面放大、縮小可納入調整。</p>
+          </div>
+
+          <div class="item-card">
+            <div class="item-title"><span class="letter">B</span>影片加速、長押 2 倍播放</div>
+            <div class="status limit">目前套件未支援</div>
+            <p>目前使用的播放器套件未提供影片速度控制與長押 2 倍播放的操作能力，因此無法直接實作。</p>
+            <div class="reason">原因說明：此類操作需要播放器層級支援 playback speed / gesture override；若套件未開放對應控制，APP 端無法穩定介入。</div>
+          </div>
+
+          <div class="item-card">
+            <div class="item-title"><span class="letter">C</span>CC 字幕</div>
+            <div class="status limit">目前套件未支援</div>
+            <p>目前播放器套件未提供 CC 字幕切換或字幕顯示控制介面，因此無法由 APP 端直接控制。</p>
+            <div class="reason">原因說明：字幕功能需由 YouTube Player 或其嵌入套件提供控制參數；若套件未開放，APP 端不能保證字幕狀態與切換體驗。</div>
+          </div>
+
+          <div class="item-card">
+            <div class="item-title"><span class="letter">D</span>全螢幕情緒符號互動</div>
+            <div class="status ok">可以做</div>
+            <p>可以做情緒符號互動，但若要保留可點選的情緒符號 Bar，播放器畫面就不會是完整意義上的全螢幕。</p>
+            <div class="reason">體驗說明：全螢幕時若疊加一條互動 Bar，會佔用畫面空間，可能影響影片觀看沉浸感；此項可做，但建議需確認 UI 呈現方式。</div>
+          </div>
+        </div>
+
+        <div class="callout">
+          建議處理方式：播放器原生能力不足的項目，建議在需求規格中清楚標示「受播放器套件限制」。可做項目則進一步確認 UI 位置、互動時機與是否影響觀看體驗。
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div class="section-num">2</div>
+        <div>
+          <h2>APP 優化項目</h2>
+          <p class="section-desc">以下為 APP 端可進行之調整與目前狀態說明。</p>
+        </div>
+      </div>
+      <div class="section-body">
+        <div class="grid">
+          <div class="item-card">
+            <div class="item-title"><span class="letter">A</span>啟動畫面 Loading Bar</div>
+            <div class="status ok">可以做</div>
+            <p>一開始的 Loading Bar 就會開始動，而不是停住後才開始動。此項可進行調整。</p>
+          </div>
+
+          <div class="item-card">
+            <div class="item-title"><span class="letter">B</span>第三方註冊條款勾選 UI</div>
+            <div class="status done">目前已經有做</div>
+            <p>目前在「第一次」點選第三方登入時，會顯示隱私權條款供使用者勾選；登入過後就不會再特別彈窗提醒。</p>
+            <div class="reason">規則說明：此邏輯與註冊頁一致，僅在註冊或首次第三方登入當下要求勾選條款。</div>
+          </div>
+
+          <div class="item-card">
+            <div class="item-title"><span class="letter">C</span>最新上架影片數與展開</div>
+            <div class="status ok">可以做</div>
+            <p>最新上架區塊可由目前 3 支影片調整為 5 支，並增加「看更多」展開功能。</p>
+            <div class="reason">顯示規則：預設顯示 5 支；點選「看更多」後最多展開至 10 支，排序依最近上架時間。</div>
+          </div>
+
+          <div class="item-card">
+            <div class="item-title"><span class="letter">D</span>最近三支影片播放進度</div>
+            <div class="status ok">可以做</div>
+            <p>手機端可紀錄最近三支影片最後播放的時間，下次進入時可從上次紀錄時間開始播放。</p>
+            <div class="reason">紀錄範圍：目前規劃以最近三支影片為範圍，紀錄最後播放時間點。</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div class="section-num">3</div>
+        <div>
+          <h2>後台優化項目</h2>
+          <p class="section-desc">以下為後台影片同步狀態與調整說明。</p>
+        </div>
+      </div>
+      <div class="section-body">
+        <ul class="simple-list">
+          <li>
+            <strong>A. 後台影片自動同步更新</strong><br>
+            目前已經有做同步更新，後台也有手動即時更新按鈕。測試區先前因排程未開啟，所以看起來沒有更新；目前已開啟排程。
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div class="section-num">4</div>
+        <div>
+          <h2>額外想法：YT 底下的 AI 測驗與量子幣</h2>
+          <p class="section-desc">以下說明 YouTube API 對測驗串接的限制。</p>
+        </div>
+      </div>
+      <div class="section-body">
+        <div class="item-card">
+          <div class="item-title"><span class="letter">A</span>YT 底下的 AI 測驗能不能做？能不能連上量子幣？</div>
+          <div class="status limit">YouTube API 未提供對應入口</div>
+          <p>經確認，YouTube API 沒有提供測驗的連結或入口，因此無法由 APP 端直接串接 YouTube 底下的 AI 測驗，也無法直接與量子幣連動。</p>
+          <div class="reason">補充說明：若後續需要「測驗 × 量子幣」機制，建議改以 APP 內建測驗模組方式規劃，測驗題目、完成條件與量子幣發放規則可由 APP / 後台自行控管。</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div class="section-num">5</div>
+        <div>
+          <h2>成就規則</h2>
+          <p class="section-desc">成就依三大類分類：（A）使用習慣成就、（B）內容探索成就、（C）量子科學主題成就，讓成就系統容易理解、容易實作，也能維持科普產品的質感。</p>
+        </div>
+      </div>
+      <div class="section-body">
+        <div class="summary-strip">
+          <div class="metric">
+            <div class="value">30</div>
+            <div class="label">總成就數</div>
+          </div>
+          <div class="metric">
+            <div class="value">3</div>
+            <div class="label">成就分類</div>
+          </div>
+          <div class="metric">
+            <div class="value">自動</div>
+            <div class="label">依行為、分類、標籤判斷</div>
+          </div>
+          <div class="metric">
+            <div class="value">低維運</div>
+            <div class="label">不需人工逐筆審核</div>
+          </div>
+        </div>
+
+        <div class="achievement-group">
+          <div class="achievement-head">
+            <div>
+              <h3>A. 使用習慣 / 回訪成就</h3>
+              <p>目標：提高黏著度，鼓勵使用者多次回來。</p>
+            </div>
+            <div class="count-pill">10 個</div>
+          </div>
+          <table class="achievement-table">
+            <thead>
+              <tr>
+                <th>編號</th>
+                <th>成就名稱</th>
+                <th>觸發條件</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="no">1</td>
+                <td class="ach-name">初次點亮量子世界</td>
+                <td class="condition">首次登入 APP</td>
+              </tr>
+              <tr>
+                <td class="no">2</td>
+                <td class="ach-name">踏上探索旅程</td>
+                <td class="condition">首次完播一部影片（&gt;80%）</td>
+              </tr>
+              <tr>
+                <td class="no">3</td>
+                <td class="ach-name">好奇心啟動中</td>
+                <td class="condition">連續三天開啟 APP</td>
+              </tr>
+              <tr>
+                <td class="no">4</td>
+                <td class="ach-name">量子習慣形成中</td>
+                <td class="condition">連續七天開啟 APP</td>
+              </tr>
+              <tr>
+                <td class="no">5</td>
+                <td class="ach-name">穩定觀測者</td>
+                <td class="condition">一週內至少 5 天查看影片或文章內容<div class="note-text">不限最短使用時間。</div></td>
+              </tr>
+              <tr>
+                <td class="no">6</td>
+                <td class="ach-name">量子週期律</td>
+                <td class="condition">30 天有至少 5 天查看影片或文章內容<div class="note-text">不須連續，不限最短使用時間。</div></td>
+              </tr>
+              <tr>
+                <td class="no">7</td>
+                <td class="ach-name">每日一學研究員</td>
+                <td class="condition">連續 10 天查看影片或文章內容<div class="note-text">不限最短使用時間。</div></td>
+              </tr>
+              <tr>
+                <td class="no">8</td>
+                <td class="ach-name">研究狂熱者</td>
+                <td class="condition">30 天有至少 15 天查看影片或文章內容<div class="note-text">不須連續，不限最短使用時間。</div></td>
+              </tr>
+              <tr>
+                <td class="no">9</td>
+                <td class="ach-name">收藏不手軟</td>
+                <td class="condition">加入 10 個收藏</td>
+              </tr>
+              <tr>
+                <td class="no">10</td>
+                <td class="ach-name">量子商城雪拚去</td>
+                <td class="condition">進入量子商城</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="achievement-group">
+          <div class="achievement-head blue">
+            <div>
+              <h3>B. 內容探索成就</h3>
+              <p>目標：讓使用者自主探索內容，形成持續觀看與閱讀的動機。</p>
+            </div>
+            <div class="count-pill">10 個</div>
+          </div>
+          <table class="achievement-table">
+            <thead>
+              <tr>
+                <th>編號</th>
+                <th>成就名稱</th>
+                <th>觸發條件</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="no">11</td>
+                <td class="ach-name">第一支量子影片</td>
+                <td class="condition">首次觀看任何影片 1 支</td>
+              </tr>
+              <tr>
+                <td class="no">12</td>
+                <td class="ach-name">量子電影馬拉松</td>
+                <td class="condition">在一天內觀看 3 支影片<div class="note-text">time total 可很短。</div></td>
+              </tr>
+              <tr>
+                <td class="no">13</td>
+                <td class="ach-name">深度探索者</td>
+                <td class="condition">觀看影片總時長超過 60 分鐘</td>
+              </tr>
+              <tr>
+                <td class="no">14</td>
+                <td class="ach-name">知識補完者</td>
+                <td class="condition">看完 5 篇文章<div class="note-text">定義為文章頁停留時間達到 5 秒。</div></td>
+              </tr>
+              <tr>
+                <td class="no">15</td>
+                <td class="ach-name">跨主題冒險者</td>
+                <td class="condition">看過至少 3 種「熱門主題」的影片<div class="note-text">例如：黑洞、量子計算、科學人物。分類對應 YouTube Playlist，觀看紀錄帶有分類資訊，可行。</div></td>
+              </tr>
+              <tr>
+                <td class="no">16</td>
+                <td class="ach-name">主題專家之路</td>
+                <td class="condition">在同一「熱門主題」內觀看超過 8 則影片<div class="note-text">例如都看量子計算主題。</div></td>
+              </tr>
+              <tr>
+                <td class="no">17</td>
+                <td class="ach-name">量子兔洞效應</td>
+                <td class="condition">一次連看 5 則影片或文章<div class="note-text">文章看過的定義為文章頁停留時間達到 5 秒。</div></td>
+              </tr>
+              <tr>
+                <td class="no">18</td>
+                <td class="ach-name">研究者的眼光</td>
+                <td class="condition">留下 3 個心情符號</td>
+              </tr>
+              <tr>
+                <td class="no">19</td>
+                <td class="ach-name">終於看完！</td>
+                <td class="condition">觀看完 1 支 20 分鐘以上的長影片<div class="note-text">&gt;20 分鐘長影片觀看進度 &gt;80%。</div></td>
+              </tr>
+              <tr>
+                <td class="no">20</td>
+                <td class="ach-name">蝴蝶效應的共振者</td>
+                <td class="condition">觀看完 3 支 20 分鐘以上的長影片<div class="note-text">&gt;20 分鐘長影片觀看進度 &gt;80%。</div></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="achievement-group">
+          <div class="achievement-head purple">
+            <div>
+              <h3>C. 量子科學主題成就</h3>
+              <p>利用內容標籤自動判斷，不需要人工逐筆分類。</p>
+            </div>
+            <div class="count-pill">10 個</div>
+          </div>
+          <table class="achievement-table">
+            <thead>
+              <tr>
+                <th>編號</th>
+                <th>成就名稱</th>
+                <th>觸發條件</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="no">21</td>
+                <td class="ach-name">黑洞探索者</td>
+                <td class="condition">看過 3 則「黑洞」相關影片 / 文章<div class="note-text">對應影片或文章帶有「黑洞」標籤或標題關鍵字。</div></td>
+              </tr>
+              <tr>
+                <td class="no">22</td>
+                <td class="ach-name">量子計算初學者</td>
+                <td class="condition">看過 3 則「量子超級英雄」熱門主題</td>
+              </tr>
+              <tr>
+                <td class="no">23</td>
+                <td class="ach-name">瘋狂觀察員</td>
+                <td class="condition">看過 3 則「MAD 瘋狂牡羊」熱門主題</td>
+              </tr>
+              <tr>
+                <td class="no">24</td>
+                <td class="ach-name">多重宇宙漫遊者</td>
+                <td class="condition">看過 3 則「多重宇宙」相關影片 / 文章<div class="note-text">對應影片或文章帶有「多重宇宙」標籤或標題關鍵字。</div></td>
+              </tr>
+              <tr>
+                <td class="no">25</td>
+                <td class="ach-name">時間旅行研究員</td>
+                <td class="condition">看過任何 1 則「相對論」相關影片 / 文章<div class="note-text">對應影片或文章帶有「相對論」標籤或標題關鍵字。</div></td>
+              </tr>
+              <tr>
+                <td class="no">26</td>
+                <td class="ach-name">薛丁格實驗助手</td>
+                <td class="condition">看過至少 1 則「薛丁格」相關影片 / 文章<div class="note-text">對應影片或文章帶有「薛丁格」標籤或標題關鍵字。</div></td>
+              </tr>
+              <tr>
+                <td class="no">27</td>
+                <td class="ach-name">量子糾纏見習生</td>
+                <td class="condition">看過 3 則「量子糾纏」相關影片 / 文章<div class="note-text">對應影片或文章帶有「量子糾纏」標籤或標題關鍵字。</div></td>
+              </tr>
+              <tr>
+                <td class="no">28</td>
+                <td class="ach-name">愛因斯坦粉</td>
+                <td class="condition">看過至少 1 則「愛因斯坦」相關影片 / 文章<div class="note-text">對應影片或文章帶有「愛因斯坦」標籤或標題關鍵字。</div></td>
+              </tr>
+              <tr>
+                <td class="no">29</td>
+                <td class="ach-name">超導體追尋者</td>
+                <td class="condition">看過至少 1 則「超導體」相關影片 / 文章<div class="note-text">對應影片或文章帶有「超導體」標籤或標題關鍵字。</div></td>
+              </tr>
+              <tr>
+                <td class="no">30</td>
+                <td class="ach-name">量子全成就：科學旅行家</td>
+                <td class="condition">完成以上所有主題成就的 5 項<div class="note-text">不限哪五項。</div></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="callout">
+          成就判斷建議：以上成就主要依據登入、開啟 APP、觀看進度、觀看總時長、文章停留時間、收藏、商城進入、心情符號互動、Playlist 分類與內容標籤 / 標題關鍵字進行自動判斷。
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div class="section-num">6</div>
+        <div>
+          <h2>整體確認重點</h2>
+          <p class="section-desc">提供雙方確認後續開發與驗收時可對齊的重點。</p>
+        </div>
+      </div>
+      <div class="section-body">
+        <div class="grid-3">
+          <div class="item-card">
+            <div class="item-title"><span class="letter">1</span>可調整項目</div>
+            <p>Loading Bar、最新上架顯示數量與看更多、最近三支播放進度、畫面縮放、全螢幕情緒互動可進一步確認 UI 後執行。</p>
+          </div>
+          <div class="item-card">
+            <div class="item-title"><span class="letter">2</span>播放器限制</div>
+            <p>影片加速、長押 2 倍播放、CC 字幕目前受播放器套件支援範圍限制，APP 端無法直接穩定實作。</p>
+          </div>
+          <div class="item-card">
+            <div class="item-title"><span class="letter">3</span>成就系統</div>
+            <p>30 個成就可依使用習慣、內容探索、科學主題三類規劃，並以自動觸發為原則降低後續維運成本。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="footer-note">
+      量子熊 QuBear APP｜功能可行性、優化項目與成就規則整理
+    </div>
+  </main>
+</body>
+</html>
