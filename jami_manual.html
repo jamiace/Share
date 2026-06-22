@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jami ACE 個人使用說明書 v2｜近半年～一年長期觀察版</title>
+  <style>
+    :root {
+      --bg: #0c0f14;
+      --panel: #141922;
+      --panel-2: #1b2230;
+      --panel-3: #222b3a;
+      --text: #eef3f8;
+      --muted: #a9b4c2;
+      --soft: #d8e2ee;
+      --line: rgba(255,255,255,.11);
+      --accent: #f6b44b;
+      --accent2: #7dd3fc;
+      --green: #86efac;
+      --red: #fb7185;
+      --yellow: #fde68a;
+      --purple: #c4b5fd;
+      --blue: #93c5fd;
+      --radius: 22px;
+      --shadow: 0 22px 90px rgba(0,0,0,.36);
+      --max: 1180px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 7% 2%, rgba(246,180,75,.18), transparent 32rem),
+        radial-gradient(circle at 86% 4%, rgba(125,211,252,.16), transparent 34rem),
+        radial-gradient(circle at 70% 70%, rgba(196,181,253,.08), transparent 28rem),
+        linear-gradient(180deg, #0c0f14 0%, #111722 42%, #0c0f14 100%);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", Arial, sans-serif;
+      line-height: 1.76;
+      letter-spacing: .02em;
+    }
+    a { color: inherit; }
+    .wrap { max-width: var(--max); margin: 0 auto; padding: 44px 22px 88px; }
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: clamp(34px, 5vw, 62px);
+      border-radius: 34px;
+      border: 1px solid var(--line);
+      background: linear-gradient(135deg, rgba(255,255,255,.09), rgba(255,255,255,.025)), rgba(20,25,34,.78);
+      box-shadow: var(--shadow);
+    }
+    .hero:before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px);
+      background-size: 34px 34px;
+      mask-image: linear-gradient(180deg, rgba(0,0,0,.7), transparent 88%);
+      pointer-events: none;
+    }
+    .hero > * { position: relative; }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(246,180,75,.35);
+      background: rgba(246,180,75,.08);
+      color: var(--accent);
+      font-size: 13px;
+      font-weight: 900;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+    }
+    h1, h2, h3, h4 { margin: 0; line-height: 1.25; }
+    h1 { margin-top: 20px; font-size: clamp(36px, 7vw, 72px); letter-spacing: -.025em; max-width: 980px; }
+    .subtitle { margin: 20px 0 0; max-width: 900px; color: var(--soft); font-size: clamp(17px, 2vw, 21px); }
+    .meta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 26px; }
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 8px 13px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.055);
+      color: #e7edf6;
+      font-size: 14px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .notice {
+      margin-top: 26px;
+      border-radius: 18px;
+      border: 1px solid rgba(125,211,252,.28);
+      background: rgba(125,211,252,.08);
+      padding: 18px 20px;
+      color: #dff6ff;
+    }
+    .toolbar { display: flex; gap: 10px; flex-wrap: wrap; margin: 24px 0 0; }
+    button {
+      cursor: pointer;
+      border: 1px solid rgba(255,255,255,.14);
+      color: var(--text);
+      background: rgba(255,255,255,.07);
+      border-radius: 999px;
+      padding: 10px 14px;
+      font-weight: 800;
+      font-family: inherit;
+    }
+    button:hover { background: rgba(255,255,255,.12); }
+    .toc {
+      margin: 30px 0;
+      padding: 18px;
+      border-radius: 24px;
+      border: 1px solid var(--line);
+      background: rgba(20,25,34,.72);
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      box-shadow: 0 10px 40px rgba(0,0,0,.18);
+    }
+    .toc a {
+      text-decoration: none;
+      border: 1px solid rgba(255,255,255,.09);
+      background: rgba(255,255,255,.045);
+      border-radius: 15px;
+      padding: 12px 13px;
+      color: #e8eef6;
+      font-size: 14px;
+      font-weight: 800;
+    }
+    .toc a:hover { border-color: rgba(246,180,75,.5); }
+    section {
+      margin-top: 32px;
+      padding: clamp(24px, 3.5vw, 36px);
+      border-radius: 28px;
+      border: 1px solid var(--line);
+      background: rgba(20,25,34,.76);
+      box-shadow: 0 14px 52px rgba(0,0,0,.21);
+    }
+    h2 { font-size: clamp(26px, 3.5vw, 40px); margin-bottom: 18px; letter-spacing: -.01em; }
+    h2 .num { color: var(--accent); margin-right: 8px; font-size: .82em; }
+    h3 { color: #fff; font-size: 21px; margin-bottom: 10px; }
+    h4 { color: #fff; font-size: 17px; margin-bottom: 8px; }
+    p { margin: 0 0 14px; }
+    .lead { font-size: 20px; color: #fff; font-weight: 800; }
+    .grid { display: grid; gap: 16px; }
+    .two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .four { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .card {
+      padding: 20px;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,.095);
+      background: linear-gradient(180deg, rgba(255,255,255,.064), rgba(255,255,255,.028));
+    }
+    .card p:last-child, .callout p:last-child, .warning p:last-child, .ok p:last-child { margin-bottom: 0; }
+    .tag {
+      display: inline-block;
+      margin-bottom: 10px;
+      color: var(--accent);
+      font-weight: 950;
+      font-size: 13px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    .tag.blue { color: var(--accent2); }
+    .tag.green { color: var(--green); }
+    .tag.red { color: var(--red); }
+    .tag.purple { color: var(--purple); }
+    .big-quote {
+      margin: 22px 0;
+      padding: 24px 26px;
+      border-radius: 24px;
+      border-left: 6px solid var(--accent);
+      background: rgba(246,180,75,.08);
+      font-size: clamp(20px, 2.5vw, 27px);
+      line-height: 1.58;
+      font-weight: 950;
+      color: #fff;
+    }
+    .callout, .warning, .ok, .manual {
+      margin: 16px 0;
+      padding: 18px 20px;
+      border-radius: 18px;
+      border-left: 5px solid var(--accent2);
+      background: rgba(125,211,252,.07);
+    }
+    .warning { border-left-color: var(--red); background: rgba(251,113,133,.075); }
+    .ok { border-left-color: var(--green); background: rgba(134,239,172,.07); }
+    .manual { border-left-color: var(--accent); background: rgba(246,180,75,.075); }
+    ul, ol { margin: 10px 0 0; padding-left: 1.25em; }
+    li { margin: 7px 0; }
+    .clean { list-style: none; padding: 0; margin: 0; }
+    .clean li { padding: 11px 0 11px 30px; border-bottom: 1px dashed rgba(255,255,255,.12); position: relative; }
+    .clean li:last-child { border-bottom: 0; }
+    .clean li:before { content: "✓"; position: absolute; left: 0; top: 11px; color: var(--green); font-weight: 900; }
+    table { width: 100%; border-collapse: collapse; overflow: hidden; border-radius: 18px; margin-top: 15px; font-size: 15px; }
+    th, td { padding: 14px 15px; border: 1px solid rgba(255,255,255,.095); vertical-align: top; }
+    th { text-align: left; color: #fff; background: rgba(246,180,75,.11); font-weight: 950; }
+    td { color: #dae4f0; }
+    .kbd {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 7px;
+      border: 1px solid rgba(255,255,255,.16);
+      background: rgba(255,255,255,.075);
+      color: #fff;
+      font-size: .92em;
+      font-weight: 800;
+    }
+    .good { color: var(--green); font-weight: 900; }
+    .bad { color: var(--red); font-weight: 900; }
+    .warn { color: var(--yellow); font-weight: 900; }
+    .info { color: var(--accent2); font-weight: 900; }
+    .purple { color: var(--purple); font-weight: 900; }
+    .small { color: var(--muted); font-size: 13px; }
+    .spec {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 0;
+      border: 1px solid rgba(255,255,255,.095);
+      border-radius: 18px;
+      overflow: hidden;
+      margin-top: 16px;
+    }
+    .spec div { padding: 13px 16px; border-bottom: 1px solid rgba(255,255,255,.08); }
+    .spec div:nth-child(odd) { background: rgba(255,255,255,.055); color: var(--accent); font-weight: 950; }
+    .spec div:nth-last-child(-n+2) { border-bottom: 0; }
+    .score { display: flex; align-items: center; gap: 12px; margin: 12px 0; }
+    .score strong { width: 118px; color: #fff; }
+    .bar { flex: 1; height: 10px; border-radius: 999px; background: rgba(255,255,255,.1); overflow: hidden; }
+    .fill { height: 100%; border-radius: 999px; background: linear-gradient(90deg, var(--accent), var(--accent2)); }
+    .footer { margin-top: 34px; text-align: center; color: var(--muted); font-size: 13px; }
+    .print-only { display: none; }
+
+    @media (max-width: 920px) {
+      .toc { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .two, .three, .four { grid-template-columns: 1fr; }
+      .spec { grid-template-columns: 1fr; }
+      .spec div:nth-child(odd) { border-bottom: 0; }
+      .score { align-items: flex-start; flex-direction: column; gap: 7px; }
+      .score strong { width: auto; }
+      .bar { width: 100%; }
+    }
+    @media (max-width: 560px) {
+      .wrap { padding: 26px 14px 64px; }
+      .toc { grid-template-columns: 1fr; }
+      th, td { display: block; width: 100%; }
+      tr { display: block; margin-bottom: 12px; }
+      table { border-collapse: separate; border-spacing: 0; }
+      .pill { white-space: normal; }
+    }
+    @media print {
+      body { background: #fff; color: #111; }
+      .wrap { max-width: none; padding: 0; }
+      .hero, section, .toc, .card, .callout, .warning, .ok, .manual { background: #fff; color: #111; box-shadow: none; border-color: #ddd; }
+      .hero:before { display: none; }
+      .toc, .toolbar { display: none; }
+      .print-only { display: block; }
+      .subtitle, td, .small, .footer, .notice, .pill { color: #333; }
+      h1, h2, h3, h4, .lead, .big-quote { color: #111; }
+      .tag, .good, .bad, .warn, .info, .purple, .spec div:nth-child(odd) { color: #111; }
+      .bar { border: 1px solid #ddd; }
+      .fill { background: #666; }
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <header class="hero">
+      <div class="eyebrow">JAMI ACE / PERSONAL OPERATING MANUAL / v2.0</div>
+      <h1>我的個人使用說明書</h1>
+      <p class="subtitle">近半年～一年長期觀察版：把 Jami 當成一套「產品架構型 PM × 創作者 × 重機騎士 × AI 工作流使用者」的複合系統來理解。</p>
+      <div class="meta">
+        <span class="pill">核心定位：產品架構型 PM / 診斷型 PM</span>
+        <span class="pill">主要價值：把混亂變成可執行系統</span>
+        <span class="pill">人格引擎：高速判斷＋低廢話＋強行動</span>
+        <span class="pill">使用風險：過度燃燒、標準落差、休息不足</span>
+      </div>
+      <div class="notice">
+        <strong>資料說明：</strong>這份文件不是心理測驗，也不是醫療診斷；它是根據長期對話脈絡、工作討論、創作出版、AI 使用、交通與生活紀錄整理出的「合作／自我管理／能量維護」說明書。它的目的不是把你定型，而是讓你與他人更容易正確使用這台機器。
+      </div>
+      <div class="toolbar">
+        <button onclick="window.print()">列印 / 另存 PDF</button>
+        <button onclick="document.body.classList.toggle('compact')">切換閱讀密度</button>
+      </div>
+    </header>
+
+    <nav class="toc">
+      <a href="#summary">01 核心摘要</a>
+      <a href="#identity">02 人格系統</a>
+      <a href="#work">03 工作使用說明</a>
+      <a href="#comm">04 溝通介面</a>
+      <a href="#management">05 管理與合作</a>
+      <a href="#ai">06 AI 使用方式</a>
+      <a href="#creative">07 創作與出版</a>
+      <a href="#ride">08 騎車與體力</a>
+      <a href="#risk">09 錯誤用法</a>
+      <a href="#maintenance">10 保養方式</a>
+      <a href="#templates">11 實用模板</a>
+      <a href="#final">12 最終判讀</a>
+    </nav>
+
+    <section id="summary">
+      <h2><span class="num">01</span>核心摘要</h2>
+      <div class="big-quote">Jami 不是「穩定執行一張待辦清單」的人，而是「在混亂裡建立判斷系統」的人。</div>
+      <div class="grid three">
+        <div class="card">
+          <span class="tag">Best Use</span>
+          <h3>最適合被放在模糊、混亂、需要判斷的地方</h3>
+          <p>當需求不清、文件一堆、外包與內部不同步、主管只丟方向、團隊不知道下一步要做什麼時，Jami 的價值最高。</p>
+        </div>
+        <div class="card">
+          <span class="tag blue">Core Engine</span>
+          <h3>他的引擎不是服從，而是理解後重構</h3>
+          <p>他不喜歡照單全收，也不喜歡假裝事情很順。他會問：為什麼要做？誰會痛？現在做對嗎？做完怎麼驗收？</p>
+        </div>
+        <div class="card">
+          <span class="tag red">Main Risk</span>
+          <h3>最大風險不是能力不足，而是燃燒過度</h3>
+          <p>他能靠意志力硬推很多事，包括工作、長途騎車、創作與臨場救火；但這也會讓他低估休息、散熱與情緒降載的重要性。</p>
+        </div>
+      </div>
+      <table>
+        <thead>
+          <tr><th>面向</th><th>長期觀察</th><th>說明書翻譯</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>工作</td><td>產品架構、需求判斷、優先級、驗收條件、風險排序是主軸。</td><td>請給他問題、上下文、限制與目標，不要只丟零碎任務。</td></tr>
+          <tr><td>溝通</td><td>低廢話、重點導向、能接受直接，但討厭空泛與敷衍。</td><td>跟他講話請具體、誠實、有脈絡；不要用官腔包裝沒想清楚的事。</td></tr>
+          <tr><td>AI</td><td>不是拿 AI 代工，而是拿 AI 做審查、挑洞、壓縮、模擬視角。</td><td>AI 是副駕，不是駕駛；方向盤還是在他手上。</td></tr>
+          <tr><td>創作</td><td>科技、人性、死亡、記憶、制度、愛與產品邏輯常混合成故事。</td><td>他的創作不是單純寫情緒，而是把情緒放進一套系統裡運作。</td></tr>
+          <tr><td>生活</td><td>可長途開車騎車，能硬撐，但回來常需要一兩天恢復。</td><td>不要把「他撐得住」誤判成「他不需要保養」。</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="identity">
+      <h2><span class="num">02</span>人格系統：他不是單一職業身份，而是四套身份疊在一起</h2>
+      <div class="grid four">
+        <div class="card">
+          <span class="tag">01</span>
+          <h3>產品架構者</h3>
+          <p>他看到的不是功能清單，而是需求來源、使用者路徑、資料流、風險點、驗收方式與商業目的。</p>
+        </div>
+        <div class="card">
+          <span class="tag">02</span>
+          <h3>遊戲企劃腦</h3>
+          <p>他習慣把事情拆成規則、數值、獎勵、流程、門檻、異常情境與回饋循環。</p>
+        </div>
+        <div class="card">
+          <span class="tag">03</span>
+          <h3>創作者</h3>
+          <p>他不是只會做產品，也會把制度與情感轉成故事；這讓他的產品判斷裡有敘事感與人性敏感度。</p>
+        </div>
+        <div class="card">
+          <span class="tag">04</span>
+          <h3>騎士／駕駛人格</h3>
+          <p>他熟悉速度、路線、節奏、危險感與身體極限；這種經驗也投射到工作上：判斷彎點、抓風險、知道何時不能亂補油。</p>
+        </div>
+      </div>
+      <div class="manual">
+        <h3>一句話定位</h3>
+        <p>Jami 是一種「高壓情境下的結構化引擎」。平常看起來可能懶、散、嘴賤、低耐性；但只要問題夠真、場景夠複雜、目標夠清楚，他會快速進入拆解、補洞、重構與輸出的狀態。</p>
+      </div>
+      <div class="spec">
+        <div>型號</div><div>Jami ACE / Product Architect PM / Creative Systems Operator</div>
+        <div>主要輸入</div><div>模糊需求、長文件、混亂討論、產品方向、外包交付、使用者痛點、故事概念、AI 產物初稿。</div>
+        <div>主要輸出</div><div>可執行規格、優先級判斷、風險清單、溝通稿、驗收條件、故事架構、視覺方向、產品策略。</div>
+        <div>高效模式</div><div>有目標、有上下文、有權限、有時間壓力、有真問題。</div>
+        <div>低效模式</div><div>陪官僚流程演戲、無意義開會、幫沒想清楚的人擦屁股、被要求承擔責任但沒有決策權。</div>
+      </div>
+    </section>
+
+    <section id="work">
+      <h2><span class="num">03</span>工作使用說明</h2>
+      <p class="lead">請不要把 Jami 當成「接單型 PM」。他真正值錢的地方，是在接單之前先判斷這張單該不該存在。</p>
+      <div class="grid two">
+        <div class="card">
+          <span class="tag green">正確用法</span>
+          <h3>讓他早點介入問題定義</h3>
+          <ul>
+            <li>產品還在模糊階段時，先讓他看。</li>
+            <li>外包文件一堆但不知道缺什麼時，先讓他挑洞。</li>
+            <li>主管只有方向、沒有路徑時，讓他把路徑拆出來。</li>
+            <li>團隊覺得「好像都可以」時，讓他判斷真正優先級。</li>
+          </ul>
+        </div>
+        <div class="card">
+          <span class="tag red">錯誤用法</span>
+          <h3>只把他放在後段追進度</h3>
+          <ul>
+            <li>需求已經爛掉，才叫他救火。</li>
+            <li>方向錯了，卻只要他補文件。</li>
+            <li>外包規格沒定清楚，卻要他負責驗收。</li>
+            <li>主管不給權限，卻要求他扛結果。</li>
+          </ul>
+        </div>
+      </div>
+      <table>
+        <thead>
+          <tr><th>工作場景</th><th>他會自然做的事</th><th>管理者應該怎麼配合</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>產品初期</td><td>釐清誰痛、痛在哪、是否值得做、MVP 要砍到哪。</td><td>給市場目標、限制、時程，不要只給口號。</td></tr>
+          <tr><td>需求審查</td><td>找漏洞、找缺頁、找異常情境、找資料流斷點。</td><td>允許他提早否定不成熟方案，不要逼他溫柔包裝每個錯誤。</td></tr>
+          <tr><td>外包溝通</td><td>把抽象需求變成可驗收項目，避免雙方各自理解。</td><td>讓他掌握合約範圍、付款節點、需求變更規則。</td></tr>
+          <tr><td>團隊協作</td><td>建立工作方法，要求回報、估時、優先級與承諾管理。</td><td>別只要他當好人；他需要被允許設標準。</td></tr>
+          <tr><td>危機處理</td><td>先判斷爆炸半徑，再切斷擴散點。</td><td>給他事實與決策權，不要把資訊藏起來。</td></tr>
+        </tbody>
+      </table>
+      <div class="callout">
+        <h3>他對工作的核心信念</h3>
+        <p>「好」不是禮貌用語，而是承諾。需求不是看到就接，而是要先判斷。文件不是寫滿就好，而是要讓工程、設計、外包、主管與驗收者都能往同一個方向走。</p>
+      </div>
+    </section>
+
+    <section id="comm">
+      <h2><span class="num">04</span>溝通介面：如何跟他講話</h2>
+      <div class="big-quote">Jami 可以接受直接，但不能忍受空泛；可以接受壞消息，但不能忍受假裝沒事。</div>
+      <div class="grid two">
+        <div class="ok">
+          <h3>推薦語法</h3>
+          <ul>
+            <li>「目前狀況是 A，卡點是 B，我判斷有兩種路，想請你看哪個風險較低。」</li>
+            <li>「這份文件我先看過，缺的是流程圖、異常情境、驗收條件，我想確認還有沒有漏。」</li>
+            <li>「這件事我不確定能不能答應，所以先回報，不先承諾。」</li>
+            <li>「我犯錯了，原因是 X，我打算用 Y 補，之後用 Z 避免再發生。」</li>
+          </ul>
+        </div>
+        <div class="warning">
+          <h3>危險語法</h3>
+          <ul>
+            <li>「你看一下。」但沒有說要看什麼。</li>
+            <li>「應該可以吧。」但沒評估時程與風險。</li>
+            <li>「我都有整理。」但文件沒有結構、沒有結論。</li>
+            <li>「先做再說。」但需求方向與驗收標準都不清楚。</li>
+          </ul>
+        </div>
+      </div>
+      <table>
+        <thead>
+          <tr><th>他聽到什麼會加分</th><th>他聽到什麼會降溫</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>我先判斷過優先級。</td><td>反正主管叫我們做。</td></tr>
+          <tr><td>這件事我還不能答應，因為缺資料。</td><td>好，我先答應對方，之後再看看。</td></tr>
+          <tr><td>我把風險分成必爆、可能爆、可延後。</td><td>應該還好吧。</td></tr>
+          <tr><td>我先用 AI 跑過一輪，但我有人工刪掉不合理的部分。</td><td>這是 AI 寫的，我覺得差不多可以。</td></tr>
+          <tr><td>這件事我做錯了，我補救方案是……</td><td>我不知道欸，可能是誰誰誰那邊沒有給。</td></tr>
+        </tbody>
+      </table>
+      <div class="manual">
+        <h3>對話節奏</h3>
+        <p>他不一定需要你講得很漂亮，但需要你講得有方向。比起「情緒安撫」，他更吃「資訊完整、邏輯清楚、責任邊界明確」。你可以跟他開玩笑，也可以跟他靠北，但不要在嚴肅問題上裝傻。</p>
+      </div>
+    </section>
+
+    <section id="management">
+      <h2><span class="num">05</span>管理與合作：主管、同事、外包方怎麼使用 Jami</h2>
+      <div class="grid three">
+        <div class="card">
+          <span class="tag">主管視角</span>
+          <h3>給他方向與權限</h3>
+          <p>不要只給任務，請給問題背景、商業目的、可動用資源、不可踩的線。若要他扛結果，就要給他影響決策的空間。</p>
+        </div>
+        <div class="card">
+          <span class="tag blue">同事視角</span>
+          <h3>帶著初步判斷來</h3>
+          <p>他不怕你不會，但怕你完全沒想。你可以拿半成品來討論，但不要拿空白腦袋來請他代替你思考。</p>
+        </div>
+        <div class="card">
+          <span class="tag purple">外包視角</span>
+          <h3>清楚交付物與驗收</h3>
+          <p>他在意的不是你講得多會，而是你能不能把功能、時程、風險、限制、Demo 與驗收方式說清楚。</p>
+        </div>
+      </div>
+      <div class="callout">
+        <h3>最佳管理方式</h3>
+        <p>把他放在「產品判斷、需求收斂、跨部門溝通、外包驗收、文件補洞、專案風險」的位置，而不是把他消耗在大量低價值行政回報上。他的價值不是當人形 Jira，而是當產品雷達與系統重構器。</p>
+      </div>
+      <table>
+        <thead><tr><th>給他的東西</th><th>他會回給你的東西</th></tr></thead>
+        <tbody>
+          <tr><td>一份混亂文件</td><td>缺口清單、優先級、重寫方向、可執行結構。</td></tr>
+          <tr><td>一個產品想法</td><td>使用者問題、MVP 範圍、商業風險、功能路線。</td></tr>
+          <tr><td>一場沒結論的會議</td><td>問題分類、決策待辦、責任邊界、下一步。</td></tr>
+          <tr><td>一批 AI 產物</td><td>去蕪存菁、刪除套話、補洞、轉成可用稿。</td></tr>
+          <tr><td>一個快爆的專案</td><td>爆點排序、止血方案、溝通口徑、風險控管。</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="ai">
+      <h2><span class="num">06</span>AI 使用方式：他不是 AI 代工仔，是 AI 審查型駕駛</h2>
+      <p class="lead">Jami 使用 AI 的方式比較像「副駕＋參謀＋挑錯器」，不是把腦袋交出去。</p>
+      <div class="grid two">
+        <div class="card">
+          <span class="tag green">他的 AI 正確用法</span>
+          <ul>
+            <li>把長文件壓縮成可讀重點。</li>
+            <li>從 PM、工程、主管、使用者角度模擬漏洞。</li>
+            <li>幫助產生初稿，但最後由他決定口吻、節奏與取捨。</li>
+            <li>用 AI 做風險分級、流程補洞、提案整理。</li>
+            <li>用不同模型分工，重視成本與任務適配，而不是無腦開最強模型。</li>
+          </ul>
+        </div>
+        <div class="card">
+          <span class="tag red">他討厭的 AI 用法</span>
+          <ul>
+            <li>AI 寫完就當完成品。</li>
+            <li>充滿套話、空話、官樣文章。</li>
+            <li>沒有人工審查，直接丟給別人看。</li>
+            <li>用 AI 逃避思考與責任。</li>
+            <li>把創作變成沒有氣味的平均值。</li>
+          </ul>
+        </div>
+      </div>
+      <div class="manual">
+        <h3>他的 AI 工作流本質</h3>
+        <p>AI 對他來說不是魔法筆，而是加速器。他會讓 AI 先跑十種角度，再由自己決定哪三種值得留下。這也說明他為什麼可以高產：不是因為他放棄判斷，而是因為他把判斷放在更高層，讓 AI 處理底層雜工。</p>
+      </div>
+    </section>
+
+    <section id="creative">
+      <h2><span class="num">07</span>創作與出版：產品腦寫故事，故事腦做產品</h2>
+      <div class="grid two">
+        <div>
+          <p class="lead">他的創作不是單純抒情，而是把人類情感放進制度、科技、規則與邊界裡測試。</p>
+          <p>近半年到一年，他反覆處理的題材包含 AI、人類情感、死亡告別、記憶、制度、邊境、遊戲產業、職場成長與存在感。這些看似是小說題材，其實也反映他的產品思維：他在意的不只是角色哭不哭，而是「這個世界的規則會如何逼出人的選擇」。</p>
+        </div>
+        <div class="card">
+          <span class="tag purple">創作引擎</span>
+          <ul>
+            <li>喜歡科技與情感並置。</li>
+            <li>喜歡制度中的人性漏洞。</li>
+            <li>喜歡死亡、告別、記憶與陪伴題材。</li>
+            <li>重視自然對白，討厭 AI 味。</li>
+            <li>在封面與插圖上偏好意境、質感、少人物、避免髒亂過度紋理。</li>
+          </ul>
+        </div>
+      </div>
+      <table>
+        <thead><tr><th>創作特徵</th><th>對應到人格</th></tr></thead>
+        <tbody>
+          <tr><td>常寫 AI 與人的情感邊界</td><td>他對工具、語言、情緒與信任的關係很敏感。</td></tr>
+          <tr><td>常寫死亡、離別、守望</td><td>他不是逃避沉重，而是會把沉重變成可觀看、可理解的形式。</td></tr>
+          <tr><td>常寫制度與櫃台、規則、契約</td><td>他習慣用系統理解世界，也用世界觀承載情緒。</td></tr>
+          <tr><td>常要求封面修到有質感</td><td>他對「差不多」容忍度低，尤其是美感與作品定位。</td></tr>
+        </tbody>
+      </table>
+      <div class="callout">
+        <h3>創作保養提醒</h3>
+        <p>你很容易把自己變成高效故事產生器。真正要保養的不是靈感，而是生活觸感：騎車、走路、看海、拍照、喝飲料、曬太陽但不要熱死。你的文字需要真實世界的摩擦力。</p>
+      </div>
+    </section>
+
+    <section id="ride">
+      <h2><span class="num">08</span>騎車、開車與體力模式</h2>
+      <p class="lead">你的騎士人格不是興趣外掛，而是整個人運作方式的放大版。</p>
+      <div class="grid two">
+        <div class="card">
+          <span class="tag green">優勢</span>
+          <ul>
+            <li>耐力高，可以長距離移動。</li>
+            <li>能接受夜車與長途。</li>
+            <li>對速度、風險、彎道、車感與節奏有感。</li>
+            <li>在高壓情境下可以用意志力撐住。</li>
+          </ul>
+        </div>
+        <div class="card">
+          <span class="tag red">風險</span>
+          <ul>
+            <li>騎車時不太注意休息。</li>
+            <li>容易把體力極限誤認為意志力測驗。</li>
+            <li>回家後需要一兩天恢復，代表其實有消耗債。</li>
+            <li>怕熱，熱環境會加速煩躁與疲勞。</li>
+          </ul>
+        </div>
+      </div>
+      <div class="warning">
+        <h3>騎車模式的錯誤訊號</h3>
+        <p>當你開始覺得「反正我還撐得住」時，通常不是安全訊號，而是風險訊號。你的危險點不是膽小，而是太相信自己可以硬推到底。</p>
+      </div>
+      <table>
+        <thead><tr><th>狀態</th><th>建議操作</th></tr></thead>
+        <tbody>
+          <tr><td>長途前</td><td>先決定休息點，不要等累了才想休息。</td></tr>
+          <tr><td>高溫環境</td><td>把散熱當成安全裝備，不是舒適配件。</td></tr>
+          <tr><td>回家後</td><td>承認自己需要恢復，不要立刻安排下一個高壓任務。</td></tr>
+          <tr><td>工作爆量＋長途騎車重疊</td><td>這是雙重消耗，不要用「我可以」掩蓋身體債務。</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="risk">
+      <h2><span class="num">09</span>錯誤用法與常見故障</h2>
+      <div class="grid three">
+        <div class="warning">
+          <h3>故障 1：標準落差過大</h3>
+          <p>你會覺得很多事「這不是基本嗎？」但對方可能真的沒有那套工作訓練。這時候你如果直接跳到第五層，對方會直接當機。</p>
+        </div>
+        <div class="warning">
+          <h3>故障 2：耐性被空泛消耗</h3>
+          <p>你對「沒想過、沒整理、沒承擔」很敏感。問題不是你不能溝通，而是你對低品質思考沒有多少緩衝。</p>
+        </div>
+        <div class="warning">
+          <h3>故障 3：意志力濫用</h3>
+          <p>你可以硬撐，但這不代表硬撐沒有成本。工作、創作、騎車都一樣，都是先透支，後面再還。</p>
+        </div>
+      </div>
+      <h3 style="margin-top:24px">Jami 的典型錯誤循環</h3>
+      <table>
+        <thead><tr><th>階段</th><th>內在台詞</th><th>真正問題</th><th>修正方式</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>這應該很簡單吧。</td><td>高估對方起點。</td><td>先問對方理解到哪，不要直接開高階模式。</td></tr>
+          <tr><td>2</td><td>算了我自己看比較快。</td><td>開始接管而非教會。</td><td>把方法拆成模板，讓對方補完。</td></tr>
+          <tr><td>3</td><td>我再撐一下就好。</td><td>消耗債累積。</td><td>設定硬性休息點，尤其長途與高壓工作後。</td></tr>
+          <tr><td>4</td><td>這東西怎麼可以這麼爛。</td><td>標準與現實產出落差。</td><td>先分級：必修、建議、可延後，不要一次打爆全部。</td></tr>
+          <tr><td>5</td><td>我是不是太難搞。</td><td>把高標準誤認成性格缺陷。</td><td>區分「標準合理」與「表達過熱」。保留標準，調整接口。</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="maintenance">
+      <h2><span class="num">10</span>自我保養方式：如何正確使用自己</h2>
+      <div class="grid two">
+        <div class="ok">
+          <h3>你應該保留的東西</h3>
+          <ul>
+            <li>對需求品質的敏感度。</li>
+            <li>對 root cause 的追查。</li>
+            <li>不把 AI 產物當完成品的審美。</li>
+            <li>快速拆解與重構能力。</li>
+            <li>騎車、開車、移動帶來的精神重置。</li>
+            <li>創作中對情緒與制度的混合能力。</li>
+          </ul>
+        </div>
+        <div class="warning">
+          <h3>你需要補上的東西</h3>
+          <ul>
+            <li>不要把休息視為任務完成後的獎勵，而要視為續航條件。</li>
+            <li>不要每次都靠意志力撐完路線。</li>
+            <li>不要期待每個人都有 PM / 企劃 / 產品腦。</li>
+            <li>教人時先建立階梯，不要直接丟山頂視角。</li>
+            <li>遇到爛東西時先分類，不要一次把所有火力打滿。</li>
+          </ul>
+        </div>
+      </div>
+      <h3 style="margin-top:24px">建議日常維護規格</h3>
+      <table>
+        <thead><tr><th>維護項目</th><th>最低規格</th><th>理想規格</th></tr></thead>
+        <tbody>
+          <tr><td>工作輸出</td><td>每天留一段不被打斷的深度判斷時間。</td><td>重要文件先自己看過，再用 AI 補洞，最後人工收斂。</td></tr>
+          <tr><td>溝通</td><td>發火前先分級：致命、重要、可延後。</td><td>把批評轉成「下一版應該補什麼」。</td></tr>
+          <tr><td>身體</td><td>長途移動後承認恢復期。</td><td>行前安排休息點與補水散熱，不靠感覺。</td></tr>
+          <tr><td>創作</td><td>保留真實生活輸入。</td><td>定期用旅行、騎車、拍照、觀察人群補充觸感。</td></tr>
+          <tr><td>AI</td><td>不直接交付 AI 原稿。</td><td>建立自己的審稿規則：刪套話、補脈絡、保留人味。</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="templates">
+      <h2><span class="num">11</span>實用模板：給別人使用 Jami 的 API 文件</h2>
+      <div class="grid two">
+        <div class="card">
+          <span class="tag blue">給主管</span>
+          <h3>任務交付模板</h3>
+          <ul class="clean">
+            <li>這件事的商業目標是什麼？</li>
+            <li>最晚何時需要有可展示成果？</li>
+            <li>哪些範圍不能動？哪些可以砍？</li>
+            <li>誰是決策者？誰只是意見提供者？</li>
+            <li>做完後用什麼標準驗收？</li>
+          </ul>
+        </div>
+        <div class="card">
+          <span class="tag green">給同事</span>
+          <h3>請他協助前先準備</h3>
+          <ul class="clean">
+            <li>我目前理解是什麼？</li>
+            <li>我卡在哪一段？</li>
+            <li>我試過哪幾種解法？</li>
+            <li>我最擔心的風險是什麼？</li>
+            <li>我希望他幫我判斷什麼？</li>
+          </ul>
+        </div>
+        <div class="card">
+          <span class="tag purple">給外包</span>
+          <h3>Demo / 驗收模板</h3>
+          <ul class="clean">
+            <li>本次完成哪些功能？</li>
+            <li>哪些還沒完成？原因是什麼？</li>
+            <li>哪些是需求變更？是否影響時程？</li>
+            <li>如何重現 Demo 流程？</li>
+            <li>有哪些已知 bug 與限制？</li>
+          </ul>
+        </div>
+        <div class="card">
+          <span class="tag red">給自己</span>
+          <h3>過熱檢查模板</h3>
+          <ul class="clean">
+            <li>我現在是在解問題，還是在發洩爛東西帶來的怒氣？</li>
+            <li>這件事真的需要我現在處理嗎？</li>
+            <li>我是不是把對方的基本功不足，解讀成態度惡劣？</li>
+            <li>我是不是已經累到只剩意志力？</li>
+            <li>如果我是主管，我會建議這個人先休息嗎？</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="final">
+      <h2><span class="num">12</span>最終判讀</h2>
+      <div class="big-quote">你不是難搞，你是對「沒想清楚就推進」這件事過敏。</div>
+      <p>近半年到一年看下來，Jami 的穩定模式很明顯：你在工作上不是靠服從度生存，而是靠判斷力與重構能力產生價值；你在創作上不是只寫情緒，而是把情緒放進系統；你在生活上不是只喜歡騎車，而是需要移動感、速度感與自由感來重置大腦。</p>
+      <p>你的優勢是：能看懂混亂、能快速建立架構、能把 AI 變成工作流、能把抽象情緒變成故事、能在高壓下行動。你的風險是：太容易靠自己撐過去，太容易高估別人的工作基本功，太容易把休息放到最後，太容易在看到低品質思考時瞬間升溫。</p>
+      <div class="manual">
+        <h3>v2 結論</h3>
+        <p>最好的 Jami，不是更溫和、更服從、更像標準企業零件的 Jami；而是保留高標準、保留判斷力、保留創作與速度感，但學會在關鍵時候降溫、分級、保養、不要每次都用燃燒換產出的 Jami。</p>
+      </div>
+      <div class="score"><strong>產品判斷</strong><div class="bar"><div class="fill" style="width:94%"></div></div><span>高</span></div>
+      <div class="score"><strong>創作能量</strong><div class="bar"><div class="fill" style="width:91%"></div></div><span>高</span></div>
+      <div class="score"><strong>AI 駕馭</strong><div class="bar"><div class="fill" style="width:88%"></div></div><span>高</span></div>
+      <div class="score"><strong>耐性緩衝</strong><div class="bar"><div class="fill" style="width:47%"></div></div><span>需保養</span></div>
+      <div class="score"><strong>休息自覺</strong><div class="bar"><div class="fill" style="width:42%"></div></div><span>需升級</span></div>
+    </section>
+
+    <p class="footer">Jami ACE 個人使用說明書 v2.0｜近半年～一年長期觀察版｜HTML standalone file</p>
+  </main>
+</body>
+</html>
