@@ -1,0 +1,2643 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>閃Q App Test Case｜QA 測試案例總表</title>
+<style>
+:root {
+  --bg:#0b1020; --panel:#11182c; --panel2:#16213a; --text:#e8eefc; --muted:#8ea0c0;
+  --line:#263652; --brand:#7c3aed; --brand2:#3b82f6; --ok:#22c55e; --warn:#f59e0b; --danger:#ef4444; --info:#06b6d4;
+  --p0:#ef4444; --p1:#f59e0b; --p2:#3b82f6; --p3:#64748b;
+}
+* { box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { margin:0; background:linear-gradient(135deg,#070b16,#101735 65%,#16112b); color:var(--text); font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans TC','PingFang TC','Microsoft JhengHei',Arial,sans-serif; line-height:1.65; }
+a { color:#a78bfa; }
+.header { padding:40px 32px 24px; border-bottom:1px solid var(--line); background:radial-gradient(circle at 20% 0%,rgba(124,58,237,.28),transparent 35%),radial-gradient(circle at 80% 0%,rgba(59,130,246,.22),transparent 35%); }
+.header h1 { margin:0 0 8px; font-size:30px; letter-spacing:.02em; }
+.header .sub { color:var(--muted); font-size:14px; }
+.badges { display:flex; flex-wrap:wrap; gap:8px; margin-top:18px; }
+.badge { display:inline-flex; align-items:center; gap:6px; padding:6px 10px; border-radius:999px; background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.1); color:#cbd5e1; font-size:12px; }
+.container { max-width:1280px; margin:0 auto; padding:28px 24px 80px; }
+.card { background:rgba(17,24,44,.86); border:1px solid var(--line); border-radius:18px; box-shadow:0 18px 60px rgba(0,0,0,.28); margin-bottom:22px; overflow:hidden; }
+.card h2 { margin:0; padding:20px 22px 4px; font-size:21px; }
+.card h3 { margin:18px 22px 8px; font-size:16px; color:#c4b5fd; }
+.card .body { padding:12px 22px 22px; }
+.grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:14px; }
+.metric { background:rgba(255,255,255,.055); border:1px solid rgba(255,255,255,.08); padding:16px; border-radius:14px; }
+.metric .num { font-size:30px; font-weight:900; }
+.metric .label { color:var(--muted); font-size:13px; }
+.callout { padding:14px 16px; border-radius:14px; background:rgba(245,158,11,.10); border:1px solid rgba(245,158,11,.28); color:#fde68a; margin:12px 0; }
+.callout.info { background:rgba(59,130,246,.10); border-color:rgba(59,130,246,.28); color:#bfdbfe; }
+.callout.danger { background:rgba(239,68,68,.10); border-color:rgba(239,68,68,.28); color:#fecaca; }
+.toolbar { position:sticky; top:0; z-index:10; background:rgba(7,11,22,.92); backdrop-filter:blur(14px); border:1px solid var(--line); border-radius:18px; padding:14px; display:grid; grid-template-columns:2fr repeat(5,1fr); gap:10px; margin:18px 0 24px; }
+input,select { width:100%; background:#0f172a; color:var(--text); border:1px solid #334155; border-radius:10px; padding:10px 11px; font-size:13px; }
+.small { font-size:12px; color:var(--muted); }
+.table-wrap { overflow:auto; border-top:1px solid var(--line); }
+table { width:100%; border-collapse:collapse; min-width:1100px; }
+th,td { border-bottom:1px solid rgba(255,255,255,.08); vertical-align:top; padding:12px 12px; font-size:13px; }
+th { position:sticky; top:0; background:#111827; color:#cbd5e1; text-align:left; z-index:2; }
+tr:hover td { background:rgba(124,58,237,.07); }
+.tc-title { font-weight:700; color:#f8fafc; }
+.tag { display:inline-flex; align-items:center; justify-content:center; padding:2px 8px; border-radius:999px; font-size:11px; font-weight:800; white-space:nowrap; }
+.p0 { background:rgba(239,68,68,.18); color:#fecaca; border:1px solid rgba(239,68,68,.35); }
+.p1 { background:rgba(245,158,11,.18); color:#fde68a; border:1px solid rgba(245,158,11,.35); }
+.p2 { background:rgba(59,130,246,.18); color:#bfdbfe; border:1px solid rgba(59,130,246,.35); }
+.p3 { background:rgba(100,116,139,.18); color:#cbd5e1; border:1px solid rgba(100,116,139,.35); }
+.blocker { background:rgba(239,68,68,.18); color:#fecaca; border:1px solid rgba(239,68,68,.35); }
+.notblocker { background:rgba(34,197,94,.14); color:#bbf7d0; border:1px solid rgba(34,197,94,.28); }
+ol { margin:0; padding-left:18px; }
+.muted { color:var(--muted); }
+details { border-top:1px solid var(--line); }
+summary { cursor:pointer; padding:16px 20px; font-weight:900; color:#f8fafc; background:rgba(255,255,255,.035); }
+summary:hover { background:rgba(124,58,237,.10); }
+.kv { display:grid; grid-template-columns:180px 1fr; gap:8px 14px; }
+.kv div:nth-child(odd) { color:#a5b4fc; font-weight:700; }
+.checklist { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:10px; }
+.check { padding:12px; border:1px solid rgba(255,255,255,.08); border-radius:12px; background:rgba(255,255,255,.045); }
+.check b { color:#f8fafc; }
+.print-note { display:none; }
+@media(max-width:900px) { .toolbar { grid-template-columns:1fr 1fr; } .header h1 { font-size:24px; } }
+@media print {
+  body { background:#fff; color:#111827; } .header,.card,.toolbar { box-shadow:none; background:#fff; color:#111827; } .toolbar { display:none; } .card { border:1px solid #ccc; page-break-inside:avoid; }
+  th { background:#eee; color:#111827; } td,th { color:#111827; border-color:#ddd; } .print-note { display:block; }
+}
+</style>
+</head>
+<body>
+<header class="header">
+  <h1>閃Q App QA Test Case 總表</h1>
+  <div class="sub">版本：v0.1｜建立日期：2026-06-22｜格式：HTML 可審核版｜範圍：iOS / Android 原生 App、免費使用、LTrust 帳號登入、IG/FB 等第三方登入綁定</div>
+  <div class="badges">
+    <span class="badge">📱 手機 App</span>
+    <span class="badge">🆓 免費使用</span>
+    <span class="badge">🔐 LTrust 帳號</span>
+    <span class="badge">🔗 IG / FB / 第三方 OAuth</span>
+    <span class="badge">🧪 169 Test Cases</span>
+    <span class="badge">🚨 52 上架阻擋項</span>
+  </div>
+</header>
+
+<main class="container">
+  <section class="card">
+    <h2>0. 審核閱讀指南</h2>
+    <div class="body">
+      <div class="callout info">這份 Test Case 不是單純列「能不能點」，而是把產品流程、登入授權、免費額度、資料事件、Deep Link、上架合規、邊界條件全部串在一起，方便 PM、QA、DEV、LTrust 後端與上架負責人逐條驗收。</div>
+      <div class="grid">
+        <div class="metric"><div class="num">169</div><div class="label">總測試案例</div></div>
+        <div class="metric"><div class="num">52</div><div class="label">P0 必測 / 阻擋主流程</div></div>
+        <div class="metric"><div class="num">82</div><div class="label">P1 重要功能 / 邊界</div></div>
+        <div class="metric"><div class="num">35</div><div class="label">P2/P3 體驗與完整性</div></div>
+        <div class="metric"><div class="num">15</div><div class="label">功能模組</div></div>
+      </div>
+      <h3>測試案例欄位說明</h3>
+      <div class="kv">
+        <div>Priority</div><div><b>P0</b>：缺陷會阻擋上架或核心流程；<b>P1</b>：重要功能/主要邊界；<b>P2</b>：完整性/體驗；<b>P3</b>：優化檢查。</div>
+        <div>上架阻擋</div><div>標示「是」代表若 Fail，通常不建議送審或開放業務推廣。</div>
+        <div>Phase</div><div>Alpha：開發早期冒煙；Beta：功能整合測；Pre-submit：送審前必跑；Polish：優化階段。</div>
+        <div>證據建議</div><div>每條測試建議保留截圖、螢幕錄影、API Log、後端事件 ID、裝置型號、App 版本與測試帳號。</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>1. 規格依據與待確認差異</h2>
+    <div class="body">
+      <div class="callout danger"><b>需要先拍板的差異：</b>既有文件列出 Google / LINE / Apple / Email 等登入方式；本次需求明確補充「LTrust 平台帳號登入」與「IG、FB 第三方帳號登入綁定」。本 Test Case 已把 IG / FB 納入，但 DEV 與 LTrust 後端需確認實際 OAuth Provider、帳號合併規則與 UI 是否同步。</div>
+      <div class="checklist">
+        <div class="check"><b>登入供應商清單</b><br><span class="muted">LTrust Email/密碼、FB、IG、Apple（iOS 必測）、以及既有 Google/LINE 是否保留。</span></div>
+        <div class="check"><b>US-18 欄位</b><br><span class="muted">User Story 曾提入學年度；Screen List 標示已移除。智慧隨機需要哪個欄位需確認。</span></div>
+        <div class="check"><b>訪客愛心/收藏</b><br><span class="muted">Screen List 標示訪客收藏鎖定；快捷列 US 需確認愛心與收藏是否都鎖。</span></div>
+        <div class="check"><b>Deferred Deep Link 方案</b><br><span class="muted">Firebase Dynamic Links 退場後，Branch / AppsFlyer / Adjust / 自建方案需先完成 Spike。</span></div>
+        <div class="check"><b>LTrust 隱私/條款 URL</b><br><span class="muted">註冊頁與 Tab 4 個人資訊區都需可在 App 內開啟。</span></div>
+        <div class="check"><b>帳號刪除/停用</b><br><span class="muted">App 端入口與 LTrust 現行流程如何銜接，需在送審前完成。</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>2. 測試環境與資料準備</h2>
+    <div class="body">
+      <h3>裝置矩陣</h3>
+      <div class="table-wrap"><table><thead><tr><th>類型</th><th>建議裝置</th><th>目的</th></tr></thead><tbody>
+        <tr><td>iOS 最新主流</td><td>iPhone 15/16 系列或等級相近裝置</td><td>送審主力、Apple Sign in、Universal Link、安全區域。</td></tr>
+        <tr><td>iOS 小螢幕</td><td>iPhone SE 或小尺寸機型</td><td>題目、快捷列、解析蓋板、小螢幕可讀性。</td></tr>
+        <tr><td>Android 主流</td><td>Samsung S / Pixel / Xiaomi 主流機</td><td>App Link、OAuth、一般效能。</td></tr>
+        <tr><td>Android 中低階</td><td>RAM 4GB～6GB、較舊 Android 版本</td><td>滑動、圖片題、長時間刷題穩定性。</td></tr>
+        <tr><td>異形螢幕</td><td>瀏海、挖孔、折疊外螢幕</td><td>安全區域與 UI 遮擋。</td></tr>
+      </tbody></table></div>
+      <h3>測試帳號與資料</h3>
+      <div class="table-wrap"><table><thead><tr><th>資料類型</th><th>範例</th><th>用途</th></tr></thead><tbody>
+        <tr><td>LTrust 一般帳號</td><td>已驗證、未停用、免費方案</td><td>登入、免費題庫、Tab 1~5。</td></tr>
+        <tr><td>LTrust 權益帳號</td><td>進階題庫有效 / 到期 / 點數不足</td><td>權益鎖定與免費題庫不受影響。</td></tr>
+        <tr><td>新註冊 Email</td><td>未使用信箱 + 可收驗證信</td><td>Email 註冊、驗證信、推薦碼。</td></tr>
+        <tr><td>OAuth 帳號</td><td>FB / IG / Apple relay / Google / LINE</td><td>第三方登入、授權取消、帳號綁定。</td></tr>
+        <tr><td>訪客裝置</td><td>新裝置、用完額度裝置、重裝裝置</td><td>每日 3 題、device_id、重置邊界。</td></tr>
+        <tr><td>題庫資料</td><td>免費 / 進階 / 時事、有圖題、長解析、下架題、無題篩選</td><td>刷題、錯題、Deep Link、異常處理。</td></tr>
+        <tr><td>推薦碼</td><td>有效、無效、停用、邀請制必填</td><td>註冊與 LTrust 跳轉兌換。</td></tr>
+      </tbody></table></div>
+    </div>
+  </section>
+
+  <div class="toolbar">
+    <input id="q" placeholder="搜尋：ID、標題、步驟、預期結果、US…" oninput="filterRows()">
+    <select id="module" onchange="filterRows()"><option value="">全部模組</option><option>00. 基礎建設 / 安裝</option><option>01. 登入 / 註冊 / 帳號綁定</option><option>02. 訪客模式 / 免費額度</option><option>03. Tab 1 極速刷題</option><option>04. Tab 2 自選測驗</option><option>05. Tab 3 錯題本</option><option>06. 分享 / Deep Link</option><option>07. Tab 4 個人頁 / 兌換 / 合規</option><option>08. Tab 5 學習紀錄</option><option>09. 資料事件 / 後端驗證</option><option>10. 安全 / 隱私</option><option>11. 網路 / 效能 / 穩定性</option><option>12. UI / 無障礙 / 可讀性</option><option>13. 上架 / 發版檢查</option><option>14. 其他邊界 / 規格差異</option></select>
+    <select id="prio" onchange="filterRows()"><option value="">全部 Priority</option><option>P0</option><option>P1</option><option>P2</option><option>P3</option></select>
+    <select id="type" onchange="filterRows()"><option value="">全部類型</option><option>Deep Link</option><option>Fallback</option><option>OAuth</option><option>OAuth 異常</option><option>OAuth 負向</option><option>OAuth/合規</option><option>PM確認</option><option>UI</option><option>UI/資料</option><option>上架合規</option><option>冒煙</option><option>分享</option><option>分享/後端</option><option>分享/資料</option><option>功能</option><option>升級</option><option>可用性</option><option>合規</option><option>合規/安全</option><option>商業規則</option><option>壓力</option><option>安全</option><option>安全/文案</option><option>安全/異常</option><option>安全/邊界</option><option>帳號綁定</option><option>帳號綁定負向</option><option>後端邏輯</option><option>手勢</option><option>效能</option><option>整合</option><option>文案</option><option>時間邊界</option><option>檢查</option><option>權益</option><option>權限</option><option>流程</option><option>無障礙</option><option>生命週期</option><option>異常</option><option>發版</option><option>相容性</option><option>穩定性</option><option>空狀態</option><option>網路</option><option>行銷</option><option>表單</option><option>負向</option><option>資料</option><option>資料/離線</option><option>資料安全</option><option>資料正確性</option><option>邊界</option><option>防作弊</option><option>隱私</option><option>離線/資料</option><option>體驗</option></select>
+    <select id="phase" onchange="filterRows()"><option value="">全部 Phase</option><option>Alpha</option><option>Beta</option><option>Polish</option><option>Pre-submit</option></select>
+    <select id="blocker" onchange="filterRows()"><option value="">是否阻擋</option><option>是</option><option>否</option></select>
+  </div>
+
+  <section class="card">
+    <h2>3. Test Case 明細</h2>
+    <div class="body small">目前顯示 <span id="shown">169</span> / 169 筆。可用上方搜尋與篩選快速審核。</div>
+<details open data-module-section="00. 基礎建設 / 安裝">
+      <summary>00. 基礎建設 / 安裝 <span class="muted">(8 cases)</span></summary>
+      <div class="table-wrap"><table>
+        <thead><tr><th style="width:105px">ID</th><th style="width:80px">Priority</th><th style="width:95px">類型</th><th style="width:90px">平台</th><th style="width:92px">角色</th><th style="width:220px">測試標題</th><th style="width:230px">前置條件</th><th style="width:260px">測試步驟</th><th style="width:280px">預期結果</th><th style="width:145px">US / 依據</th><th style="width:80px">阻擋</th><th style="width:110px">Phase</th><th>備註</th></tr></thead>
+        <tbody>
+    <tr class="tc-row" data-search="tc-app-001 00. 基礎建設 / 安裝 ios 正式測試包可安裝並成功啟動 p0 冒煙 ios 通用 已取得 testflight / ad hoc 測試包；裝置未安裝舊版。  app-00/us-01 alpha 是  安裝 app。 首次開啟 app。 觀察 splash、初始路由、是否崩潰。 app 可正常安裝。 首次開啟不崩潰、不白屏。 未登入狀態應進入 tab 1 訪客刷題畫面或登入/訪客入口，依最新設計稿。" data-module="00. 基礎建設 / 安裝" data-prio="P0" data-type="冒煙" data-phase="Alpha" data-blocker="是">
+          <td><b>TC-APP-001</b></td>
+          <td><span class="tag p0">P0</span></td>
+          <td>冒煙</td>
+          <td>iOS</td>
+          <td>通用</td>
+          <td><div class="tc-title">iOS 正式測試包可安裝並成功啟動</div></td>
+          <td>已取得 TestFlight / Ad Hoc 測試包；裝置未安裝舊版。</td>
+          <td><ol><li>安裝 App。</li><li>首次開啟 App。</li><li>觀察 Splash、初始路由、是否崩潰。</li></ol></td>
+          <td><ol><li>App 可正常安裝。</li><li>首次開啟不崩潰、不白屏。</li><li>未登入狀態應進入 Tab 1 訪客刷題畫面或登入/訪客入口，依最新設計稿。</li></ol></td>
+          <td>APP-00/US-01</td>
+          <td><span class="tag blocker">是</span></td>
+          <td>Alpha</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-app-002 00. 基礎建設 / 安裝 android 正式測試包可安裝並成功啟動 p0 冒煙 android 通用 已取得 apk/aab 測試包；裝置未安裝舊版。  app-00/us-01 alpha 是  安裝 app。 首次開啟 app。 觀察 splash、初始路由、是否崩潰。 app 可正常安裝。 首次開啟不崩潰、不白屏。 未登入狀態應進入 tab 1 訪客刷題畫面或登入/訪客入口，依最新設計稿。" data-module="00. 基礎建設 / 安裝" data-prio="P0" data-type="冒煙" data-phase="Alpha" data-blocker="是">
+          <td><b>TC-APP-002</b></td>
+          <td><span class="tag p0">P0</span></td>
+          <td>冒煙</td>
+          <td>Android</td>
+          <td>通用</td>
+          <td><div class="tc-title">Android 正式測試包可安裝並成功啟動</div></td>
+          <td>已取得 APK/AAB 測試包；裝置未安裝舊版。</td>
+          <td><ol><li>安裝 App。</li><li>首次開啟 App。</li><li>觀察 Splash、初始路由、是否崩潰。</li></ol></td>
+          <td><ol><li>App 可正常安裝。</li><li>首次開啟不崩潰、不白屏。</li><li>未登入狀態應進入 Tab 1 訪客刷題畫面或登入/訪客入口，依最新設計稿。</li></ol></td>
+          <td>APP-00/US-01</td>
+          <td><span class="tag blocker">是</span></td>
+          <td>Alpha</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-app-003 00. 基礎建設 / 安裝 版本號、build number、環境標示正確 p1 檢查 ios/android qa 測試包已安裝。  app-00 pre-submit 否  打開 app。 進入個人頁或設定頁。 確認版本號、build number、api 環境。 版本號與測試發版紀錄一致。 測試環境不誤連正式環境。 debug/測試標籤不出現在正式版。" data-module="00. 基礎建設 / 安裝" data-prio="P1" data-type="檢查" data-phase="Pre-submit" data-blocker="否">
+          <td><b>TC-APP-003</b></td>
+          <td><span class="tag p1">P1</span></td>
+          <td>檢查</td>
+          <td>iOS/Android</td>
+          <td>QA</td>
+          <td><div class="tc-title">版本號、Build Number、環境標示正確</div></td>
+          <td>測試包已安裝。</td>
+          <td><ol><li>打開 App。</li><li>進入個人頁或設定頁。</li><li>確認版本號、Build Number、API 環境。</li></ol></td>
+          <td><ol><li>版本號與測試發版紀錄一致。</li><li>測試環境不誤連正式環境。</li><li>Debug/測試標籤不出現在正式版。</li></ol></td>
+          <td>APP-00</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Pre-submit</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-app-004 00. 基礎建設 / 安裝 首次冷啟動時間在可接受範圍 p1 效能 ios/android 通用 app 未在背景；網路正常。  app-00/us-01 beta 否  完全關閉 app。 點擊 app icon。 量測從點擊到題目主畫面可互動的時間。 目標：一般裝置 3 秒內可看到主要畫面；低階 android 可放寬但不可超過 5 秒。 超時時需顯示 loading，不可白屏。" data-module="00. 基礎建設 / 安裝" data-prio="P1" data-type="效能" data-phase="Beta" data-blocker="否">
+          <td><b>TC-APP-004</b></td>
+          <td><span class="tag p1">P1</span></td>
+          <td>效能</td>
+          <td>iOS/Android</td>
+          <td>通用</td>
+          <td><div class="tc-title">首次冷啟動時間在可接受範圍</div></td>
+          <td>App 未在背景；網路正常。</td>
+          <td><ol><li>完全關閉 App。</li><li>點擊 App icon。</li><li>量測從點擊到題目主畫面可互動的時間。</li></ol></td>
+          <td><ol><li>目標：一般裝置 3 秒內可看到主要畫面；低階 Android 可放寬但不可超過 5 秒。</li><li>超時時需顯示 Loading，不可白屏。</li></ol></td>
+          <td>APP-00/US-01</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Beta</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-app-005 00. 基礎建設 / 安裝 底部 tab bar 五項固定且順序正確 p0 功能 ios/android 登入用戶 已登入並進入主畫面。  us-04 alpha 是  觀察底部 tab bar。 依序點擊每一個 tab。 tab 由左至右為：刷題、自選、錯題本、儀表、紀錄。 不得出現第 6 個 tab。 各 tab 點擊可進入對應畫面。" data-module="00. 基礎建設 / 安裝" data-prio="P0" data-type="功能" data-phase="Alpha" data-blocker="是">
+          <td><b>TC-APP-005</b></td>
+          <td><span class="tag p0">P0</span></td>
+          <td>功能</td>
+          <td>iOS/Android</td>
+          <td>登入用戶</td>
+          <td><div class="tc-title">底部 Tab Bar 五項固定且順序正確</div></td>
+          <td>已登入並進入主畫面。</td>
+          <td><ol><li>觀察底部 Tab Bar。</li><li>依序點擊每一個 Tab。</li></ol></td>
+          <td><ol><li>Tab 由左至右為：刷題、自選、錯題本、儀表、紀錄。</li><li>不得出現第 6 個 Tab。</li><li>各 Tab 點擊可進入對應畫面。</li></ol></td>
+          <td>US-04</td>
+          <td><span class="tag blocker">是</span></td>
+          <td>Alpha</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-app-006 00. 基礎建設 / 安裝 安全區域與瀏海/手勢條不遮擋 ui p1 ui ios/android 通用 準備含瀏海、dynamic island、android 挖孔、手勢導覽列裝置。  app-00/us-04 beta 否  在各裝置打開 app。 切換 tab 1~5。 觀察頂部統計列、右側快捷列、底部 tab。 文字與按鈕不被狀態列、瀏海、手勢條遮住。 主要 cta 可點擊。 橫向與直向安全區域符合平台規範。" data-module="00. 基礎建設 / 安裝" data-prio="P1" data-type="UI" data-phase="Beta" data-blocker="否">
+          <td><b>TC-APP-006</b></td>
+          <td><span class="tag p1">P1</span></td>
+          <td>UI</td>
+          <td>iOS/Android</td>
+          <td>通用</td>
+          <td><div class="tc-title">安全區域與瀏海/手勢條不遮擋 UI</div></td>
+          <td>準備含瀏海、Dynamic Island、Android 挖孔、手勢導覽列裝置。</td>
+          <td><ol><li>在各裝置打開 App。</li><li>切換 Tab 1~5。</li><li>觀察頂部統計列、右側快捷列、底部 Tab。</li></ol></td>
+          <td><ol><li>文字與按鈕不被狀態列、瀏海、手勢條遮住。</li><li>主要 CTA 可點擊。</li><li>橫向與直向安全區域符合平台規範。</li></ol></td>
+          <td>APP-00/US-04</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Beta</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-app-007 00. 基礎建設 / 安裝 app 升級後保留登入狀態與必要本機資料 p1 升級 ios/android 登入用戶 已安裝上一版並登入；已有至少一筆 session 紀錄。  app-00/us-16/us-17 pre-submit 否  從舊版升級至新版。 開啟 app。 檢查登入狀態、紀錄、收藏/愛心狀態。 有效 token 未過期時仍保持登入。 session 紀錄、收藏/愛心狀態可正確呈現。 升級後不應重置訪客/用戶資料。" data-module="00. 基礎建設 / 安裝" data-prio="P1" data-type="升級" data-phase="Pre-submit" data-blocker="否">
+          <td><b>TC-APP-007</b></td>
+          <td><span class="tag p1">P1</span></td>
+          <td>升級</td>
+          <td>iOS/Android</td>
+          <td>登入用戶</td>
+          <td><div class="tc-title">App 升級後保留登入狀態與必要本機資料</div></td>
+          <td>已安裝上一版並登入；已有至少一筆 Session 紀錄。</td>
+          <td><ol><li>從舊版升級至新版。</li><li>開啟 App。</li><li>檢查登入狀態、紀錄、收藏/愛心狀態。</li></ol></td>
+          <td><ol><li>有效 Token 未過期時仍保持登入。</li><li>Session 紀錄、收藏/愛心狀態可正確呈現。</li><li>升級後不應重置訪客/用戶資料。</li></ol></td>
+          <td>APP-00/US-16/US-17</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Pre-submit</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-app-008 00. 基礎建設 / 安裝 無網路首次啟動不白屏 p0 異常 ios/android 通用 清除 app 或全新安裝；關閉網路。  us-01/邊界條件 alpha 是  開啟 app。 等待題目載入。 顯示「請確認網路連線」或等價錯誤。 不可白屏、不可無限轉圈、不可崩潰。 恢復網路後可重試載入題目。" data-module="00. 基礎建設 / 安裝" data-prio="P0" data-type="異常" data-phase="Alpha" data-blocker="是">
+          <td><b>TC-APP-008</b></td>
+          <td><span class="tag p0">P0</span></td>
+          <td>異常</td>
+          <td>iOS/Android</td>
+          <td>通用</td>
+          <td><div class="tc-title">無網路首次啟動不白屏</div></td>
+          <td>清除 App 或全新安裝；關閉網路。</td>
+          <td><ol><li>開啟 App。</li><li>等待題目載入。</li></ol></td>
+          <td><ol><li>顯示「請確認網路連線」或等價錯誤。</li><li>不可白屏、不可無限轉圈、不可崩潰。</li><li>恢復網路後可重試載入題目。</li></ol></td>
+          <td>US-01/邊界條件</td>
+          <td><span class="tag blocker">是</span></td>
+          <td>Alpha</td>
+          <td><span class="muted">—</span></td>
+        </tr></tbody></table></div></details><details open data-module-section="01. 登入 / 註冊 / 帳號綁定">
+      <summary>01. 登入 / 註冊 / 帳號綁定 <span class="muted">(28 cases)</span></summary>
+      <div class="table-wrap"><table>
+        <thead><tr><th style="width:105px">ID</th><th style="width:80px">Priority</th><th style="width:95px">類型</th><th style="width:90px">平台</th><th style="width:92px">角色</th><th style="width:220px">測試標題</th><th style="width:230px">前置條件</th><th style="width:260px">測試步驟</th><th style="width:280px">預期結果</th><th style="width:145px">US / 依據</th><th style="width:80px">阻擋</th><th style="width:110px">Phase</th><th>備註</th></tr></thead>
+        <tbody>
+    <tr class="tc-row" data-search="tc-auth-001 01. 登入 / 註冊 / 帳號綁定 ltrust 帳號 email + 密碼登入成功 p0 功能 ios/android 已註冊用戶 存在有效 ltrust 帳號；帳號未停用。 normal_ltrust_user@example.com us-17 alpha 是  開啟 app。 點擊登入。 輸入 email 與正確密碼。 送出。 登入成功後進入 tab 1。 auth token 寫入安全儲存區。 重新開啟 app 時不需重新登入。" data-module="01. 登入 / 註冊 / 帳號綁定" data-prio="P0" data-type="功能" data-phase="Alpha" data-blocker="是">
+          <td><b>TC-AUTH-001</b></td>
+          <td><span class="tag p0">P0</span></td>
+          <td>功能</td>
+          <td>iOS/Android</td>
+          <td>已註冊用戶</td>
+          <td><div class="tc-title">LTrust 帳號 Email + 密碼登入成功</div><div class="small">資料：normal_ltrust_user@example.com</div></td>
+          <td>存在有效 LTrust 帳號；帳號未停用。</td>
+          <td><ol><li>開啟 App。</li><li>點擊登入。</li><li>輸入 Email 與正確密碼。</li><li>送出。</li></ol></td>
+          <td><ol><li>登入成功後進入 Tab 1。</li><li>Auth Token 寫入安全儲存區。</li><li>重新開啟 App 時不需重新登入。</li></ol></td>
+          <td>US-17</td>
+          <td><span class="tag blocker">是</span></td>
+          <td>Alpha</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-auth-002 01. 登入 / 註冊 / 帳號綁定 ltrust 密碼錯誤提示 p0 負向 ios/android 已註冊用戶 存在有效 ltrust 帳號。  us-17 alpha 是  進入登入頁。 輸入正確 email、錯誤密碼。 送出。 登入失敗。 顯示明確錯誤提示。 不可清空 email。 不可進入主畫面。" data-module="01. 登入 / 註冊 / 帳號綁定" data-prio="P0" data-type="負向" data-phase="Alpha" data-blocker="是">
+          <td><b>TC-AUTH-002</b></td>
+          <td><span class="tag p0">P0</span></td>
+          <td>負向</td>
+          <td>iOS/Android</td>
+          <td>已註冊用戶</td>
+          <td><div class="tc-title">LTrust 密碼錯誤提示</div></td>
+          <td>存在有效 LTrust 帳號。</td>
+          <td><ol><li>進入登入頁。</li><li>輸入正確 Email、錯誤密碼。</li><li>送出。</li></ol></td>
+          <td><ol><li>登入失敗。</li><li>顯示明確錯誤提示。</li><li>不可清空 Email。</li><li>不可進入主畫面。</li></ol></td>
+          <td>US-17</td>
+          <td><span class="tag blocker">是</span></td>
+          <td>Alpha</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-auth-003 01. 登入 / 註冊 / 帳號綁定 ltrust 帳號不存在提示 p1 負向 ios/android 未註冊用戶 使用不存在的 email。  us-17 alpha 否  進入登入頁。 輸入不存在 email 與任意密碼。 送出。 顯示帳號不存在或導向註冊提示。 不可洩漏過多帳號判斷資訊，依安全政策。" data-module="01. 登入 / 註冊 / 帳號綁定" data-prio="P1" data-type="負向" data-phase="Alpha" data-blocker="否">
+          <td><b>TC-AUTH-003</b></td>
+          <td><span class="tag p1">P1</span></td>
+          <td>負向</td>
+          <td>iOS/Android</td>
+          <td>未註冊用戶</td>
+          <td><div class="tc-title">LTrust 帳號不存在提示</div></td>
+          <td>使用不存在的 Email。</td>
+          <td><ol><li>進入登入頁。</li><li>輸入不存在 Email 與任意密碼。</li><li>送出。</li></ol></td>
+          <td><ol><li>顯示帳號不存在或導向註冊提示。</li><li>不可洩漏過多帳號判斷資訊，依安全政策。</li></ol></td>
+          <td>US-17</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Alpha</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-auth-004 01. 登入 / 註冊 / 帳號綁定 email 格式驗證 p1 表單 ios/android 未登入 登入頁或註冊頁可操作。  us-17/us-20 alpha 否  輸入不合法 email 格式，例如 abc、abc@。 送出。 欄位標紅。 顯示格式錯誤提示。 不可送出 api 或 api 回傳後不可進入下一步。" data-module="01. 登入 / 註冊 / 帳號綁定" data-prio="P1" data-type="表單" data-phase="Alpha" data-blocker="否">
+          <td><b>TC-AUTH-004</b></td>
+          <td><span class="tag p1">P1</span></td>
+          <td>表單</td>
+          <td>iOS/Android</td>
+          <td>未登入</td>
+          <td><div class="tc-title">Email 格式驗證</div></td>
+          <td>登入頁或註冊頁可操作。</td>
+          <td><ol><li>輸入不合法 Email 格式，例如 abc、abc@。</li><li>送出。</li></ol></td>
+          <td><ol><li>欄位標紅。</li><li>顯示格式錯誤提示。</li><li>不可送出 API 或 API 回傳後不可進入下一步。</li></ol></td>
+          <td>US-17/US-20</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Alpha</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-auth-005 01. 登入 / 註冊 / 帳號綁定 email 註冊成功進入驗證信等待頁 p0 功能 ios/android 新用戶 使用尚未註冊 email；推薦碼條件依邀請制開關準備。 new_user@example.com + valid_referral us-20 alpha 是  進入註冊頁。 填 email、密碼、確認密碼、就讀高中、年級、性別、推薦碼。 勾選隱私權政策與服務條款。 送出。 註冊成功。 進入驗證信等待頁。 頁面顯示寄送至部分遮罩 email。" data-module="01. 登入 / 註冊 / 帳號綁定" data-prio="P0" data-type="功能" data-phase="Alpha" data-blocker="是">
+          <td><b>TC-AUTH-005</b></td>
+          <td><span class="tag p0">P0</span></td>
+          <td>功能</td>
+          <td>iOS/Android</td>
+          <td>新用戶</td>
+          <td><div class="tc-title">Email 註冊成功進入驗證信等待頁</div><div class="small">資料：new_user@example.com + valid_referral</div></td>
+          <td>使用尚未註冊 Email；推薦碼條件依邀請制開關準備。</td>
+          <td><ol><li>進入註冊頁。</li><li>填 Email、密碼、確認密碼、就讀高中、年級、性別、推薦碼。</li><li>勾選隱私權政策與服務條款。</li><li>送出。</li></ol></td>
+          <td><ol><li>註冊成功。</li><li>進入驗證信等待頁。</li><li>頁面顯示寄送至部分遮罩 Email。</li></ol></td>
+          <td>US-20</td>
+          <td><span class="tag blocker">是</span></td>
+          <td>Alpha</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-auth-006 01. 登入 / 註冊 / 帳號綁定 email 已存在不可重複註冊 p1 負向 ios/android 新用戶 使用已註冊 email。  us-20 alpha 否  進入註冊頁。 輸入已存在 email 與完整資料。 送出。 顯示 email 已存在提示。 不可建立重複帳號。 若設計允許，提供改登入入口。" data-module="01. 登入 / 註冊 / 帳號綁定" data-prio="P1" data-type="負向" data-phase="Alpha" data-blocker="否">
+          <td><b>TC-AUTH-006</b></td>
+          <td><span class="tag p1">P1</span></td>
+          <td>負向</td>
+          <td>iOS/Android</td>
+          <td>新用戶</td>
+          <td><div class="tc-title">Email 已存在不可重複註冊</div></td>
+          <td>使用已註冊 Email。</td>
+          <td><ol><li>進入註冊頁。</li><li>輸入已存在 Email 與完整資料。</li><li>送出。</li></ol></td>
+          <td><ol><li>顯示 Email 已存在提示。</li><li>不可建立重複帳號。</li><li>若設計允許，提供改登入入口。</li></ol></td>
+          <td>US-20</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Alpha</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-auth-007 01. 登入 / 註冊 / 帳號綁定 密碼與確認密碼不一致 p1 表單 ios/android 新用戶 註冊頁可操作。  us-20 alpha 否  輸入不同的密碼與確認密碼。 送出。 欄位標紅。 顯示密碼不一致。 不可進入驗證信等待頁。" data-module="01. 登入 / 註冊 / 帳號綁定" data-prio="P1" data-type="表單" data-phase="Alpha" data-blocker="否">
+          <td><b>TC-AUTH-007</b></td>
+          <td><span class="tag p1">P1</span></td>
+          <td>表單</td>
+          <td>iOS/Android</td>
+          <td>新用戶</td>
+          <td><div class="tc-title">密碼與確認密碼不一致</div></td>
+          <td>註冊頁可操作。</td>
+          <td><ol><li>輸入不同的密碼與確認密碼。</li><li>送出。</li></ol></td>
+          <td><ol><li>欄位標紅。</li><li>顯示密碼不一致。</li><li>不可進入驗證信等待頁。</li></ol></td>
+          <td>US-20</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Alpha</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-auth-008 01. 登入 / 註冊 / 帳號綁定 推薦碼邀請制期間未填碼阻擋註冊 p0 商業規則 ios/android 新用戶 後端設定目前為邀請制期間；推薦碼必填。  us-20 alpha 是  進入註冊頁。 填所有必填欄位但不填推薦碼。 勾選條款。 送出。 註冊被阻擋。 提示請向推薦人索取推薦碼。 不可建立帳號。" data-module="01. 登入 / 註冊 / 帳號綁定" data-prio="P0" data-type="商業規則" data-phase="Alpha" data-blocker="是">
+          <td><b>TC-AUTH-008</b></td>
+          <td><span class="tag p0">P0</span></td>
+          <td>商業規則</td>
+          <td>iOS/Android</td>
+          <td>新用戶</td>
+          <td><div class="tc-title">推薦碼邀請制期間未填碼阻擋註冊</div></td>
+          <td>後端設定目前為邀請制期間；推薦碼必填。</td>
+          <td><ol><li>進入註冊頁。</li><li>填所有必填欄位但不填推薦碼。</li><li>勾選條款。</li><li>送出。</li></ol></td>
+          <td><ol><li>註冊被阻擋。</li><li>提示請向推薦人索取推薦碼。</li><li>不可建立帳號。</li></ol></td>
+          <td>US-20</td>
+          <td><span class="tag blocker">是</span></td>
+          <td>Alpha</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-auth-009 01. 登入 / 註冊 / 帳號綁定 推薦碼錯誤提示 p1 商業規則 ios/android 新用戶 後端設定目前為邀請制期間。  us-20/us-19 alpha 否  進入註冊頁。 填所有必填欄位。 輸入不存在或已停用推薦碼。 送出。 顯示推薦碼不符或無效。 資料保留，方便修正。 不可建立帳號。" data-module="01. 登入 / 註冊 / 帳號綁定" data-prio="P1" data-type="商業規則" data-phase="Alpha" data-blocker="否">
+          <td><b>TC-AUTH-009</b></td>
+          <td><span class="tag p1">P1</span></td>
+          <td>商業規則</td>
+          <td>iOS/Android</td>
+          <td>新用戶</td>
+          <td><div class="tc-title">推薦碼錯誤提示</div></td>
+          <td>後端設定目前為邀請制期間。</td>
+          <td><ol><li>進入註冊頁。</li><li>填所有必填欄位。</li><li>輸入不存在或已停用推薦碼。</li><li>送出。</li></ol></td>
+          <td><ol><li>顯示推薦碼不符或無效。</li><li>資料保留，方便修正。</li><li>不可建立帳號。</li></ol></td>
+          <td>US-20/US-19</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Alpha</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-auth-010 01. 登入 / 註冊 / 帳號綁定 隱私權政策與服務條款未勾選時不可註冊 p0 合規 ios/android 新用戶 註冊頁可操作。  us-20/平台合規 pre-submit 是  填完整註冊資料。 不勾選同意隱私權政策與服務條款。 觀察送出按鈕。 送出按鈕降色不可點。 條款不得預設勾選。 用戶需主動勾選。" data-module="01. 登入 / 註冊 / 帳號綁定" data-prio="P0" data-type="合規" data-phase="Pre-submit" data-blocker="是">
+          <td><b>TC-AUTH-010</b></td>
+          <td><span class="tag p0">P0</span></td>
+          <td>合規</td>
+          <td>iOS/Android</td>
+          <td>新用戶</td>
+          <td><div class="tc-title">隱私權政策與服務條款未勾選時不可註冊</div></td>
+          <td>註冊頁可操作。</td>
+          <td><ol><li>填完整註冊資料。</li><li>不勾選同意隱私權政策與服務條款。</li><li>觀察送出按鈕。</li></ol></td>
+          <td><ol><li>送出按鈕降色不可點。</li><li>條款不得預設勾選。</li><li>用戶需主動勾選。</li></ol></td>
+          <td>US-20/平台合規</td>
+          <td><span class="tag blocker">是</span></td>
+          <td>Pre-submit</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-auth-011 01. 登入 / 註冊 / 帳號綁定 註冊頁可開啟隱私權政策 webview p0 合規 ios/android 新用戶 註冊頁有隱私權政策連結；ltrust url 已設定。  us-20/us-22/平台合規 pre-submit 是  點擊隱私權政策連結。 觀察 webview。 點返回。 在 app 內嵌 webview 開啟。 內容可閱讀。 有返回按鈕並回到註冊頁。 不遺失已填欄位。" data-module="01. 登入 / 註冊 / 帳號綁定" data-prio="P0" data-type="合規" data-phase="Pre-submit" data-blocker="是">
+          <td><b>TC-AUTH-011</b></td>
+          <td><span class="tag p0">P0</span></td>
+          <td>合規</td>
+          <td>iOS/Android</td>
+          <td>新用戶</td>
+          <td><div class="tc-title">註冊頁可開啟隱私權政策 WebView</div></td>
+          <td>註冊頁有隱私權政策連結；LTrust URL 已設定。</td>
+          <td><ol><li>點擊隱私權政策連結。</li><li>觀察 WebView。</li><li>點返回。</li></ol></td>
+          <td><ol><li>在 App 內嵌 WebView 開啟。</li><li>內容可閱讀。</li><li>有返回按鈕並回到註冊頁。</li><li>不遺失已填欄位。</li></ol></td>
+          <td>US-20/US-22/平台合規</td>
+          <td><span class="tag blocker">是</span></td>
+          <td>Pre-submit</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-auth-012 01. 登入 / 註冊 / 帳號綁定 註冊頁可開啟服務條款 webview p0 合規 ios/android 新用戶 註冊頁有服務條款連結；ltrust url 已設定。  us-20/us-22/平台合規 pre-submit 是  點擊服務條款連結。 觀察 webview。 點返回。 在 app 內嵌 webview 開啟。 內容可閱讀。 有返回按鈕並回到註冊頁。 不遺失已填欄位。" data-module="01. 登入 / 註冊 / 帳號綁定" data-prio="P0" data-type="合規" data-phase="Pre-submit" data-blocker="是">
+          <td><b>TC-AUTH-012</b></td>
+          <td><span class="tag p0">P0</span></td>
+          <td>合規</td>
+          <td>iOS/Android</td>
+          <td>新用戶</td>
+          <td><div class="tc-title">註冊頁可開啟服務條款 WebView</div></td>
+          <td>註冊頁有服務條款連結；LTrust URL 已設定。</td>
+          <td><ol><li>點擊服務條款連結。</li><li>觀察 WebView。</li><li>點返回。</li></ol></td>
+          <td><ol><li>在 App 內嵌 WebView 開啟。</li><li>內容可閱讀。</li><li>有返回按鈕並回到註冊頁。</li><li>不遺失已填欄位。</li></ol></td>
+          <td>US-20/US-22/平台合規</td>
+          <td><span class="tag blocker">是</span></td>
+          <td>Pre-submit</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-auth-013 01. 登入 / 註冊 / 帳號綁定 驗證信重寄 60 秒倒數 p1 功能 ios/android 新用戶 已完成 email 註冊並在驗證信等待頁。  us-20 beta 否  觀察重寄按鈕。 在 60 秒內點擊。 等待超過 60 秒。 再次點擊重寄。 60 秒內按鈕 disabled 並顯示倒數。 超過 60 秒可重寄。 重寄成功有提示。" data-module="01. 登入 / 註冊 / 帳號綁定" data-prio="P1" data-type="功能" data-phase="Beta" data-blocker="否">
+          <td><b>TC-AUTH-013</b></td>
+          <td><span class="tag p1">P1</span></td>
+          <td>功能</td>
+          <td>iOS/Android</td>
+          <td>新用戶</td>
+          <td><div class="tc-title">驗證信重寄 60 秒倒數</div></td>
+          <td>已完成 Email 註冊並在驗證信等待頁。</td>
+          <td><ol><li>觀察重寄按鈕。</li><li>在 60 秒內點擊。</li><li>等待超過 60 秒。</li><li>再次點擊重寄。</li></ol></td>
+          <td><ol><li>60 秒內按鈕 disabled 並顯示倒數。</li><li>超過 60 秒可重寄。</li><li>重寄成功有提示。</li></ol></td>
+          <td>US-20</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Beta</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-auth-014 01. 登入 / 註冊 / 帳號綁定 首次登入資料未完整時導向個人資料填寫頁 p0 流程 ios/android 首次登入用戶 帳號完成驗證但個人資料未完整。  us-18/us-20 alpha 是  使用該帳號登入。 觀察登入後路由。 導向個人資料填寫頁。 必填欄位未填不可進 tab 1。 儲存成功後進 tab 1。" data-module="01. 登入 / 註冊 / 帳號綁定" data-prio="P0" data-type="流程" data-phase="Alpha" data-blocker="是">
+          <td><b>TC-AUTH-014</b></td>
+          <td><span class="tag p0">P0</span></td>
+          <td>流程</td>
+          <td>iOS/Android</td>
+          <td>首次登入用戶</td>
+          <td><div class="tc-title">首次登入資料未完整時導向個人資料填寫頁</div></td>
+          <td>帳號完成驗證但個人資料未完整。</td>
+          <td><ol><li>使用該帳號登入。</li><li>觀察登入後路由。</li></ol></td>
+          <td><ol><li>導向個人資料填寫頁。</li><li>必填欄位未填不可進 Tab 1。</li><li>儲存成功後進 Tab 1。</li></ol></td>
+          <td>US-18/US-20</td>
+          <td><span class="tag blocker">是</span></td>
+          <td>Alpha</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-auth-015 01. 登入 / 註冊 / 帳號綁定 個人資料必填欄位驗證 p1 表單 ios/android 首次登入用戶 在個人資料填寫頁。  us-18 alpha 否  清空就讀高中、年級或性別。 點儲存。 缺必填欄位標紅。 顯示提示。 不可進入主畫面。" data-module="01. 登入 / 註冊 / 帳號綁定" data-prio="P1" data-type="表單" data-phase="Alpha" data-blocker="否">
+          <td><b>TC-AUTH-015</b></td>
+          <td><span class="tag p1">P1</span></td>
+          <td>表單</td>
+          <td>iOS/Android</td>
+          <td>首次登入用戶</td>
+          <td><div class="tc-title">個人資料必填欄位驗證</div></td>
+          <td>在個人資料填寫頁。</td>
+          <td><ol><li>清空就讀高中、年級或性別。</li><li>點儲存。</li></ol></td>
+          <td><ol><li>缺必填欄位標紅。</li><li>顯示提示。</li><li>不可進入主畫面。</li></ol></td>
+          <td>US-18</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Alpha</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-auth-016 01. 登入 / 註冊 / 帳號綁定 第三方登入：fb 首次授權建立/綁定帳號 p0 oauth ios/android 新用戶 fb 測試帳號可授權；ltrust 後端支援 fb oauth。 fb_test_user us-17/本次補充 alpha 是 文件原列 google/line/apple/email；本測項依本次需求加入 fb。 點 fb 登入。 在授權頁同意必要權限。 返回 app。 完成必要個人資料。 授權成功。 若為新用戶，建立 ltrust 關聯帳號或進入資料補填。 token 正確保存。 再次開啟 app 保持登入。" data-module="01. 登入 / 註冊 / 帳號綁定" data-prio="P0" data-type="OAuth" data-phase="Alpha" data-blocker="是">
+          <td><b>TC-AUTH-016</b></td>
+          <td><span class="tag p0">P0</span></td>
+          <td>OAuth</td>
+          <td>iOS/Android</td>
+          <td>新用戶</td>
+          <td><div class="tc-title">第三方登入：FB 首次授權建立/綁定帳號</div><div class="small">資料：fb_test_user</div></td>
+          <td>FB 測試帳號可授權；LTrust 後端支援 FB OAuth。</td>
+          <td><ol><li>點 FB 登入。</li><li>在授權頁同意必要權限。</li><li>返回 App。</li><li>完成必要個人資料。</li></ol></td>
+          <td><ol><li>授權成功。</li><li>若為新用戶，建立 LTrust 關聯帳號或進入資料補填。</li><li>Token 正確保存。</li><li>再次開啟 App 保持登入。</li></ol></td>
+          <td>US-17/本次補充</td>
+          <td><span class="tag blocker">是</span></td>
+          <td>Alpha</td>
+          <td>文件原列 Google/LINE/Apple/Email；本測項依本次需求加入 FB。</td>
+        </tr><tr class="tc-row" data-search="tc-auth-017 01. 登入 / 註冊 / 帳號綁定 第三方登入：ig 首次授權建立/綁定帳號 p0 oauth ios/android 新用戶 ig 測試帳號可授權；ltrust 後端支援 ig oauth。 ig_test_user us-17/本次補充 alpha 是 需確認 ig 是否提供足夠 email/識別資訊；不足時應進補填流程。 點 ig 登入。 在授權頁同意必要權限。 返回 app。 完成必要個人資料。 授權成功。 若為新用戶，建立 ltrust 關聯帳號或進入資料補填。 token 正確保存。 再次開啟 app 保持登入。" data-module="01. 登入 / 註冊 / 帳號綁定" data-prio="P0" data-type="OAuth" data-phase="Alpha" data-blocker="是">
+          <td><b>TC-AUTH-017</b></td>
+          <td><span class="tag p0">P0</span></td>
+          <td>OAuth</td>
+          <td>iOS/Android</td>
+          <td>新用戶</td>
+          <td><div class="tc-title">第三方登入：IG 首次授權建立/綁定帳號</div><div class="small">資料：ig_test_user</div></td>
+          <td>IG 測試帳號可授權；LTrust 後端支援 IG OAuth。</td>
+          <td><ol><li>點 IG 登入。</li><li>在授權頁同意必要權限。</li><li>返回 App。</li><li>完成必要個人資料。</li></ol></td>
+          <td><ol><li>授權成功。</li><li>若為新用戶，建立 LTrust 關聯帳號或進入資料補填。</li><li>Token 正確保存。</li><li>再次開啟 App 保持登入。</li></ol></td>
+          <td>US-17/本次補充</td>
+          <td><span class="tag blocker">是</span></td>
+          <td>Alpha</td>
+          <td>需確認 IG 是否提供足夠 Email/識別資訊；不足時應進補填流程。</td>
+        </tr><tr class="tc-row" data-search="tc-auth-018 01. 登入 / 註冊 / 帳號綁定 第三方登入授權取消 p1 oauth 負向 ios/android 未登入 任一第三方登入入口可操作。  us-17 beta 否  點 fb/ig/apple/google 任一登入。 在授權頁按取消或拒絕。 返回 app 登入頁。 顯示授權取消或登入未完成。 不可建立半成品帳號。" data-module="01. 登入 / 註冊 / 帳號綁定" data-prio="P1" data-type="OAuth 負向" data-phase="Beta" data-blocker="否">
+          <td><b>TC-AUTH-018</b></td>
+          <td><span class="tag p1">P1</span></td>
+          <td>OAuth 負向</td>
+          <td>iOS/Android</td>
+          <td>未登入</td>
+          <td><div class="tc-title">第三方登入授權取消</div></td>
+          <td>任一第三方登入入口可操作。</td>
+          <td><ol><li>點 FB/IG/Apple/Google 任一登入。</li><li>在授權頁按取消或拒絕。</li></ol></td>
+          <td><ol><li>返回 App 登入頁。</li><li>顯示授權取消或登入未完成。</li><li>不可建立半成品帳號。</li></ol></td>
+          <td>US-17</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Beta</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-auth-019 01. 登入 / 註冊 / 帳號綁定 第三方登入網路失敗可重試 p1 oauth 異常 ios/android 未登入 可切換網路。  us-17 beta 否  點第三方登入。 授權流程中關閉網路或模擬 provider timeout。 返回 app。 顯示 oauth 失敗/重試提示。 不可卡在 loading。 再次點擊可重新發起授權。" data-module="01. 登入 / 註冊 / 帳號綁定" data-prio="P1" data-type="OAuth 異常" data-phase="Beta" data-blocker="否">
+          <td><b>TC-AUTH-019</b></td>
+          <td><span class="tag p1">P1</span></td>
+          <td>OAuth 異常</td>
+          <td>iOS/Android</td>
+          <td>未登入</td>
+          <td><div class="tc-title">第三方登入網路失敗可重試</div></td>
+          <td>可切換網路。</td>
+          <td><ol><li>點第三方登入。</li><li>授權流程中關閉網路或模擬 provider timeout。</li><li>返回 App。</li></ol></td>
+          <td><ol><li>顯示 OAuth 失敗/重試提示。</li><li>不可卡在 Loading。</li><li>再次點擊可重新發起授權。</li></ol></td>
+          <td>US-17</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Beta</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-auth-020 01. 登入 / 註冊 / 帳號綁定 apple sign in 隱藏 email relay 正常登入 p0 oauth/合規 ios 新用戶 ios 裝置；apple 測試帳號可使用 hide my email。  us-17/平台合規 pre-submit 是  點 apple 登入。 選擇隱藏 email。 完成授權。 完成個人資料。 app 可處理 apple relay email。 帳號可正常建立/登入。 後續同一 apple id 再登入可識別同一用戶。" data-module="01. 登入 / 註冊 / 帳號綁定" data-prio="P0" data-type="OAuth/合規" data-phase="Pre-submit" data-blocker="是">
+          <td><b>TC-AUTH-020</b></td>
+          <td><span class="tag p0">P0</span></td>
+          <td>OAuth/合規</td>
+          <td>iOS</td>
+          <td>新用戶</td>
+          <td><div class="tc-title">Apple Sign in 隱藏 Email relay 正常登入</div></td>
+          <td>iOS 裝置；Apple 測試帳號可使用 Hide My Email。</td>
+          <td><ol><li>點 Apple 登入。</li><li>選擇隱藏 Email。</li><li>完成授權。</li><li>完成個人資料。</li></ol></td>
+          <td><ol><li>App 可處理 Apple relay Email。</li><li>帳號可正常建立/登入。</li><li>後續同一 Apple ID 再登入可識別同一用戶。</li></ol></td>
+          <td>US-17/平台合規</td>
+          <td><span class="tag blocker">是</span></td>
+          <td>Pre-submit</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-auth-021 01. 登入 / 註冊 / 帳號綁定 社群帳號綁定到既有 ltrust 帳號 p1 帳號綁定 ios/android 已登入用戶 用戶已用 ltrust email 登入；社群帳號尚未綁定。  us-17/本次補充 beta 否  進入帳號設定/個人資訊區。 選擇綁定 fb 或 ig。 完成授權。 綁定成功。 下次可用該社群帳號登入同一 ltrust 帳號。 不產生重複用戶。" data-module="01. 登入 / 註冊 / 帳號綁定" data-prio="P1" data-type="帳號綁定" data-phase="Beta" data-blocker="否">
+          <td><b>TC-AUTH-021</b></td>
+          <td><span class="tag p1">P1</span></td>
+          <td>帳號綁定</td>
+          <td>iOS/Android</td>
+          <td>已登入用戶</td>
+          <td><div class="tc-title">社群帳號綁定到既有 LTrust 帳號</div></td>
+          <td>用戶已用 LTrust Email 登入；社群帳號尚未綁定。</td>
+          <td><ol><li>進入帳號設定/個人資訊區。</li><li>選擇綁定 FB 或 IG。</li><li>完成授權。</li></ol></td>
+          <td><ol><li>綁定成功。</li><li>下次可用該社群帳號登入同一 LTrust 帳號。</li><li>不產生重複用戶。</li></ol></td>
+          <td>US-17/本次補充</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Beta</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-auth-022 01. 登入 / 註冊 / 帳號綁定 同一社群帳號不可綁到多個 ltrust 帳號 p1 帳號綁定負向 ios/android 已登入用戶 fb/ig 帳號已綁定到 a ltrust 帳號；目前登入 b ltrust 帳號。  us-17/本次補充 beta 否  在 b 帳號嘗試綁定同一 fb/ig。 綁定失敗。 提示該第三方帳號已綁定其他帳號。 b 帳號狀態不變。" data-module="01. 登入 / 註冊 / 帳號綁定" data-prio="P1" data-type="帳號綁定負向" data-phase="Beta" data-blocker="否">
+          <td><b>TC-AUTH-022</b></td>
+          <td><span class="tag p1">P1</span></td>
+          <td>帳號綁定負向</td>
+          <td>iOS/Android</td>
+          <td>已登入用戶</td>
+          <td><div class="tc-title">同一社群帳號不可綁到多個 LTrust 帳號</div></td>
+          <td>FB/IG 帳號已綁定到 A LTrust 帳號；目前登入 B LTrust 帳號。</td>
+          <td><ol><li>在 B 帳號嘗試綁定同一 FB/IG。</li></ol></td>
+          <td><ol><li>綁定失敗。</li><li>提示該第三方帳號已綁定其他帳號。</li><li>B 帳號狀態不變。</li></ol></td>
+          <td>US-17/本次補充</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Beta</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-auth-023 01. 登入 / 註冊 / 帳號綁定 token 過期自動導回登入頁 p0 安全/異常 ios/android 登入用戶 後端可使測試帳號 token 過期或回傳 401。  us-17/邊界條件 alpha 是  登入 app。 由後端使 token 失效。 切換 tab 或重新整理題目觸發 api。 app 清楚提示登入逾期或重新登入。 導回登入頁。 本機非敏感資料保留。 不可停在壞掉狀態。" data-module="01. 登入 / 註冊 / 帳號綁定" data-prio="P0" data-type="安全/異常" data-phase="Alpha" data-blocker="是">
+          <td><b>TC-AUTH-023</b></td>
+          <td><span class="tag p0">P0</span></td>
+          <td>安全/異常</td>
+          <td>iOS/Android</td>
+          <td>登入用戶</td>
+          <td><div class="tc-title">Token 過期自動導回登入頁</div></td>
+          <td>後端可使測試帳號 Token 過期或回傳 401。</td>
+          <td><ol><li>登入 App。</li><li>由後端使 Token 失效。</li><li>切換 Tab 或重新整理題目觸發 API。</li></ol></td>
+          <td><ol><li>App 清楚提示登入逾期或重新登入。</li><li>導回登入頁。</li><li>本機非敏感資料保留。</li><li>不可停在壞掉狀態。</li></ol></td>
+          <td>US-17/邊界條件</td>
+          <td><span class="tag blocker">是</span></td>
+          <td>Alpha</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-auth-024 01. 登入 / 註冊 / 帳號綁定 同一帳號多裝置登入時舊裝置 token 失效 p1 安全/邊界 ios/android 登入用戶 裝置 a 已登入；裝置 b 可登入同一帳號。  us-17/邊界條件 beta 否  裝置 a 登入。 裝置 b 使用同帳號登入。 回到裝置 a 觸發 api。 裝置 b 登入成功。 裝置 a 顯示登入已失效並導回登入頁。 同一帳號不可多裝置並行。" data-module="01. 登入 / 註冊 / 帳號綁定" data-prio="P1" data-type="安全/邊界" data-phase="Beta" data-blocker="否">
+          <td><b>TC-AUTH-024</b></td>
+          <td><span class="tag p1">P1</span></td>
+          <td>安全/邊界</td>
+          <td>iOS/Android</td>
+          <td>登入用戶</td>
+          <td><div class="tc-title">同一帳號多裝置登入時舊裝置 Token 失效</div></td>
+          <td>裝置 A 已登入；裝置 B 可登入同一帳號。</td>
+          <td><ol><li>裝置 A 登入。</li><li>裝置 B 使用同帳號登入。</li><li>回到裝置 A 觸發 API。</li></ol></td>
+          <td><ol><li>裝置 B 登入成功。</li><li>裝置 A 顯示登入已失效並導回登入頁。</li><li>同一帳號不可多裝置並行。</li></ol></td>
+          <td>US-17/邊界條件</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Beta</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-auth-025 01. 登入 / 註冊 / 帳號綁定 後端停用帳號時清除 token 並提示客服 p0 安全/異常 ios/android 登入用戶 後端將測試帳號設為停用。  us-17/us-22/邊界條件 pre-submit 是  使用停用帳號登入或讓已登入帳號被後端停用。 觸發任一 api。 顯示「帳號已停用，請聯繫客服」或等價文案。 清除本機 token。 導回登入頁。" data-module="01. 登入 / 註冊 / 帳號綁定" data-prio="P0" data-type="安全/異常" data-phase="Pre-submit" data-blocker="是">
+          <td><b>TC-AUTH-025</b></td>
+          <td><span class="tag p0">P0</span></td>
+          <td>安全/異常</td>
+          <td>iOS/Android</td>
+          <td>登入用戶</td>
+          <td><div class="tc-title">後端停用帳號時清除 Token 並提示客服</div></td>
+          <td>後端將測試帳號設為停用。</td>
+          <td><ol><li>使用停用帳號登入或讓已登入帳號被後端停用。</li><li>觸發任一 API。</li></ol></td>
+          <td><ol><li>顯示「帳號已停用，請聯繫客服」或等價文案。</li><li>清除本機 Token。</li><li>導回登入頁。</li></ol></td>
+          <td>US-17/US-22/邊界條件</td>
+          <td><span class="tag blocker">是</span></td>
+          <td>Pre-submit</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-auth-026 01. 登入 / 註冊 / 帳號綁定 登出後清除 token 並回到未登入狀態 p0 安全 ios/android 登入用戶 已登入。  us-17/us-22 alpha 是  進入 tab 4 個人資訊區。 點登出。 確認登出。 重新開啟 app。 清除 auth token。 導回未登入/訪客流程。 tab 2~5 對訪客鎖定。" data-module="01. 登入 / 註冊 / 帳號綁定" data-prio="P0" data-type="安全" data-phase="Alpha" data-blocker="是">
+          <td><b>TC-AUTH-026</b></td>
+          <td><span class="tag p0">P0</span></td>
+          <td>安全</td>
+          <td>iOS/Android</td>
+          <td>登入用戶</td>
+          <td><div class="tc-title">登出後清除 Token 並回到未登入狀態</div></td>
+          <td>已登入。</td>
+          <td><ol><li>進入 Tab 4 個人資訊區。</li><li>點登出。</li><li>確認登出。</li><li>重新開啟 App。</li></ol></td>
+          <td><ol><li>清除 Auth Token。</li><li>導回未登入/訪客流程。</li><li>Tab 2~5 對訪客鎖定。</li></ol></td>
+          <td>US-17/US-22</td>
+          <td><span class="tag blocker">是</span></td>
+          <td>Alpha</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-auth-027 01. 登入 / 註冊 / 帳號綁定 主動停用/刪除帳號流程 p0 合規/安全 ios/android 登入用戶 已登入；後端測試環境可執行停用或刪除。  us-22/平台合規 pre-submit 是  進入 tab 4 個人資訊區。 點停用/刪除帳號。 確認二次彈窗。 完成流程。 提供帳號刪除/停用入口。 需二次確認避免誤觸。 完成後依 ltrust 邏輯執行。 清除本機 token 並回登入頁。" data-module="01. 登入 / 註冊 / 帳號綁定" data-prio="P0" data-type="合規/安全" data-phase="Pre-submit" data-blocker="是">
+          <td><b>TC-AUTH-027</b></td>
+          <td><span class="tag p0">P0</span></td>
+          <td>合規/安全</td>
+          <td>iOS/Android</td>
+          <td>登入用戶</td>
+          <td><div class="tc-title">主動停用/刪除帳號流程</div></td>
+          <td>已登入；後端測試環境可執行停用或刪除。</td>
+          <td><ol><li>進入 Tab 4 個人資訊區。</li><li>點停用/刪除帳號。</li><li>確認二次彈窗。</li><li>完成流程。</li></ol></td>
+          <td><ol><li>提供帳號刪除/停用入口。</li><li>需二次確認避免誤觸。</li><li>完成後依 LTrust 邏輯執行。</li><li>清除本機 Token 並回登入頁。</li></ol></td>
+          <td>US-22/平台合規</td>
+          <td><span class="tag blocker">是</span></td>
+          <td>Pre-submit</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-auth-028 01. 登入 / 註冊 / 帳號綁定 忘記密碼入口可正常開啟 ltrust 流程 p1 功能 ios/android 未登入 登入頁有忘記密碼連結。  us-17 beta 否  點忘記密碼。 輸入 email 或進入 ltrust 重設頁。 可進入可用的重設密碼流程。 webview/外部頁面返回後不破壞 app 狀態。" data-module="01. 登入 / 註冊 / 帳號綁定" data-prio="P1" data-type="功能" data-phase="Beta" data-blocker="否">
+          <td><b>TC-AUTH-028</b></td>
+          <td><span class="tag p1">P1</span></td>
+          <td>功能</td>
+          <td>iOS/Android</td>
+          <td>未登入</td>
+          <td><div class="tc-title">忘記密碼入口可正常開啟 LTrust 流程</div></td>
+          <td>登入頁有忘記密碼連結。</td>
+          <td><ol><li>點忘記密碼。</li><li>輸入 Email 或進入 LTrust 重設頁。</li></ol></td>
+          <td><ol><li>可進入可用的重設密碼流程。</li><li>WebView/外部頁面返回後不破壞 App 狀態。</li></ol></td>
+          <td>US-17</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Beta</td>
+          <td><span class="muted">—</span></td>
+        </tr></tbody></table></div></details><details open data-module-section="02. 訪客模式 / 免費額度">
+      <summary>02. 訪客模式 / 免費額度 <span class="muted">(14 cases)</span></summary>
+      <div class="table-wrap"><table>
+        <thead><tr><th style="width:105px">ID</th><th style="width:80px">Priority</th><th style="width:95px">類型</th><th style="width:90px">平台</th><th style="width:92px">角色</th><th style="width:220px">測試標題</th><th style="width:230px">前置條件</th><th style="width:260px">測試步驟</th><th style="width:280px">預期結果</th><th style="width:145px">US / 依據</th><th style="width:80px">阻擋</th><th style="width:110px">Phase</th><th>備註</th></tr></thead>
+        <tbody>
+    <tr class="tc-row" data-search="tc-guest-001 02. 訪客模式 / 免費額度 未登入首次開啟直接看到題目 p0 功能 ios/android 訪客 全新安裝或清除登入狀態。  us-01 alpha 是  開啟 app。 觀察首屏。 splash 後直接進 tab 1 題目主畫面。 顯示題目、選項、tab bar。 不要求先登入。" data-module="02. 訪客模式 / 免費額度" data-prio="P0" data-type="功能" data-phase="Alpha" data-blocker="是">
+          <td><b>TC-GUEST-001</b></td>
+          <td><span class="tag p0">P0</span></td>
+          <td>功能</td>
+          <td>iOS/Android</td>
+          <td>訪客</td>
+          <td><div class="tc-title">未登入首次開啟直接看到題目</div></td>
+          <td>全新安裝或清除登入狀態。</td>
+          <td><ol><li>開啟 App。</li><li>觀察首屏。</li></ol></td>
+          <td><ol><li>Splash 後直接進 Tab 1 題目主畫面。</li><li>顯示題目、選項、Tab Bar。</li><li>不要求先登入。</li></ol></td>
+          <td>US-01</td>
+          <td><span class="tag blocker">是</span></td>
+          <td>Alpha</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-guest-002 02. 訪客模式 / 免費額度 訪客每日可作答 3 題 p0 功能 ios/android 訪客 訪客今日尚未作答。  us-01/us-05 alpha 是  依序完成 1、2、3 題。 觀察剩餘題數與提示。 第 1、2 題可正常作答。 第 3 題完成後觸發登入引導或額度用盡提示。 題數以作答完成計算。" data-module="02. 訪客模式 / 免費額度" data-prio="P0" data-type="功能" data-phase="Alpha" data-blocker="是">
+          <td><b>TC-GUEST-002</b></td>
+          <td><span class="tag p0">P0</span></td>
+          <td>功能</td>
+          <td>iOS/Android</td>
+          <td>訪客</td>
+          <td><div class="tc-title">訪客每日可作答 3 題</div></td>
+          <td>訪客今日尚未作答。</td>
+          <td><ol><li>依序完成 1、2、3 題。</li><li>觀察剩餘題數與提示。</li></ol></td>
+          <td><ol><li>第 1、2 題可正常作答。</li><li>第 3 題完成後觸發登入引導或額度用盡提示。</li><li>題數以作答完成計算。</li></ol></td>
+          <td>US-01/US-05</td>
+          <td><span class="tag blocker">是</span></td>
+          <td>Alpha</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-guest-003 02. 訪客模式 / 免費額度 訪客第 3 題後登入引導可關閉並停留 tab 1 p1 流程 ios/android 訪客 訪客剛完成第 3 題。  us-01/screenlist beta 否  觀察登入引導 modal。 點關閉。 modal 可關閉。 停留 tab 1。 顯示今日剩餘 0 題或明日 00:00 重置提示。 不可繼續作答第 4 題。" data-module="02. 訪客模式 / 免費額度" data-prio="P1" data-type="流程" data-phase="Beta" data-blocker="否">
+          <td><b>TC-GUEST-003</b></td>
+          <td><span class="tag p1">P1</span></td>
+          <td>流程</td>
+          <td>iOS/Android</td>
+          <td>訪客</td>
+          <td><div class="tc-title">訪客第 3 題後登入引導可關閉並停留 Tab 1</div></td>
+          <td>訪客剛完成第 3 題。</td>
+          <td><ol><li>觀察登入引導 Modal。</li><li>點關閉。</li></ol></td>
+          <td><ol><li>Modal 可關閉。</li><li>停留 Tab 1。</li><li>顯示今日剩餘 0 題或明日 00:00 重置提示。</li><li>不可繼續作答第 4 題。</li></ol></td>
+          <td>US-01/ScreenList</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Beta</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-guest-004 02. 訪客模式 / 免費額度 訪客額度用盡後點登入進登入頁 p0 流程 ios/android 訪客 訪客額度已用盡且 modal 顯示。  us-01/us-17 alpha 是  點擊登入/註冊 cta。 進入登入頁。 登入成功後解除每日 3 題限制。" data-module="02. 訪客模式 / 免費額度" data-prio="P0" data-type="流程" data-phase="Alpha" data-blocker="是">
+          <td><b>TC-GUEST-004</b></td>
+          <td><span class="tag p0">P0</span></td>
+          <td>流程</td>
+          <td>iOS/Android</td>
+          <td>訪客</td>
+          <td><div class="tc-title">訪客額度用盡後點登入進登入頁</div></td>
+          <td>訪客額度已用盡且 Modal 顯示。</td>
+          <td><ol><li>點擊登入/註冊 CTA。</li></ol></td>
+          <td><ol><li>進入登入頁。</li><li>登入成功後解除每日 3 題限制。</li></ol></td>
+          <td>US-01/US-17</td>
+          <td><span class="tag blocker">是</span></td>
+          <td>Alpha</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-guest-005 02. 訪客模式 / 免費額度 訪客點 tab 2~5 彈登入提示且不進入頁面 p0 權限 ios/android 訪客 未登入狀態。  us-01/us-04 alpha 是  依序點 tab 2、tab 3、tab 4、tab 5。 各自點關閉。 顯示「此功能需登入後使用」或等價提示。 點關閉後回到/停留 tab 1。 不可看到登入限定內容。" data-module="02. 訪客模式 / 免費額度" data-prio="P0" data-type="權限" data-phase="Alpha" data-blocker="是">
+          <td><b>TC-GUEST-005</b></td>
+          <td><span class="tag p0">P0</span></td>
+          <td>權限</td>
+          <td>iOS/Android</td>
+          <td>訪客</td>
+          <td><div class="tc-title">訪客點 Tab 2~5 彈登入提示且不進入頁面</div></td>
+          <td>未登入狀態。</td>
+          <td><ol><li>依序點 Tab 2、Tab 3、Tab 4、Tab 5。</li><li>各自點關閉。</li></ol></td>
+          <td><ol><li>顯示「此功能需登入後使用」或等價提示。</li><li>點關閉後回到/停留 Tab 1。</li><li>不可看到登入限定內容。</li></ol></td>
+          <td>US-01/US-04</td>
+          <td><span class="tag blocker">是</span></td>
+          <td>Alpha</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-guest-006 02. 訪客模式 / 免費額度 訪客點分享按鈕提示登入後才能分享 p1 權限 ios/android 訪客 訪客模式 tab 1；有題目可操作。  us-10/us-13 beta 否  點右側分享按鈕。 不開啟原生分享選單。 顯示「登入後才能分享題目」。 提供立即登入入口。" data-module="02. 訪客模式 / 免費額度" data-prio="P1" data-type="權限" data-phase="Beta" data-blocker="否">
+          <td><b>TC-GUEST-006</b></td>
+          <td><span class="tag p1">P1</span></td>
+          <td>權限</td>
+          <td>iOS/Android</td>
+          <td>訪客</td>
+          <td><div class="tc-title">訪客點分享按鈕提示登入後才能分享</div></td>
+          <td>訪客模式 Tab 1；有題目可操作。</td>
+          <td><ol><li>點右側分享按鈕。</li></ol></td>
+          <td><ol><li>不開啟原生分享選單。</li><li>顯示「登入後才能分享題目」。</li><li>提供立即登入入口。</li></ol></td>
+          <td>US-10/US-13</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Beta</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-guest-007 02. 訪客模式 / 免費額度 訪客收藏/愛心操作依規格鎖定 p1 權限 ios/android 訪客 訪客模式 tab 1；有題目可操作。  us-10/screenlist beta 否 screen list 標示訪客收藏鎖定；us 文字需確認愛心是否同鎖定。 點愛心。 點收藏。 若規格鎖定：提示登入後可使用，不改變後端狀態。 若最新規格允許愛心：需同步更新本測項。" data-module="02. 訪客模式 / 免費額度" data-prio="P1" data-type="權限" data-phase="Beta" data-blocker="否">
+          <td><b>TC-GUEST-007</b></td>
+          <td><span class="tag p1">P1</span></td>
+          <td>權限</td>
+          <td>iOS/Android</td>
+          <td>訪客</td>
+          <td><div class="tc-title">訪客收藏/愛心操作依規格鎖定</div></td>
+          <td>訪客模式 Tab 1；有題目可操作。</td>
+          <td><ol><li>點愛心。</li><li>點收藏。</li></ol></td>
+          <td><ol><li>若規格鎖定：提示登入後可使用，不改變後端狀態。</li><li>若最新規格允許愛心：需同步更新本測項。</li></ol></td>
+          <td>US-10/ScreenList</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Beta</td>
+          <td>Screen List 標示訪客收藏鎖定；US 文字需確認愛心是否同鎖定。</td>
+        </tr><tr class="tc-row" data-search="tc-guest-008 02. 訪客模式 / 免費額度 訪客額度每日 00:00 utc+8 重置 p0 時間邊界 ios/android 訪客 測試環境可調整伺服器時間或使用測試 api 重置時間。  us-01/us-05/邊界條件 beta 是  訪客用完 3 題。 將伺服器時間推進至 utc+8 00:00 後。 重新開啟 app 或重試作答。 額度重置為 3 題。 重置依伺服器 utc+8，不受裝置時間作弊影響。" data-module="02. 訪客模式 / 免費額度" data-prio="P0" data-type="時間邊界" data-phase="Beta" data-blocker="是">
+          <td><b>TC-GUEST-008</b></td>
+          <td><span class="tag p0">P0</span></td>
+          <td>時間邊界</td>
+          <td>iOS/Android</td>
+          <td>訪客</td>
+          <td><div class="tc-title">訪客額度每日 00:00 UTC+8 重置</div></td>
+          <td>測試環境可調整伺服器時間或使用測試 API 重置時間。</td>
+          <td><ol><li>訪客用完 3 題。</li><li>將伺服器時間推進至 UTC+8 00:00 後。</li><li>重新開啟 App 或重試作答。</li></ol></td>
+          <td><ol><li>額度重置為 3 題。</li><li>重置依伺服器 UTC+8，不受裝置時間作弊影響。</li></ol></td>
+          <td>US-01/US-05/邊界條件</td>
+          <td><span class="tag blocker">是</span></td>
+          <td>Beta</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-guest-009 02. 訪客模式 / 免費額度 修改手機時間不能重置訪客額度 p1 防作弊 ios/android 訪客 訪客額度已用盡。  us-01/邊界條件 beta 否  將裝置時間改到隔日 00:01。 重新開啟 app。 嘗試作答。 額度不因裝置時間修改而重置。 仍以伺服器時間為準。" data-module="02. 訪客模式 / 免費額度" data-prio="P1" data-type="防作弊" data-phase="Beta" data-blocker="否">
+          <td><b>TC-GUEST-009</b></td>
+          <td><span class="tag p1">P1</span></td>
+          <td>防作弊</td>
+          <td>iOS/Android</td>
+          <td>訪客</td>
+          <td><div class="tc-title">修改手機時間不能重置訪客額度</div></td>
+          <td>訪客額度已用盡。</td>
+          <td><ol><li>將裝置時間改到隔日 00:01。</li><li>重新開啟 App。</li><li>嘗試作答。</li></ol></td>
+          <td><ol><li>額度不因裝置時間修改而重置。</li><li>仍以伺服器時間為準。</li></ol></td>
+          <td>US-01/邊界條件</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Beta</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-guest-010 02. 訪客模式 / 免費額度 ios 重裝 app 後訪客 device_id 額度保留 p1 邊界 ios 訪客 ios 訪客已用完額度；keychain 保留 device_id。  us-01/邊界條件 beta 否  刪除 app。 重新安裝。 開啟 app。 同一 device_id 被識別。 今日額度仍為 0，不因重裝重置。" data-module="02. 訪客模式 / 免費額度" data-prio="P1" data-type="邊界" data-phase="Beta" data-blocker="否">
+          <td><b>TC-GUEST-010</b></td>
+          <td><span class="tag p1">P1</span></td>
+          <td>邊界</td>
+          <td>iOS</td>
+          <td>訪客</td>
+          <td><div class="tc-title">iOS 重裝 App 後訪客 device_id 額度保留</div></td>
+          <td>iOS 訪客已用完額度；Keychain 保留 device_id。</td>
+          <td><ol><li>刪除 App。</li><li>重新安裝。</li><li>開啟 App。</li></ol></td>
+          <td><ol><li>同一 device_id 被識別。</li><li>今日額度仍為 0，不因重裝重置。</li></ol></td>
+          <td>US-01/邊界條件</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Beta</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-guest-011 02. 訪客模式 / 免費額度 android 清資料/重裝後訪客額度行為確認 p1 邊界 android 訪客 android 訪客已用完額度；後端/dev 已定義 keystore 行為。  us-01/邊界條件 beta 否  清除 app 資料或重裝。 開啟 app。 觀察訪客額度。 行為需符合 dev 決議。 若可保留 device_id，額度不重置；若無法保留，需在風險清單註明。" data-module="02. 訪客模式 / 免費額度" data-prio="P1" data-type="邊界" data-phase="Beta" data-blocker="否">
+          <td><b>TC-GUEST-011</b></td>
+          <td><span class="tag p1">P1</span></td>
+          <td>邊界</td>
+          <td>Android</td>
+          <td>訪客</td>
+          <td><div class="tc-title">Android 清資料/重裝後訪客額度行為確認</div></td>
+          <td>Android 訪客已用完額度；後端/DEV 已定義 Keystore 行為。</td>
+          <td><ol><li>清除 App 資料或重裝。</li><li>開啟 App。</li><li>觀察訪客額度。</li></ol></td>
+          <td><ol><li>行為需符合 DEV 決議。</li><li>若可保留 device_id，額度不重置；若無法保留，需在風險清單註明。</li></ol></td>
+          <td>US-01/邊界條件</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Beta</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-guest-012 02. 訪客模式 / 免費額度 換新裝置視為新訪客 p2 邊界 ios/android 訪客 裝置 a 訪客額度用盡；裝置 b 從未安裝。  us-01/邊界條件 beta 否  在裝置 b 安裝並開啟 app。 裝置 b 取得新的 device_id。 可使用 3 題訪客額度。 訪客額度不跨裝置同步。" data-module="02. 訪客模式 / 免費額度" data-prio="P2" data-type="邊界" data-phase="Beta" data-blocker="否">
+          <td><b>TC-GUEST-012</b></td>
+          <td><span class="tag p2">P2</span></td>
+          <td>邊界</td>
+          <td>iOS/Android</td>
+          <td>訪客</td>
+          <td><div class="tc-title">換新裝置視為新訪客</div></td>
+          <td>裝置 A 訪客額度用盡；裝置 B 從未安裝。</td>
+          <td><ol><li>在裝置 B 安裝並開啟 App。</li></ol></td>
+          <td><ol><li>裝置 B 取得新的 device_id。</li><li>可使用 3 題訪客額度。</li><li>訪客額度不跨裝置同步。</li></ol></td>
+          <td>US-01/邊界條件</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Beta</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-guest-013 02. 訪客模式 / 免費額度 訪客登入後不受 3 題額度限制 p0 流程 ios/android 訪客→登入 訪客已用完今日 3 題；有有效帳號。  us-01/us-05/us-17 alpha 是  點登入 cta。 登入成功。 繼續作答第 4 題以上。 登入後解除訪客額度限制。 可持續作答。 session/用戶狀態正確切換為登入 user_id。" data-module="02. 訪客模式 / 免費額度" data-prio="P0" data-type="流程" data-phase="Alpha" data-blocker="是">
+          <td><b>TC-GUEST-013</b></td>
+          <td><span class="tag p0">P0</span></td>
+          <td>流程</td>
+          <td>iOS/Android</td>
+          <td>訪客→登入</td>
+          <td><div class="tc-title">訪客登入後不受 3 題額度限制</div></td>
+          <td>訪客已用完今日 3 題；有有效帳號。</td>
+          <td><ol><li>點登入 CTA。</li><li>登入成功。</li><li>繼續作答第 4 題以上。</li></ol></td>
+          <td><ol><li>登入後解除訪客額度限制。</li><li>可持續作答。</li><li>Session/用戶狀態正確切換為登入 user_id。</li></ol></td>
+          <td>US-01/US-05/US-17</td>
+          <td><span class="tag blocker">是</span></td>
+          <td>Alpha</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-guest-014 02. 訪客模式 / 免費額度 訪客只看到免費題庫題目 p1 權限 ios/android 訪客 題庫含 free / advanced / current_affairs。  us-01/us-05 beta 否  以訪客作答多題。 檢查題目 tier 或後端 log。 訪客題目僅為 free。 不可出現進階題庫或時事題庫。" data-module="02. 訪客模式 / 免費額度" data-prio="P1" data-type="權限" data-phase="Beta" data-blocker="否">
+          <td><b>TC-GUEST-014</b></td>
+          <td><span class="tag p1">P1</span></td>
+          <td>權限</td>
+          <td>iOS/Android</td>
+          <td>訪客</td>
+          <td><div class="tc-title">訪客只看到免費題庫題目</div></td>
+          <td>題庫含 free / advanced / current_affairs。</td>
+          <td><ol><li>以訪客作答多題。</li><li>檢查題目 tier 或後端 log。</li></ol></td>
+          <td><ol><li>訪客題目僅為 free。</li><li>不可出現進階題庫或時事題庫。</li></ol></td>
+          <td>US-01/US-05</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Beta</td>
+          <td><span class="muted">—</span></td>
+        </tr></tbody></table></div></details><details open data-module-section="03. Tab 1 極速刷題">
+      <summary>03. Tab 1 極速刷題 <span class="muted">(28 cases)</span></summary>
+      <div class="table-wrap"><table>
+        <thead><tr><th style="width:105px">ID</th><th style="width:80px">Priority</th><th style="width:95px">類型</th><th style="width:90px">平台</th><th style="width:92px">角色</th><th style="width:220px">測試標題</th><th style="width:230px">前置條件</th><th style="width:260px">測試步驟</th><th style="width:280px">預期結果</th><th style="width:145px">US / 依據</th><th style="width:80px">阻擋</th><th style="width:110px">Phase</th><th>備註</th></tr></thead>
+        <tbody>
+    <tr class="tc-row" data-search="tc-quiz-001 03. tab 1 極速刷題 題目主畫面資訊完整 p0 功能 ios/android 訪客/登入 可載入至少一題。  us-01/us-04 alpha 是  進入 tab 1。 觀察題目卡。 顯示題目文字。 顯示科目/難度或相關標籤。 顯示 abcd 選項。 底部 tab bar 可見且不遮擋。" data-module="03. Tab 1 極速刷題" data-prio="P0" data-type="功能" data-phase="Alpha" data-blocker="是">
+          <td><b>TC-QUIZ-001</b></td>
+          <td><span class="tag p0">P0</span></td>
+          <td>功能</td>
+          <td>iOS/Android</td>
+          <td>訪客/登入</td>
+          <td><div class="tc-title">題目主畫面資訊完整</div></td>
+          <td>可載入至少一題。</td>
+          <td><ol><li>進入 Tab 1。</li><li>觀察題目卡。</li></ol></td>
+          <td><ol><li>顯示題目文字。</li><li>顯示科目/難度或相關標籤。</li><li>顯示 ABCD 選項。</li><li>底部 Tab Bar 可見且不遮擋。</li></ol></td>
+          <td>US-01/US-04</td>
+          <td><span class="tag blocker">是</span></td>
+          <td>Alpha</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-quiz-002 03. tab 1 極速刷題 點選答案後立即顯示答對結果 p0 功能 ios/android 登入用戶 題目答案可控為正確選項。  us-12/datacontract alpha 是  點選正確答案。 顯示答對回饋。 正確選項視覺標示。 答題結果蓋板出現。 answer event 觸發。" data-module="03. Tab 1 極速刷題" data-prio="P0" data-type="功能" data-phase="Alpha" data-blocker="是">
+          <td><b>TC-QUIZ-002</b></td>
+          <td><span class="tag p0">P0</span></td>
+          <td>功能</td>
+          <td>iOS/Android</td>
+          <td>登入用戶</td>
+          <td><div class="tc-title">點選答案後立即顯示答對結果</div></td>
+          <td>題目答案可控為正確選項。</td>
+          <td><ol><li>點選正確答案。</li></ol></td>
+          <td><ol><li>顯示答對回饋。</li><li>正確選項視覺標示。</li><li>答題結果蓋板出現。</li><li>Answer Event 觸發。</li></ol></td>
+          <td>US-12/DataContract</td>
+          <td><span class="tag blocker">是</span></td>
+          <td>Alpha</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-quiz-003 03. tab 1 極速刷題 點選答案後立即顯示答錯結果 p0 功能 ios/android 登入用戶 題目答案可控；選擇錯誤選項。  us-12/us-07 alpha 是  點選錯誤答案。 顯示答錯回饋。 錯誤選項與正確答案視覺標示清楚。 答題結果蓋板出現。 答錯題目加入錯題本或更新錯誤次數。" data-module="03. Tab 1 極速刷題" data-prio="P0" data-type="功能" data-phase="Alpha" data-blocker="是">
+          <td><b>TC-QUIZ-003</b></td>
+          <td><span class="tag p0">P0</span></td>
+          <td>功能</td>
+          <td>iOS/Android</td>
+          <td>登入用戶</td>
+          <td><div class="tc-title">點選答案後立即顯示答錯結果</div></td>
+          <td>題目答案可控；選擇錯誤選項。</td>
+          <td><ol><li>點選錯誤答案。</li></ol></td>
+          <td><ol><li>顯示答錯回饋。</li><li>錯誤選項與正確答案視覺標示清楚。</li><li>答題結果蓋板出現。</li><li>答錯題目加入錯題本或更新錯誤次數。</li></ol></td>
+          <td>US-12/US-07</td>
+          <td><span class="tag blocker">是</span></td>
+          <td>Alpha</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-quiz-004 03. tab 1 極速刷題 答題後不可重複修改同題答案 p1 資料正確性 ios/android 登入用戶 已進入 tab 1 題目。  us-12/datacontract beta 否  點選 a。 在蓋板出現後嘗試點 b/c/d 或返回同題再點其他答案。 同一題同一輪作答只記一次。 不可重複送 answer event。 ui 不允許或不會改變既有結果。" data-module="03. Tab 1 極速刷題" data-prio="P1" data-type="資料正確性" data-phase="Beta" data-blocker="否">
+          <td><b>TC-QUIZ-004</b></td>
+          <td><span class="tag p1">P1</span></td>
+          <td>資料正確性</td>
+          <td>iOS/Android</td>
+          <td>登入用戶</td>
+          <td><div class="tc-title">答題後不可重複修改同題答案</div></td>
+          <td>已進入 Tab 1 題目。</td>
+          <td><ol><li>點選 A。</li><li>在蓋板出現後嘗試點 B/C/D 或返回同題再點其他答案。</li></ol></td>
+          <td><ol><li>同一題同一輪作答只記一次。</li><li>不可重複送 Answer Event。</li><li>UI 不允許或不會改變既有結果。</li></ol></td>
+          <td>US-12/DataContract</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Beta</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-quiz-005 03. tab 1 極速刷題 答題結果蓋板有下一題與解析按鈕 p0 功能 ios/android 登入用戶 已完成一題作答。  us-12 alpha 是  觀察結果蓋板。 蓋板顯示答對/答錯。 提供「下一題」與「解析」按鈕。 按鈕文案清楚且可點擊。" data-module="03. Tab 1 極速刷題" data-prio="P0" data-type="功能" data-phase="Alpha" data-blocker="是">
+          <td><b>TC-QUIZ-005</b></td>
+          <td><span class="tag p0">P0</span></td>
+          <td>功能</td>
+          <td>iOS/Android</td>
+          <td>登入用戶</td>
+          <td><div class="tc-title">答題結果蓋板有下一題與解析按鈕</div></td>
+          <td>已完成一題作答。</td>
+          <td><ol><li>觀察結果蓋板。</li></ol></td>
+          <td><ol><li>蓋板顯示答對/答錯。</li><li>提供「下一題」與「解析」按鈕。</li><li>按鈕文案清楚且可點擊。</li></ol></td>
+          <td>US-12</td>
+          <td><span class="tag blocker">是</span></td>
+          <td>Alpha</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-quiz-006 03. tab 1 極速刷題 點下一題切換至下一題 p0 功能 ios/android 登入用戶 答題結果蓋板已顯示。  us-02/us-12 alpha 是  點「下一題」。 蓋板關閉。 題目切換為下一題。 題目序號/session 計數正確更新。" data-module="03. Tab 1 極速刷題" data-prio="P0" data-type="功能" data-phase="Alpha" data-blocker="是">
+          <td><b>TC-QUIZ-006</b></td>
+          <td><span class="tag p0">P0</span></td>
+          <td>功能</td>
+          <td>iOS/Android</td>
+          <td>登入用戶</td>
+          <td><div class="tc-title">點下一題切換至下一題</div></td>
+          <td>答題結果蓋板已顯示。</td>
+          <td><ol><li>點「下一題」。</li></ol></td>
+          <td><ol><li>蓋板關閉。</li><li>題目切換為下一題。</li><li>題目序號/Session 計數正確更新。</li></ol></td>
+          <td>US-02/US-12</td>
+          <td><span class="tag blocker">是</span></td>
+          <td>Alpha</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-quiz-007 03. tab 1 極速刷題 蓋板顯示時向下滑等同下一題 p1 手勢 ios/android 登入用戶 答題結果蓋板已顯示。  us-02/us-12 beta 否  在蓋板上向下滑。 手勢被蓋板攔截。 效果等同點下一題。 不發生底層 pager 誤滑或 ui 卡住。" data-module="03. Tab 1 極速刷題" data-prio="P1" data-type="手勢" data-phase="Beta" data-blocker="否">
+          <td><b>TC-QUIZ-007</b></td>
+          <td><span class="tag p1">P1</span></td>
+          <td>手勢</td>
+          <td>iOS/Android</td>
+          <td>登入用戶</td>
+          <td><div class="tc-title">蓋板顯示時向下滑等同下一題</div></td>
+          <td>答題結果蓋板已顯示。</td>
+          <td><ol><li>在蓋板上向下滑。</li></ol></td>
+          <td><ol><li>手勢被蓋板攔截。</li><li>效果等同點下一題。</li><li>不發生底層 Pager 誤滑或 UI 卡住。</li></ol></td>
+          <td>US-02/US-12</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Beta</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-quiz-008 03. tab 1 極速刷題 點解析展開解析內容 p0 功能 ios/android 登入用戶 已完成一題作答且該題有解析。  us-12 alpha 是  點「解析」。 顯示解析內容。 顯示正確答案與相關知識點。 底部有關閉/下一題操作。" data-module="03. Tab 1 極速刷題" data-prio="P0" data-type="功能" data-phase="Alpha" data-blocker="是">
+          <td><b>TC-QUIZ-008</b></td>
+          <td><span class="tag p0">P0</span></td>
+          <td>功能</td>
+          <td>iOS/Android</td>
+          <td>登入用戶</td>
+          <td><div class="tc-title">點解析展開解析內容</div></td>
+          <td>已完成一題作答且該題有解析。</td>
+          <td><ol><li>點「解析」。</li></ol></td>
+          <td><ol><li>顯示解析內容。</li><li>顯示正確答案與相關知識點。</li><li>底部有關閉/下一題操作。</li></ol></td>
+          <td>US-12</td>
+          <td><span class="tag blocker">是</span></td>
+          <td>Alpha</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-quiz-009 03. tab 1 極速刷題 解析內容過長可捲動且不遮擋 cta p1 ui ios/android 登入用戶 準備長解析題目。  us-12 beta 否  作答後點解析。 向下捲動解析內容。 長解析可正常捲動。 關閉/下一題按鈕仍可用。 底部安全區域不遮擋文字。" data-module="03. Tab 1 極速刷題" data-prio="P1" data-type="UI" data-phase="Beta" data-blocker="否">
+          <td><b>TC-QUIZ-009</b></td>
+          <td><span class="tag p1">P1</span></td>
+          <td>UI</td>
+          <td>iOS/Android</td>
+          <td>登入用戶</td>
+          <td><div class="tc-title">解析內容過長可捲動且不遮擋 CTA</div></td>
+          <td>準備長解析題目。</td>
+          <td><ol><li>作答後點解析。</li><li>向下捲動解析內容。</li></ol></td>
+          <td><ol><li>長解析可正常捲動。</li><li>關閉/下一題按鈕仍可用。</li><li>底部安全區域不遮擋文字。</li></ol></td>
+          <td>US-12</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Beta</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-quiz-010 03. tab 1 極速刷題 上下滑切題方向正確 p1 手勢 ios/android 登入用戶 tab 1 顯示題目；至少已有前後題快取。  us-02 beta 否  向下滑。 向上滑。 向下滑切到後一題。 向上滑切到前一題。 動畫流暢、不跳題。" data-module="03. Tab 1 極速刷題" data-prio="P1" data-type="手勢" data-phase="Beta" data-blocker="否">
+          <td><b>TC-QUIZ-010</b></td>
+          <td><span class="tag p1">P1</span></td>
+          <td>手勢</td>
+          <td>iOS/Android</td>
+          <td>登入用戶</td>
+          <td><div class="tc-title">上下滑切題方向正確</div></td>
+          <td>Tab 1 顯示題目；至少已有前後題快取。</td>
+          <td><ol><li>向下滑。</li><li>向上滑。</li></ol></td>
+          <td><ol><li>向下滑切到後一題。</li><li>向上滑切到前一題。</li><li>動畫流暢、不跳題。</li></ol></td>
+          <td>US-02</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Beta</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-quiz-011 03. tab 1 極速刷題 切題動畫流暢且不掉互動 p2 效能 ios/android 登入用戶 網路正常；題庫足夠。  us-02 beta 否  連續上下滑 20 次。 期間快速停頓、回滑、再作答。 不閃退。 題目內容與答案對應正確。 不出現空白卡片或錯置答案。" data-module="03. Tab 1 極速刷題" data-prio="P2" data-type="效能" data-phase="Beta" data-blocker="否">
+          <td><b>TC-QUIZ-011</b></td>
+          <td><span class="tag p2">P2</span></td>
+          <td>效能</td>
+          <td>iOS/Android</td>
+          <td>登入用戶</td>
+          <td><div class="tc-title">切題動畫流暢且不掉互動</div></td>
+          <td>網路正常；題庫足夠。</td>
+          <td><ol><li>連續上下滑 20 次。</li><li>期間快速停頓、回滑、再作答。</li></ol></td>
+          <td><ol><li>不閃退。</li><li>題目內容與答案對應正確。</li><li>不出現空白卡片或錯置答案。</li></ol></td>
+          <td>US-02</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Beta</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-quiz-012 03. tab 1 極速刷題 頂部本次戰績即時更新 p1 功能 ios/android 登入用戶 新 session 開始。  us-03 beta 否  作答第 1 題答對。 作答第 2 題答錯。 觀察已答對題數與正確率。 第 1 題後顯示已對 1 題 / 正確率 100%。 第 2 題後正確率更新為 50%。 本機即時計算，不需等待 api。" data-module="03. Tab 1 極速刷題" data-prio="P1" data-type="功能" data-phase="Beta" data-blocker="否">
+          <td><b>TC-QUIZ-012</b></td>
+          <td><span class="tag p1">P1</span></td>
+          <td>功能</td>
+          <td>iOS/Android</td>
+          <td>登入用戶</td>
+          <td><div class="tc-title">頂部本次戰績即時更新</div></td>
+          <td>新 Session 開始。</td>
+          <td><ol><li>作答第 1 題答對。</li><li>作答第 2 題答錯。</li><li>觀察已答對題數與正確率。</li></ol></td>
+          <td><ol><li>第 1 題後顯示已對 1 題 / 正確率 100%。</li><li>第 2 題後正確率更新為 50%。</li><li>本機即時計算，不需等待 API。</li></ol></td>
+          <td>US-03</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Beta</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-quiz-013 03. tab 1 極速刷題 連答計數器答對累加、答錯歸零 p1 功能 ios/android 登入用戶 可控題目答案。  us-03 beta 否  連續答對 2 題。 第 3 題答錯。 第 4 題答對。 連答顯示依序為 1、2。 答錯後立即歸零。 重新答對後從 1 開始。" data-module="03. Tab 1 極速刷題" data-prio="P1" data-type="功能" data-phase="Beta" data-blocker="否">
+          <td><b>TC-QUIZ-013</b></td>
+          <td><span class="tag p1">P1</span></td>
+          <td>功能</td>
+          <td>iOS/Android</td>
+          <td>登入用戶</td>
+          <td><div class="tc-title">連答計數器答對累加、答錯歸零</div></td>
+          <td>可控題目答案。</td>
+          <td><ol><li>連續答對 2 題。</li><li>第 3 題答錯。</li><li>第 4 題答對。</li></ol></td>
+          <td><ol><li>連答顯示依序為 1、2。</li><li>答錯後立即歸零。</li><li>重新答對後從 1 開始。</li></ol></td>
+          <td>US-03</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Beta</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-quiz-014 03. tab 1 極速刷題 session 定義：app 重新啟動後本次統計重置 p1 資料正確性 ios/android 登入用戶 已作答至少 2 題。  us-03/us-16 beta 否  記錄當前本次戰績。 完全關閉 app。 重新開啟 app。 本次 session 計數重置。 歷史紀錄仍保存在 tab 5。" data-module="03. Tab 1 極速刷題" data-prio="P1" data-type="資料正確性" data-phase="Beta" data-blocker="否">
+          <td><b>TC-QUIZ-014</b></td>
+          <td><span class="tag p1">P1</span></td>
+          <td>資料正確性</td>
+          <td>iOS/Android</td>
+          <td>登入用戶</td>
+          <td><div class="tc-title">Session 定義：App 重新啟動後本次統計重置</div></td>
+          <td>已作答至少 2 題。</td>
+          <td><ol><li>記錄當前本次戰績。</li><li>完全關閉 App。</li><li>重新開啟 App。</li></ol></td>
+          <td><ol><li>本次 Session 計數重置。</li><li>歷史紀錄仍保存在 Tab 5。</li></ol></td>
+          <td>US-03/US-16</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Beta</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-quiz-015 03. tab 1 極速刷題 點愛心後狀態與全服計數更新 p1 功能 ios/android 登入用戶 登入用戶；題目尚未按愛心。  us-10/datacontract beta 否  點愛心。 觀察 icon 與數字。 刷新或重新進入同題。 愛心變更為已按狀態。 顯示全服累計數。 狀態持久化。 social action event 回傳。" data-module="03. Tab 1 極速刷題" data-prio="P1" data-type="功能" data-phase="Beta" data-blocker="否">
+          <td><b>TC-QUIZ-015</b></td>
+          <td><span class="tag p1">P1</span></td>
+          <td>功能</td>
+          <td>iOS/Android</td>
+          <td>登入用戶</td>
+          <td><div class="tc-title">點愛心後狀態與全服計數更新</div></td>
+          <td>登入用戶；題目尚未按愛心。</td>
+          <td><ol><li>點愛心。</li><li>觀察 icon 與數字。</li><li>刷新或重新進入同題。</li></ol></td>
+          <td><ol><li>愛心變更為已按狀態。</li><li>顯示全服累計數。</li><li>狀態持久化。</li><li>Social Action Event 回傳。</li></ol></td>
+          <td>US-10/DataContract</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Beta</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-quiz-016 03. tab 1 極速刷題 取消愛心後狀態與全服計數更新 p2 功能 ios/android 登入用戶 題目已按愛心。  us-10/datacontract beta 否  再次點愛心。 觀察 icon 與數字。 愛心取消。 全服計數更新。 social action event action=remove。" data-module="03. Tab 1 極速刷題" data-prio="P2" data-type="功能" data-phase="Beta" data-blocker="否">
+          <td><b>TC-QUIZ-016</b></td>
+          <td><span class="tag p2">P2</span></td>
+          <td>功能</td>
+          <td>iOS/Android</td>
+          <td>登入用戶</td>
+          <td><div class="tc-title">取消愛心後狀態與全服計數更新</div></td>
+          <td>題目已按愛心。</td>
+          <td><ol><li>再次點愛心。</li><li>觀察 icon 與數字。</li></ol></td>
+          <td><ol><li>愛心取消。</li><li>全服計數更新。</li><li>Social Action Event action=remove。</li></ol></td>
+          <td>US-10/DataContract</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Beta</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-quiz-017 03. tab 1 極速刷題 點收藏後狀態與全服計數更新 p1 功能 ios/android 登入用戶 登入用戶；題目尚未收藏。  us-10/us-08/datacontract beta 否  點收藏。 觀察 icon 與數字。 到錯題本收藏題篩選檢查。 收藏 icon 變亮。 全服收藏計數更新。 收藏題出現在收藏篩選。" data-module="03. Tab 1 極速刷題" data-prio="P1" data-type="功能" data-phase="Beta" data-blocker="否">
+          <td><b>TC-QUIZ-017</b></td>
+          <td><span class="tag p1">P1</span></td>
+          <td>功能</td>
+          <td>iOS/Android</td>
+          <td>登入用戶</td>
+          <td><div class="tc-title">點收藏後狀態與全服計數更新</div></td>
+          <td>登入用戶；題目尚未收藏。</td>
+          <td><ol><li>點收藏。</li><li>觀察 icon 與數字。</li><li>到錯題本收藏題篩選檢查。</li></ol></td>
+          <td><ol><li>收藏 icon 變亮。</li><li>全服收藏計數更新。</li><li>收藏題出現在收藏篩選。</li></ol></td>
+          <td>US-10/US-08/DataContract</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Beta</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-quiz-018 03. tab 1 極速刷題 右側快捷列不遮擋題目主體 p2 ui ios/android 通用 準備長題目與圖片題。  us-10 beta 否  進入 tab 1。 觀察不同題型。 快捷列固定且可點。 不遮擋選項與題目關鍵文字。 小螢幕可正常閱讀。" data-module="03. Tab 1 極速刷題" data-prio="P2" data-type="UI" data-phase="Beta" data-blocker="否">
+          <td><b>TC-QUIZ-018</b></td>
+          <td><span class="tag p2">P2</span></td>
+          <td>UI</td>
+          <td>iOS/Android</td>
+          <td>通用</td>
+          <td><div class="tc-title">右側快捷列不遮擋題目主體</div></td>
+          <td>準備長題目與圖片題。</td>
+          <td><ol><li>進入 Tab 1。</li><li>觀察不同題型。</li></ol></td>
+          <td><ol><li>快捷列固定且可點。</li><li>不遮擋選項與題目關鍵文字。</li><li>小螢幕可正常閱讀。</li></ol></td>
+          <td>US-10</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Beta</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-quiz-019 03. tab 1 極速刷題 haptic feedback 僅在支援裝置觸發且不造成卡頓 p3 體驗 ios/android 登入用戶 使用支援觸覺回饋裝置。  us-10 polish 否  點愛心、收藏、作答。 有輕微觸覺回饋。 不支援裝置不報錯。 操作不因震動卡頓。" data-module="03. Tab 1 極速刷題" data-prio="P3" data-type="體驗" data-phase="Polish" data-blocker="否">
+          <td><b>TC-QUIZ-019</b></td>
+          <td><span class="tag p3">P3</span></td>
+          <td>體驗</td>
+          <td>iOS/Android</td>
+          <td>登入用戶</td>
+          <td><div class="tc-title">Haptic Feedback 僅在支援裝置觸發且不造成卡頓</div></td>
+          <td>使用支援觸覺回饋裝置。</td>
+          <td><ol><li>點愛心、收藏、作答。</li></ol></td>
+          <td><ol><li>有輕微觸覺回饋。</li><li>不支援裝置不報錯。</li><li>操作不因震動卡頓。</li></ol></td>
+          <td>US-10</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Polish</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-quiz-020 03. tab 1 極速刷題 bottom sheet 模式切換開啟與返回繼續刷題 p2 功能 ios/android 登入用戶 us-11 已排入版本；tab 1 有 ⋯ 選項。  us-11 beta 否  點 ⋯。 觀察 bottom sheet。 點返回繼續刷題。 bottom sheet 顯示段考、學測、錯題本、全隨機。 背景保留原題與 session 狀態。 點返回後關閉 sheet。" data-module="03. Tab 1 極速刷題" data-prio="P2" data-type="功能" data-phase="Beta" data-blocker="否">
+          <td><b>TC-QUIZ-020</b></td>
+          <td><span class="tag p2">P2</span></td>
+          <td>功能</td>
+          <td>iOS/Android</td>
+          <td>登入用戶</td>
+          <td><div class="tc-title">Bottom Sheet 模式切換開啟與返回繼續刷題</div></td>
+          <td>US-11 已排入版本；Tab 1 有 ⋯ 選項。</td>
+          <td><ol><li>點 ⋯。</li><li>觀察 Bottom Sheet。</li><li>點返回繼續刷題。</li></ol></td>
+          <td><ol><li>Bottom Sheet 顯示段考、學測、錯題本、全隨機。</li><li>背景保留原題與 Session 狀態。</li><li>點返回後關閉 Sheet。</li></ol></td>
+          <td>US-11</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Beta</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-quiz-021 03. tab 1 極速刷題 已答 ≥1 題後切換模式會儲存舊 session 並開新 session p1 資料正確性 ios/android 登入用戶 us-11 已實作；已在 tab 1 答 1 題。  us-11/us-16 beta 否  點 ⋯。 選擇段考/學測/全隨機任一新模式。 進入 tab 5 檢查紀錄。 舊 session 儲存為一筆紀錄。 新模式重新開始出題。 新 session 計數從 0 或 1 重新開始。" data-module="03. Tab 1 極速刷題" data-prio="P1" data-type="資料正確性" data-phase="Beta" data-blocker="否">
+          <td><b>TC-QUIZ-021</b></td>
+          <td><span class="tag p1">P1</span></td>
+          <td>資料正確性</td>
+          <td>iOS/Android</td>
+          <td>登入用戶</td>
+          <td><div class="tc-title">已答 ≥1 題後切換模式會儲存舊 Session 並開新 Session</div></td>
+          <td>US-11 已實作；已在 Tab 1 答 1 題。</td>
+          <td><ol><li>點 ⋯。</li><li>選擇段考/學測/全隨機任一新模式。</li><li>進入 Tab 5 檢查紀錄。</li></ol></td>
+          <td><ol><li>舊 Session 儲存為一筆紀錄。</li><li>新模式重新開始出題。</li><li>新 Session 計數從 0 或 1 重新開始。</li></ol></td>
+          <td>US-11/US-16</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Beta</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-quiz-022 03. tab 1 極速刷題 尚未作答切換模式不儲存 0 題 session p2 資料正確性 ios/android 登入用戶 us-11 已實作；新 session 尚未作答。  us-11/us-16 beta 否  點 ⋯。 選擇任一模式。 進入 tab 5 檢查紀錄。 不產生 0 題 session 紀錄。 新模式正常載入。" data-module="03. Tab 1 極速刷題" data-prio="P2" data-type="資料正確性" data-phase="Beta" data-blocker="否">
+          <td><b>TC-QUIZ-022</b></td>
+          <td><span class="tag p2">P2</span></td>
+          <td>資料正確性</td>
+          <td>iOS/Android</td>
+          <td>登入用戶</td>
+          <td><div class="tc-title">尚未作答切換模式不儲存 0 題 Session</div></td>
+          <td>US-11 已實作；新 Session 尚未作答。</td>
+          <td><ol><li>點 ⋯。</li><li>選擇任一模式。</li><li>進入 Tab 5 檢查紀錄。</li></ol></td>
+          <td><ol><li>不產生 0 題 Session 紀錄。</li><li>新模式正常載入。</li></ol></td>
+          <td>US-11/US-16</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Beta</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-quiz-023 03. tab 1 極速刷題 智慧隨機有年級/時程資料時撈取符合題庫 p1 後端邏輯 ios/android 登入用戶 測試帳號有高中/年級或入學年度；後端設定考試時程與標籤。  us-01 beta 否  登入該帳號。 進入 tab 1。 檢查回傳題目標籤。 題目符合目前年級與考試時程標籤。 若接近段考，應偏向段考範圍。" data-module="03. Tab 1 極速刷題" data-prio="P1" data-type="後端邏輯" data-phase="Beta" data-blocker="否">
+          <td><b>TC-QUIZ-023</b></td>
+          <td><span class="tag p1">P1</span></td>
+          <td>後端邏輯</td>
+          <td>iOS/Android</td>
+          <td>登入用戶</td>
+          <td><div class="tc-title">智慧隨機有年級/時程資料時撈取符合題庫</div></td>
+          <td>測試帳號有高中/年級或入學年度；後端設定考試時程與標籤。</td>
+          <td><ol><li>登入該帳號。</li><li>進入 Tab 1。</li><li>檢查回傳題目標籤。</li></ol></td>
+          <td><ol><li>題目符合目前年級與考試時程標籤。</li><li>若接近段考，應偏向段考範圍。</li></ol></td>
+          <td>US-01</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Beta</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-quiz-024 03. tab 1 極速刷題 智慧隨機無法判斷時退回全隨機 p1 後端邏輯 ios/android 登入用戶 測試帳號缺少必要年級/入學年度或日期不在設定區間。  us-01 beta 否  登入該帳號。 進入 tab 1。 觀察題目來源。 不報錯。 退回全隨機模式。 若完全無題才顯示無可用題目。" data-module="03. Tab 1 極速刷題" data-prio="P1" data-type="後端邏輯" data-phase="Beta" data-blocker="否">
+          <td><b>TC-QUIZ-024</b></td>
+          <td><span class="tag p1">P1</span></td>
+          <td>後端邏輯</td>
+          <td>iOS/Android</td>
+          <td>登入用戶</td>
+          <td><div class="tc-title">智慧隨機無法判斷時退回全隨機</div></td>
+          <td>測試帳號缺少必要年級/入學年度或日期不在設定區間。</td>
+          <td><ol><li>登入該帳號。</li><li>進入 Tab 1。</li><li>觀察題目來源。</li></ol></td>
+          <td><ol><li>不報錯。</li><li>退回全隨機模式。</li><li>若完全無題才顯示無可用題目。</li></ol></td>
+          <td>US-01</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Beta</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-quiz-025 03. tab 1 極速刷題 題目圖片載入失敗時顯示佔位符且仍可作答 p2 異常 ios/android 登入用戶 準備圖片 url 失效題。  us-01/邊界條件 beta 否  載入該題。 觀察圖片區與選項。 嘗試作答。 顯示 placeholder。 不影響文字與選項作答。 不崩潰。" data-module="03. Tab 1 極速刷題" data-prio="P2" data-type="異常" data-phase="Beta" data-blocker="否">
+          <td><b>TC-QUIZ-025</b></td>
+          <td><span class="tag p2">P2</span></td>
+          <td>異常</td>
+          <td>iOS/Android</td>
+          <td>登入用戶</td>
+          <td><div class="tc-title">題目圖片載入失敗時顯示佔位符且仍可作答</div></td>
+          <td>準備圖片 URL 失效題。</td>
+          <td><ol><li>載入該題。</li><li>觀察圖片區與選項。</li><li>嘗試作答。</li></ol></td>
+          <td><ol><li>顯示 placeholder。</li><li>不影響文字與選項作答。</li><li>不崩潰。</li></ol></td>
+          <td>US-01/邊界條件</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Beta</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-quiz-026 03. tab 1 極速刷題 題目 api 超過 10 秒逾時可重試 p1 異常 ios/android 通用 後端可模擬 timeout。  us-01/邊界條件 beta 否  進入 tab 1 觸發題目載入。 等待超過 timeout 閾值。 點重試。 顯示載入失敗與重試 cta。 重試後可正常載入。 不可無限 loading。" data-module="03. Tab 1 極速刷題" data-prio="P1" data-type="異常" data-phase="Beta" data-blocker="否">
+          <td><b>TC-QUIZ-026</b></td>
+          <td><span class="tag p1">P1</span></td>
+          <td>異常</td>
+          <td>iOS/Android</td>
+          <td>通用</td>
+          <td><div class="tc-title">題目 API 超過 10 秒逾時可重試</div></td>
+          <td>後端可模擬 timeout。</td>
+          <td><ol><li>進入 Tab 1 觸發題目載入。</li><li>等待超過 timeout 閾值。</li><li>點重試。</li></ol></td>
+          <td><ol><li>顯示載入失敗與重試 CTA。</li><li>重試後可正常載入。</li><li>不可無限 Loading。</li></ol></td>
+          <td>US-01/邊界條件</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Beta</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-quiz-027 03. tab 1 極速刷題 後端回傳題目為空時處理正確 p1 異常 ios/android 通用 後端可模擬智慧隨機無符合題目，且全隨機亦無題。  us-01/邊界條件 beta 否  進入 tab 1。 先退回全隨機。 若仍無題，顯示「目前無可用題目」。 不可崩潰。" data-module="03. Tab 1 極速刷題" data-prio="P1" data-type="異常" data-phase="Beta" data-blocker="否">
+          <td><b>TC-QUIZ-027</b></td>
+          <td><span class="tag p1">P1</span></td>
+          <td>異常</td>
+          <td>iOS/Android</td>
+          <td>通用</td>
+          <td><div class="tc-title">後端回傳題目為空時處理正確</div></td>
+          <td>後端可模擬智慧隨機無符合題目，且全隨機亦無題。</td>
+          <td><ol><li>進入 Tab 1。</li></ol></td>
+          <td><ol><li>先退回全隨機。</li><li>若仍無題，顯示「目前無可用題目」。</li><li>不可崩潰。</li></ol></td>
+          <td>US-01/邊界條件</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Beta</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-quiz-028 03. tab 1 極速刷題 答題中網路中斷仍可本機繼續作答 p1 離線/資料 ios/android 登入用戶 題目已預載數題。  us-01/datacontract/邊界條件 beta 否  進入 tab 1。 關閉網路。 作答 2 題。 恢復網路。 本機統計與 ui 正常。 事件先排隊。 恢復網路後補送。 不產生重複 answer event。" data-module="03. Tab 1 極速刷題" data-prio="P1" data-type="離線/資料" data-phase="Beta" data-blocker="否">
+          <td><b>TC-QUIZ-028</b></td>
+          <td><span class="tag p1">P1</span></td>
+          <td>離線/資料</td>
+          <td>iOS/Android</td>
+          <td>登入用戶</td>
+          <td><div class="tc-title">答題中網路中斷仍可本機繼續作答</div></td>
+          <td>題目已預載數題。</td>
+          <td><ol><li>進入 Tab 1。</li><li>關閉網路。</li><li>作答 2 題。</li><li>恢復網路。</li></ol></td>
+          <td><ol><li>本機統計與 UI 正常。</li><li>事件先排隊。</li><li>恢復網路後補送。</li><li>不產生重複 Answer Event。</li></ol></td>
+          <td>US-01/DataContract/邊界條件</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Beta</td>
+          <td><span class="muted">—</span></td>
+        </tr></tbody></table></div></details><details open data-module-section="04. Tab 2 自選測驗">
+      <summary>04. Tab 2 自選測驗 <span class="muted">(9 cases)</span></summary>
+      <div class="table-wrap"><table>
+        <thead><tr><th style="width:105px">ID</th><th style="width:80px">Priority</th><th style="width:95px">類型</th><th style="width:90px">平台</th><th style="width:92px">角色</th><th style="width:220px">測試標題</th><th style="width:230px">前置條件</th><th style="width:260px">測試步驟</th><th style="width:280px">預期結果</th><th style="width:145px">US / 依據</th><th style="width:80px">阻擋</th><th style="width:110px">Phase</th><th>備註</th></tr></thead>
+        <tbody>
+    <tr class="tc-row" data-search="tc-custom-001 04. tab 2 自選測驗 登入用戶可進入自選測驗模式頁 p1 功能 ios/android 登入用戶 已登入。  us-04/us-15 beta 否  點 tab 2。 顯示模式頁。 包含段考、學測、錯題本、全隨機等入口，依最新設計。" data-module="04. Tab 2 自選測驗" data-prio="P1" data-type="功能" data-phase="Beta" data-blocker="否">
+          <td><b>TC-CUSTOM-001</b></td>
+          <td><span class="tag p1">P1</span></td>
+          <td>功能</td>
+          <td>iOS/Android</td>
+          <td>登入用戶</td>
+          <td><div class="tc-title">登入用戶可進入自選測驗模式頁</div></td>
+          <td>已登入。</td>
+          <td><ol><li>點 Tab 2。</li></ol></td>
+          <td><ol><li>顯示模式頁。</li><li>包含段考、學測、錯題本、全隨機等入口，依最新設計。</li></ol></td>
+          <td>US-04/US-15</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Beta</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-custom-002 04. tab 2 自選測驗 段考模式可選科目、冊次、章節多選 p1 功能 ios/android 登入用戶 題庫有段考章節資料。  us-15 beta 否  進 tab 2。 選段考。 選科目、冊次、章節多選。 章節可多選。 已選狀態清楚。 開始測驗按鈕依必要條件啟用。" data-module="04. Tab 2 自選測驗" data-prio="P1" data-type="功能" data-phase="Beta" data-blocker="否">
+          <td><b>TC-CUSTOM-002</b></td>
+          <td><span class="tag p1">P1</span></td>
+          <td>功能</td>
+          <td>iOS/Android</td>
+          <td>登入用戶</td>
+          <td><div class="tc-title">段考模式可選科目、冊次、章節多選</div></td>
+          <td>題庫有段考章節資料。</td>
+          <td><ol><li>進 Tab 2。</li><li>選段考。</li><li>選科目、冊次、章節多選。</li></ol></td>
+          <td><ol><li>章節可多選。</li><li>已選狀態清楚。</li><li>開始測驗按鈕依必要條件啟用。</li></ol></td>
+          <td>US-15</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Beta</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-custom-003 04. tab 2 自選測驗 學測模式可選科目/範圍並開始測驗 p1 功能 ios/android 登入用戶 題庫有學測標籤題目。  us-15 beta 否  進 tab 2。 選學測。 選科目/範圍。 點開始測驗。 載入符合篩選條件題目。 進入與 tab 1 一致的刷題 ui。" data-module="04. Tab 2 自選測驗" data-prio="P1" data-type="功能" data-phase="Beta" data-blocker="否">
+          <td><b>TC-CUSTOM-003</b></td>
+          <td><span class="tag p1">P1</span></td>
+          <td>功能</td>
+          <td>iOS/Android</td>
+          <td>登入用戶</td>
+          <td><div class="tc-title">學測模式可選科目/範圍並開始測驗</div></td>
+          <td>題庫有學測標籤題目。</td>
+          <td><ol><li>進 Tab 2。</li><li>選學測。</li><li>選科目/範圍。</li><li>點開始測驗。</li></ol></td>
+          <td><ol><li>載入符合篩選條件題目。</li><li>進入與 Tab 1 一致的刷題 UI。</li></ol></td>
+          <td>US-15</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Beta</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-custom-004 04. tab 2 自選測驗 全隨機模式可直接開始 p2 功能 ios/android 登入用戶 已登入且題庫有可用題。  us-15 beta 否  進 tab 2。 選全隨機。 不要求額外篩選。 直接進入刷題 ui。" data-module="04. Tab 2 自選測驗" data-prio="P2" data-type="功能" data-phase="Beta" data-blocker="否">
+          <td><b>TC-CUSTOM-004</b></td>
+          <td><span class="tag p2">P2</span></td>
+          <td>功能</td>
+          <td>iOS/Android</td>
+          <td>登入用戶</td>
+          <td><div class="tc-title">全隨機模式可直接開始</div></td>
+          <td>已登入且題庫有可用題。</td>
+          <td><ol><li>進 Tab 2。</li><li>選全隨機。</li></ol></td>
+          <td><ol><li>不要求額外篩選。</li><li>直接進入刷題 UI。</li></ol></td>
+          <td>US-15</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Beta</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-custom-005 04. tab 2 自選測驗 未完成必要篩選不可開始測驗 p1 表單 ios/android 登入用戶 在段考或學測選題頁。  us-15 beta 否  不選科目或章節。 觀察開始測驗按鈕。 嘗試點擊。 開始測驗 disabled 或提示缺少條件。 不可送出空篩選 api。" data-module="04. Tab 2 自選測驗" data-prio="P1" data-type="表單" data-phase="Beta" data-blocker="否">
+          <td><b>TC-CUSTOM-005</b></td>
+          <td><span class="tag p1">P1</span></td>
+          <td>表單</td>
+          <td>iOS/Android</td>
+          <td>登入用戶</td>
+          <td><div class="tc-title">未完成必要篩選不可開始測驗</div></td>
+          <td>在段考或學測選題頁。</td>
+          <td><ol><li>不選科目或章節。</li><li>觀察開始測驗按鈕。</li><li>嘗試點擊。</li></ol></td>
+          <td><ol><li>開始測驗 disabled 或提示缺少條件。</li><li>不可送出空篩選 API。</li></ol></td>
+          <td>US-15</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Beta</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-custom-006 04. tab 2 自選測驗 篩選後無題目顯示空狀態 p2 異常 ios/android 登入用戶 準備一組無題目的篩選條件。  us-15/邊界條件 beta 否  選擇該條件。 點開始測驗。 顯示無符合題目提示。 可返回修改條件。 不進入空白刷題頁。" data-module="04. Tab 2 自選測驗" data-prio="P2" data-type="異常" data-phase="Beta" data-blocker="否">
+          <td><b>TC-CUSTOM-006</b></td>
+          <td><span class="tag p2">P2</span></td>
+          <td>異常</td>
+          <td>iOS/Android</td>
+          <td>登入用戶</td>
+          <td><div class="tc-title">篩選後無題目顯示空狀態</div></td>
+          <td>準備一組無題目的篩選條件。</td>
+          <td><ol><li>選擇該條件。</li><li>點開始測驗。</li></ol></td>
+          <td><ol><li>顯示無符合題目提示。</li><li>可返回修改條件。</li><li>不進入空白刷題頁。</li></ol></td>
+          <td>US-15/邊界條件</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Beta</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-custom-007 04. tab 2 自選測驗 自選測驗作答流程沿用 tab 1 蓋板與解析 p1 整合 ios/android 登入用戶 已進入 tab 2 自選測驗題目。  us-12/us-15/datacontract beta 否  作答一題。 查看結果蓋板。 點解析。 點下一題。 結果蓋板、解析、下一題行為與 tab 1 一致。 answer event mode=tab2_custom。" data-module="04. Tab 2 自選測驗" data-prio="P1" data-type="整合" data-phase="Beta" data-blocker="否">
+          <td><b>TC-CUSTOM-007</b></td>
+          <td><span class="tag p1">P1</span></td>
+          <td>整合</td>
+          <td>iOS/Android</td>
+          <td>登入用戶</td>
+          <td><div class="tc-title">自選測驗作答流程沿用 Tab 1 蓋板與解析</div></td>
+          <td>已進入 Tab 2 自選測驗題目。</td>
+          <td><ol><li>作答一題。</li><li>查看結果蓋板。</li><li>點解析。</li><li>點下一題。</li></ol></td>
+          <td><ol><li>結果蓋板、解析、下一題行為與 Tab 1 一致。</li><li>Answer Event mode=tab2_custom。</li></ol></td>
+          <td>US-12/US-15/DataContract</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Beta</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-custom-008 04. tab 2 自選測驗 自選測驗完成後顯示結果頁 p2 功能 ios/android 登入用戶 設定固定題數測驗。  us-15/us-16 beta 否  完成所有題目。 顯示得分、正確/錯誤題數、各題作答摘要。 提供重做錯題與返回 tab 2。" data-module="04. Tab 2 自選測驗" data-prio="P2" data-type="功能" data-phase="Beta" data-blocker="否">
+          <td><b>TC-CUSTOM-008</b></td>
+          <td><span class="tag p2">P2</span></td>
+          <td>功能</td>
+          <td>iOS/Android</td>
+          <td>登入用戶</td>
+          <td><div class="tc-title">自選測驗完成後顯示結果頁</div></td>
+          <td>設定固定題數測驗。</td>
+          <td><ol><li>完成所有題目。</li></ol></td>
+          <td><ol><li>顯示得分、正確/錯誤題數、各題作答摘要。</li><li>提供重做錯題與返回 Tab 2。</li></ol></td>
+          <td>US-15/US-16</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Beta</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-custom-009 04. tab 2 自選測驗 tab 2 答錯題目加入錯題本 p1 整合 ios/android 登入用戶 在自選測驗中有意答錯一題。  us-07/us-15 beta 否  完成一題答錯。 進 tab 3 依科目篩選錯題。 該題出現在錯題本。 錯誤次數 +1。" data-module="04. Tab 2 自選測驗" data-prio="P1" data-type="整合" data-phase="Beta" data-blocker="否">
+          <td><b>TC-CUSTOM-009</b></td>
+          <td><span class="tag p1">P1</span></td>
+          <td>整合</td>
+          <td>iOS/Android</td>
+          <td>登入用戶</td>
+          <td><div class="tc-title">Tab 2 答錯題目加入錯題本</div></td>
+          <td>在自選測驗中有意答錯一題。</td>
+          <td><ol><li>完成一題答錯。</li><li>進 Tab 3 依科目篩選錯題。</li></ol></td>
+          <td><ol><li>該題出現在錯題本。</li><li>錯誤次數 +1。</li></ol></td>
+          <td>US-07/US-15</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Beta</td>
+          <td><span class="muted">—</span></td>
+        </tr></tbody></table></div></details><details open data-module-section="05. Tab 3 錯題本">
+      <summary>05. Tab 3 錯題本 <span class="muted">(14 cases)</span></summary>
+      <div class="table-wrap"><table>
+        <thead><tr><th style="width:105px">ID</th><th style="width:80px">Priority</th><th style="width:95px">類型</th><th style="width:90px">平台</th><th style="width:92px">角色</th><th style="width:220px">測試標題</th><th style="width:230px">前置條件</th><th style="width:260px">測試步驟</th><th style="width:280px">預期結果</th><th style="width:145px">US / 依據</th><th style="width:80px">阻擋</th><th style="width:110px">Phase</th><th>備註</th></tr></thead>
+        <tbody>
+    <tr class="tc-row" data-search="tc-wrong-001 05. tab 3 錯題本 錯題本主畫面顯示四種篩選入口 p1 功能 ios/android 登入用戶 已登入。  us-08 beta 否  點 tab 3。 顯示依科目篩選、依段考篩選、依學測篩選、收藏題。 無列表式題目瀏覽。" data-module="05. Tab 3 錯題本" data-prio="P1" data-type="功能" data-phase="Beta" data-blocker="否">
+          <td><b>TC-WRONG-001</b></td>
+          <td><span class="tag p1">P1</span></td>
+          <td>功能</td>
+          <td>iOS/Android</td>
+          <td>登入用戶</td>
+          <td><div class="tc-title">錯題本主畫面顯示四種篩選入口</div></td>
+          <td>已登入。</td>
+          <td><ol><li>點 Tab 3。</li></ol></td>
+          <td><ol><li>顯示依科目篩選、依段考篩選、依學測篩選、收藏題。</li><li>無列表式題目瀏覽。</li></ol></td>
+          <td>US-08</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Beta</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-wrong-002 05. tab 3 錯題本 依科目篩選可進入錯題刷題模式 p1 功能 ios/android 登入用戶 帳號有數學錯題。  us-08/us-09 beta 否  進 tab 3。 點依科目。 選數學。 進入錯題刷題模式。 題庫來源為該科目的用戶錯題。" data-module="05. Tab 3 錯題本" data-prio="P1" data-type="功能" data-phase="Beta" data-blocker="否">
+          <td><b>TC-WRONG-002</b></td>
+          <td><span class="tag p1">P1</span></td>
+          <td>功能</td>
+          <td>iOS/Android</td>
+          <td>登入用戶</td>
+          <td><div class="tc-title">依科目篩選可進入錯題刷題模式</div></td>
+          <td>帳號有數學錯題。</td>
+          <td><ol><li>進 Tab 3。</li><li>點依科目。</li><li>選數學。</li></ol></td>
+          <td><ol><li>進入錯題刷題模式。</li><li>題庫來源為該科目的用戶錯題。</li></ol></td>
+          <td>US-08/US-09</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Beta</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-wrong-003 05. tab 3 錯題本 依段考篩選連動考試時程設定表 p2 後端邏輯 ios/android 登入用戶 後端設定當學期段考區間；帳號有該區間錯題。  us-08/us-01 beta 否  進 tab 3。 點依段考。 選一個段考區間。 顯示當學期已設定段考區間。 進入後題目符合段考範圍錯題。" data-module="05. Tab 3 錯題本" data-prio="P2" data-type="後端邏輯" data-phase="Beta" data-blocker="否">
+          <td><b>TC-WRONG-003</b></td>
+          <td><span class="tag p2">P2</span></td>
+          <td>後端邏輯</td>
+          <td>iOS/Android</td>
+          <td>登入用戶</td>
+          <td><div class="tc-title">依段考篩選連動考試時程設定表</div></td>
+          <td>後端設定當學期段考區間；帳號有該區間錯題。</td>
+          <td><ol><li>進 Tab 3。</li><li>點依段考。</li><li>選一個段考區間。</li></ol></td>
+          <td><ol><li>顯示當學期已設定段考區間。</li><li>進入後題目符合段考範圍錯題。</li></ol></td>
+          <td>US-08/US-01</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Beta</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-wrong-004 05. tab 3 錯題本 依學測篩選可選國英數自社 p2 功能 ios/android 登入用戶 帳號有學測範圍錯題。  us-08 beta 否  進 tab 3。 點依學測。 選自然或其他科。 題目來源為所選科目中標注學測範圍的用戶錯題。" data-module="05. Tab 3 錯題本" data-prio="P2" data-type="功能" data-phase="Beta" data-blocker="否">
+          <td><b>TC-WRONG-004</b></td>
+          <td><span class="tag p2">P2</span></td>
+          <td>功能</td>
+          <td>iOS/Android</td>
+          <td>登入用戶</td>
+          <td><div class="tc-title">依學測篩選可選國英數自社</div></td>
+          <td>帳號有學測範圍錯題。</td>
+          <td><ol><li>進 Tab 3。</li><li>點依學測。</li><li>選自然或其他科。</li></ol></td>
+          <td><ol><li>題目來源為所選科目中標注學測範圍的用戶錯題。</li></ol></td>
+          <td>US-08</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Beta</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-wrong-005 05. tab 3 錯題本 收藏題入口直接進入刷題模式 p2 功能 ios/android 登入用戶 帳號有收藏題，含未答錯題目。  us-08 beta 否  進 tab 3。 點收藏題。 直接進入錯題/收藏刷題模式。 來源為所有收藏題，不限是否曾答錯。" data-module="05. Tab 3 錯題本" data-prio="P2" data-type="功能" data-phase="Beta" data-blocker="否">
+          <td><b>TC-WRONG-005</b></td>
+          <td><span class="tag p2">P2</span></td>
+          <td>功能</td>
+          <td>iOS/Android</td>
+          <td>登入用戶</td>
+          <td><div class="tc-title">收藏題入口直接進入刷題模式</div></td>
+          <td>帳號有收藏題，含未答錯題目。</td>
+          <td><ol><li>進 Tab 3。</li><li>點收藏題。</li></ol></td>
+          <td><ol><li>直接進入錯題/收藏刷題模式。</li><li>來源為所有收藏題，不限是否曾答錯。</li></ol></td>
+          <td>US-08</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Beta</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-wrong-006 05. tab 3 錯題本 篩選後無題目顯示空狀態 p1 空狀態 ios/android 登入用戶 選擇一個沒有符合錯題的條件。  us-08/邊界條件 beta 否  進 tab 3。 選無錯題篩選條件。 顯示「目前沒有符合條件的錯題，先去刷題吧！」。 提供導引至 tab 1 按鈕。 開始刷題按鈕不可用或不出現。" data-module="05. Tab 3 錯題本" data-prio="P1" data-type="空狀態" data-phase="Beta" data-blocker="否">
+          <td><b>TC-WRONG-006</b></td>
+          <td><span class="tag p1">P1</span></td>
+          <td>空狀態</td>
+          <td>iOS/Android</td>
+          <td>登入用戶</td>
+          <td><div class="tc-title">篩選後無題目顯示空狀態</div></td>
+          <td>選擇一個沒有符合錯題的條件。</td>
+          <td><ol><li>進 Tab 3。</li><li>選無錯題篩選條件。</li></ol></td>
+          <td><ol><li>顯示「目前沒有符合條件的錯題，先去刷題吧！」。</li><li>提供導引至 Tab 1 按鈕。</li><li>開始刷題按鈕不可用或不出現。</li></ol></td>
+          <td>US-08/邊界條件</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Beta</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-wrong-007 05. tab 3 錯題本 錯題刷題模式顯示攻克狀態欄 p1 功能 ios/android 登入用戶 進入錯題刷題模式；當題已有錯誤次數。  us-07/us-09 beta 否  觀察頂部 ui。 頂部以攻克狀態欄取代連答儀表。 顯示錯 x 次、已/未攻克、最後攻克時間或尚未攻克。" data-module="05. Tab 3 錯題本" data-prio="P1" data-type="功能" data-phase="Beta" data-blocker="否">
+          <td><b>TC-WRONG-007</b></td>
+          <td><span class="tag p1">P1</span></td>
+          <td>功能</td>
+          <td>iOS/Android</td>
+          <td>登入用戶</td>
+          <td><div class="tc-title">錯題刷題模式顯示攻克狀態欄</div></td>
+          <td>進入錯題刷題模式；當題已有錯誤次數。</td>
+          <td><ol><li>觀察頂部 UI。</li></ol></td>
+          <td><ol><li>頂部以攻克狀態欄取代連答儀表。</li><li>顯示錯 X 次、已/未攻克、最後攻克時間或尚未攻克。</li></ol></td>
+          <td>US-07/US-09</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Beta</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-wrong-008 05. tab 3 錯題本 錯題答對一次立即攻克 p1 功能 ios/android 登入用戶 題目為未攻克錯題。  us-07/us-09/datacontract beta 否  在 tab 3 錯題模式答對該題。 攻克狀態欄立即翻轉為已攻克。 最後攻克時間為當日日期。 mistake record event 回傳 is_conquered=true。" data-module="05. Tab 3 錯題本" data-prio="P1" data-type="功能" data-phase="Beta" data-blocker="否">
+          <td><b>TC-WRONG-008</b></td>
+          <td><span class="tag p1">P1</span></td>
+          <td>功能</td>
+          <td>iOS/Android</td>
+          <td>登入用戶</td>
+          <td><div class="tc-title">錯題答對一次立即攻克</div></td>
+          <td>題目為未攻克錯題。</td>
+          <td><ol><li>在 Tab 3 錯題模式答對該題。</li></ol></td>
+          <td><ol><li>攻克狀態欄立即翻轉為已攻克。</li><li>最後攻克時間為當日日期。</li><li>Mistake Record Event 回傳 is_conquered=true。</li></ol></td>
+          <td>US-07/US-09/DataContract</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Beta</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-wrong-009 05. tab 3 錯題本 錯題再次答對更新最後攻克時間 p2 資料正確性 ios/android 登入用戶 題目已攻克且最後攻克時間非今日。  us-07 beta 否  在錯題模式再次答對該題。 最後攻克時間更新。 不重複計入額度或不重置錯誤次數。" data-module="05. Tab 3 錯題本" data-prio="P2" data-type="資料正確性" data-phase="Beta" data-blocker="否">
+          <td><b>TC-WRONG-009</b></td>
+          <td><span class="tag p2">P2</span></td>
+          <td>資料正確性</td>
+          <td>iOS/Android</td>
+          <td>登入用戶</td>
+          <td><div class="tc-title">錯題再次答對更新最後攻克時間</div></td>
+          <td>題目已攻克且最後攻克時間非今日。</td>
+          <td><ol><li>在錯題模式再次答對該題。</li></ol></td>
+          <td><ol><li>最後攻克時間更新。</li><li>不重複計入額度或不重置錯誤次數。</li></ol></td>
+          <td>US-07</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Beta</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-wrong-010 05. tab 3 錯題本 錯題模式答錯維持未攻克並錯誤次數 +1 p1 資料正確性 ios/android 登入用戶 未攻克錯題。  us-07/us-09/datacontract beta 否  在錯題模式答錯。 錯誤次數 +1。 狀態仍未攻克。 mistake record event wrong_increment=1。" data-module="05. Tab 3 錯題本" data-prio="P1" data-type="資料正確性" data-phase="Beta" data-blocker="否">
+          <td><b>TC-WRONG-010</b></td>
+          <td><span class="tag p1">P1</span></td>
+          <td>資料正確性</td>
+          <td>iOS/Android</td>
+          <td>登入用戶</td>
+          <td><div class="tc-title">錯題模式答錯維持未攻克並錯誤次數 +1</div></td>
+          <td>未攻克錯題。</td>
+          <td><ol><li>在錯題模式答錯。</li></ol></td>
+          <td><ol><li>錯誤次數 +1。</li><li>狀態仍未攻克。</li><li>Mistake Record Event wrong_increment=1。</li></ol></td>
+          <td>US-07/US-09/DataContract</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Beta</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-wrong-011 05. tab 3 錯題本 錯題模式每題各答一次後顯示結果頁 p1 功能 ios/android 登入用戶 篩選結果有 n 題。  us-09 beta 否  依序完成 n 題作答。 顯示結果頁。 顯示本輪攻克題數 x / 尚未攻克 y。" data-module="05. Tab 3 錯題本" data-prio="P1" data-type="功能" data-phase="Beta" data-blocker="否">
+          <td><b>TC-WRONG-011</b></td>
+          <td><span class="tag p1">P1</span></td>
+          <td>功能</td>
+          <td>iOS/Android</td>
+          <td>登入用戶</td>
+          <td><div class="tc-title">錯題模式每題各答一次後顯示結果頁</div></td>
+          <td>篩選結果有 N 題。</td>
+          <td><ol><li>依序完成 N 題作答。</li></ol></td>
+          <td><ol><li>顯示結果頁。</li><li>顯示本輪攻克題數 X / 尚未攻克 Y。</li></ol></td>
+          <td>US-09</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Beta</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-wrong-012 05. tab 3 錯題本 結果頁只刷未攻克題 p2 功能 ios/android 登入用戶 錯題結果頁中尚有未攻克題。  us-09 beta 否  點「只刷未攻克的題」。 重新進入刷題模式。 題組只包含本輪尚未攻克題目。" data-module="05. Tab 3 錯題本" data-prio="P2" data-type="功能" data-phase="Beta" data-blocker="否">
+          <td><b>TC-WRONG-012</b></td>
+          <td><span class="tag p2">P2</span></td>
+          <td>功能</td>
+          <td>iOS/Android</td>
+          <td>登入用戶</td>
+          <td><div class="tc-title">結果頁只刷未攻克題</div></td>
+          <td>錯題結果頁中尚有未攻克題。</td>
+          <td><ol><li>點「只刷未攻克的題」。</li></ol></td>
+          <td><ol><li>重新進入刷題模式。</li><li>題組只包含本輪尚未攻克題目。</li></ol></td>
+          <td>US-09</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Beta</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-wrong-013 05. tab 3 錯題本 結果頁全部攻克時按鈕降色 p2 邊界 ios/android 登入用戶 本輪所有錯題均答對攻克。  us-09/邊界條件 beta 否  進入結果頁。 觀察「只刷未攻克的題」。 按鈕降色不可點。 顯示「已全部攻克！」。" data-module="05. Tab 3 錯題本" data-prio="P2" data-type="邊界" data-phase="Beta" data-blocker="否">
+          <td><b>TC-WRONG-013</b></td>
+          <td><span class="tag p2">P2</span></td>
+          <td>邊界</td>
+          <td>iOS/Android</td>
+          <td>登入用戶</td>
+          <td><div class="tc-title">結果頁全部攻克時按鈕降色</div></td>
+          <td>本輪所有錯題均答對攻克。</td>
+          <td><ol><li>進入結果頁。</li><li>觀察「只刷未攻克的題」。</li></ol></td>
+          <td><ol><li>按鈕降色不可點。</li><li>顯示「已全部攻克！」。</li></ol></td>
+          <td>US-09/邊界條件</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Beta</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-wrong-014 05. tab 3 錯題本 愛心/收藏狀態與 tab 1 全 app 同步 p1 整合 ios/android 登入用戶 在 tab 1 將某題收藏或按愛心。  us-09/us-10 beta 否  進 tab 3 找到同題。 觀察狀態。 在 tab 3 取消收藏。 回 tab 1 查看。 狀態雙向同步。 同一題只維護一份資料。" data-module="05. Tab 3 錯題本" data-prio="P1" data-type="整合" data-phase="Beta" data-blocker="否">
+          <td><b>TC-WRONG-014</b></td>
+          <td><span class="tag p1">P1</span></td>
+          <td>整合</td>
+          <td>iOS/Android</td>
+          <td>登入用戶</td>
+          <td><div class="tc-title">愛心/收藏狀態與 Tab 1 全 App 同步</div></td>
+          <td>在 Tab 1 將某題收藏或按愛心。</td>
+          <td><ol><li>進 Tab 3 找到同題。</li><li>觀察狀態。</li><li>在 Tab 3 取消收藏。</li><li>回 Tab 1 查看。</li></ol></td>
+          <td><ol><li>狀態雙向同步。</li><li>同一題只維護一份資料。</li></ol></td>
+          <td>US-09/US-10</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Beta</td>
+          <td><span class="muted">—</span></td>
+        </tr></tbody></table></div></details><details open data-module-section="06. 分享 / Deep Link">
+      <summary>06. 分享 / Deep Link <span class="muted">(13 cases)</span></summary>
+      <div class="table-wrap"><table>
+        <thead><tr><th style="width:105px">ID</th><th style="width:80px">Priority</th><th style="width:95px">類型</th><th style="width:90px">平台</th><th style="width:92px">角色</th><th style="width:220px">測試標題</th><th style="width:230px">前置條件</th><th style="width:260px">測試步驟</th><th style="width:280px">預期結果</th><th style="width:145px">US / 依據</th><th style="width:80px">阻擋</th><th style="width:110px">Phase</th><th>備註</th></tr></thead>
+        <tbody>
+    <tr class="tc-row" data-search="tc-dl-001 06. 分享 / deep link 登入用戶點題目分享觸發原生分享選單 p0 分享 ios/android 登入用戶 已登入且題目可分享；deep link 服務正常。  us-10/us-13 alpha 是  進 tab 1 題目。 點分享。 開啟原生分享選單。 分享內容包含可用 universal/app link。 social action event event_type=share_question。" data-module="06. 分享 / Deep Link" data-prio="P0" data-type="分享" data-phase="Alpha" data-blocker="是">
+          <td><b>TC-DL-001</b></td>
+          <td><span class="tag p0">P0</span></td>
+          <td>分享</td>
+          <td>iOS/Android</td>
+          <td>登入用戶</td>
+          <td><div class="tc-title">登入用戶點題目分享觸發原生分享選單</div></td>
+          <td>已登入且題目可分享；Deep Link 服務正常。</td>
+          <td><ol><li>進 Tab 1 題目。</li><li>點分享。</li></ol></td>
+          <td><ol><li>開啟原生分享選單。</li><li>分享內容包含可用 Universal/App Link。</li><li>Social Action Event event_type=share_question。</li></ol></td>
+          <td>US-10/US-13</td>
+          <td><span class="tag blocker">是</span></td>
+          <td>Alpha</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-dl-002 06. 分享 / deep link 分享連結 og 預覽資訊正確 p1 分享/後端 web/通訊軟體 接收者 已產生題目分享連結。  us-13 beta 否  將連結貼到 line/fb/ig 訊息或可預覽平台。 觀察預覽。 og:title 顯示科目與閃q挑戰文案。 og:description 顯示題目前 50 字並截斷。 og:image 顯示科目品牌底圖或預設品牌圖。" data-module="06. 分享 / Deep Link" data-prio="P1" data-type="分享/後端" data-phase="Beta" data-blocker="否">
+          <td><b>TC-DL-002</b></td>
+          <td><span class="tag p1">P1</span></td>
+          <td>分享/後端</td>
+          <td>Web/通訊軟體</td>
+          <td>接收者</td>
+          <td><div class="tc-title">分享連結 OG 預覽資訊正確</div></td>
+          <td>已產生題目分享連結。</td>
+          <td><ol><li>將連結貼到 LINE/FB/IG 訊息或可預覽平台。</li><li>觀察預覽。</li></ol></td>
+          <td><ol><li>og:title 顯示科目與閃Q挑戰文案。</li><li>og:description 顯示題目前 50 字並截斷。</li><li>og:image 顯示科目品牌底圖或預設品牌圖。</li></ol></td>
+          <td>US-13</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Beta</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-dl-003 06. 分享 / deep link 已安裝且已登入：點連結直接開啟對應題目 p0 deep link ios/android 接收者已登入 接收者裝置已安裝 app 並登入。  us-13 alpha 是  在訊息 app 點分享連結。 app 被喚起。 直接進入對應 question_id 題目。 不丟失登入狀態。" data-module="06. 分享 / Deep Link" data-prio="P0" data-type="Deep Link" data-phase="Alpha" data-blocker="是">
+          <td><b>TC-DL-003</b></td>
+          <td><span class="tag p0">P0</span></td>
+          <td>Deep Link</td>
+          <td>iOS/Android</td>
+          <td>接收者已登入</td>
+          <td><div class="tc-title">已安裝且已登入：點連結直接開啟對應題目</div></td>
+          <td>接收者裝置已安裝 App 並登入。</td>
+          <td><ol><li>在訊息 App 點分享連結。</li></ol></td>
+          <td><ol><li>App 被喚起。</li><li>直接進入對應 question_id 題目。</li><li>不丟失登入狀態。</li></ol></td>
+          <td>US-13</td>
+          <td><span class="tag blocker">是</span></td>
+          <td>Alpha</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-dl-004 06. 分享 / deep link 已安裝但未登入：登入後自動跳回分享題 p0 deep link ios/android 接收者未登入 接收者裝置已安裝 app；目前未登入。  us-13 alpha 是  點分享連結。 進入登入頁。 完成登入。 deep link 參數跨登入流程不遺失。 登入後自動跳回分享題目。 訪客剩餘額度不因登入流程重置。" data-module="06. 分享 / Deep Link" data-prio="P0" data-type="Deep Link" data-phase="Alpha" data-blocker="是">
+          <td><b>TC-DL-004</b></td>
+          <td><span class="tag p0">P0</span></td>
+          <td>Deep Link</td>
+          <td>iOS/Android</td>
+          <td>接收者未登入</td>
+          <td><div class="tc-title">已安裝但未登入：登入後自動跳回分享題</div></td>
+          <td>接收者裝置已安裝 App；目前未登入。</td>
+          <td><ol><li>點分享連結。</li><li>進入登入頁。</li><li>完成登入。</li></ol></td>
+          <td><ol><li>Deep Link 參數跨登入流程不遺失。</li><li>登入後自動跳回分享題目。</li><li>訪客剩餘額度不因登入流程重置。</li></ol></td>
+          <td>US-13</td>
+          <td><span class="tag blocker">是</span></td>
+          <td>Alpha</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-dl-005 06. 分享 / deep link 未安裝 + deferred deep link：安裝後進分享題 p0 deep link ios/android 新接收者 接收者未安裝 app；deferred deep link 方案已整合。  us-13 beta 是  點分享連結。 跳轉商店安裝 app。 首次開啟 app。 首次開啟直接進入分享題。 略過一般訪客 3 題引導。 作答該題後計入訪客 3 題額度。" data-module="06. 分享 / Deep Link" data-prio="P0" data-type="Deep Link" data-phase="Beta" data-blocker="是">
+          <td><b>TC-DL-005</b></td>
+          <td><span class="tag p0">P0</span></td>
+          <td>Deep Link</td>
+          <td>iOS/Android</td>
+          <td>新接收者</td>
+          <td><div class="tc-title">未安裝 + Deferred Deep Link：安裝後進分享題</div></td>
+          <td>接收者未安裝 App；Deferred Deep Link 方案已整合。</td>
+          <td><ol><li>點分享連結。</li><li>跳轉商店安裝 App。</li><li>首次開啟 App。</li></ol></td>
+          <td><ol><li>首次開啟直接進入分享題。</li><li>略過一般訪客 3 題引導。</li><li>作答該題後計入訪客 3 題額度。</li></ol></td>
+          <td>US-13</td>
+          <td><span class="tag blocker">是</span></td>
+          <td>Beta</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-dl-006 06. 分享 / deep link 未安裝且無 deferred 參數：一般安裝後進訪客模式 p1 deep link ios/android 新接收者 接收者未安裝；模擬 deferred 參數遺失。  us-13/邊界條件 beta 否  從商店一般安裝 app。 首次開啟。 進入正常訪客模式。 可使用 3 題額度。 不嘗試打開不存在題目。" data-module="06. 分享 / Deep Link" data-prio="P1" data-type="Deep Link" data-phase="Beta" data-blocker="否">
+          <td><b>TC-DL-006</b></td>
+          <td><span class="tag p1">P1</span></td>
+          <td>Deep Link</td>
+          <td>iOS/Android</td>
+          <td>新接收者</td>
+          <td><div class="tc-title">未安裝且無 Deferred 參數：一般安裝後進訪客模式</div></td>
+          <td>接收者未安裝；模擬 Deferred 參數遺失。</td>
+          <td><ol><li>從商店一般安裝 App。</li><li>首次開啟。</li></ol></td>
+          <td><ol><li>進入正常訪客模式。</li><li>可使用 3 題額度。</li><li>不嘗試打開不存在題目。</li></ol></td>
+          <td>US-13/邊界條件</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Beta</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-dl-007 06. 分享 / deep link deep link 指向下架題目時回 tab 1 並提示 p1 異常 ios/android 接收者 分享連結 question_id 已下架或無效。  us-13/邊界條件 beta 否  點該 deep link。 顯示「此題目已無法取得」。 返回 tab 1 刷題畫面。 不可崩潰或卡在空白頁。" data-module="06. 分享 / Deep Link" data-prio="P1" data-type="異常" data-phase="Beta" data-blocker="否">
+          <td><b>TC-DL-007</b></td>
+          <td><span class="tag p1">P1</span></td>
+          <td>異常</td>
+          <td>iOS/Android</td>
+          <td>接收者</td>
+          <td><div class="tc-title">Deep Link 指向下架題目時回 Tab 1 並提示</div></td>
+          <td>分享連結 question_id 已下架或無效。</td>
+          <td><ol><li>點該 Deep Link。</li></ol></td>
+          <td><ol><li>顯示「此題目已無法取得」。</li><li>返回 Tab 1 刷題畫面。</li><li>不可崩潰或卡在空白頁。</li></ol></td>
+          <td>US-13/邊界條件</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Beta</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-dl-008 06. 分享 / deep link og 圖片生成失敗時使用預設品牌圖 p2 異常 web/後端 接收者 後端模擬科目底圖生成失敗。  us-13/邊界條件 beta 否  產生分享連結。 貼至支援 og 預覽平台。 降級顯示閃q預設品牌圖。 title/description 不受影響。" data-module="06. 分享 / Deep Link" data-prio="P2" data-type="異常" data-phase="Beta" data-blocker="否">
+          <td><b>TC-DL-008</b></td>
+          <td><span class="tag p2">P2</span></td>
+          <td>異常</td>
+          <td>Web/後端</td>
+          <td>接收者</td>
+          <td><div class="tc-title">OG 圖片生成失敗時使用預設品牌圖</div></td>
+          <td>後端模擬科目底圖生成失敗。</td>
+          <td><ol><li>產生分享連結。</li><li>貼至支援 OG 預覽平台。</li></ol></td>
+          <td><ol><li>降級顯示閃Q預設品牌圖。</li><li>title/description 不受影響。</li></ol></td>
+          <td>US-13/邊界條件</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Beta</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-dl-009 06. 分享 / deep link 桌機點分享連結的 fallback 行為 p2 fallback web 接收者 準備桌機瀏覽器。  us-13 beta 否  在桌機瀏覽器開啟分享連結。 依 mvp 決議導向 app store/google play 或顯示落地頁。 若尚未實作，列為 mvp 後規劃，不影響 app 內路徑。" data-module="06. 分享 / Deep Link" data-prio="P2" data-type="Fallback" data-phase="Beta" data-blocker="否">
+          <td><b>TC-DL-009</b></td>
+          <td><span class="tag p2">P2</span></td>
+          <td>Fallback</td>
+          <td>Web</td>
+          <td>接收者</td>
+          <td><div class="tc-title">桌機點分享連結的 Fallback 行為</div></td>
+          <td>準備桌機瀏覽器。</td>
+          <td><ol><li>在桌機瀏覽器開啟分享連結。</li></ol></td>
+          <td><ol><li>依 MVP 決議導向 App Store/Google Play 或顯示落地頁。</li><li>若尚未實作，列為 MVP 後規劃，不影響 App 內路徑。</li></ol></td>
+          <td>US-13</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Beta</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-dl-010 06. 分享 / deep link 每日一題分享按鈕可產生同一套 deep link p2 整合 ios/android 登入用戶 每日一題頁面/入口已實作。  us-06/us-13 beta 否  進每日一題。 點分享。 用另一裝置開啟連結。 分享 ui 使用原生分享選單。 接收者路由同 us-13 四情境。" data-module="06. 分享 / Deep Link" data-prio="P2" data-type="整合" data-phase="Beta" data-blocker="否">
+          <td><b>TC-DL-010</b></td>
+          <td><span class="tag p2">P2</span></td>
+          <td>整合</td>
+          <td>iOS/Android</td>
+          <td>登入用戶</td>
+          <td><div class="tc-title">每日一題分享按鈕可產生同一套 Deep Link</div></td>
+          <td>每日一題頁面/入口已實作。</td>
+          <td><ol><li>進每日一題。</li><li>點分享。</li><li>用另一裝置開啟連結。</li></ol></td>
+          <td><ol><li>分享 UI 使用原生分享選單。</li><li>接收者路由同 US-13 四情境。</li></ol></td>
+          <td>US-06/US-13</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Beta</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-dl-011 06. 分享 / deep link 成績卡片分享不依賴 deep link p2 分享 ios/android 登入用戶 tab 5 有紀錄且可產生成績卡。  us-21/平台合規 beta 否  進紀錄詳細頁。 點分享成績卡片。 關閉網路後再次嘗試產生。 成績卡片由本機渲染。 離線也可產生分享圖。 分享圖不含姓名、學校、email、user_id。" data-module="06. 分享 / Deep Link" data-prio="P2" data-type="分享" data-phase="Beta" data-blocker="否">
+          <td><b>TC-DL-011</b></td>
+          <td><span class="tag p2">P2</span></td>
+          <td>分享</td>
+          <td>iOS/Android</td>
+          <td>登入用戶</td>
+          <td><div class="tc-title">成績卡片分享不依賴 Deep Link</div></td>
+          <td>Tab 5 有紀錄且可產生成績卡。</td>
+          <td><ol><li>進紀錄詳細頁。</li><li>點分享成績卡片。</li><li>關閉網路後再次嘗試產生。</li></ol></td>
+          <td><ol><li>成績卡片由本機渲染。</li><li>離線也可產生分享圖。</li><li>分享圖不含姓名、學校、Email、user_id。</li></ol></td>
+          <td>US-21/平台合規</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Beta</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-dl-012 06. 分享 / deep link 成績卡片連答數為 0 時省略連答段 p3 ui ios/android 登入用戶 有一筆 max_streak=0 的 session。  us-21 polish 否  進該紀錄詳細頁。 點分享成績卡片。 預覽不顯示連答段落。 總題數/答對率仍正確。" data-module="06. 分享 / Deep Link" data-prio="P3" data-type="UI" data-phase="Polish" data-blocker="否">
+          <td><b>TC-DL-012</b></td>
+          <td><span class="tag p3">P3</span></td>
+          <td>UI</td>
+          <td>iOS/Android</td>
+          <td>登入用戶</td>
+          <td><div class="tc-title">成績卡片連答數為 0 時省略連答段</div></td>
+          <td>有一筆 max_streak=0 的 Session。</td>
+          <td><ol><li>進該紀錄詳細頁。</li><li>點分享成績卡片。</li></ol></td>
+          <td><ol><li>預覽不顯示連答段落。</li><li>總題數/答對率仍正確。</li></ol></td>
+          <td>US-21</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Polish</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-dl-013 06. 分享 / deep link 成績卡片渲染失敗時不使用截圖替代 p2 異常 ios/android 登入用戶 可模擬 canvas/uigraphics 渲染失敗。  us-21/邊界條件 beta 否  點分享成績卡片。 顯示「無法產生卡片，請稍後再試」。 不使用截圖替代，以免截到個資或其他 ui。" data-module="06. 分享 / Deep Link" data-prio="P2" data-type="異常" data-phase="Beta" data-blocker="否">
+          <td><b>TC-DL-013</b></td>
+          <td><span class="tag p2">P2</span></td>
+          <td>異常</td>
+          <td>iOS/Android</td>
+          <td>登入用戶</td>
+          <td><div class="tc-title">成績卡片渲染失敗時不使用截圖替代</div></td>
+          <td>可模擬 Canvas/UIGraphics 渲染失敗。</td>
+          <td><ol><li>點分享成績卡片。</li></ol></td>
+          <td><ol><li>顯示「無法產生卡片，請稍後再試」。</li><li>不使用截圖替代，以免截到個資或其他 UI。</li></ol></td>
+          <td>US-21/邊界條件</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Beta</td>
+          <td><span class="muted">—</span></td>
+        </tr></tbody></table></div></details><details open data-module-section="07. Tab 4 個人頁 / 兌換 / 合規">
+      <summary>07. Tab 4 個人頁 / 兌換 / 合規 <span class="muted">(10 cases)</span></summary>
+      <div class="table-wrap"><table>
+        <thead><tr><th style="width:105px">ID</th><th style="width:80px">Priority</th><th style="width:95px">類型</th><th style="width:90px">平台</th><th style="width:92px">角色</th><th style="width:220px">測試標題</th><th style="width:230px">前置條件</th><th style="width:260px">測試步驟</th><th style="width:280px">預期結果</th><th style="width:145px">US / 依據</th><th style="width:80px">阻擋</th><th style="width:110px">Phase</th><th>備註</th></tr></thead>
+        <tbody>
+    <tr class="tc-row" data-search="tc-profile-001 07. tab 4 個人頁 / 兌換 / 合規 tab 4 顯示學習統計與題庫方案狀態 p1 功能 ios/android 登入用戶 已登入且有/無學習紀錄各測一次。  app-00/us-04 beta 否  點 tab 4。 顯示學習統計。 顯示免費/進階/時事題庫方案狀態。 資料為空時有合理空狀態。" data-module="07. Tab 4 個人頁 / 兌換 / 合規" data-prio="P1" data-type="功能" data-phase="Beta" data-blocker="否">
+          <td><b>TC-PROFILE-001</b></td>
+          <td><span class="tag p1">P1</span></td>
+          <td>功能</td>
+          <td>iOS/Android</td>
+          <td>登入用戶</td>
+          <td><div class="tc-title">Tab 4 顯示學習統計與題庫方案狀態</div></td>
+          <td>已登入且有/無學習紀錄各測一次。</td>
+          <td><ol><li>點 Tab 4。</li></ol></td>
+          <td><ol><li>顯示學習統計。</li><li>顯示免費/進階/時事題庫方案狀態。</li><li>資料為空時有合理空狀態。</li></ol></td>
+          <td>APP-00/US-04</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Beta</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-profile-002 07. tab 4 個人頁 / 兌換 / 合規 兌換碼輸入後帶碼跳轉 ltrust p1 行銷 ios/android 登入用戶 已有有效兌換碼；ltrust url 可開啟。  us-19 beta 否  進 tab 4。 點兌換碼入口。 輸入兌換碼。 確認跳轉。 app 不在本地驗證兌換結果。 帶碼跳轉 ltrust.tw。 ltrust 端處理兌換與顯示。" data-module="07. Tab 4 個人頁 / 兌換 / 合規" data-prio="P1" data-type="行銷" data-phase="Beta" data-blocker="否">
+          <td><b>TC-PROFILE-002</b></td>
+          <td><span class="tag p1">P1</span></td>
+          <td>行銷</td>
+          <td>iOS/Android</td>
+          <td>登入用戶</td>
+          <td><div class="tc-title">兌換碼輸入後帶碼跳轉 LTrust</div></td>
+          <td>已有有效兌換碼；LTrust URL 可開啟。</td>
+          <td><ol><li>進 Tab 4。</li><li>點兌換碼入口。</li><li>輸入兌換碼。</li><li>確認跳轉。</li></ol></td>
+          <td><ol><li>App 不在本地驗證兌換結果。</li><li>帶碼跳轉 ltrust.tw。</li><li>LTrust 端處理兌換與顯示。</li></ol></td>
+          <td>US-19</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Beta</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-profile-003 07. tab 4 個人頁 / 兌換 / 合規 兌換碼跳轉失敗不清空輸入欄 p1 異常 ios/android 登入用戶 模擬 webview 或外部瀏覽器開啟失敗。  us-19/邊界條件 beta 否  輸入兌換碼。 點確認跳轉。 顯示「無法開啟頁面，請稍後再試」。 保留輸入欄內容。 用戶可稍後重試。" data-module="07. Tab 4 個人頁 / 兌換 / 合規" data-prio="P1" data-type="異常" data-phase="Beta" data-blocker="否">
+          <td><b>TC-PROFILE-003</b></td>
+          <td><span class="tag p1">P1</span></td>
+          <td>異常</td>
+          <td>iOS/Android</td>
+          <td>登入用戶</td>
+          <td><div class="tc-title">兌換碼跳轉失敗不清空輸入欄</div></td>
+          <td>模擬 WebView 或外部瀏覽器開啟失敗。</td>
+          <td><ol><li>輸入兌換碼。</li><li>點確認跳轉。</li></ol></td>
+          <td><ol><li>顯示「無法開啟頁面，請稍後再試」。</li><li>保留輸入欄內容。</li><li>用戶可稍後重試。</li></ol></td>
+          <td>US-19/邊界條件</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Beta</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-profile-004 07. tab 4 個人頁 / 兌換 / 合規 個人資料修改成功 p1 功能 ios/android 登入用戶 已登入。  us-18 beta 否  進 tab 4。 進個人資料修改。 修改年級/就讀高中/性別。 儲存。 儲存成功 toast。 回到頁面後顯示最新資料。 智慧隨機可使用最新資料。" data-module="07. Tab 4 個人頁 / 兌換 / 合規" data-prio="P1" data-type="功能" data-phase="Beta" data-blocker="否">
+          <td><b>TC-PROFILE-004</b></td>
+          <td><span class="tag p1">P1</span></td>
+          <td>功能</td>
+          <td>iOS/Android</td>
+          <td>登入用戶</td>
+          <td><div class="tc-title">個人資料修改成功</div></td>
+          <td>已登入。</td>
+          <td><ol><li>進 Tab 4。</li><li>進個人資料修改。</li><li>修改年級/就讀高中/性別。</li><li>儲存。</li></ol></td>
+          <td><ol><li>儲存成功 Toast。</li><li>回到頁面後顯示最新資料。</li><li>智慧隨機可使用最新資料。</li></ol></td>
+          <td>US-18</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Beta</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-profile-005 07. tab 4 個人頁 / 兌換 / 合規 email 欄位唯讀不可修改 p1 資料安全 ios/android 登入用戶 個人資料修改頁可操作。  us-18 beta 否  點擊 email 欄位。 嘗試修改。 email 顯示唯讀。 不可直接在 app 修改登入 email，除非 ltrust 流程另行提供。" data-module="07. Tab 4 個人頁 / 兌換 / 合規" data-prio="P1" data-type="資料安全" data-phase="Beta" data-blocker="否">
+          <td><b>TC-PROFILE-005</b></td>
+          <td><span class="tag p1">P1</span></td>
+          <td>資料安全</td>
+          <td>iOS/Android</td>
+          <td>登入用戶</td>
+          <td><div class="tc-title">Email 欄位唯讀不可修改</div></td>
+          <td>個人資料修改頁可操作。</td>
+          <td><ol><li>點擊 Email 欄位。</li><li>嘗試修改。</li></ol></td>
+          <td><ol><li>Email 顯示唯讀。</li><li>不可直接在 App 修改登入 Email，除非 LTrust 流程另行提供。</li></ol></td>
+          <td>US-18</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Beta</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-profile-006 07. tab 4 個人頁 / 兌換 / 合規 隱私權政策可由個人資訊區開啟 p0 合規 ios/android 登入用戶 ltrust 隱私權政策 url 已設定。  us-22/平台合規 pre-submit 是  進 tab 4 個人資訊區。 點隱私權政策。 點返回。 app 內嵌 webview 開啟。 可返回 app。 符合上架要求 app 內可存取。" data-module="07. Tab 4 個人頁 / 兌換 / 合規" data-prio="P0" data-type="合規" data-phase="Pre-submit" data-blocker="是">
+          <td><b>TC-PROFILE-006</b></td>
+          <td><span class="tag p0">P0</span></td>
+          <td>合規</td>
+          <td>iOS/Android</td>
+          <td>登入用戶</td>
+          <td><div class="tc-title">隱私權政策可由個人資訊區開啟</div></td>
+          <td>LTrust 隱私權政策 URL 已設定。</td>
+          <td><ol><li>進 Tab 4 個人資訊區。</li><li>點隱私權政策。</li><li>點返回。</li></ol></td>
+          <td><ol><li>App 內嵌 WebView 開啟。</li><li>可返回 App。</li><li>符合上架要求 App 內可存取。</li></ol></td>
+          <td>US-22/平台合規</td>
+          <td><span class="tag blocker">是</span></td>
+          <td>Pre-submit</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-profile-007 07. tab 4 個人頁 / 兌換 / 合規 服務條款可由個人資訊區開啟 p0 合規 ios/android 登入用戶 ltrust 服務條款 url 已設定。  us-22/平台合規 pre-submit 是  進 tab 4 個人資訊區。 點服務條款。 點返回。 app 內嵌 webview 開啟。 可返回 app。 符合上架要求 app 內可存取。" data-module="07. Tab 4 個人頁 / 兌換 / 合規" data-prio="P0" data-type="合規" data-phase="Pre-submit" data-blocker="是">
+          <td><b>TC-PROFILE-007</b></td>
+          <td><span class="tag p0">P0</span></td>
+          <td>合規</td>
+          <td>iOS/Android</td>
+          <td>登入用戶</td>
+          <td><div class="tc-title">服務條款可由個人資訊區開啟</div></td>
+          <td>LTrust 服務條款 URL 已設定。</td>
+          <td><ol><li>進 Tab 4 個人資訊區。</li><li>點服務條款。</li><li>點返回。</li></ol></td>
+          <td><ol><li>App 內嵌 WebView 開啟。</li><li>可返回 App。</li><li>符合上架要求 App 內可存取。</li></ol></td>
+          <td>US-22/平台合規</td>
+          <td><span class="tag blocker">是</span></td>
+          <td>Pre-submit</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-profile-008 07. tab 4 個人頁 / 兌換 / 合規 訂閱到期或點數不足時進階題庫鎖定但免費題庫可用 p1 權益 ios/android 登入用戶 測試帳號方案到期或點數不足。  us-05/邊界條件 beta 否  嘗試進入進階題庫/時事題庫。 回 tab 1 免費題庫作答。 進階/時事顯示方案已到期或升級提示。 免費題庫仍可作答。" data-module="07. Tab 4 個人頁 / 兌換 / 合規" data-prio="P1" data-type="權益" data-phase="Beta" data-blocker="否">
+          <td><b>TC-PROFILE-008</b></td>
+          <td><span class="tag p1">P1</span></td>
+          <td>權益</td>
+          <td>iOS/Android</td>
+          <td>登入用戶</td>
+          <td><div class="tc-title">訂閱到期或點數不足時進階題庫鎖定但免費題庫可用</div></td>
+          <td>測試帳號方案到期或點數不足。</td>
+          <td><ol><li>嘗試進入進階題庫/時事題庫。</li><li>回 Tab 1 免費題庫作答。</li></ol></td>
+          <td><ol><li>進階/時事顯示方案已到期或升級提示。</li><li>免費題庫仍可作答。</li></ol></td>
+          <td>US-05/邊界條件</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Beta</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-profile-009 07. tab 4 個人頁 / 兌換 / 合規 app 隱私揭露資料與實際蒐集一致 p0 上架合規 ios/android qa/pm 已彙整 app store / google play 隱私問卷草稿。  平台合規/datacontract pre-submit 是  比對 app 實際蒐集資料。 檢查帳號資料、學習資料、答題行為、推薦碼、device_id、分享卡片。 隱私權政策與商店問卷涵蓋所有蒐集資料。 未蒐集資料不得誤勾。 成績卡片不含個資。" data-module="07. Tab 4 個人頁 / 兌換 / 合規" data-prio="P0" data-type="上架合規" data-phase="Pre-submit" data-blocker="是">
+          <td><b>TC-PROFILE-009</b></td>
+          <td><span class="tag p0">P0</span></td>
+          <td>上架合規</td>
+          <td>iOS/Android</td>
+          <td>QA/PM</td>
+          <td><div class="tc-title">App 隱私揭露資料與實際蒐集一致</div></td>
+          <td>已彙整 App Store / Google Play 隱私問卷草稿。</td>
+          <td><ol><li>比對 App 實際蒐集資料。</li><li>檢查帳號資料、學習資料、答題行為、推薦碼、device_id、分享卡片。</li></ol></td>
+          <td><ol><li>隱私權政策與商店問卷涵蓋所有蒐集資料。</li><li>未蒐集資料不得誤勾。</li><li>成績卡片不含個資。</li></ol></td>
+          <td>平台合規/DataContract</td>
+          <td><span class="tag blocker">是</span></td>
+          <td>Pre-submit</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-profile-010 07. tab 4 個人頁 / 兌換 / 合規 年齡分級資料正確 p1 上架合規 ios/android qa/pm 準備送審資料。  平台合規 pre-submit 否  檢查 app store connect 年齡分級。 檢查 google play content rating。 ios 分級 4+。 android 分級 3+。 理由為高中學科測驗、無 ugc、無成人/暴力內容。" data-module="07. Tab 4 個人頁 / 兌換 / 合規" data-prio="P1" data-type="上架合規" data-phase="Pre-submit" data-blocker="否">
+          <td><b>TC-PROFILE-010</b></td>
+          <td><span class="tag p1">P1</span></td>
+          <td>上架合規</td>
+          <td>iOS/Android</td>
+          <td>QA/PM</td>
+          <td><div class="tc-title">年齡分級資料正確</div></td>
+          <td>準備送審資料。</td>
+          <td><ol><li>檢查 App Store Connect 年齡分級。</li><li>檢查 Google Play Content Rating。</li></ol></td>
+          <td><ol><li>iOS 分級 4+。</li><li>Android 分級 3+。</li><li>理由為高中學科測驗、無 UGC、無成人/暴力內容。</li></ol></td>
+          <td>平台合規</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Pre-submit</td>
+          <td><span class="muted">—</span></td>
+        </tr></tbody></table></div></details><details open data-module-section="08. Tab 5 學習紀錄">
+      <summary>08. Tab 5 學習紀錄 <span class="muted">(9 cases)</span></summary>
+      <div class="table-wrap"><table>
+        <thead><tr><th style="width:105px">ID</th><th style="width:80px">Priority</th><th style="width:95px">類型</th><th style="width:90px">平台</th><th style="width:92px">角色</th><th style="width:220px">測試標題</th><th style="width:230px">前置條件</th><th style="width:260px">測試步驟</th><th style="width:280px">預期結果</th><th style="width:145px">US / 依據</th><th style="width:80px">阻擋</th><th style="width:110px">Phase</th><th>備註</th></tr></thead>
+        <tbody>
+    <tr class="tc-row" data-search="tc-rec-001 08. tab 5 學習紀錄 作答至少 1 題後切 tab 自動儲存 session p1 資料 ios/android 登入用戶 新 session 作答 1 題。  us-16 beta 否  作答 1 題。 切到 tab 5。 session 儲存為一筆紀錄。 紀錄包含日期、題數、正確率、科目/模式。" data-module="08. Tab 5 學習紀錄" data-prio="P1" data-type="資料" data-phase="Beta" data-blocker="否">
+          <td><b>TC-REC-001</b></td>
+          <td><span class="tag p1">P1</span></td>
+          <td>資料</td>
+          <td>iOS/Android</td>
+          <td>登入用戶</td>
+          <td><div class="tc-title">作答至少 1 題後切 Tab 自動儲存 Session</div></td>
+          <td>新 Session 作答 1 題。</td>
+          <td><ol><li>作答 1 題。</li><li>切到 Tab 5。</li></ol></td>
+          <td><ol><li>Session 儲存為一筆紀錄。</li><li>紀錄包含日期、題數、正確率、科目/模式。</li></ol></td>
+          <td>US-16</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Beta</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-rec-002 08. tab 5 學習紀錄 未答題切 tab 不儲存 0 題紀錄 p1 資料 ios/android 登入用戶 新開 app 進 tab 1，但未作答。  us-16/邊界條件 beta 否  直接切到 tab 5。 不新增 0 題 session 紀錄。" data-module="08. Tab 5 學習紀錄" data-prio="P1" data-type="資料" data-phase="Beta" data-blocker="否">
+          <td><b>TC-REC-002</b></td>
+          <td><span class="tag p1">P1</span></td>
+          <td>資料</td>
+          <td>iOS/Android</td>
+          <td>登入用戶</td>
+          <td><div class="tc-title">未答題切 Tab 不儲存 0 題紀錄</div></td>
+          <td>新開 App 進 Tab 1，但未作答。</td>
+          <td><ol><li>直接切到 Tab 5。</li></ol></td>
+          <td><ol><li>不新增 0 題 Session 紀錄。</li></ol></td>
+          <td>US-16/邊界條件</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Beta</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-rec-003 08. tab 5 學習紀錄 app 背景超過 60 秒產生新 session p1 生命週期 ios/android 登入用戶 已作答至少 1 題。  us-16/datacontract beta 否  讓 app 進背景 61 秒以上。 回到 app 繼續作答。 查看 tab 5。 前一 session 以背景超時結束。 回到 app 後新作答屬於新 session。 end_reason=background_timeout。" data-module="08. Tab 5 學習紀錄" data-prio="P1" data-type="生命週期" data-phase="Beta" data-blocker="否">
+          <td><b>TC-REC-003</b></td>
+          <td><span class="tag p1">P1</span></td>
+          <td>生命週期</td>
+          <td>iOS/Android</td>
+          <td>登入用戶</td>
+          <td><div class="tc-title">App 背景超過 60 秒產生新 Session</div></td>
+          <td>已作答至少 1 題。</td>
+          <td><ol><li>讓 App 進背景 61 秒以上。</li><li>回到 App 繼續作答。</li><li>查看 Tab 5。</li></ol></td>
+          <td><ol><li>前一 Session 以背景超時結束。</li><li>回到 App 後新作答屬於新 Session。</li><li>end_reason=background_timeout。</li></ol></td>
+          <td>US-16/DataContract</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Beta</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-rec-004 08. tab 5 學習紀錄 app 背景 60 秒內返回延續同一 session p2 生命週期 ios/android 登入用戶 已作答至少 1 題。  us-16/邊界條件 beta 否  讓 app 進背景 30 秒。 回到 app 繼續作答。 查看 session。 視為同一 session。 不產生新紀錄。" data-module="08. Tab 5 學習紀錄" data-prio="P2" data-type="生命週期" data-phase="Beta" data-blocker="否">
+          <td><b>TC-REC-004</b></td>
+          <td><span class="tag p2">P2</span></td>
+          <td>生命週期</td>
+          <td>iOS/Android</td>
+          <td>登入用戶</td>
+          <td><div class="tc-title">App 背景 60 秒內返回延續同一 Session</div></td>
+          <td>已作答至少 1 題。</td>
+          <td><ol><li>讓 App 進背景 30 秒。</li><li>回到 App 繼續作答。</li><li>查看 Session。</li></ol></td>
+          <td><ol><li>視為同一 Session。</li><li>不產生新紀錄。</li></ol></td>
+          <td>US-16/邊界條件</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Beta</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-rec-005 08. tab 5 學習紀錄 強制關閉 app 以最後已知時間結束 session p2 異常 ios/android 登入用戶 已作答至少 1 題。  us-16/datacontract beta 否  將 app 送背景後強制關閉。 重新開啟 app。 查看 tab 5。 前一 session 不遺失。 session_end_time 使用最後已知時間。 end_reason=force_quit 或等價值。" data-module="08. Tab 5 學習紀錄" data-prio="P2" data-type="異常" data-phase="Beta" data-blocker="否">
+          <td><b>TC-REC-005</b></td>
+          <td><span class="tag p2">P2</span></td>
+          <td>異常</td>
+          <td>iOS/Android</td>
+          <td>登入用戶</td>
+          <td><div class="tc-title">強制關閉 App 以最後已知時間結束 Session</div></td>
+          <td>已作答至少 1 題。</td>
+          <td><ol><li>將 App 送背景後強制關閉。</li><li>重新開啟 App。</li><li>查看 Tab 5。</li></ol></td>
+          <td><ol><li>前一 Session 不遺失。</li><li>session_end_time 使用最後已知時間。</li><li>end_reason=force_quit 或等價值。</li></ol></td>
+          <td>US-16/DataContract</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Beta</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-rec-006 08. tab 5 學習紀錄 紀錄列表依時間倒序排列 p2 ui/資料 ios/android 登入用戶 至少有 3 筆不同時間紀錄。  us-16 beta 否  進 tab 5。 最新紀錄在最上方。 時間格式清楚。" data-module="08. Tab 5 學習紀錄" data-prio="P2" data-type="UI/資料" data-phase="Beta" data-blocker="否">
+          <td><b>TC-REC-006</b></td>
+          <td><span class="tag p2">P2</span></td>
+          <td>UI/資料</td>
+          <td>iOS/Android</td>
+          <td>登入用戶</td>
+          <td><div class="tc-title">紀錄列表依時間倒序排列</div></td>
+          <td>至少有 3 筆不同時間紀錄。</td>
+          <td><ol><li>進 Tab 5。</li></ol></td>
+          <td><ol><li>最新紀錄在最上方。</li><li>時間格式清楚。</li></ol></td>
+          <td>US-16</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Beta</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-rec-007 08. tab 5 學習紀錄 紀錄詳細頁顯示每題作答與用時 p2 功能 ios/android 登入用戶 至少有一筆含多題的紀錄。  us-16 beta 否  點某筆紀錄。 顯示該次作答詳情。 包含每題對錯、選項、用時、總題數、正確率。" data-module="08. Tab 5 學習紀錄" data-prio="P2" data-type="功能" data-phase="Beta" data-blocker="否">
+          <td><b>TC-REC-007</b></td>
+          <td><span class="tag p2">P2</span></td>
+          <td>功能</td>
+          <td>iOS/Android</td>
+          <td>登入用戶</td>
+          <td><div class="tc-title">紀錄詳細頁顯示每題作答與用時</div></td>
+          <td>至少有一筆含多題的紀錄。</td>
+          <td><ol><li>點某筆紀錄。</li></ol></td>
+          <td><ol><li>顯示該次作答詳情。</li><li>包含每題對錯、選項、用時、總題數、正確率。</li></ol></td>
+          <td>US-16</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Beta</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-rec-008 08. tab 5 學習紀錄 重新挑戰使用同一題組 question_ids p2 功能 ios/android 登入用戶 紀錄詳細頁有重新挑戰入口；question_ids 已保存。  us-16/datacontract beta 否  進紀錄詳細頁。 點重新挑戰。 載入同一題組。 題目順序依規格重現或明確標示重新隨機。" data-module="08. Tab 5 學習紀錄" data-prio="P2" data-type="功能" data-phase="Beta" data-blocker="否">
+          <td><b>TC-REC-008</b></td>
+          <td><span class="tag p2">P2</span></td>
+          <td>功能</td>
+          <td>iOS/Android</td>
+          <td>登入用戶</td>
+          <td><div class="tc-title">重新挑戰使用同一題組 question_ids</div></td>
+          <td>紀錄詳細頁有重新挑戰入口；question_ids 已保存。</td>
+          <td><ol><li>進紀錄詳細頁。</li><li>點重新挑戰。</li></ol></td>
+          <td><ol><li>載入同一題組。</li><li>題目順序依規格重現或明確標示重新隨機。</li></ol></td>
+          <td>US-16/DataContract</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Beta</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-rec-009 08. tab 5 學習紀錄 成績卡片預覽數字與 session 一致 p2 分享/資料 ios/android 登入用戶 有一筆已知總題數、答對數、正確率、連答數的 session。  us-21 beta 否  進紀錄詳細頁。 點分享成績卡片。 卡片總題數、答對數、正確率、連答數與紀錄一致。 品牌標示正確。" data-module="08. Tab 5 學習紀錄" data-prio="P2" data-type="分享/資料" data-phase="Beta" data-blocker="否">
+          <td><b>TC-REC-009</b></td>
+          <td><span class="tag p2">P2</span></td>
+          <td>分享/資料</td>
+          <td>iOS/Android</td>
+          <td>登入用戶</td>
+          <td><div class="tc-title">成績卡片預覽數字與 Session 一致</div></td>
+          <td>有一筆已知總題數、答對數、正確率、連答數的 Session。</td>
+          <td><ol><li>進紀錄詳細頁。</li><li>點分享成績卡片。</li></ol></td>
+          <td><ol><li>卡片總題數、答對數、正確率、連答數與紀錄一致。</li><li>品牌標示正確。</li></ol></td>
+          <td>US-21</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Beta</td>
+          <td><span class="muted">—</span></td>
+        </tr></tbody></table></div></details><details open data-module-section="09. 資料事件 / 後端驗證">
+      <summary>09. 資料事件 / 後端驗證 <span class="muted">(9 cases)</span></summary>
+      <div class="table-wrap"><table>
+        <thead><tr><th style="width:105px">ID</th><th style="width:80px">Priority</th><th style="width:95px">類型</th><th style="width:90px">平台</th><th style="width:92px">角色</th><th style="width:220px">測試標題</th><th style="width:230px">前置條件</th><th style="width:260px">測試步驟</th><th style="width:280px">預期結果</th><th style="width:145px">US / 依據</th><th style="width:80px">阻擋</th><th style="width:110px">Phase</th><th>備註</th></tr></thead>
+        <tbody>
+    <tr class="tc-row" data-search="tc-data-001 09. 資料事件 / 後端驗證 每題作答完成立即送 answer event p0 資料 ios/android 登入用戶/訪客 可檢查後端 log 或 proxy。  datacontract answer event alpha 是  完成一題作答。 檢查事件。 一題一筆，不批次。 包含 question_id、session_id、user_id、answer_option、is_correct、time_to_answer_ms、question_index、mode、subject、question_tier、streak_at_answer、timestamp。" data-module="09. 資料事件 / 後端驗證" data-prio="P0" data-type="資料" data-phase="Alpha" data-blocker="是">
+          <td><b>TC-DATA-001</b></td>
+          <td><span class="tag p0">P0</span></td>
+          <td>資料</td>
+          <td>iOS/Android</td>
+          <td>登入用戶/訪客</td>
+          <td><div class="tc-title">每題作答完成立即送 Answer Event</div></td>
+          <td>可檢查後端 log 或 proxy。</td>
+          <td><ol><li>完成一題作答。</li><li>檢查事件。</li></ol></td>
+          <td><ol><li>一題一筆，不批次。</li><li>包含 question_id、session_id、user_id、answer_option、is_correct、time_to_answer_ms、question_index、mode、subject、question_tier、streak_at_answer、timestamp。</li></ol></td>
+          <td>DataContract Answer Event</td>
+          <td><span class="tag blocker">是</span></td>
+          <td>Alpha</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-data-002 09. 資料事件 / 後端驗證 訪客 answer event user_id 使用 guest_device_id p1 資料 ios/android 訪客 訪客模式作答。  datacontract answer event/us-01 beta 否  作答一題。 檢查後端事件 user_id。 user_id 格式為 guest_&lt;device_id&gt; 或後端約定等價格式。 不得空白。" data-module="09. 資料事件 / 後端驗證" data-prio="P1" data-type="資料" data-phase="Beta" data-blocker="否">
+          <td><b>TC-DATA-002</b></td>
+          <td><span class="tag p1">P1</span></td>
+          <td>資料</td>
+          <td>iOS/Android</td>
+          <td>訪客</td>
+          <td><div class="tc-title">訪客 Answer Event user_id 使用 guest_device_id</div></td>
+          <td>訪客模式作答。</td>
+          <td><ol><li>作答一題。</li><li>檢查後端事件 user_id。</li></ol></td>
+          <td><ol><li>user_id 格式為 guest_&lt;device_id&gt; 或後端約定等價格式。</li><li>不得空白。</li></ol></td>
+          <td>DataContract Answer Event/US-01</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Beta</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-data-003 09. 資料事件 / 後端驗證 time_to_answer_ms 計算起迄正確 p1 資料 ios/android 登入用戶 可檢查事件時間。  datacontract answer event beta 否  題目顯示後等待約 3 秒。 作答。 檢查 time_to_answer_ms。 用時接近題目顯示至點選答案時間。 返回同題時依規格重新計時。" data-module="09. 資料事件 / 後端驗證" data-prio="P1" data-type="資料" data-phase="Beta" data-blocker="否">
+          <td><b>TC-DATA-003</b></td>
+          <td><span class="tag p1">P1</span></td>
+          <td>資料</td>
+          <td>iOS/Android</td>
+          <td>登入用戶</td>
+          <td><div class="tc-title">time_to_answer_ms 計算起迄正確</div></td>
+          <td>可檢查事件時間。</td>
+          <td><ol><li>題目顯示後等待約 3 秒。</li><li>作答。</li><li>檢查 time_to_answer_ms。</li></ol></td>
+          <td><ol><li>用時接近題目顯示至點選答案時間。</li><li>返回同題時依規格重新計時。</li></ol></td>
+          <td>DataContract Answer Event</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Beta</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-data-004 09. 資料事件 / 後端驗證 session event 在 session 結束時送出 p1 資料 ios/android 登入用戶 作答多題。  datacontract session event/us-16 beta 否  作答 3 題。 切 tab 或背景超過 60 秒。 檢查 session event。 包含 session_id、user_id、start/end、end_reason、duration、total_questions、correct_count、accuracy_rate、max_streak、mode、question_ids、platform、app_version。" data-module="09. 資料事件 / 後端驗證" data-prio="P1" data-type="資料" data-phase="Beta" data-blocker="否">
+          <td><b>TC-DATA-004</b></td>
+          <td><span class="tag p1">P1</span></td>
+          <td>資料</td>
+          <td>iOS/Android</td>
+          <td>登入用戶</td>
+          <td><div class="tc-title">Session Event 在 Session 結束時送出</div></td>
+          <td>作答多題。</td>
+          <td><ol><li>作答 3 題。</li><li>切 Tab 或背景超過 60 秒。</li><li>檢查 Session Event。</li></ol></td>
+          <td><ol><li>包含 session_id、user_id、start/end、end_reason、duration、total_questions、correct_count、accuracy_rate、max_streak、mode、question_ids、platform、app_version。</li></ol></td>
+          <td>DataContract Session Event/US-16</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Beta</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-data-005 09. 資料事件 / 後端驗證 social action event 愛心/收藏/分享欄位正確 p1 資料 ios/android 登入用戶 可檢查後端 log。  datacontract social action event/us-10 beta 否  點愛心 add/remove。 點收藏 add/remove。 分享題目。 event_type 分別為 favorite/bookmark/share_question。 action add/remove 正確。 share_channel 正確回傳。" data-module="09. 資料事件 / 後端驗證" data-prio="P1" data-type="資料" data-phase="Beta" data-blocker="否">
+          <td><b>TC-DATA-005</b></td>
+          <td><span class="tag p1">P1</span></td>
+          <td>資料</td>
+          <td>iOS/Android</td>
+          <td>登入用戶</td>
+          <td><div class="tc-title">Social Action Event 愛心/收藏/分享欄位正確</div></td>
+          <td>可檢查後端 log。</td>
+          <td><ol><li>點愛心 add/remove。</li><li>點收藏 add/remove。</li><li>分享題目。</li></ol></td>
+          <td><ol><li>event_type 分別為 favorite/bookmark/share_question。</li><li>action add/remove 正確。</li><li>share_channel 正確回傳。</li></ol></td>
+          <td>DataContract Social Action Event/US-10</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Beta</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-data-006 09. 資料事件 / 後端驗證 錯題本更新事件欄位正確 p1 資料 ios/android 登入用戶 可檢查 mistake record event。  datacontract mistake record event/us-07 beta 否  在 tab 1 答錯一題。 在 tab 3 答對攻克該題。 答錯時 wrong_increment=1。 攻克時 is_conquered=true 且 conquered_at 有值。 wrong_total 回傳供 app 驗證。" data-module="09. 資料事件 / 後端驗證" data-prio="P1" data-type="資料" data-phase="Beta" data-blocker="否">
+          <td><b>TC-DATA-006</b></td>
+          <td><span class="tag p1">P1</span></td>
+          <td>資料</td>
+          <td>iOS/Android</td>
+          <td>登入用戶</td>
+          <td><div class="tc-title">錯題本更新事件欄位正確</div></td>
+          <td>可檢查 Mistake Record Event。</td>
+          <td><ol><li>在 Tab 1 答錯一題。</li><li>在 Tab 3 答對攻克該題。</li></ol></td>
+          <td><ol><li>答錯時 wrong_increment=1。</li><li>攻克時 is_conquered=true 且 conquered_at 有值。</li><li>wrong_total 回傳供 App 驗證。</li></ol></td>
+          <td>DataContract Mistake Record Event/US-07</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Beta</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-data-007 09. 資料事件 / 後端驗證 lifecycle events 基本觸發 p2 資料 ios/android 通用 可檢查事件 log。  datacontract lifecycle events beta 否  冷啟動 app。 顯示第一題。 切換 tab。 點 deep link。 觸發 app_open、first_question_shown、tab_switch、deep_link_received 等事件。 欄位包含 user_id/is_guest/timestamp/platform/app_version。" data-module="09. 資料事件 / 後端驗證" data-prio="P2" data-type="資料" data-phase="Beta" data-blocker="否">
+          <td><b>TC-DATA-007</b></td>
+          <td><span class="tag p2">P2</span></td>
+          <td>資料</td>
+          <td>iOS/Android</td>
+          <td>通用</td>
+          <td><div class="tc-title">Lifecycle Events 基本觸發</div></td>
+          <td>可檢查事件 log。</td>
+          <td><ol><li>冷啟動 App。</li><li>顯示第一題。</li><li>切換 Tab。</li><li>點 Deep Link。</li></ol></td>
+          <td><ol><li>觸發 app_open、first_question_shown、tab_switch、deep_link_received 等事件。</li><li>欄位包含 user_id/is_guest/timestamp/platform/app_version。</li></ol></td>
+          <td>DataContract Lifecycle Events</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Beta</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-data-008 09. 資料事件 / 後端驗證 離線事件補送不重複 p1 資料/離線 ios/android 登入用戶 可切換網路；可檢查後端事件去重。  datacontract/邊界條件 beta 否  進入題目後關網路。 作答 3 題並點收藏。 恢復網路。 檢查後端事件。 離線期間 ui 可繼續。 事件補送成功。 每個作答/操作只出現一次。 若補送失敗有重試策略。" data-module="09. 資料事件 / 後端驗證" data-prio="P1" data-type="資料/離線" data-phase="Beta" data-blocker="否">
+          <td><b>TC-DATA-008</b></td>
+          <td><span class="tag p1">P1</span></td>
+          <td>資料/離線</td>
+          <td>iOS/Android</td>
+          <td>登入用戶</td>
+          <td><div class="tc-title">離線事件補送不重複</div></td>
+          <td>可切換網路；可檢查後端事件去重。</td>
+          <td><ol><li>進入題目後關網路。</li><li>作答 3 題並點收藏。</li><li>恢復網路。</li><li>檢查後端事件。</li></ol></td>
+          <td><ol><li>離線期間 UI 可繼續。</li><li>事件補送成功。</li><li>每個作答/操作只出現一次。</li><li>若補送失敗有重試策略。</li></ol></td>
+          <td>DataContract/邊界條件</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Beta</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-data-009 09. 資料事件 / 後端驗證 事件時間戳使用 utc iso8601 p2 資料 ios/android 通用 可檢查事件 payload。  datacontract beta 否  觸發 answer event、session event、social event。 timestamp 格式為 iso8601。 使用 utc 時間。 前端顯示可再轉為本地時間。" data-module="09. 資料事件 / 後端驗證" data-prio="P2" data-type="資料" data-phase="Beta" data-blocker="否">
+          <td><b>TC-DATA-009</b></td>
+          <td><span class="tag p2">P2</span></td>
+          <td>資料</td>
+          <td>iOS/Android</td>
+          <td>通用</td>
+          <td><div class="tc-title">事件時間戳使用 UTC ISO8601</div></td>
+          <td>可檢查事件 payload。</td>
+          <td><ol><li>觸發 Answer Event、Session Event、Social Event。</li></ol></td>
+          <td><ol><li>timestamp 格式為 ISO8601。</li><li>使用 UTC 時間。</li><li>前端顯示可再轉為本地時間。</li></ol></td>
+          <td>DataContract</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Beta</td>
+          <td><span class="muted">—</span></td>
+        </tr></tbody></table></div></details><details open data-module-section="10. 安全 / 隱私">
+      <summary>10. 安全 / 隱私 <span class="muted">(5 cases)</span></summary>
+      <div class="table-wrap"><table>
+        <thead><tr><th style="width:105px">ID</th><th style="width:80px">Priority</th><th style="width:95px">類型</th><th style="width:90px">平台</th><th style="width:92px">角色</th><th style="width:220px">測試標題</th><th style="width:230px">前置條件</th><th style="width:260px">測試步驟</th><th style="width:280px">預期結果</th><th style="width:145px">US / 依據</th><th style="width:80px">阻擋</th><th style="width:110px">Phase</th><th>備註</th></tr></thead>
+        <tbody>
+    <tr class="tc-row" data-search="tc-sec-001 10. 安全 / 隱私 auth token 儲存在平台安全儲存區 p0 安全 ios/android 登入用戶 已登入；qa/dev 可檢查儲存方式。  app-00/us-17 pre-submit 是  登入後檢查本機儲存。 ios 使用 keychain 或等級相當安全儲存。 android 使用 encryptedsharedpreferences/keystore 或等級相當方案。 token 不存在一般明文偏好設定或 log。" data-module="10. 安全 / 隱私" data-prio="P0" data-type="安全" data-phase="Pre-submit" data-blocker="是">
+          <td><b>TC-SEC-001</b></td>
+          <td><span class="tag p0">P0</span></td>
+          <td>安全</td>
+          <td>iOS/Android</td>
+          <td>登入用戶</td>
+          <td><div class="tc-title">Auth Token 儲存在平台安全儲存區</div></td>
+          <td>已登入；QA/DEV 可檢查儲存方式。</td>
+          <td><ol><li>登入後檢查本機儲存。</li></ol></td>
+          <td><ol><li>iOS 使用 Keychain 或等級相當安全儲存。</li><li>Android 使用 EncryptedSharedPreferences/Keystore 或等級相當方案。</li><li>Token 不存在一般明文偏好設定或 log。</li></ol></td>
+          <td>APP-00/US-17</td>
+          <td><span class="tag blocker">是</span></td>
+          <td>Pre-submit</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-sec-002 10. 安全 / 隱私 log 不輸出密碼、token、個資 p0 安全 ios/android 通用 使用 debug log / crash log 檢查工具。  us-17/平台合規 pre-submit 是  登入、註冊、作答、分享、兌換碼。 收集裝置 log。 不得出現明文密碼。 不得出現完整 token。 email/姓名/學校等個資不得無遮罩輸出。" data-module="10. 安全 / 隱私" data-prio="P0" data-type="安全" data-phase="Pre-submit" data-blocker="是">
+          <td><b>TC-SEC-002</b></td>
+          <td><span class="tag p0">P0</span></td>
+          <td>安全</td>
+          <td>iOS/Android</td>
+          <td>通用</td>
+          <td><div class="tc-title">Log 不輸出密碼、Token、個資</div></td>
+          <td>使用 debug log / crash log 檢查工具。</td>
+          <td><ol><li>登入、註冊、作答、分享、兌換碼。</li><li>收集裝置 log。</li></ol></td>
+          <td><ol><li>不得出現明文密碼。</li><li>不得出現完整 Token。</li><li>Email/姓名/學校等個資不得無遮罩輸出。</li></ol></td>
+          <td>US-17/平台合規</td>
+          <td><span class="tag blocker">是</span></td>
+          <td>Pre-submit</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-sec-003 10. 安全 / 隱私 所有 api 使用 https p0 安全 ios/android 通用 可用 proxy 或網路監看。  app-00/datacontract pre-submit 是  執行登入、作答、分享連結產生。 檢查請求 url。 所有 api 走 https。 不得呼叫未加密 http。 敏感資料不可出現在 url query。" data-module="10. 安全 / 隱私" data-prio="P0" data-type="安全" data-phase="Pre-submit" data-blocker="是">
+          <td><b>TC-SEC-003</b></td>
+          <td><span class="tag p0">P0</span></td>
+          <td>安全</td>
+          <td>iOS/Android</td>
+          <td>通用</td>
+          <td><div class="tc-title">所有 API 使用 HTTPS</div></td>
+          <td>可用 proxy 或網路監看。</td>
+          <td><ol><li>執行登入、作答、分享連結產生。</li><li>檢查請求 URL。</li></ol></td>
+          <td><ol><li>所有 API 走 HTTPS。</li><li>不得呼叫未加密 HTTP。</li><li>敏感資料不可出現在 URL query。</li></ol></td>
+          <td>APP-00/DataContract</td>
+          <td><span class="tag blocker">是</span></td>
+          <td>Pre-submit</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-sec-004 10. 安全 / 隱私 成績卡片不含個人識別資訊 p0 隱私 ios/android 登入用戶 建立含姓名、學校、email 的測試帳號。  us-21/平台合規 pre-submit 是  產生成績卡片。 檢查圖片內容與分享 payload。 不含姓名、學校、年級、email、user_id。 僅含總題數、答對率、連答數、品牌標示等非個資。" data-module="10. 安全 / 隱私" data-prio="P0" data-type="隱私" data-phase="Pre-submit" data-blocker="是">
+          <td><b>TC-SEC-004</b></td>
+          <td><span class="tag p0">P0</span></td>
+          <td>隱私</td>
+          <td>iOS/Android</td>
+          <td>登入用戶</td>
+          <td><div class="tc-title">成績卡片不含個人識別資訊</div></td>
+          <td>建立含姓名、學校、Email 的測試帳號。</td>
+          <td><ol><li>產生成績卡片。</li><li>檢查圖片內容與分享 payload。</li></ol></td>
+          <td><ol><li>不含姓名、學校、年級、Email、user_id。</li><li>僅含總題數、答對率、連答數、品牌標示等非個資。</li></ol></td>
+          <td>US-21/平台合規</td>
+          <td><span class="tag blocker">是</span></td>
+          <td>Pre-submit</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-sec-005 10. 安全 / 隱私 停用/刪除帳號後不可再使用舊 token 存取 api p0 安全 ios/android 登入用戶 帳號已完成停用/刪除。  us-22/us-17 pre-submit 是  使用舊 app 狀態或攔截請求重送舊 token。 後端拒絕請求。 app 導回登入頁。 不得顯示舊個資或進入會員功能。" data-module="10. 安全 / 隱私" data-prio="P0" data-type="安全" data-phase="Pre-submit" data-blocker="是">
+          <td><b>TC-SEC-005</b></td>
+          <td><span class="tag p0">P0</span></td>
+          <td>安全</td>
+          <td>iOS/Android</td>
+          <td>登入用戶</td>
+          <td><div class="tc-title">停用/刪除帳號後不可再使用舊 Token 存取 API</div></td>
+          <td>帳號已完成停用/刪除。</td>
+          <td><ol><li>使用舊 App 狀態或攔截請求重送舊 Token。</li></ol></td>
+          <td><ol><li>後端拒絕請求。</li><li>App 導回登入頁。</li><li>不得顯示舊個資或進入會員功能。</li></ol></td>
+          <td>US-22/US-17</td>
+          <td><span class="tag blocker">是</span></td>
+          <td>Pre-submit</td>
+          <td><span class="muted">—</span></td>
+        </tr></tbody></table></div></details><details open data-module-section="11. 網路 / 效能 / 穩定性">
+      <summary>11. 網路 / 效能 / 穩定性 <span class="muted">(5 cases)</span></summary>
+      <div class="table-wrap"><table>
+        <thead><tr><th style="width:105px">ID</th><th style="width:80px">Priority</th><th style="width:95px">類型</th><th style="width:90px">平台</th><th style="width:92px">角色</th><th style="width:220px">測試標題</th><th style="width:230px">前置條件</th><th style="width:260px">測試步驟</th><th style="width:280px">預期結果</th><th style="width:145px">US / 依據</th><th style="width:80px">阻擋</th><th style="width:110px">Phase</th><th>備註</th></tr></thead>
+        <tbody>
+    <tr class="tc-row" data-search="tc-net-001 11. 網路 / 效能 / 穩定性 弱網路環境載入題目有 loading 與重試 p1 網路 ios/android 通用 使用 network link conditioner 或等效弱網工具。  us-01/邊界條件 beta 否  設定 3g/高延遲網路。 開啟 app 並載題。 顯示合理 loading。 逾時有重試。 不白屏。" data-module="11. 網路 / 效能 / 穩定性" data-prio="P1" data-type="網路" data-phase="Beta" data-blocker="否">
+          <td><b>TC-NET-001</b></td>
+          <td><span class="tag p1">P1</span></td>
+          <td>網路</td>
+          <td>iOS/Android</td>
+          <td>通用</td>
+          <td><div class="tc-title">弱網路環境載入題目有 Loading 與重試</div></td>
+          <td>使用 Network Link Conditioner 或等效弱網工具。</td>
+          <td><ol><li>設定 3G/高延遲網路。</li><li>開啟 App 並載題。</li></ol></td>
+          <td><ol><li>顯示合理 Loading。</li><li>逾時有重試。</li><li>不白屏。</li></ol></td>
+          <td>US-01/邊界條件</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Beta</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-net-002 11. 網路 / 效能 / 穩定性 快速連續作答不造成事件順序錯亂 p1 壓力 ios/android 登入用戶 題目可快速載入。  us-03/datacontract beta 否  連續快速作答 30 題。 檢查畫面統計與後端事件。 前端正確率、連答、題序正確。 後端 question_index 連續。 不漏送或重複送。" data-module="11. 網路 / 效能 / 穩定性" data-prio="P1" data-type="壓力" data-phase="Beta" data-blocker="否">
+          <td><b>TC-NET-002</b></td>
+          <td><span class="tag p1">P1</span></td>
+          <td>壓力</td>
+          <td>iOS/Android</td>
+          <td>登入用戶</td>
+          <td><div class="tc-title">快速連續作答不造成事件順序錯亂</div></td>
+          <td>題目可快速載入。</td>
+          <td><ol><li>連續快速作答 30 題。</li><li>檢查畫面統計與後端事件。</li></ol></td>
+          <td><ol><li>前端正確率、連答、題序正確。</li><li>後端 question_index 連續。</li><li>不漏送或重複送。</li></ol></td>
+          <td>US-03/DataContract</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Beta</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-net-003 11. 網路 / 效能 / 穩定性 長時間刷題 100 題無記憶體明顯上升或閃退 p2 穩定性 ios/android 登入用戶 登入帳號；題庫足夠。  us-01/us-12/us-10 pre-submit 否  連續刷題 100 題。 期間穿插解析、收藏、分享取消。 不閃退。 不卡死。 記憶體無持續不可回收上升。" data-module="11. 網路 / 效能 / 穩定性" data-prio="P2" data-type="穩定性" data-phase="Pre-submit" data-blocker="否">
+          <td><b>TC-NET-003</b></td>
+          <td><span class="tag p2">P2</span></td>
+          <td>穩定性</td>
+          <td>iOS/Android</td>
+          <td>登入用戶</td>
+          <td><div class="tc-title">長時間刷題 100 題無記憶體明顯上升或閃退</div></td>
+          <td>登入帳號；題庫足夠。</td>
+          <td><ol><li>連續刷題 100 題。</li><li>期間穿插解析、收藏、分享取消。</li></ol></td>
+          <td><ol><li>不閃退。</li><li>不卡死。</li><li>記憶體無持續不可回收上升。</li></ol></td>
+          <td>US-01/US-12/US-10</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Pre-submit</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-net-004 11. 網路 / 效能 / 穩定性 app 從背景回前景資料狀態一致 p1 生命週期 ios/android 登入用戶 正在 tab 1 題目或解析頁。  us-12/us-16 beta 否  將 app 進背景。 等待 30 秒。 回前景。 同一題/同一解析頁狀態保留。 無重複作答。 若需重新整理，ui 提示清楚。" data-module="11. 網路 / 效能 / 穩定性" data-prio="P1" data-type="生命週期" data-phase="Beta" data-blocker="否">
+          <td><b>TC-NET-004</b></td>
+          <td><span class="tag p1">P1</span></td>
+          <td>生命週期</td>
+          <td>iOS/Android</td>
+          <td>登入用戶</td>
+          <td><div class="tc-title">App 從背景回前景資料狀態一致</div></td>
+          <td>正在 Tab 1 題目或解析頁。</td>
+          <td><ol><li>將 App 進背景。</li><li>等待 30 秒。</li><li>回前景。</li></ol></td>
+          <td><ol><li>同一題/同一解析頁狀態保留。</li><li>無重複作答。</li><li>若需重新整理，UI 提示清楚。</li></ol></td>
+          <td>US-12/US-16</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Beta</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-net-005 11. 網路 / 效能 / 穩定性 低階 android 捲動與作答可用 p2 相容性 android 登入用戶 準備低階或中低階 android 裝置。  us-02 pre-submit 否  進 tab 1。 連續滑動與作答 20 題。 滑動不卡到無法操作。 點選答案反應可接受。 圖片題不造成嚴重掉幀。" data-module="11. 網路 / 效能 / 穩定性" data-prio="P2" data-type="相容性" data-phase="Pre-submit" data-blocker="否">
+          <td><b>TC-NET-005</b></td>
+          <td><span class="tag p2">P2</span></td>
+          <td>相容性</td>
+          <td>Android</td>
+          <td>登入用戶</td>
+          <td><div class="tc-title">低階 Android 捲動與作答可用</div></td>
+          <td>準備低階或中低階 Android 裝置。</td>
+          <td><ol><li>進 Tab 1。</li><li>連續滑動與作答 20 題。</li></ol></td>
+          <td><ol><li>滑動不卡到無法操作。</li><li>點選答案反應可接受。</li><li>圖片題不造成嚴重掉幀。</li></ol></td>
+          <td>US-02</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Pre-submit</td>
+          <td><span class="muted">—</span></td>
+        </tr></tbody></table></div></details><details open data-module-section="12. UI / 無障礙 / 可讀性">
+      <summary>12. UI / 無障礙 / 可讀性 <span class="muted">(5 cases)</span></summary>
+      <div class="table-wrap"><table>
+        <thead><tr><th style="width:105px">ID</th><th style="width:80px">Priority</th><th style="width:95px">類型</th><th style="width:90px">平台</th><th style="width:92px">角色</th><th style="width:220px">測試標題</th><th style="width:230px">前置條件</th><th style="width:260px">測試步驟</th><th style="width:280px">預期結果</th><th style="width:145px">US / 依據</th><th style="width:80px">阻擋</th><th style="width:110px">Phase</th><th>備註</th></tr></thead>
+        <tbody>
+    <tr class="tc-row" data-search="tc-a11y-001 12. ui / 無障礙 / 可讀性 大字體模式主要畫面可閱讀 p2 無障礙 ios/android 通用 系統字體調至大或特大。  全局 beta 否  開啟 app。 檢查登入頁、題目頁、解析蓋板、tab 4、tab 5。 文字不重疊。 主要 cta 不被擠出畫面。 題目與選項仍可閱讀與點擊。" data-module="12. UI / 無障礙 / 可讀性" data-prio="P2" data-type="無障礙" data-phase="Beta" data-blocker="否">
+          <td><b>TC-A11Y-001</b></td>
+          <td><span class="tag p2">P2</span></td>
+          <td>無障礙</td>
+          <td>iOS/Android</td>
+          <td>通用</td>
+          <td><div class="tc-title">大字體模式主要畫面可閱讀</div></td>
+          <td>系統字體調至大或特大。</td>
+          <td><ol><li>開啟 App。</li><li>檢查登入頁、題目頁、解析蓋板、Tab 4、Tab 5。</li></ol></td>
+          <td><ol><li>文字不重疊。</li><li>主要 CTA 不被擠出畫面。</li><li>題目與選項仍可閱讀與點擊。</li></ol></td>
+          <td>全局</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Beta</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-a11y-002 12. ui / 無障礙 / 可讀性 voiceover/talkback 可讀出主要元素 p2 無障礙 ios/android 通用 開啟 voiceover 或 talkback。  全局/平台體驗 pre-submit 否  瀏覽登入頁。 瀏覽題目頁。 讀取選項與按鈕。 選項朗讀包含 a/b/c/d 與文字。 分享、收藏、愛心按鈕有可理解標籤。 modal 彈出時焦點進入 modal。" data-module="12. UI / 無障礙 / 可讀性" data-prio="P2" data-type="無障礙" data-phase="Pre-submit" data-blocker="否">
+          <td><b>TC-A11Y-002</b></td>
+          <td><span class="tag p2">P2</span></td>
+          <td>無障礙</td>
+          <td>iOS/Android</td>
+          <td>通用</td>
+          <td><div class="tc-title">VoiceOver/TalkBack 可讀出主要元素</div></td>
+          <td>開啟 VoiceOver 或 TalkBack。</td>
+          <td><ol><li>瀏覽登入頁。</li><li>瀏覽題目頁。</li><li>讀取選項與按鈕。</li></ol></td>
+          <td><ol><li>選項朗讀包含 A/B/C/D 與文字。</li><li>分享、收藏、愛心按鈕有可理解標籤。</li><li>Modal 彈出時焦點進入 Modal。</li></ol></td>
+          <td>全局/平台體驗</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Pre-submit</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-a11y-003 12. ui / 無障礙 / 可讀性 顏色不是唯一判斷對錯方式 p1 可用性 ios/android 通用 完成一題作答。  us-12 beta 否  觀察答對/答錯回饋。 除顏色外，應有文字、符號或 icon 表示答對/答錯。 色弱用戶可辨識結果。" data-module="12. UI / 無障礙 / 可讀性" data-prio="P1" data-type="可用性" data-phase="Beta" data-blocker="否">
+          <td><b>TC-A11Y-003</b></td>
+          <td><span class="tag p1">P1</span></td>
+          <td>可用性</td>
+          <td>iOS/Android</td>
+          <td>通用</td>
+          <td><div class="tc-title">顏色不是唯一判斷對錯方式</div></td>
+          <td>完成一題作答。</td>
+          <td><ol><li>觀察答對/答錯回饋。</li></ol></td>
+          <td><ol><li>除顏色外，應有文字、符號或 icon 表示答對/答錯。</li><li>色弱用戶可辨識結果。</li></ol></td>
+          <td>US-12</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Beta</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-a11y-004 12. ui / 無障礙 / 可讀性 繁體中文文案一致且無簡中/亂碼 p1 文案 ios/android 通用 走完主要流程。  全局 pre-submit 否  檢查登入、註冊、訪客提示、錯誤提示、tab 名稱、分享卡片。 用語為繁體中文。 無簡體字、亂碼、開發 placeholder。 錯誤訊息對高中生可理解。" data-module="12. UI / 無障礙 / 可讀性" data-prio="P1" data-type="文案" data-phase="Pre-submit" data-blocker="否">
+          <td><b>TC-A11Y-004</b></td>
+          <td><span class="tag p1">P1</span></td>
+          <td>文案</td>
+          <td>iOS/Android</td>
+          <td>通用</td>
+          <td><div class="tc-title">繁體中文文案一致且無簡中/亂碼</div></td>
+          <td>走完主要流程。</td>
+          <td><ol><li>檢查登入、註冊、訪客提示、錯誤提示、Tab 名稱、分享卡片。</li></ol></td>
+          <td><ol><li>用語為繁體中文。</li><li>無簡體字、亂碼、開發 placeholder。</li><li>錯誤訊息對高中生可理解。</li></ol></td>
+          <td>全局</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Pre-submit</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-a11y-005 12. ui / 無障礙 / 可讀性 錯誤提示可被使用者理解並能恢復 p1 可用性 ios/android 通用 準備登入失敗、網路失敗、無題目、兌換跳轉失敗等情境。  全局/邊界條件 beta 否  逐一觸發錯誤。 錯誤訊息說明發生什麼事。 提供重試、返回或登入等下一步。 不可只顯示錯誤代碼。" data-module="12. UI / 無障礙 / 可讀性" data-prio="P1" data-type="可用性" data-phase="Beta" data-blocker="否">
+          <td><b>TC-A11Y-005</b></td>
+          <td><span class="tag p1">P1</span></td>
+          <td>可用性</td>
+          <td>iOS/Android</td>
+          <td>通用</td>
+          <td><div class="tc-title">錯誤提示可被使用者理解並能恢復</div></td>
+          <td>準備登入失敗、網路失敗、無題目、兌換跳轉失敗等情境。</td>
+          <td><ol><li>逐一觸發錯誤。</li></ol></td>
+          <td><ol><li>錯誤訊息說明發生什麼事。</li><li>提供重試、返回或登入等下一步。</li><li>不可只顯示錯誤代碼。</li></ol></td>
+          <td>全局/邊界條件</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Beta</td>
+          <td><span class="muted">—</span></td>
+        </tr></tbody></table></div></details><details open data-module-section="13. 上架 / 發版檢查">
+      <summary>13. 上架 / 發版檢查 <span class="muted">(7 cases)</span></summary>
+      <div class="table-wrap"><table>
+        <thead><tr><th style="width:105px">ID</th><th style="width:80px">Priority</th><th style="width:95px">類型</th><th style="width:90px">平台</th><th style="width:92px">角色</th><th style="width:220px">測試標題</th><th style="width:230px">前置條件</th><th style="width:260px">測試步驟</th><th style="width:280px">預期結果</th><th style="width:145px">US / 依據</th><th style="width:80px">阻擋</th><th style="width:110px">Phase</th><th>備註</th></tr></thead>
+        <tbody>
+    <tr class="tc-row" data-search="tc-rel-001 13. 上架 / 發版檢查 ios code signing 與 provisioning 正確 p0 發版 ios dev/qa 準備送審版 archive。  app-00/us-13/us-17 pre-submit 是  archive。 上傳 app store connect。 testflight 安裝。 簽章成功。 app id/bundle id 正確。 推送/universal link/sign in with apple entitlement 正確。" data-module="13. 上架 / 發版檢查" data-prio="P0" data-type="發版" data-phase="Pre-submit" data-blocker="是">
+          <td><b>TC-REL-001</b></td>
+          <td><span class="tag p0">P0</span></td>
+          <td>發版</td>
+          <td>iOS</td>
+          <td>DEV/QA</td>
+          <td><div class="tc-title">iOS Code Signing 與 Provisioning 正確</div></td>
+          <td>準備送審版 Archive。</td>
+          <td><ol><li>Archive。</li><li>上傳 App Store Connect。</li><li>TestFlight 安裝。</li></ol></td>
+          <td><ol><li>簽章成功。</li><li>App ID/Bundle ID 正確。</li><li>推送/Universal Link/Sign in with Apple entitlement 正確。</li></ol></td>
+          <td>APP-00/US-13/US-17</td>
+          <td><span class="tag blocker">是</span></td>
+          <td>Pre-submit</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-rel-002 13. 上架 / 發版檢查 android keystore 與 app link 設定正確 p0 發版 android dev/qa 準備 aab。  app-00/us-13 pre-submit 是  build release aab。 上傳 google play internal testing。 安裝測試。 測試 app link。 簽章正確。 package name 正確。 assetlinks.json 與 sha 指紋對應。 app link 可直接喚起 app。" data-module="13. 上架 / 發版檢查" data-prio="P0" data-type="發版" data-phase="Pre-submit" data-blocker="是">
+          <td><b>TC-REL-002</b></td>
+          <td><span class="tag p0">P0</span></td>
+          <td>發版</td>
+          <td>Android</td>
+          <td>DEV/QA</td>
+          <td><div class="tc-title">Android Keystore 與 App Link 設定正確</div></td>
+          <td>準備 AAB。</td>
+          <td><ol><li>Build Release AAB。</li><li>上傳 Google Play Internal Testing。</li><li>安裝測試。</li><li>測試 App Link。</li></ol></td>
+          <td><ol><li>簽章正確。</li><li>Package Name 正確。</li><li>assetlinks.json 與 SHA 指紋對應。</li><li>App Link 可直接喚起 App。</li></ol></td>
+          <td>APP-00/US-13</td>
+          <td><span class="tag blocker">是</span></td>
+          <td>Pre-submit</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-rel-003 13. 上架 / 發版檢查 universal link aasa 檔可被 ios 驗證 p0 發版 ios dev/qa 正式/測試網域已部署 aasa。  us-13 pre-submit 是  以 ios 裝置安裝 app。 開啟對應 universal link。 aasa 可讀。 team id/bundle id 正確。 點連結可喚起 app。" data-module="13. 上架 / 發版檢查" data-prio="P0" data-type="發版" data-phase="Pre-submit" data-blocker="是">
+          <td><b>TC-REL-003</b></td>
+          <td><span class="tag p0">P0</span></td>
+          <td>發版</td>
+          <td>iOS</td>
+          <td>DEV/QA</td>
+          <td><div class="tc-title">Universal Link AASA 檔可被 iOS 驗證</div></td>
+          <td>正式/測試網域已部署 AASA。</td>
+          <td><ol><li>以 iOS 裝置安裝 App。</li><li>開啟對應 Universal Link。</li></ol></td>
+          <td><ol><li>AASA 可讀。</li><li>Team ID/Bundle ID 正確。</li><li>點連結可喚起 App。</li></ol></td>
+          <td>US-13</td>
+          <td><span class="tag blocker">是</span></td>
+          <td>Pre-submit</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-rel-004 13. 上架 / 發版檢查 商店頁隱私權政策 url 可開啟 p0 上架合規 ios/android qa/pm app store/google play 後台已填 url。  平台合規 pre-submit 是  點開後台隱私權政策 url。 在手機瀏覽器開啟。 url 可正常開啟。 內容與 app 內 webview 一致或相容。 不可需要登入才能閱讀。" data-module="13. 上架 / 發版檢查" data-prio="P0" data-type="上架合規" data-phase="Pre-submit" data-blocker="是">
+          <td><b>TC-REL-004</b></td>
+          <td><span class="tag p0">P0</span></td>
+          <td>上架合規</td>
+          <td>iOS/Android</td>
+          <td>QA/PM</td>
+          <td><div class="tc-title">商店頁隱私權政策 URL 可開啟</div></td>
+          <td>App Store/Google Play 後台已填 URL。</td>
+          <td><ol><li>點開後台隱私權政策 URL。</li><li>在手機瀏覽器開啟。</li></ol></td>
+          <td><ol><li>URL 可正常開啟。</li><li>內容與 App 內 WebView 一致或相容。</li><li>不可需要登入才能閱讀。</li></ol></td>
+          <td>平台合規</td>
+          <td><span class="tag blocker">是</span></td>
+          <td>Pre-submit</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-rel-005 13. 上架 / 發版檢查 正式版不含測試帳號、測試 api、debug ui p0 發版 ios/android qa/pm 準備 release candidate。  app-00 pre-submit 是  走主要畫面。 檢查設定、log、api host。 無測試帳號入口。 無 dev 選單。 api 指向正式或預期環境。 錯誤訊息無 stack trace。" data-module="13. 上架 / 發版檢查" data-prio="P0" data-type="發版" data-phase="Pre-submit" data-blocker="是">
+          <td><b>TC-REL-005</b></td>
+          <td><span class="tag p0">P0</span></td>
+          <td>發版</td>
+          <td>iOS/Android</td>
+          <td>QA/PM</td>
+          <td><div class="tc-title">正式版不含測試帳號、測試 API、Debug UI</div></td>
+          <td>準備 Release Candidate。</td>
+          <td><ol><li>走主要畫面。</li><li>檢查設定、Log、API host。</li></ol></td>
+          <td><ol><li>無測試帳號入口。</li><li>無 DEV 選單。</li><li>API 指向正式或預期環境。</li><li>錯誤訊息無 stack trace。</li></ol></td>
+          <td>APP-00</td>
+          <td><span class="tag blocker">是</span></td>
+          <td>Pre-submit</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-rel-006 13. 上架 / 發版檢查 app 無要求不必要權限 p0 上架合規 ios/android qa/pm 安裝正式候選版。  平台合規 pre-submit 是  首次使用所有功能。 觀察是否彈權限。 未使用相機/定位/通訊錄等權限時不得要求。 分享功能使用系統分享選單，不需額外敏感權限。" data-module="13. 上架 / 發版檢查" data-prio="P0" data-type="上架合規" data-phase="Pre-submit" data-blocker="是">
+          <td><b>TC-REL-006</b></td>
+          <td><span class="tag p0">P0</span></td>
+          <td>上架合規</td>
+          <td>iOS/Android</td>
+          <td>QA/PM</td>
+          <td><div class="tc-title">App 無要求不必要權限</div></td>
+          <td>安裝正式候選版。</td>
+          <td><ol><li>首次使用所有功能。</li><li>觀察是否彈權限。</li></ol></td>
+          <td><ol><li>未使用相機/定位/通訊錄等權限時不得要求。</li><li>分享功能使用系統分享選單，不需額外敏感權限。</li></ol></td>
+          <td>平台合規</td>
+          <td><span class="tag blocker">是</span></td>
+          <td>Pre-submit</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-rel-007 13. 上架 / 發版檢查 崩潰回報與基本監控設定可用 p1 發版 ios/android dev/qa 已整合 crashlytics/sentry 或等價工具。  app-00 pre-submit 否  觸發測試崩潰或測試事件。 查看後台。 可收到 crash report。 版本號與裝置資訊正確。 不回傳敏感個資。" data-module="13. 上架 / 發版檢查" data-prio="P1" data-type="發版" data-phase="Pre-submit" data-blocker="否">
+          <td><b>TC-REL-007</b></td>
+          <td><span class="tag p1">P1</span></td>
+          <td>發版</td>
+          <td>iOS/Android</td>
+          <td>DEV/QA</td>
+          <td><div class="tc-title">崩潰回報與基本監控設定可用</div></td>
+          <td>已整合 Crashlytics/Sentry 或等價工具。</td>
+          <td><ol><li>觸發測試崩潰或測試事件。</li><li>查看後台。</li></ol></td>
+          <td><ol><li>可收到 crash report。</li><li>版本號與裝置資訊正確。</li><li>不回傳敏感個資。</li></ol></td>
+          <td>APP-00</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Pre-submit</td>
+          <td><span class="muted">—</span></td>
+        </tr></tbody></table></div></details><details open data-module-section="14. 其他邊界 / 規格差異">
+      <summary>14. 其他邊界 / 規格差異 <span class="muted">(5 cases)</span></summary>
+      <div class="table-wrap"><table>
+        <thead><tr><th style="width:105px">ID</th><th style="width:80px">Priority</th><th style="width:95px">類型</th><th style="width:90px">平台</th><th style="width:92px">角色</th><th style="width:220px">測試標題</th><th style="width:230px">前置條件</th><th style="width:260px">測試步驟</th><th style="width:280px">預期結果</th><th style="width:145px">US / 依據</th><th style="width:80px">阻擋</th><th style="width:110px">Phase</th><th>備註</th></tr></thead>
+        <tbody>
+    <tr class="tc-row" data-search="tc-edge-001 14. 其他邊界 / 規格差異 文件第三方登入清單與本次需求差異確認 p0 pm確認 ios/android pm/dev 文件既有 google/line/apple/email；本次新增 ltrust、ig、fb。  us-17/本次補充 alpha 是  召開規格確認。 確認最終登入供應商列表。 更新 us、screen list、後端 oauth 設定與測試資料。 最終供應商清單明確。 測試畫面與登入入口一致。 未支援的 provider 不出現在 ui。" data-module="14. 其他邊界 / 規格差異" data-prio="P0" data-type="PM確認" data-phase="Alpha" data-blocker="是">
+          <td><b>TC-EDGE-001</b></td>
+          <td><span class="tag p0">P0</span></td>
+          <td>PM確認</td>
+          <td>iOS/Android</td>
+          <td>PM/DEV</td>
+          <td><div class="tc-title">文件第三方登入清單與本次需求差異確認</div></td>
+          <td>文件既有 Google/LINE/Apple/Email；本次新增 LTrust、IG、FB。</td>
+          <td><ol><li>召開規格確認。</li><li>確認最終登入供應商列表。</li><li>更新 US、Screen List、後端 OAuth 設定與測試資料。</li></ol></td>
+          <td><ol><li>最終供應商清單明確。</li><li>測試畫面與登入入口一致。</li><li>未支援的 provider 不出現在 UI。</li></ol></td>
+          <td>US-17/本次補充</td>
+          <td><span class="tag blocker">是</span></td>
+          <td>Alpha</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-edge-002 14. 其他邊界 / 規格差異 us-18 入學年度欄位差異確認 p1 pm確認 ios/android pm/dev user story 早版提入學年度；screen list 標示已移除。  us-01/us-18 alpha 否  確認智慧隨機所需資料來源。 確認個人資料欄位是否保留入學年度。 若移除入學年度，智慧隨機須改用年級/學校等資料。 若仍需入學年度，screen list 要同步。" data-module="14. 其他邊界 / 規格差異" data-prio="P1" data-type="PM確認" data-phase="Alpha" data-blocker="否">
+          <td><b>TC-EDGE-002</b></td>
+          <td><span class="tag p1">P1</span></td>
+          <td>PM確認</td>
+          <td>iOS/Android</td>
+          <td>PM/DEV</td>
+          <td><div class="tc-title">US-18 入學年度欄位差異確認</div></td>
+          <td>User Story 早版提入學年度；Screen List 標示已移除。</td>
+          <td><ol><li>確認智慧隨機所需資料來源。</li><li>確認個人資料欄位是否保留入學年度。</li></ol></td>
+          <td><ol><li>若移除入學年度，智慧隨機須改用年級/學校等資料。</li><li>若仍需入學年度，Screen List 要同步。</li></ol></td>
+          <td>US-01/US-18</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Alpha</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-edge-003 14. 其他邊界 / 規格差異 訪客收藏/愛心鎖定規格確認 p1 pm確認 ios/android pm/dev us-10 提快捷列；screen list 標示訪客收藏鎖定。  us-10/screenlist alpha 否  確認訪客可否點愛心/收藏。 更新 ui 與測試預期。 規格一致。 訪客 ui 不會出現可操作但無效果的誤導。" data-module="14. 其他邊界 / 規格差異" data-prio="P1" data-type="PM確認" data-phase="Alpha" data-blocker="否">
+          <td><b>TC-EDGE-003</b></td>
+          <td><span class="tag p1">P1</span></td>
+          <td>PM確認</td>
+          <td>iOS/Android</td>
+          <td>PM/DEV</td>
+          <td><div class="tc-title">訪客收藏/愛心鎖定規格確認</div></td>
+          <td>US-10 提快捷列；Screen List 標示訪客收藏鎖定。</td>
+          <td><ol><li>確認訪客可否點愛心/收藏。</li><li>更新 UI 與測試預期。</li></ol></td>
+          <td><ol><li>規格一致。</li><li>訪客 UI 不會出現可操作但無效果的誤導。</li></ol></td>
+          <td>US-10/ScreenList</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Alpha</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-edge-004 14. 其他邊界 / 規格差異 免費 app 不得出現付費牆阻斷核心免費刷題 p0 商業規則 ios/android 通用 app 定位為免費使用；同時有進階題庫權益。  us-05/權益 alpha 是  未登入訪客刷免費題。 登入免費用戶刷免費題。 嘗試進階題庫。 免費題庫可用。 已登入免費用戶無每日題數上限。 付費/點數不足只限制進階/時事題庫，不影響免費題庫。" data-module="14. 其他邊界 / 規格差異" data-prio="P0" data-type="商業規則" data-phase="Alpha" data-blocker="是">
+          <td><b>TC-EDGE-004</b></td>
+          <td><span class="tag p0">P0</span></td>
+          <td>商業規則</td>
+          <td>iOS/Android</td>
+          <td>通用</td>
+          <td><div class="tc-title">免費 App 不得出現付費牆阻斷核心免費刷題</div></td>
+          <td>App 定位為免費使用；同時有進階題庫權益。</td>
+          <td><ol><li>未登入訪客刷免費題。</li><li>登入免費用戶刷免費題。</li><li>嘗試進階題庫。</li></ol></td>
+          <td><ol><li>免費題庫可用。</li><li>已登入免費用戶無每日題數上限。</li><li>付費/點數不足只限制進階/時事題庫，不影響免費題庫。</li></ol></td>
+          <td>US-05/權益</td>
+          <td><span class="tag blocker">是</span></td>
+          <td>Alpha</td>
+          <td><span class="muted">—</span></td>
+        </tr><tr class="tc-row" data-search="tc-edge-005 14. 其他邊界 / 規格差異 敏感錯誤不向使用者顯示後端原始訊息 p1 安全/文案 ios/android 通用 可模擬 500、401、403、oauth provider error。  全局 pre-submit 否  逐一觸發錯誤。 顯示使用者可理解文案。 不顯示 stack trace、sql、token、provider raw error。" data-module="14. 其他邊界 / 規格差異" data-prio="P1" data-type="安全/文案" data-phase="Pre-submit" data-blocker="否">
+          <td><b>TC-EDGE-005</b></td>
+          <td><span class="tag p1">P1</span></td>
+          <td>安全/文案</td>
+          <td>iOS/Android</td>
+          <td>通用</td>
+          <td><div class="tc-title">敏感錯誤不向使用者顯示後端原始訊息</div></td>
+          <td>可模擬 500、401、403、OAuth provider error。</td>
+          <td><ol><li>逐一觸發錯誤。</li></ol></td>
+          <td><ol><li>顯示使用者可理解文案。</li><li>不顯示 stack trace、SQL、token、provider raw error。</li></ol></td>
+          <td>全局</td>
+          <td><span class="tag notblocker">否</span></td>
+          <td>Pre-submit</td>
+          <td><span class="muted">—</span></td>
+        </tr></tbody></table></div></details>
+  </section>
+
+  <section class="card">
+    <h2>4. P0 送審前必跑清單</h2>
+    <div class="body">
+      <div class="callout danger">以下是從全部 Test Case 中抽出的「不可漏測」區域。若任一 P0 Fail，建議不要進 App Store / Google Play 送審，也不要啟動 9 月校園推廣。</div>
+      <div class="checklist">
+        <div class="check"><b>安裝與啟動</b><br><span class="muted">iOS/Android 可安裝、啟動不白屏、無網路不崩潰。</span></div>
+        <div class="check"><b>訪客免費 3 題</b><br><span class="muted">未登入可刷 3 題；用盡引導登入；已登入無每日題數上限。</span></div>
+        <div class="check"><b>LTrust / OAuth 登入</b><br><span class="muted">LTrust、FB、IG、Apple 等實際支援 Provider 均能登入/取消/失敗恢復。</span></div>
+        <div class="check"><b>註冊與條款</b><br><span class="muted">Email 註冊、推薦碼、驗證信、隱私權政策與服務條款主動勾選。</span></div>
+        <div class="check"><b>刷題閉環</b><br><span class="muted">顯示題目 → 作答 → 結果蓋板 → 解析 → 下一題 → 事件回傳。</span></div>
+        <div class="check"><b>Deep Link</b><br><span class="muted">已安裝已登入、已安裝未登入、未安裝 Deferred、一般安裝四情境。</span></div>
+        <div class="check"><b>帳號管理</b><br><span class="muted">登出、Token 過期、帳號停用/刪除、同帳號多裝置策略。</span></div>
+        <div class="check"><b>上架合規</b><br><span class="muted">隱私揭露、年齡分級、帳號刪除入口、無不必要權限、正式版無 Debug。</span></div>
+      </div>
+    </div>
+  </section>
+</main>
+<script>
+function filterRows() {
+  const q = document.getElementById('q').value.trim().toLowerCase();
+  const module = document.getElementById('module').value;
+  const prio = document.getElementById('prio').value;
+  const type = document.getElementById('type').value;
+  const phase = document.getElementById('phase').value;
+  const blocker = document.getElementById('blocker').value;
+  let shown = 0;
+  document.querySelectorAll('.tc-row').forEach(row => {
+    const ok = (!q || row.dataset.search.includes(q)) &&
+               (!module || row.dataset.module === module) &&
+               (!prio || row.dataset.prio === prio) &&
+               (!type || row.dataset.type === type) &&
+               (!phase || row.dataset.phase === phase) &&
+               (!blocker || row.dataset.blocker === blocker);
+    row.style.display = ok ? '' : 'none';
+    if (ok) shown++;
+  });
+  document.getElementById('shown').textContent = shown;
+  document.querySelectorAll('details[data-module-section]').forEach(d => {
+    const visible = Array.from(d.querySelectorAll('.tc-row')).some(r => r.style.display !== 'none');
+    d.style.display = visible ? '' : 'none';
+  });
+}
+</script>
+</body>
+</html>
