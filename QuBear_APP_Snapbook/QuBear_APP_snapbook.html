@@ -203,6 +203,28 @@
       box-shadow:none;
     }
     .black-card .feature-card p { color:rgba(255,255,255,.70); }
+	/* Q-Coin 商城 / Dark Mode 區塊：修正功能說明卡片為深色毛玻璃效果 */
+#commerce .feature-card {
+  color: #fff;
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.10), rgba(255, 255, 255, 0.035));
+  border: 1px solid rgba(255, 152, 60, 0.48);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.10),
+    0 18px 46px rgba(0, 0, 0, 0.28);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+#commerce .feature-card h3 {
+  color: #fff7ee;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.45);
+}
+
+#commerce .feature-card p {
+  color: rgba(255, 244, 232, 0.76);
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.38);
+}
     .black-card figcaption strong, .black-card figcaption { color:rgba(255,255,255,.88); }
     .black-card figcaption span { color:rgba(255,255,255,.52); }
     .flow {
