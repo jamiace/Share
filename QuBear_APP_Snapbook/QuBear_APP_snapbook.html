@@ -1,0 +1,519 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>QuBear 量子熊 APP｜國科會報告圖文介紹說明書</title>
+  <style>
+    :root {
+      --bg:#0e0b08;
+      --bg2:#17120d;
+      --paper:#fff8f0;
+      --ink:#24170f;
+      --muted:#806b58;
+      --line:#f1d6bb;
+      --orange:#ff8a22;
+      --orange2:#ffd08a;
+      --brown:#5a3822;
+      --dark:#12100d;
+      --card:#fffaf5;
+      --shadow:0 24px 60px rgba(69,38,12,.18);
+      --shadow-dark:0 28px 80px rgba(0,0,0,.38);
+    }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body {
+      margin:0;
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC","Microsoft JhengHei",Arial,sans-serif;
+      background:
+        radial-gradient(circle at 10% 4%, rgba(255,154,38,.18), transparent 28rem),
+        radial-gradient(circle at 95% 12%, rgba(255,199,113,.20), transparent 30rem),
+        linear-gradient(180deg,#fff7ef 0%,#fffaf7 34%,#fff3e7 100%);
+      color:var(--ink);
+      line-height:1.72;
+    }
+    a { color:inherit; }
+    .wrap { max-width:1180px; margin:0 auto; padding:0 28px; }
+    .hero {
+      position:relative;
+      overflow:hidden;
+      color:#fff;
+      background:
+        radial-gradient(circle at 75% 18%, rgba(255,154,38,.54), transparent 18rem),
+        linear-gradient(135deg,#16110c 0%,#22160d 42%,#fa8f25 42.2%,#ffc46d 100%);
+      min-height:760px;
+      border-bottom-left-radius:44px;
+      border-bottom-right-radius:44px;
+      box-shadow:var(--shadow-dark);
+    }
+    .hero:before {
+      content:"";
+      position:absolute; inset:0;
+      background:
+        linear-gradient(120deg, rgba(255,255,255,.055) 0 1px, transparent 1px 100%),
+        radial-gradient(circle at 38% 38%, rgba(255,255,255,.11), transparent 14rem);
+      background-size:28px 28px, auto;
+      opacity:.65;
+      pointer-events:none;
+    }
+    .nav {
+      position:sticky; top:0; z-index:20;
+      backdrop-filter: blur(16px);
+      background:rgba(255,248,240,.82);
+      border-bottom:1px solid rgba(190,127,67,.20);
+    }
+    .nav .wrap {
+      display:flex; align-items:center; gap:16px; justify-content:space-between;
+      padding-top:12px; padding-bottom:12px;
+    }
+    .brand { display:flex; align-items:center; gap:10px; font-weight:900; letter-spacing:.02em; }
+    .brand-mark {
+      width:34px; height:34px; border-radius:50%; background:#111; color:#fff;
+      display:grid; place-items:center; font-weight:900; font-size:20px;
+      box-shadow:0 8px 20px rgba(0,0,0,.18);
+    }
+    .links { display:flex; flex-wrap:wrap; gap:10px; font-size:14px; color:#6d4c33; }
+    .links a { text-decoration:none; padding:6px 10px; border-radius:999px; }
+    .links a:hover { background:#fff; box-shadow:0 6px 18px rgba(139,82,28,.12); }
+    .hero-grid {
+      position:relative; z-index:1;
+      display:grid; grid-template-columns:1.05fr .95fr; gap:44px;
+      align-items:center; padding:72px 0 88px;
+    }
+    .kicker {
+      display:inline-flex; align-items:center; gap:8px;
+      color:#351f10; background:linear-gradient(90deg,#fff,#ffe2b7);
+      padding:7px 14px; border-radius:999px;
+      font-size:14px; font-weight:800; letter-spacing:.08em;
+      box-shadow:0 12px 32px rgba(0,0,0,.16);
+    }
+    h1 {
+      font-size:clamp(42px, 6vw, 76px);
+      line-height:1.05; margin:28px 0 22px;
+      letter-spacing:-.06em;
+      text-shadow:0 8px 26px rgba(0,0,0,.28);
+    }
+    .hero p.lead {
+      font-size:clamp(18px,2.3vw,24px);
+      max-width:780px;
+      color:rgba(255,255,255,.92);
+      text-shadow:0 4px 14px rgba(0,0,0,.22);
+      margin:0 0 28px;
+    }
+    .hero-badges { display:flex; flex-wrap:wrap; gap:10px; margin-top:28px; }
+    .badge {
+      border:1px solid rgba(255,255,255,.45);
+      background:rgba(255,255,255,.16);
+      color:#fff; border-radius:999px; padding:8px 14px;
+      font-weight:800; font-size:14px;
+      backdrop-filter:blur(10px);
+    }
+    .hero-phones {
+      display:grid; grid-template-columns:1fr 1fr; gap:18px;
+      align-items:center;
+    }
+    .hero-phones .shot:nth-child(1) { transform:translateY(36px) rotate(-2deg); }
+    .hero-phones .shot:nth-child(2) { transform:translateY(-18px) rotate(2deg); }
+    .hero-phones .shot:nth-child(3) { grid-column:1 / span 2; max-width:58%; justify-self:center; transform:rotate(-1deg); }
+    .shot { margin:0; }
+    .phone-frame {
+      border-radius:28px;
+      padding:8px;
+      background:linear-gradient(145deg, rgba(255,255,255,.92), rgba(255,231,203,.82));
+      box-shadow:var(--shadow);
+      border:1px solid rgba(255,176,92,.42);
+    }
+    .dark-section .phone-frame,
+    .black-card .phone-frame,
+    .hero .phone-frame {
+      background:linear-gradient(145deg, rgba(255,187,94,.64), rgba(35,24,18,.96));
+      border-color:rgba(255,174,93,.55);
+      box-shadow:0 28px 70px rgba(0,0,0,.42);
+    }
+    .phone-frame img {
+      width:100%; display:block; border-radius:22px;
+      background:#111;
+    }
+    figcaption {
+      display:flex; flex-direction:column; gap:4px;
+      margin-top:10px; color:#6d4c33; font-size:13px; line-height:1.45;
+    }
+    figcaption strong { color:#2b1a10; font-size:15px; }
+    figcaption span { color:#9b8068; font-size:12px; word-break:break-all; }
+    .hero figcaption strong, .hero figcaption { color:rgba(255,255,255,.92); }
+    .hero figcaption span { color:rgba(255,255,255,.62); }
+    section { padding:82px 0; }
+    .section-head { display:grid; grid-template-columns:.82fr 1fr; gap:30px; align-items:end; margin-bottom:34px; }
+    .section-head h2 {
+      margin:0; font-size:clamp(30px,4vw,48px); line-height:1.12;
+      letter-spacing:-.045em;
+    }
+    .section-head p { margin:0; color:#6f5944; font-size:18px; }
+    .label {
+      color:#d46f16; font-weight:900; letter-spacing:.1em;
+      text-transform:uppercase; font-size:13px; margin-bottom:12px;
+    }
+    .feature-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin:34px 0; }
+    .feature-card {
+      background:rgba(255,255,255,.78);
+      border:1px solid rgba(219,161,103,.30);
+      border-radius:24px; padding:24px;
+      box-shadow:0 14px 36px rgba(148,93,36,.10);
+    }
+    .feature-card h3 { margin:0 0 10px; font-size:22px; letter-spacing:-.02em; }
+    .feature-card p { margin:0; color:#715a46; }
+    .screens { display:grid; grid-template-columns:repeat(4, minmax(0, 1fr)); gap:22px; align-items:start; }
+    .screens.three { grid-template-columns:repeat(3, minmax(0, 1fr)); }
+    .screens.two { grid-template-columns:repeat(2, minmax(0, 1fr)); }
+    .narrative {
+      background:rgba(255,255,255,.72);
+      border:1px solid rgba(218,160,103,.35);
+      border-radius:28px;
+      padding:32px;
+      box-shadow:var(--shadow);
+      margin:24px 0 34px;
+    }
+    .narrative h3 { margin:0 0 10px; font-size:26px; }
+    .narrative p { margin:0; color:#6e5844; font-size:17px; }
+    .callout {
+      display:grid; grid-template-columns:1fr 1fr 1fr; gap:18px;
+      margin-top:28px;
+    }
+    .metric {
+      border-radius:22px; padding:20px;
+      color:#fff;
+      background:linear-gradient(145deg,#1a120d,#3a2416 50%,#ff8e28);
+      box-shadow:0 20px 50px rgba(64,37,18,.22);
+    }
+    .metric b { display:block; font-size:34px; line-height:1; margin-bottom:8px; }
+    .metric span { color:rgba(255,255,255,.78); font-weight:700; }
+    .black-card {
+      background:
+        radial-gradient(circle at 22% 16%, rgba(255,143,34,.22), transparent 24rem),
+        linear-gradient(180deg,#15120f,#0c0b0a);
+      color:#fff;
+      border-radius:36px;
+      padding:56px 0;
+      box-shadow:var(--shadow-dark);
+    }
+    .black-card .section-head p, .dark-section .section-head p { color:rgba(255,255,255,.72); }
+    .black-card .feature-card {
+      background:rgba(255,255,255,.06); color:#fff;
+      border-color:rgba(255,152,60,.42);
+      box-shadow:none;
+    }
+    .black-card .feature-card p { color:rgba(255,255,255,.70); }
+    .black-card figcaption strong, .black-card figcaption { color:rgba(255,255,255,.88); }
+    .black-card figcaption span { color:rgba(255,255,255,.52); }
+    .flow {
+      display:grid; grid-template-columns:repeat(5,1fr); gap:14px; margin:26px 0 38px;
+    }
+    .flow-step {
+      position:relative;
+      background:#fff;
+      border:1px solid rgba(218,160,103,.42);
+      border-radius:22px; padding:18px 16px;
+      box-shadow:0 10px 30px rgba(143,87,37,.10);
+      min-height:150px;
+    }
+    .flow-step:after {
+      content:"→"; position:absolute; right:-16px; top:50%; transform:translateY(-50%);
+      color:#d67a1a; font-weight:900; font-size:24px;
+    }
+    .flow-step:last-child:after { display:none; }
+    .flow-step b { display:block; font-size:16px; margin-bottom:8px; color:#24170f; }
+    .flow-step span { color:#765f49; font-size:14px; }
+    .dark-section {
+      color:#fff;
+      background:
+        radial-gradient(circle at 80% 8%, rgba(255,145,42,.26), transparent 26rem),
+        linear-gradient(180deg,#17130f,#0d0b09);
+      margin-top:40px;
+      border-radius:42px 42px 0 0;
+      padding-bottom:100px;
+    }
+    .gallery {
+      display:grid; grid-template-columns:repeat(6, minmax(0,1fr)); gap:14px;
+    }
+    .gallery .shot.mini .phone-frame { border-radius:18px; padding:5px; }
+    .gallery .shot.mini img { border-radius:14px; }
+    .gallery figcaption strong { font-size:12px; }
+    .gallery figcaption span { font-size:10px; }
+    .quote {
+      margin:34px 0 0;
+      padding:28px 30px;
+      border-radius:28px;
+      background:linear-gradient(90deg,rgba(255,247,239,.95),rgba(255,225,189,.85));
+      border:1px solid rgba(213,149,86,.34);
+      font-weight:800;
+      color:#442817;
+      box-shadow:0 14px 44px rgba(141,82,28,.12);
+    }
+    footer {
+      background:#100d0a; color:rgba(255,255,255,.72);
+      padding:34px 0; font-size:14px;
+    }
+    footer strong { color:#fff; }
+    @media print {
+      .nav { position:static; }
+      section { page-break-inside:avoid; padding:46px 0; }
+      .hero { min-height:auto; border-radius:0; }
+      .hero-grid { padding:42px 0; }
+      .phone-frame { box-shadow:none; }
+      body { background:#fff; }
+    }
+    @media (max-width:980px) {
+      .hero-grid, .section-head { grid-template-columns:1fr; }
+      .screens, .screens.three { grid-template-columns:repeat(2,1fr); }
+      .feature-grid, .callout { grid-template-columns:1fr; }
+      .flow { grid-template-columns:1fr; }
+      .flow-step:after { display:none; }
+      .gallery { grid-template-columns:repeat(3,1fr); }
+    }
+    @media (max-width:640px) {
+      .wrap { padding:0 18px; }
+      .links { display:none; }
+      .hero { border-radius:0 0 28px 28px; }
+      .hero-phones { grid-template-columns:1fr; }
+      .hero-phones .shot:nth-child(3) { grid-column:auto; max-width:100%; }
+      .screens, .screens.three, .screens.two { grid-template-columns:1fr; }
+      .gallery { grid-template-columns:repeat(2,1fr); }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="wrap">
+      <div class="brand"><span class="brand-mark">Q</span><span>QuBear 量子熊 APP 展示說明書</span></div>
+      <div class="links">
+        <a href="#overview">總覽</a><a href="#content">內容探索</a><a href="#video">影音互動</a><a href="#gamification">學習激勵</a><a href="#commerce">商城與外觀</a><a href="#gallery">截圖索引</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <span class="kicker">國科會報告展示版｜24 張 APP 截圖整理</span>
+        <h1>QuBear 量子熊 APP<br>功能與介面展示</h1>
+        <p class="lead">QuBear 將量子科學與科普內容包裝成可探索、可收藏、可互動、可獎勵的行動學習體驗。整體設計以「量子超級英雄」為世界觀核心，搭配 Q-Coins、成就任務、主題商城與 Dark Mode，讓知識內容不只是被觀看，而是形成可持續回訪的探索旅程。</p>
+        <div class="hero-badges">
+          <span class="badge">科普影音內容平台</span>
+          <span class="badge">遊戲化學習回饋</span>
+          <span class="badge">Q-Coin 經濟系統</span>
+          <span class="badge">個人化 Skin 商城</span>
+          <span class="badge">Dark Mode 沉浸體驗</span>
+        </div>
+      </div>
+      <div class="hero-phones">
+        <figure class="shot "><div class="phone-frame"><img src="image/002_QuBear_APP_開啟畫面.jpg" alt="開啟畫面：品牌識別、量子英雄主題與 Loading 氣氛" loading="lazy"></div><figcaption><strong>開啟畫面：品牌識別、量子英雄主題與 Loading 氣氛</strong><span>002_QuBear_APP_開啟畫面.jpg</span></figcaption></figure>
+        <figure class="shot "><div class="phone-frame"><img src="image/019_Dark_Mode首頁.jpg" alt="Dark Mode 首頁：沉浸式影音內容瀏覽體驗" loading="lazy"></div><figcaption><strong>Dark Mode 首頁：沉浸式影音內容瀏覽體驗</strong><span>019_Dark_Mode首頁.jpg</span></figcaption></figure>
+        <figure class="shot "><div class="phone-frame"><img src="image/001_手機桌面的QuBear_APP_Icon.jpg" alt="手機桌面 APP Icon：QuBear 測試版入口" loading="lazy"></div><figcaption><strong>手機桌面 APP Icon：QuBear 測試版入口</strong><span>001_手機桌面的QuBear_APP_Icon.jpg</span></figcaption></figure>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section id="overview">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <div class="label">Product Overview</div>
+            <h2>從「看科普」進化為「探索量子世界」</h2>
+          </div>
+          <p>QuBear 的介面不是單純內容列表，而是將影音、分類、標籤、獎勵、成就、商城與個人化外觀整合在同一套體驗中。使用者進入 APP 後，會被引導到內容流，透過興趣標籤與推薦機制瀏覽影片，再透過收藏、互動表情、學習完成與 Q-Coins 形成回訪動機。</p>
+        </div>
+
+        <div class="feature-grid">
+          <article class="feature-card"><h3>內容導向</h3><p>首頁以主題 Banner、猜你會喜歡、最新上架與熱門內容組成，重點在於把知識內容包裝成容易點擊、容易連續觀看的內容流。</p></article>
+          <article class="feature-card"><h3>探索導向</h3><p>探索頁提供熱門標籤、熱門主題與依類型瀏覽，讓使用者不必只靠首頁推薦，也能主動進入量子物理、國科會、MAD 系列等內容集合。</p></article>
+          <article class="feature-card"><h3>激勵導向</h3><p>觀看完成後可以透過「我學會了」獲得 Q-Coins，並進一步帶動成就、兌換、商城 Skin 與 Dark Mode 解鎖。</p></article>
+        </div>
+
+        <div class="callout">
+          <div class="metric"><b>24</b><span>張功能截圖，涵蓋主要 APP 體驗</span></div>
+          <div class="metric"><b>4</b><span>底部主要分頁：首页、探索、收藏、設定</span></div>
+          <div class="metric"><b>1</b><span>完整學習循環：探索 → 觀看 → 互動 → 獎勵 → 回訪</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="content">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <div class="label">Content Discovery</div>
+            <h2>首頁、探索與標籤，構成內容發現系統</h2>
+          </div>
+          <p>QuBear 的內容呈現使用影音平台常見的「卡片式內容流」，再加上教育型 APP 所需的分類與標籤結構。使用者可以被首頁推薦吸引，也可以依照主題、標籤、內容型態切入。</p>
+        </div>
+
+        <div class="narrative">
+          <h3>首頁：以影音內容吸引用戶停留</h3>
+          <p>首頁包含大型輪播卡、橫向推薦、最新上架與熱門內容。畫面視覺使用高對比縮圖、標題、影片類型、上架時間、片長與收藏按鈕，使內容可快速被理解，並具備接近影音平台的瀏覽節奏。</p>
+        </div>
+        <div class="screens three">
+          <figure class="shot "><div class="phone-frame"><img src="image/003_首頁001.jpg" alt="首頁內容流：精選內容、推薦區與主題導流" loading="lazy"></div><figcaption><strong>首頁內容流：精選內容、推薦區與主題導流</strong><span>003_首頁001.jpg</span></figcaption></figure>
+          <figure class="shot "><div class="phone-frame"><img src="image/004_首頁002.jpg" alt="首頁延伸：推薦內容與最新上架露出" loading="lazy"></div><figcaption><strong>首頁延伸：推薦內容與最新上架露出</strong><span>004_首頁002.jpg</span></figcaption></figure>
+          <figure class="shot "><div class="phone-frame"><img src="image/005_首頁003.jpg" alt="首頁延伸：熱門內容與長影音卡片" loading="lazy"></div><figcaption><strong>首頁延伸：熱門內容與長影音卡片</strong><span>005_首頁003.jpg</span></figcaption></figure>
+        </div>
+
+        <div class="narrative">
+          <h3>探索分類：從推薦流延伸到主題型學習</h3>
+          <p>探索頁將內容拆成熱門標籤、熱門主題與內容類型。這種設計能兼顧兩種需求：一種是輕鬆滑內容的使用者，另一種是想針對量子物理、量子熊、國科會或特定系列進行系統化探索的使用者。</p>
+        </div>
+        <div class="screens three">
+          <figure class="shot "><div class="phone-frame"><img src="image/006_探索分類.jpg" alt="探索分類：搜尋、熱門標籤、主題與內容型態" loading="lazy"></div><figcaption><strong>探索分類：搜尋、熱門標籤、主題與內容型態</strong><span>006_探索分類.jpg</span></figcaption></figure>
+          <figure class="shot "><div class="phone-frame"><img src="image/007_標籤搜尋.jpg" alt="標籤搜尋結果：以內容型態統計並呈現列表" loading="lazy"></div><figcaption><strong>標籤搜尋結果：以內容型態統計並呈現列表</strong><span>007_標籤搜尋.jpg</span></figcaption></figure>
+          <figure class="shot "><div class="phone-frame"><img src="image/023_Dark_Mode_探索分類.jpg" alt="Dark Mode 探索分類：深色版搜尋、主題與內容型態" loading="lazy"></div><figcaption><strong>Dark Mode 探索分類：深色版搜尋、主題與內容型態</strong><span>023_Dark_Mode_探索分類.jpg</span></figcaption></figure>
+        </div>
+      </div>
+    </section>
+
+    <section id="video" class="black-card">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <div class="label">Video Experience</div>
+            <h2>影片播放頁承接學習、互動與收藏</h2>
+          </div>
+          <p>影片頁是 QuBear 的核心學習場景。介面整合播放器控制、影片標題、完成學習、互動表情、收藏、分享與下一支推薦，使觀看行為可以被轉化成學習紀錄與平台互動。</p>
+        </div>
+
+        <div class="feature-grid">
+          <article class="feature-card"><h3>影音播放</h3><p>播放器提供進度列、倒退/快進、暫停播放、下一支與全螢幕等控制，支援科普影音內容的基本觀看需求。</p></article>
+          <article class="feature-card"><h3>情緒互動</h3><p>表情浮動動畫讓觀看過程具有即時參與感，適合強化活動型內容、直播式內容或短影音內容的熱度。</p></article>
+          <article class="feature-card"><h3>內容延伸</h3><p>影片下方設計「接下來播放」推薦，讓單次觀看自然延伸為連續學習與主題探索。</p></article>
+        </div>
+
+        <div class="screens three">
+          <figure class="shot "><div class="phone-frame"><img src="image/008_影片播放.jpg" alt="影片播放頁：播放器、標題、收藏、分享與下一支推薦" loading="lazy"></div><figcaption><strong>影片播放頁：播放器、標題、收藏、分享與下一支推薦</strong><span>008_影片播放.jpg</span></figcaption></figure>
+          <figure class="shot "><div class="phone-frame"><img src="image/009_影片情緒符號互動.jpg" alt="即時表情互動：以浮動表情強化觀看參與感" loading="lazy"></div><figcaption><strong>即時表情互動：以浮動表情強化觀看參與感</strong><span>009_影片情緒符號互動.jpg</span></figcaption></figure>
+          <figure class="shot "><div class="phone-frame"><img src="image/024_Dark_Mode_套用播放框.jpg" alt="播放框 Skin：影片頁套用高科技播放框外觀" loading="lazy"></div><figcaption><strong>播放框 Skin：影片頁套用高科技播放框外觀</strong><span>024_Dark_Mode_套用播放框.jpg</span></figcaption></figure>
+        </div>
+      </div>
+    </section>
+
+    <section id="gamification">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <div class="label">Learning Loop</div>
+            <h2>以「我學會了」把觀看行為轉成學習成果</h2>
+          </div>
+          <p>QuBear 的學習激勵不是只做簽到或打卡，而是在影片觀看完成後，以明確的完成按鈕、慶祝畫面、Q-Coin 獎勵與回饋問卷形成正向閉環。這套設計讓使用者知道自己完成了一段學習，也讓平台能累積內容成效回饋。</p>
+        </div>
+
+        <div class="flow">
+          <div class="flow-step"><b>1. 進入內容</b><span>從首頁、探索頁或標籤結果找到想看的影片。</span></div>
+          <div class="flow-step"><b>2. 觀看影片</b><span>透過播放器完成觀看，並可在途中使用情緒表情互動。</span></div>
+          <div class="flow-step"><b>3. 我學會了</b><span>以清楚的完成動作標記本次學習完成。</span></div>
+          <div class="flow-step"><b>4. 取得 Q-Coins</b><span>完成後獲得獎勵，並可回饋內容感受。</span></div>
+          <div class="flow-step"><b>5. 回到平台循環</b><span>代幣可用於商城、Skin 與 Dark Mode，促進回訪。</span></div>
+        </div>
+
+        <div class="screens three">
+          <figure class="shot "><div class="phone-frame"><img src="image/012_「我學會了」慶祝畫面.jpg" alt="學習完成慶祝：完成觀看後的正向回饋" loading="lazy"></div><figcaption><strong>學習完成慶祝：完成觀看後的正向回饋</strong><span>012_「我學會了」慶祝畫面.jpg</span></figcaption></figure>
+          <figure class="shot "><div class="phone-frame"><img src="image/013_「我學會了」得到QuBear_Coin.jpg" alt="Q-Coins 獎勵：完成學習後取得代幣並回饋內容" loading="lazy"></div><figcaption><strong>Q-Coins 獎勵：完成學習後取得代幣並回饋內容</strong><span>013_「我學會了」得到QuBear_Coin.jpg</span></figcaption></figure>
+          <figure class="shot "><div class="phone-frame"><img src="image/016_成就任務.jpg" alt="成就任務：以使用習慣、內容探索、量子科學分類設計任務" loading="lazy"></div><figcaption><strong>成就任務：以使用習慣、內容探索、量子科學分類設計任務</strong><span>016_成就任務.jpg</span></figcaption></figure>
+        </div>
+
+        <div class="quote">成果呈現重點：QuBear 不是單純讓使用者「看完影片」，而是透過完成回饋、代幣獎勵與成就系統，將觀看轉化成可被感知的學習進度。</div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <div class="label">Member & Collection</div>
+            <h2>會員、收藏與個人資產管理</h2>
+          </div>
+          <p>登入與會員系統是後續紀錄、收藏、成就與 Q-Coin 經濟的基礎。QuBear 支援多種登入方式，並透過會員中心呈現稱號、暱稱、代幣、成就與兌換紀錄。</p>
+        </div>
+        <div class="screens four screens">
+          <figure class="shot "><div class="phone-frame"><img src="image/010_支援各種登入方式.jpg" alt="登入/註冊：支援 Email 與社群帳號登入" loading="lazy"></div><figcaption><strong>登入/註冊：支援 Email 與社群帳號登入</strong><span>010_支援各種登入方式.jpg</span></figcaption></figure>
+          <figure class="shot "><div class="phone-frame"><img src="image/011_收藏影片.jpg" alt="收藏與播放清單：將內容儲存至個人清單" loading="lazy"></div><figcaption><strong>收藏與播放清單：將內容儲存至個人清單</strong><span>011_收藏影片.jpg</span></figcaption></figure>
+          <figure class="shot "><div class="phone-frame"><img src="image/014_會員帳號資訊.jpg" alt="會員中心：稱號、暱稱、Q-Coin 資產與成就入口" loading="lazy"></div><figcaption><strong>會員中心：稱號、暱稱、Q-Coin 資產與成就入口</strong><span>014_會員帳號資訊.jpg</span></figcaption></figure>
+          <figure class="shot "><div class="phone-frame"><img src="image/015_QuBear兌換記錄.jpg" alt="兌換紀錄：完整列出 Q-Coin 支出與交易時間" loading="lazy"></div><figcaption><strong>兌換紀錄：完整列出 Q-Coin 支出與交易時間</strong><span>015_QuBear兌換記錄.jpg</span></figcaption></figure>
+        </div>
+      </div>
+    </section>
+
+    <section id="commerce" class="dark-section">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <div class="label">Q-Coin Economy & Skin Store</div>
+            <h2>Q-Coin 商城將學習獎勵轉成個人化外觀</h2>
+          </div>
+          <p>QuBear 的 Q-Coin 不只是數字獎勵，而是能兌換或購買 APP 內的視覺資產。從圖示變裝、稱號識別、介面彩蛋，到 Dark Mode 與播放框 Skin，形成具收藏感的個人化系統。</p>
+        </div>
+
+        <div class="feature-grid">
+          <article class="feature-card"><h3>Dark Mode 解鎖</h3><p>暗黑模式以「科技橘光點綴 × 深黑背景」呈現，能強化沉浸感，也讓主題本身成為可兌換的數位商品。</p></article>
+          <article class="feature-card"><h3>Skin 與個人化</h3><p>商城內可購買圖示、角色、稱號、啟動畫面與播放框等視覺資產，使使用者的學習成果能被轉化為可展示的個人風格。</p></article>
+          <article class="feature-card"><h3>資產與交易紀錄</h3><p>透過會員中心與兌換紀錄呈現餘額、取得與消耗，有助於建立完整的代幣流向與使用者信任。</p></article>
+        </div>
+
+        <div class="screens four screens">
+          <figure class="shot "><div class="phone-frame"><img src="image/017_購買Dark_Mode.jpg" alt="主題商品：以 Q-Coin 解鎖暗黑模式" loading="lazy"></div><figcaption><strong>主題商品：以 Q-Coin 解鎖暗黑模式</strong><span>017_購買Dark_Mode.jpg</span></figcaption></figure>
+          <figure class="shot "><div class="phone-frame"><img src="image/018_Dark_Mode_會員帳號資訊.jpg" alt="Dark Mode 會員中心：黑橘色科技風呈現" loading="lazy"></div><figcaption><strong>Dark Mode 會員中心：黑橘色科技風呈現</strong><span>018_Dark_Mode_會員帳號資訊.jpg</span></figcaption></figure>
+          <figure class="shot "><div class="phone-frame"><img src="image/020_QuBear_Coin_Store.jpg" alt="量子商城：圖示變裝、主題與已獲取狀態" loading="lazy"></div><figcaption><strong>量子商城：圖示變裝、主題與已獲取狀態</strong><span>020_QuBear_Coin_Store.jpg</span></figcaption></figure>
+          <figure class="shot "><div class="phone-frame"><img src="image/021_可購買各式各樣的Skin_001.jpg" alt="商城 Skin：角色圖示、暗物質、X 光片與介面彩蛋" loading="lazy"></div><figcaption><strong>商城 Skin：角色圖示、暗物質、X 光片與介面彩蛋</strong><span>021_可購買各式各樣的Skin_001.jpg</span></figcaption></figure>
+        </div>
+        <div style="height:22px"></div>
+        <div class="screens two">
+          <figure class="shot "><div class="phone-frame"><img src="image/022_可購買各式各樣的Skin_002.jpg" alt="商城 Skin：稱號、啟動畫面彩蛋與個人化外觀" loading="lazy"></div><figcaption><strong>商城 Skin：稱號、啟動畫面彩蛋與個人化外觀</strong><span>022_可購買各式各樣的Skin_002.jpg</span></figcaption></figure>
+          <figure class="shot "><div class="phone-frame"><img src="image/024_Dark_Mode_套用播放框.jpg" alt="播放框 Skin：影片頁套用高科技播放框外觀" loading="lazy"></div><figcaption><strong>播放框 Skin：影片頁套用高科技播放框外觀</strong><span>024_Dark_Mode_套用播放框.jpg</span></figcaption></figure>
+        </div>
+      </div>
+    </section>
+
+    <section id="gallery">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <div class="label">Screenshot Index</div>
+            <h2>24 張 APP 截圖索引</h2>
+          </div>
+          <p>以下為本說明書引用的完整截圖索引。圖片路徑皆使用 <strong>image/原始檔名</strong>，並保留原檔名不做更動，方便放入報告素材資料夾後直接引用。</p>
+        </div>
+        <div class="gallery">
+          <figure class="shot mini"><div class="phone-frame"><img src="image/001_手機桌面的QuBear_APP_Icon.jpg" alt="手機桌面 APP Icon：QuBear 測試版入口" loading="lazy"></div><figcaption><strong>手機桌面 APP Icon：QuBear 測試版入口</strong><span>001_手機桌面的QuBear_APP_Icon.jpg</span></figcaption></figure>
+<figure class="shot mini"><div class="phone-frame"><img src="image/002_QuBear_APP_開啟畫面.jpg" alt="開啟畫面：品牌識別、量子英雄主題與 Loading 氣氛" loading="lazy"></div><figcaption><strong>開啟畫面：品牌識別、量子英雄主題與 Loading 氣氛</strong><span>002_QuBear_APP_開啟畫面.jpg</span></figcaption></figure>
+<figure class="shot mini"><div class="phone-frame"><img src="image/003_首頁001.jpg" alt="首頁內容流：精選內容、推薦區與主題導流" loading="lazy"></div><figcaption><strong>首頁內容流：精選內容、推薦區與主題導流</strong><span>003_首頁001.jpg</span></figcaption></figure>
+<figure class="shot mini"><div class="phone-frame"><img src="image/004_首頁002.jpg" alt="首頁延伸：推薦內容與最新上架露出" loading="lazy"></div><figcaption><strong>首頁延伸：推薦內容與最新上架露出</strong><span>004_首頁002.jpg</span></figcaption></figure>
+<figure class="shot mini"><div class="phone-frame"><img src="image/005_首頁003.jpg" alt="首頁延伸：熱門內容與長影音卡片" loading="lazy"></div><figcaption><strong>首頁延伸：熱門內容與長影音卡片</strong><span>005_首頁003.jpg</span></figcaption></figure>
+<figure class="shot mini"><div class="phone-frame"><img src="image/006_探索分類.jpg" alt="探索分類：搜尋、熱門標籤、主題與內容型態" loading="lazy"></div><figcaption><strong>探索分類：搜尋、熱門標籤、主題與內容型態</strong><span>006_探索分類.jpg</span></figcaption></figure>
+<figure class="shot mini"><div class="phone-frame"><img src="image/007_標籤搜尋.jpg" alt="標籤搜尋結果：以內容型態統計並呈現列表" loading="lazy"></div><figcaption><strong>標籤搜尋結果：以內容型態統計並呈現列表</strong><span>007_標籤搜尋.jpg</span></figcaption></figure>
+<figure class="shot mini"><div class="phone-frame"><img src="image/008_影片播放.jpg" alt="影片播放頁：播放器、標題、收藏、分享與下一支推薦" loading="lazy"></div><figcaption><strong>影片播放頁：播放器、標題、收藏、分享與下一支推薦</strong><span>008_影片播放.jpg</span></figcaption></figure>
+<figure class="shot mini"><div class="phone-frame"><img src="image/009_影片情緒符號互動.jpg" alt="即時表情互動：以浮動表情強化觀看參與感" loading="lazy"></div><figcaption><strong>即時表情互動：以浮動表情強化觀看參與感</strong><span>009_影片情緒符號互動.jpg</span></figcaption></figure>
+<figure class="shot mini"><div class="phone-frame"><img src="image/010_支援各種登入方式.jpg" alt="登入/註冊：支援 Email 與社群帳號登入" loading="lazy"></div><figcaption><strong>登入/註冊：支援 Email 與社群帳號登入</strong><span>010_支援各種登入方式.jpg</span></figcaption></figure>
+<figure class="shot mini"><div class="phone-frame"><img src="image/011_收藏影片.jpg" alt="收藏與播放清單：將內容儲存至個人清單" loading="lazy"></div><figcaption><strong>收藏與播放清單：將內容儲存至個人清單</strong><span>011_收藏影片.jpg</span></figcaption></figure>
+<figure class="shot mini"><div class="phone-frame"><img src="image/012_「我學會了」慶祝畫面.jpg" alt="學習完成慶祝：完成觀看後的正向回饋" loading="lazy"></div><figcaption><strong>學習完成慶祝：完成觀看後的正向回饋</strong><span>012_「我學會了」慶祝畫面.jpg</span></figcaption></figure>
+<figure class="shot mini"><div class="phone-frame"><img src="image/013_「我學會了」得到QuBear_Coin.jpg" alt="Q-Coins 獎勵：完成學習後取得代幣並回饋內容" loading="lazy"></div><figcaption><strong>Q-Coins 獎勵：完成學習後取得代幣並回饋內容</strong><span>013_「我學會了」得到QuBear_Coin.jpg</span></figcaption></figure>
+<figure class="shot mini"><div class="phone-frame"><img src="image/014_會員帳號資訊.jpg" alt="會員中心：稱號、暱稱、Q-Coin 資產與成就入口" loading="lazy"></div><figcaption><strong>會員中心：稱號、暱稱、Q-Coin 資產與成就入口</strong><span>014_會員帳號資訊.jpg</span></figcaption></figure>
+<figure class="shot mini"><div class="phone-frame"><img src="image/015_QuBear兌換記錄.jpg" alt="兌換紀錄：完整列出 Q-Coin 支出與交易時間" loading="lazy"></div><figcaption><strong>兌換紀錄：完整列出 Q-Coin 支出與交易時間</strong><span>015_QuBear兌換記錄.jpg</span></figcaption></figure>
+<figure class="shot mini"><div class="phone-frame"><img src="image/016_成就任務.jpg" alt="成就任務：以使用習慣、內容探索、量子科學分類設計任務" loading="lazy"></div><figcaption><strong>成就任務：以使用習慣、內容探索、量子科學分類設計任務</strong><span>016_成就任務.jpg</span></figcaption></figure>
+<figure class="shot mini"><div class="phone-frame"><img src="image/017_購買Dark_Mode.jpg" alt="主題商品：以 Q-Coin 解鎖暗黑模式" loading="lazy"></div><figcaption><strong>主題商品：以 Q-Coin 解鎖暗黑模式</strong><span>017_購買Dark_Mode.jpg</span></figcaption></figure>
+<figure class="shot mini"><div class="phone-frame"><img src="image/018_Dark_Mode_會員帳號資訊.jpg" alt="Dark Mode 會員中心：黑橘色科技風呈現" loading="lazy"></div><figcaption><strong>Dark Mode 會員中心：黑橘色科技風呈現</strong><span>018_Dark_Mode_會員帳號資訊.jpg</span></figcaption></figure>
+<figure class="shot mini"><div class="phone-frame"><img src="image/019_Dark_Mode首頁.jpg" alt="Dark Mode 首頁：沉浸式影音內容瀏覽體驗" loading="lazy"></div><figcaption><strong>Dark Mode 首頁：沉浸式影音內容瀏覽體驗</strong><span>019_Dark_Mode首頁.jpg</span></figcaption></figure>
+<figure class="shot mini"><div class="phone-frame"><img src="image/020_QuBear_Coin_Store.jpg" alt="量子商城：圖示變裝、主題與已獲取狀態" loading="lazy"></div><figcaption><strong>量子商城：圖示變裝、主題與已獲取狀態</strong><span>020_QuBear_Coin_Store.jpg</span></figcaption></figure>
+<figure class="shot mini"><div class="phone-frame"><img src="image/021_可購買各式各樣的Skin_001.jpg" alt="商城 Skin：角色圖示、暗物質、X 光片與介面彩蛋" loading="lazy"></div><figcaption><strong>商城 Skin：角色圖示、暗物質、X 光片與介面彩蛋</strong><span>021_可購買各式各樣的Skin_001.jpg</span></figcaption></figure>
+<figure class="shot mini"><div class="phone-frame"><img src="image/022_可購買各式各樣的Skin_002.jpg" alt="商城 Skin：稱號、啟動畫面彩蛋與個人化外觀" loading="lazy"></div><figcaption><strong>商城 Skin：稱號、啟動畫面彩蛋與個人化外觀</strong><span>022_可購買各式各樣的Skin_002.jpg</span></figcaption></figure>
+<figure class="shot mini"><div class="phone-frame"><img src="image/023_Dark_Mode_探索分類.jpg" alt="Dark Mode 探索分類：深色版搜尋、主題與內容型態" loading="lazy"></div><figcaption><strong>Dark Mode 探索分類：深色版搜尋、主題與內容型態</strong><span>023_Dark_Mode_探索分類.jpg</span></figcaption></figure>
+<figure class="shot mini"><div class="phone-frame"><img src="image/024_Dark_Mode_套用播放框.jpg" alt="播放框 Skin：影片頁套用高科技播放框外觀" loading="lazy"></div><figcaption><strong>播放框 Skin：影片頁套用高科技播放框外觀</strong><span>024_Dark_Mode_套用播放框.jpg</span></figcaption></figure>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <strong>QuBear 量子熊 APP｜國科會報告圖文介紹說明書</strong><br>
+      本文件為功能與介面成果展示用途，重點在於呈現 APP 已具備的內容探索、影音互動、學習激勵、會員資產、Q-Coin 商城、Skin 與 Dark Mode 等功能模組。
+    </div>
+  </footer>
+</body>
+</html>
